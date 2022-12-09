@@ -6,17 +6,37 @@ import { AllModulesComponent } from './all-modules/all-modules.component'
 import { HttpClientModule } from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatTableModule } from '@angular/material/table'
+import { MatInputModule } from '@angular/material/input'
+import { MatSortModule } from '@angular/material/sort'
+import { MatButtonModule } from '@angular/material/button'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatIconModule } from '@angular/material/icon'
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   declarations: [
     AppComponent,
     AllModulesComponent,
-    OwnModulesComponent
+    OwnModulesComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatInputModule,
+    MatSortModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatPaginatorModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
