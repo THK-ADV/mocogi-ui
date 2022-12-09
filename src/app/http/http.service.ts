@@ -3,10 +3,6 @@ import { HttpClient } from '@angular/common/http'
 import { map, Observable } from 'rxjs'
 import { environment } from '../../environments/environment'
 
-interface Metadata_ {
-  metadata: Metadata
-}
-
 export interface Metadata {
   id: string
   title: string
@@ -23,7 +19,8 @@ export class HttpService {
   }
 
   medataData = (): Observable<Metadata[]> =>
-    this.http.get<Metadata_[]>(`${environment.backendUrl}/metadata`).pipe(
-      map(xs => xs.map(x => x.metadata))
-    )
+    this.http.get<Metadata[]>(`${environment.backendUrl}/metadata`)
+
+  medataDataForUser = (user: String): Observable<Metadata[]> =>
+    this.http.get<Metadata[]>(`${environment.backendUrl}/metadata?user=${user}`)
 }

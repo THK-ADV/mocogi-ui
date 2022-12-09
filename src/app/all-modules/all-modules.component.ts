@@ -3,11 +3,11 @@ import { HttpService, Metadata } from '../http/http.service'
 import { Subscription } from 'rxjs'
 
 @Component({
-  selector: 'app-modules',
-  templateUrl: './modules.component.html',
-  styleUrls: ['./modules.component.css']
+  selector: 'app-all-modules',
+  templateUrl: './all-modules.component.html',
+  styleUrls: ['./all-modules.component.css']
 })
-export class ModulesComponent implements OnInit, OnDestroy {
+export class AllModulesComponent implements OnInit, OnDestroy {
 
   metadata: Metadata[] = []
   sub?: Subscription
