@@ -1,0 +1,60 @@
+
+
+
+.nav-container {
+  width: 100%;
+
+.header-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+.header-item {
+  width: 33%; /* or whatever width you want. */
+  height: $linethickness;
+  display: inline-block;
+}
+
+.header-item:last-of-type {
+  width: 34%; /* or whatever width you want. */
+  height: $linethickness;
+  display: inline-block;
+}
+
+.red {
+  background-color: $pr;
+}
+
+.orange {
+  background-color: $th-orange;
+}
+
+.magenta {
+  background-color: $th-magenta;
+}
+}
+
+.nav-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+
+  background-color: $ivory;
+  height: 60px;
+
+.nav-item {
+  font-size: medium;
+  color: $schedule-font-color;
+}
+
+border-bottom: 1px solid $ivory-border;
+}
+
+
+}
