@@ -4,39 +4,6 @@
 .nav-container {
   width: 100%;
 
-  .header-box {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-
-    .header-item {
-      width: 33%;
-      height: 8px;
-      display: inline-block;
-    }
-
-    .header-item:last-of-type {
-      width: 34%;
-      height: 8px;
-      display: inline-block;
-    }
-
-    .red {
-      background-color: $th-red;
-    }
-
-    .orange {
-      background-color: $th-orange;
-    }
-
-    .magenta {
-      background-color: $th-magenta;
-    }
-  }
-
   .nav-box{
     display: flex;
     flex-direction: row;
@@ -50,7 +17,7 @@
     .nav-item {
       font-size: medium;
       text-decoration: none;
-      color: black;
+      color: #2c2c2c; /*ToDo: Delete fixed color*/
     }
   }
 

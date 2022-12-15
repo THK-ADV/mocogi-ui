@@ -9,9 +9,9 @@ interface TableHeaderColumn {
 }
 
 @Component({
-  selector: 'app-own-modules',
+  selector: 'sched-own-modules',
   templateUrl: './own-modules.component.html',
-  styleUrls: ['./own-modules.component.css']
+  styleUrls: ['./own-modules.component.scss']
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 

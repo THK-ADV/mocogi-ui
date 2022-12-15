@@ -15,13 +15,22 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavComponent } from "./structure/nav/nav.component";
+import { RouterOutlet } from "@angular/router";
+import { HeaderComponent } from './structure/header/header.component';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { LineComponent } from './structure/line/line.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AllModulesComponent,
     OwnModulesComponent,
+    NavComponent,
+    HeaderComponent,
+    LineComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     MatTooltipModule,
     MatIconModule,
     MatPaginatorModule,
-    NgbModule
+    NgbModule,
+    RouterOutlet,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

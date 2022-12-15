@@ -3,9 +3,9 @@ import { HttpService, Metadata } from '../http/http.service'
 import { Subscription } from 'rxjs'
 
 @Component({
-  selector: 'app-all-modules',
+  selector: 'sched-all-modules',
   templateUrl: './all-modules.component.html',
-  styleUrls: ['./all-modules.component.css']
+  styleUrls: ['./all-modules.component.scss']
 })
 export class AllModulesComponent implements OnInit, OnDestroy {
 

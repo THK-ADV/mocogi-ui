@@ -1,0 +1,34 @@
+@import "src/schedule.vars";
+
+.header-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  .header-item {
+    width: 33%;
+    height: 8px;
+    display: inline-block;
+  }
+
+  .header-item:last-of-type {
+    width: 34%;
+    height: 8px;
+    display: inline-block;
+  }
+
+  .red {
+    background-color: $th-red;
+  }
+
+  .orange {
+    background-color: $th-orange;
+  }
+
+  .magenta {
+    background-color: $th-magenta;
+  }
+}
