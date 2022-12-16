@@ -30,7 +30,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this.http.medataDataForUser('cko')
+    this.sub = this.http.allMetadataForUser('cko')
       .subscribe(xs => this.dataSource.data = xs)
   }
 

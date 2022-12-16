@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { AllModulesComponent } from './all-modules/all-modules.component'
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -21,6 +21,7 @@ import { RouterOutlet } from '@angular/router'
 import { HeaderComponent } from './structure/header/header.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
+import { BackendUrlInterceptor } from './http/backend-url.interceptor'
 
 
 @NgModule({
@@ -49,7 +50,13 @@ import { LineComponent } from './structure/line/line.component'
     RouterOutlet,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BackendUrlInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
