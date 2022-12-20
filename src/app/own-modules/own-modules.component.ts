@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService, Metadata } from '../http/http.service'
+import { HttpService, MetadataPreview } from '../http/http.service'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
+import { Router } from '@angular/router'
 
 interface TableHeaderColumn {
   title: string
@@ -15,15 +16,15 @@ interface TableHeaderColumn {
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 
-  dataSource: MatTableDataSource<Metadata>
+  dataSource: MatTableDataSource<MetadataPreview>
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
   tooltipTitle = 'Modul erstellen'
   sub?: Subscription
 
-  constructor(private readonly http: HttpService) {
-    this.dataSource = new MatTableDataSource<Metadata>()
+  constructor(private readonly http: HttpService, private readonly router: Router) {
+    this.dataSource = new MatTableDataSource<MetadataPreview>()
     this.columns = [{title: 'Name', attr: 'name'}]
     this.displayedColumns = this.columns.map(_ => _.attr)
     this.displayedColumns.push('action')
@@ -38,18 +39,17 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.sub?.unsubscribe()
   }
 
-  onEdit = (m: Metadata) => {
-  }
+  onEdit = (m: MetadataPreview) =>
+    this.router.navigate(['/edit'], {state: {id: m.id}, queryParams: {action: 'update'}})
 
-  onSelect = (m: Metadata) => {
-
-  }
-
-  onCreate = () => {
+  onSelect = (m: MetadataPreview) => {
 
   }
 
-  tableContent = (m: Metadata, attr: string): string => {
+  onCreate = () =>
+    this.router.navigate(['/edit'], {queryParams: {action: 'create'}})
+
+  tableContent = (m: MetadataPreview, attr: string): string => {
     switch (attr) {
       case 'name':
         return m.title

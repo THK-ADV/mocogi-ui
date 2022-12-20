@@ -1,0 +1,36 @@
+<mat-form-field class="container-fluid" appearance="fill">
+  <mat-label>{{input.label}}</mat-label>
+  <input matInput
+         type="text"
+         (focusout)="onFocusOut()"
+         (focusin)="onFocusIn()"
+         [placeholder]='input.label'
+         [formControl]="formControl"
+         [matAutocomplete]="auto">
+  <mat-autocomplete autoActiveFirstOption
+                    #auto="matAutocomplete"
+                    [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async"
+                [value]="option">
+      <div (click)="optionClicked($event, option)">
+        <mat-checkbox [checked]="isSelected(option)"
+                      (change)="toggleSelection(option)"
+                      (click)="$event.stopPropagation()">
+          {{displayFn(option)}}
+        </mat-checkbox>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+  <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
+
+<br/>
+
+<ng-container *ngIf="selected.length > 0">
+  <label>Selected Users:</label>
+  <mat-list dense>
+    <mat-list-item *ngFor="let select of selected">
+      {{displayFn(select)}}
+    </mat-list-item>
+  </mat-list>
+</ng-container>

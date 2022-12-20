@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService, Metadata } from '../http/http.service'
+import { HttpService, MetadataPreview } from '../http/http.service'
 import { Subscription } from 'rxjs'
 
 @Component({
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs'
 })
 export class AllModulesComponent implements OnInit, OnDestroy {
 
-  metadata: Metadata[] = []
+  metadata: MetadataPreview[] = []
   sub?: Subscription
 
   constructor(private readonly service: HttpService) {
@@ -24,6 +24,6 @@ export class AllModulesComponent implements OnInit, OnDestroy {
     this.sub?.unsubscribe()
   }
 
-  urlFor = (m: Metadata): string => '/public/' + m.id + '.html'
+  urlFor = (m: MetadataPreview): string => '/public/' + m.id + '.html'
 
 }

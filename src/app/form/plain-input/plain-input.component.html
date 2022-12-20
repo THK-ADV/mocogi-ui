@@ -1,0 +1,8 @@
+<mat-form-field class="container-fluid" appearance="fill">
+  <mat-label>{{input.label}}</mat-label>
+  <input matInput
+         [placeholder]="input.label"
+         [type]="input.kind"
+         [formControl]="formControl">
+  <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>

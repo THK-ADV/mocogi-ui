@@ -22,6 +22,17 @@ import { HeaderComponent } from './structure/header/header.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
 import { BackendUrlInterceptor } from './http/backend-url.interceptor'
+import { PlainInputComponent } from './form/plain-input/plain-input.component'
+import { EditModuleComponent } from './form/edit-module/edit-module.component'
+import { ReactiveFormsModule } from '@angular/forms'
+import { AppRoutingModule } from './app-routing.module'
+import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
+import { MatDialogModule } from '@angular/material/dialog'
+import { OptionsInputComponent } from './form/options-input/options-input.component'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MultipleOptionsInputComponent } from './form/multiple-options-input/multiple-options-input.component'
+import { MatSelectModule } from '@angular/material/select'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 
 @NgModule({
@@ -31,25 +42,36 @@ import { BackendUrlInterceptor } from './http/backend-url.interceptor'
     OwnModulesComponent,
     NavComponent,
     HeaderComponent,
-    LineComponent
+    LineComponent,
+    PlainInputComponent,
+    EditModuleComponent,
+    CreateOrUpdateModuleComponent,
+    OptionsInputComponent,
+    MultipleOptionsInputComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatInputModule,
-    MatSortModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatPaginatorModule,
-    NgbModule,
-    RouterOutlet,
-    MatToolbarModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatTableModule,
+        MatInputModule,
+        MatSortModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatPaginatorModule,
+        NgbModule,
+        RouterOutlet,
+        MatToolbarModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        MatSelectModule,
+        MatCheckboxModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
