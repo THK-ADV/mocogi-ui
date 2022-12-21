@@ -4,6 +4,7 @@ import { combine, FormInput } from '../form-input'
 import { formControlForPainInput, NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { formControlForOptionsInput, OptionsInput } from '../options-input/options-input.component'
 import { formControlForMultipleOptionsInput, MultipleOptionsInput } from '../multiple-options-input/multiple-options-input.component'
+import { formControlForReadOnlyInput, ReadOnlyInput } from '../read-only-input/read-only-input.component'
 
 export interface EditModulePayload {
   objectName: string
@@ -31,7 +32,8 @@ export class EditModuleComponent implements OnInit {
   private formControlForInput = combine([
     formControlForPainInput,
     formControlForOptionsInput,
-    formControlForMultipleOptionsInput
+    formControlForMultipleOptionsInput,
+    formControlForReadOnlyInput
   ])
 
   ngOnInit() {
@@ -74,6 +76,9 @@ export class EditModuleComponent implements OnInit {
 
   asMultipleOptions = (i: FormInput) =>
     i as MultipleOptionsInput<any>
+
+  asReadOnly = (i: FormInput) =>
+    i as ReadOnlyInput<any>
 
   formControl = (attr: string) =>
     // @ts-ignore

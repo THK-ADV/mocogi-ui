@@ -33,6 +33,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MultipleOptionsInputComponent } from './form/multiple-options-input/multiple-options-input.component'
 import { MatSelectModule } from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { ReadOnlyInputComponent } from './form/read-only-input/read-only-input.component'
+import { AssessmentMethodDialogComponent } from './form/assessment-method-dialog/assessment-method-dialog.component'
+import { MatCardModule } from '@angular/material/card'
 
 
 @NgModule({
@@ -47,31 +50,34 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
     EditModuleComponent,
     CreateOrUpdateModuleComponent,
     OptionsInputComponent,
-    MultipleOptionsInputComponent
+    MultipleOptionsInputComponent,
+    ReadOnlyInputComponent,
+    AssessmentMethodDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatListModule,
-        MatFormFieldModule,
-        MatTableModule,
-        MatInputModule,
-        MatSortModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatPaginatorModule,
-        NgbModule,
-        RouterOutlet,
-        MatToolbarModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        MatDialogModule,
-        MatAutocompleteModule,
-        MatSelectModule,
-        MatCheckboxModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatInputModule,
+    MatSortModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatPaginatorModule,
+    NgbModule,
+    RouterOutlet,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatCardModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

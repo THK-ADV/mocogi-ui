@@ -9,7 +9,7 @@ export interface TextInput extends FormInputLike {
 
 export interface NumberInput extends FormInputLike {
   initialValue?: number
-  min: number
+  min?: number
   max?: number
   kind: 'number'
 }
@@ -22,9 +22,12 @@ export const formControlForPainInput = (i: FormInput): FormControl | undefined =
         i.required ? Validators.required : undefined
       )
     case 'number':
-      const validators = [Validators.min(i.min)]
+      const validators = []
       if (i.required) {
         validators.push(Validators.required)
+      }
+      if (i.min) {
+        validators.push(Validators.min(i.min))
       }
       if (i.max) {
         validators.push(Validators.max(i.max))

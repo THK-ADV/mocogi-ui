@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { HttpService, Language, Metadata, ModuleType, Person, Season } from '../http/http.service'
+import { AssessmentMethod, HttpService, Language, Metadata, ModuleType, Person, Season } from '../http/http.service'
 import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModulePayload } from '../form/edit-module/edit-module.component'
 import { NumberInput, TextInput } from '../form/plain-input/plain-input.component'
 import { OptionsInput } from '../form/options-input/options-input.component'
 import { MultipleOptionsInput } from '../form/multiple-options-input/multiple-options-input.component'
+import { ReadOnlyInput } from '../form/read-only-input/read-only-input.component'
+import { AssessmentMethodDialogComponent } from '../form/assessment-method-dialog/assessment-method-dialog.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'sched-create-or-update-module',
@@ -25,7 +28,8 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private http: HttpService
+    private http: HttpService,
+    private dialog: MatDialog
   ) {
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
     this.action = this.route.snapshot.queryParamMap.get('action')
@@ -45,15 +49,16 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
           objectName: metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
           inputs: [
-            this.titleInput(metadata),
-            this.abbreviationInput(metadata),
-            this.moduleTypesInput(moduleTypes, metadata),
-            this.creditsInput(metadata),
-            this.languagesInput(languages, metadata),
-            this.durationInput(metadata),
-            this.frequencyInput(seasons, metadata),
-            this.moduleCoordinatorInput(persons, metadata),
-            this.lecturerInput(persons, metadata),
+            // this.titleInput(metadata),
+            // this.abbreviationInput(metadata),
+            // this.moduleTypesInput(moduleTypes, metadata),
+            // this.creditsInput(metadata),
+            // this.languagesInput(languages, metadata),
+            // this.durationInput(metadata),
+            // this.frequencyInput(seasons, metadata),
+            // this.moduleCoordinatorInput(persons, metadata),
+            // this.lecturerInput(persons, metadata),
+            this.assessmentMethodsInput(assessmentMethods, metadata)
           ]
         }
       })
@@ -150,7 +155,6 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       initialValue: metadata && (as => as.find(a => metadata.moduleManagement.some(m => m === a.id)))
     })
 
-
   private lecturerInput = (persons: Person[], metadata?: Metadata): MultipleOptionsInput<Person> =>
     ({
       kind: 'multiple-options',
@@ -161,6 +165,23 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       data: persons,
       show: this.showPerson,
       initialValue: metadata && (as => as.filter(a => metadata.lecturers.some(m => m === a.id)))
+    })
+
+  private assessmentMethodsInput = (assessmentMethods: AssessmentMethod[], metadata?: Metadata): ReadOnlyInput<AssessmentMethod> =>
+    ({
+      kind: 'read-only',
+      label: 'Prüfungsformen',
+      attr: 'assessment-methods-mandatory',
+      disabled: false,
+      required: true,
+      data: assessmentMethods,
+      show: (a) => a.deLabel,
+      initialValue: metadata && (as => as.filter(a => metadata.assessmentMethods.mandatory.some(m => m.method === a.abbrev))),
+      dialogInstance: () => AssessmentMethodDialogComponent.instance(
+        this.dialog,
+        assessmentMethods,
+        metadata ? metadata.assessmentMethods.mandatory : []
+      )
     })
 
   private showPerson = (p: Person): string => {

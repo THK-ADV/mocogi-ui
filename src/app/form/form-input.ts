@@ -2,6 +2,7 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@an
 import { NumberInput, TextInput } from './plain-input/plain-input.component'
 import { OptionsInput } from './options-input/options-input.component'
 import { MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
+import { ReadOnlyInput } from './read-only-input/read-only-input.component'
 
 export interface FormInputLike {
   kind: string
@@ -15,7 +16,8 @@ export type FormInput =
   TextInput |
   NumberInput |
   OptionsInput<any> |
-  MultipleOptionsInput<any>
+  MultipleOptionsInput<any> |
+  ReadOnlyInput<any>
 // BooleanInput |
 // URLInput |
 // DateInput

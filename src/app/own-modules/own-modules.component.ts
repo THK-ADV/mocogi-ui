@@ -3,11 +3,7 @@ import { HttpService, MetadataPreview } from '../http/http.service'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
-
-interface TableHeaderColumn {
-  title: string
-  attr: string
-}
+import { TableHeaderColumn } from '../generic-ui/table-header-column'
 
 @Component({
   selector: 'sched-own-modules',

@@ -16,6 +16,12 @@
           [input]="asMultipleOptions(i)"
           [formControl]="formControl(i.attr)">
         </sched-multiple-options-input>
+        <sched-read-only-input
+          *ngSwitchCase="'read-only'"
+          ngDefaultControl
+          [input]="asReadOnly(i)"
+          [formControl]="formControl(i.attr)">
+        </sched-read-only-input>
         <sched-plain-input
           *ngSwitchDefault
           ngDefaultControl
