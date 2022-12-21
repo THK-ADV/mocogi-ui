@@ -5,7 +5,7 @@ import { EMPTY, map, Observable, startWith, Subscription } from 'rxjs'
 
 export interface MultipleOptionsInput<A> extends FormInputLike {
   kind: 'multiple-options'
-  data: Observable<A[]>
+  data: A[] | Observable<A[]>
   show: (a: A) => string
   initialValue?: (as: A[]) => A[]
 }
@@ -13,10 +13,16 @@ export interface MultipleOptionsInput<A> extends FormInputLike {
 export const formControlForMultipleOptionsInput = (i: FormInput): FormControl | undefined => {
   switch (i.kind) {
     case 'multiple-options':
-      return new FormControl(
+      const fc = new FormControl(
         {value: [], disabled: i.disabled},
         i.required ? Validators.required : undefined
       )
+      // fixes ExpressionChangedAfterItHasBeenCheckedError bug
+      if (Array.isArray(i.data)) {
+        const data = i.initialValue?.(i.data) as any
+        fc.setValue(data)
+      }
+      return fc
     default:
       return undefined
   }
@@ -39,22 +45,27 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   private sub?: Subscription
 
   ngOnInit(): void {
-    this.observeData()
+    this.initData()
   }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()
   }
 
-  private observeData = () => {
-    this.sub = this.input.data.subscribe(data => {
-      this.options = data ?? []
-      this.selectInitialValue()
+  private initData = () => {
+    const go = (data: A[]) => {
+      this.options = data
+      this.setInitialState()
       this.initFilterOptions()
-    })
+    }
+    if (Array.isArray(this.input.data)) {
+      go(this.input.data)
+    } else {
+      this.sub = this.input.data.subscribe(data => go(data ?? []))
+    }
   }
 
-  private selectInitialValue = () => {
+  private setInitialState = () => {
     if (this.input.initialValue) {
       const initialValue = this.input.initialValue(this.options)
       this.formControl.setValue(initialValue)

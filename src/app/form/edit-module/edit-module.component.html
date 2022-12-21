@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 
-<form [formGroup]="formGroup" (ngSubmit)="submit()" >
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
   <div mat-dialog-content>
     <ng-container *ngFor="let i of payload.inputs">
       <ng-container [ngSwitch]="i.kind">

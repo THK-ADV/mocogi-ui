@@ -24,13 +24,8 @@
   <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
 </mat-form-field>
 
-<br/>
-
-<ng-container *ngIf="selected.length > 0">
-  <label>Selected Users:</label>
-  <mat-list dense>
-    <mat-list-item *ngFor="let select of selected">
-      {{displayFn(select)}}
-    </mat-list-item>
-  </mat-list>
-</ng-container>
+<mat-list *ngIf="selected.length > 0">
+  <mat-list-item *ngFor="let select of selected">
+    - {{displayFn(select)}}
+  </mat-list-item>
+</mat-list>

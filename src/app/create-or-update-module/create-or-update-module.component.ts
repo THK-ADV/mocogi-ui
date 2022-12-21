@@ -39,21 +39,21 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         this.http.allCoreData(),
         this.id ? this.http.metadataById(this.id) : of(undefined)
       ]).subscribe(xs => {
-        const coreData = xs[0]
+        const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, studyFormTypes] = xs[0]
         const metadata = xs[1]
         this.payload = {
           objectName: metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
           inputs: [
-            // this.titleInput(metadata),
-            // this.abbreviationInput(metadata),
-            // this.moduleTypesInput(metadata),
-            // this.creditsInput(metadata),
-            // this.languagesInput(metadata),
-            // this.durationInput(metadata),
-            // this.frequencyInput(metadata),
-            // this.moduleCoordinatorInput(metadata),
-            this.lecturerInput(metadata),
+            this.titleInput(metadata),
+            this.abbreviationInput(metadata),
+            this.moduleTypesInput(moduleTypes, metadata),
+            this.creditsInput(metadata),
+            this.languagesInput(languages, metadata),
+            this.durationInput(metadata),
+            this.frequencyInput(seasons, metadata),
+            this.moduleCoordinatorInput(persons, metadata),
+            this.lecturerInput(persons, metadata),
           ]
         }
       })
@@ -80,14 +80,14 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       initialValue: metadata?.abbrev
     })
 
-  private moduleTypesInput = (metadata?: Metadata): OptionsInput<ModuleType> =>
+  private moduleTypesInput = (modulesTypes: ModuleType[], metadata?: Metadata): OptionsInput<ModuleType> =>
     ({
       kind: 'options',
       label: 'Art des Moduls',
       attr: 'moduleType',
       disabled: false,
       required: true,
-      data: this.http.allModuleTypes(),
+      data: modulesTypes,
       show: a => a.deLabel,
       initialValue: metadata && (as => as.find(a => a.abbrev === metadata.moduleType))
     })
@@ -103,14 +103,14 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       min: 1
     })
 
-  private languagesInput = (metadata?: Metadata): OptionsInput<Language> =>
+  private languagesInput = (languages: Language[], metadata?: Metadata): OptionsInput<Language> =>
     ({
       kind: 'options',
       label: 'Sprache',
       attr: 'language',
       disabled: false,
       required: true,
-      data: this.http.allLanguages(),
+      data: languages,
       show: a => a.deLabel,
       initialValue: metadata && (as => as.find(a => a.abbrev === metadata.language))
     })
@@ -126,39 +126,39 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       min: 1
     })
 
-  private frequencyInput = (metadata?: Metadata): OptionsInput<Season> =>
+  private frequencyInput = (seasons: Season[], metadata?: Metadata): OptionsInput<Season> =>
     ({
       kind: 'options',
       label: 'Häufigkeit des Angebots',
       attr: 'season',
       disabled: false,
       required: true,
-      data: this.http.allSeasons(),
+      data: seasons,
       show: a => a.deLabel,
       initialValue: metadata && (as => as.find(a => a.abbrev === metadata.season))
     })
 
-  private moduleCoordinatorInput = (metadata?: Metadata): OptionsInput<Person> =>
+  private moduleCoordinatorInput = (persons: Person[], metadata?: Metadata): OptionsInput<Person> =>
     ({
       kind: 'options',
       label: 'Modulverantwortliche*r',
       attr: 'moduleCoordinator',
       disabled: false,
       required: true,
-      data: this.http.allPersons(),
+      data: persons,
       show: this.showPerson,
       initialValue: metadata && (as => as.find(a => metadata.moduleManagement.some(m => m === a.id)))
     })
 
 
-  private lecturerInput = (metadata?: Metadata): MultipleOptionsInput<Person> =>
+  private lecturerInput = (persons: Person[], metadata?: Metadata): MultipleOptionsInput<Person> =>
     ({
       kind: 'multiple-options',
       label: 'Dozierende',
       attr: 'lecturer',
       disabled: false,
       required: true,
-      data: this.http.allPersons(),
+      data: persons,
       show: this.showPerson,
       initialValue: metadata && (as => as.filter(a => metadata.lecturers.some(m => m === a.id)))
     })
@@ -182,18 +182,17 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     this.location.back()
 
   onSubmit = (any: any) => {
-    console.log(any)
-    // const go = (array: any, depth: number) => {
-    //   for (const k in array) {
-    //     const v = array[k]
-    //     if (Array.isArray(v)) {
-    //       go(v, depth + 1)
-    //     } else {
-    //       const ws = ' '.repeat(depth * 3)
-    //       console.log(ws, k, v)
-    //     }
-    //   }
-    // }
-    // go(any, 0)
+    const go = (array: any, depth: number) => {
+      for (const k in array) {
+        const v = array[k]
+        if (Array.isArray(v)) {
+          go(v, depth + 1)
+        } else {
+          const ws = ' '.repeat(depth * 3)
+          console.log(ws, k, v)
+        }
+      }
+    }
+    go(any, 0)
   }
 }

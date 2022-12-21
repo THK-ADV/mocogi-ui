@@ -5,7 +5,7 @@ import { FormControl, Validators } from '@angular/forms'
 
 export interface OptionsInput<A> extends FormInputLike {
   kind: 'options'
-  data: Observable<A[]>
+  data: A[] | Observable<A[]>
   show: (a: A) => string
   initialValue?: (as: A[]) => A | undefined
 }
@@ -14,12 +14,12 @@ export const formControlForOptionsInput = (i: FormInput): FormControl | undefine
   switch (i.kind) {
     case 'options':
       const fc = new FormControl(
-        {value: undefined, disabled: i.disabled}
+        {value: undefined, disabled: i.disabled},
+        i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator()
       )
-      if (i.required) {
-        fc.addValidators([Validators.required, mandatoryOptionsValidator()])
-      } else {
-        fc.addValidators(optionalOptionsValidator())
+      // fixes ExpressionChangedAfterItHasBeenCheckedError bug
+      if (Array.isArray(i.data)) {
+        fc.setValue(i.initialValue?.(i.data))
       }
       return fc
     default:
@@ -43,22 +43,27 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
   private sub?: Subscription
 
   ngOnInit(): void {
-    this.observeData()
+    this.initData()
   }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()
   }
 
-  private observeData = () => {
-    this.sub = this.input.data.subscribe(data => {
-      this.options = data ?? []
-      this.selectInitialValue()
+  private initData = () => {
+    if (Array.isArray(this.input.data)) {
+      this.options = this.input.data
       this.initFilterOptions()
-    })
+    } else {
+      this.sub = this.input.data.subscribe(data => {
+        this.options = data ?? []
+        this.setInitialState()
+        this.initFilterOptions()
+      })
+    }
   }
 
-  private selectInitialValue = () => {
+  private setInitialState = () => {
     if (this.input.initialValue) {
       const initialValue = this.input.initialValue(this.options)
       this.formControl.setValue(initialValue)
