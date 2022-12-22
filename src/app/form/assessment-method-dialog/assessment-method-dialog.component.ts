@@ -108,23 +108,8 @@ export class AssessmentMethodDialogComponent implements OnInit {
     index > -1 && this.assessmentMethodOptionsInputComponent.options.splice(index, 1)
   }
 
-  addAssessmentMethodEntry = () => {
-    const assessmentMethod = this.assessmentMethodFormControl().value as AssessmentMethod
-    const percentage = this.percentageFormControl().value as number | undefined
-    const precondition = this.preconditionFormControl().value as AssessmentMethod | undefined
-    if (this.dataSource.data.some(a => a.entry.method === assessmentMethod.abbrev)) {
-      return
-    }
-    const tableContent = this.toTableContent({
-      method: assessmentMethod.abbrev,
-      percentage: percentage,
-      precondition: precondition ? [precondition.abbrev] : [],
-    })
-    this.dataSource.data = [...this.dataSource.data, tableContent]
-    this.assessmentMethodOptionsInputComponent.reset()
-    this.preconditionOptionsInputComponent.reset()
-    this.percentageFormControl().setValue(undefined, {emitEvent: false})
-    this.reduceOption(assessmentMethod)
+  addOption = (a: AssessmentMethod) => {
+    this.assessmentMethodOptionsInputComponent.options.push(a)
   }
 
   toTableContent = (e: AssessmentMethodEntry): TableContent =>
@@ -141,8 +126,37 @@ export class AssessmentMethodDialogComponent implements OnInit {
   cancel = () =>
     this.dialogRef.close() // TODO return with data. dispatch them back
 
-  delete = (e: AssessmentMethodEntry) =>
-    console.log('delete', e) // TODO delete entry from table. add to options
+  add = () => {
+    const assessmentMethod = this.assessmentMethodFormControl().value as AssessmentMethod
+    const percentage = this.percentageFormControl().value as number | undefined
+    const precondition = this.preconditionFormControl().value as AssessmentMethod | undefined
+
+    if (this.dataSource.data.some(a => a.entry.method === assessmentMethod.abbrev)) {
+      return
+    }
+
+    const tableContent = this.toTableContent({
+      method: assessmentMethod.abbrev,
+      percentage: percentage,
+      precondition: precondition ? [precondition.abbrev] : [],
+    })
+
+    this.dataSource.data = [...this.dataSource.data, tableContent]
+    this.resetControls()
+    this.reduceOption(assessmentMethod)
+  }
+
+  delete = (e: TableContent) => {
+    this.dataSource.data = this.dataSource.data.filter(a => a.entry.method !== e.entry.method)
+    const am = this.data[0].find(a => a.abbrev === e.entry.method)
+    am && this.addOption(am)
+  }
+
+  private resetControls = () => {
+    this.assessmentMethodOptionsInputComponent.reset()
+    this.preconditionOptionsInputComponent.reset()
+    this.percentageFormControl().setValue(undefined, {emitEvent: false})
+  }
 
   formControl = (attr: string) =>
     // @ts-ignore
