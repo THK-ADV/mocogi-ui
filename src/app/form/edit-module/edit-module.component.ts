@@ -8,8 +8,11 @@ import { formControlForReadOnlyInput, ReadOnlyInput } from '../read-only-input/r
 
 export interface EditModulePayload {
   objectName: string
-  inputs: FormInput[]
   editType: EditType
+  inputs: {
+    header: string,
+    value: FormInput[]
+  }[]
 }
 
 type EditType = 'create' | 'update'
@@ -39,7 +42,7 @@ export class EditModuleComponent implements OnInit {
   ngOnInit() {
     this.buttonTitle = this.payload.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
     this.title = `${this.payload.objectName} ${this.buttonTitle.toLowerCase()}`
-    this.payload.inputs.forEach(i => {
+    this.payload.inputs.forEach(is => is.value.forEach(i => {
       const fc = this.formControlForInput(i)
       if (fc) {
         if (i.disabled) {
@@ -47,7 +50,7 @@ export class EditModuleComponent implements OnInit {
         }
         this.formGroup.addControl(i.attr, fc)
       }
-    })
+    }))
   }
 
   submit = () => {

@@ -2,8 +2,9 @@
 
 <form [formGroup]="formGroup" (ngSubmit)="submit()">
   <div mat-dialog-content>
-    <ng-container *ngFor="let i of payload.inputs">
-      <ng-container [ngSwitch]="i.kind">
+    <ng-container *ngFor="let entry of payload.inputs">
+      <h2>{{entry.header}}</h2>
+      <ng-container *ngFor="let i of entry.value" [ngSwitch]="i.kind">
         <sched-options-input
           *ngSwitchCase="'options'"
           ngDefaultControl

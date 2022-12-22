@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Location } from '@angular/common'
-import { AssessmentMethod, HttpService, Language, Metadata, ModuleType, Person, Season } from '../http/http.service'
+import { Location as AngularLocation } from '@angular/common'
+import { AssessmentMethod, HttpService, Language, Location, Metadata, ModuleType, Person, Season, Status } from '../http/http.service'
 import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModulePayload } from '../form/edit-module/edit-module.component'
 import { NumberInput, TextInput } from '../form/plain-input/plain-input.component'
@@ -27,7 +27,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location,
+    private location: AngularLocation,
     private http: HttpService,
     private dialog: MatDialog
   ) {
@@ -49,21 +49,53 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
           objectName: metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
           inputs: [
-            // this.titleInput(metadata),
-            // this.abbreviationInput(metadata),
-            // this.moduleTypesInput(moduleTypes, metadata),
-            // this.creditsInput(metadata),
-            // this.languagesInput(languages, metadata),
-            // this.durationInput(metadata),
-            // this.frequencyInput(seasons, metadata),
-            // this.moduleCoordinatorInput(persons, metadata),
-            // this.lecturerInput(persons, metadata),
-            this.assessmentMethodsInput(assessmentMethods, metadata)
+            this.generalInformation(moduleTypes, languages, seasons, locations, status, metadata),
+            this.responsibilities(persons, metadata),
+            this.assessmentMethods(assessmentMethods, metadata)
           ]
         }
       })
     }
   }
+
+  private generalInformation = (
+    moduleTypes: ModuleType[],
+    languages: Language[],
+    seasons: Season[],
+    locations: Location[],
+    status: Status[],
+    metadata?: Metadata
+  ) => ({
+    header: 'Allgemeine Informationen',
+    value: [
+      this.titleInput(metadata),
+      this.abbreviationInput(metadata),
+      this.moduleTypesInput(moduleTypes, metadata),
+      this.creditsInput(metadata),
+      this.languagesInput(languages, metadata),
+      this.durationInput(metadata),
+      this.frequencyInput(seasons, metadata),
+      this.locationsInput(locations, metadata),
+      this.statusInput(status, metadata)
+    ]
+  })
+
+  private responsibilities = (persons: Person[], metadata?: Metadata) =>
+    ({
+      header: 'Verantwortliche',
+      value: [
+        this.moduleCoordinatorInput(persons, metadata),
+        this.lecturerInput(persons, metadata),
+      ]
+    })
+
+  private assessmentMethods = (assessmentMethods: AssessmentMethod[], metadata?: Metadata) =>
+    ({
+      header: 'Prüfungsformen',
+      value: [
+        this.assessmentMethodsInput(assessmentMethods, metadata)
+      ]
+    })
 
   private titleInput = (metadata?: Metadata): TextInput =>
     ({
@@ -94,7 +126,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       required: true,
       data: modulesTypes,
       show: a => a.deLabel,
-      initialValue: metadata && (as => as.find(a => a.abbrev === metadata.moduleType))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType))
     })
 
   private creditsInput = (metadata?: Metadata): NumberInput =>
@@ -117,7 +149,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       required: true,
       data: languages,
       show: a => a.deLabel,
-      initialValue: metadata && (as => as.find(a => a.abbrev === metadata.language))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language))
     })
 
   private durationInput = (metadata?: Metadata): NumberInput =>
@@ -140,7 +172,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       required: true,
       data: seasons,
       show: a => a.deLabel,
-      initialValue: metadata && (as => as.find(a => a.abbrev === metadata.season))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season))
     })
 
   private moduleCoordinatorInput = (persons: Person[], metadata?: Metadata): OptionsInput<Person> =>
@@ -164,7 +196,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       required: true,
       data: persons,
       show: this.showPerson,
-      initialValue: metadata && (as => as.filter(a => metadata.lecturers.some(m => m === a.id)))
+      initialValue: metadata && (xs => xs.filter(a => metadata.lecturers.some(m => m === a.id)))
     })
 
   private assessmentMethodsInput = (assessmentMethods: AssessmentMethod[], metadata?: Metadata): ReadOnlyInput<AssessmentMethod> =>
@@ -176,12 +208,36 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       required: true,
       data: assessmentMethods,
       show: (a) => a.deLabel,
-      initialValue: metadata && (as => as.filter(a => metadata.assessmentMethods.mandatory.some(m => m.method === a.abbrev))),
+      initialValue: metadata && (xs => xs.filter(a => metadata.assessmentMethods.mandatory.some(m => m.method === a.abbrev))),
       dialogInstance: () => AssessmentMethodDialogComponent.instance(
         this.dialog,
         assessmentMethods,
         metadata ? metadata.assessmentMethods.mandatory : []
       )
+    })
+
+  private locationsInput = (locations: Location[], metadata?: Metadata): OptionsInput<Location> =>
+    ({
+      kind: 'options',
+      label: 'Angeboten am Standort',
+      attr: 'location',
+      disabled: false,
+      required: true,
+      data: locations,
+      show: a => a.deLabel,
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location))
+    })
+
+  private statusInput = (status: Status[], metadata?: Metadata): OptionsInput<Status> =>
+    ({
+      kind: 'options',
+      label: 'Status',
+      attr: 'status',
+      disabled: false,
+      required: true,
+      data: status,
+      show: a => a.deLabel,
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status))
     })
 
   private showPerson = (p: Person): string => {
