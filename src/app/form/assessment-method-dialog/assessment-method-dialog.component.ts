@@ -46,7 +46,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
     this.headerTitle = 'Prüfungsformen bearbeiten'
     this.assessmentMethodInput = ({
       kind: 'options',
-      label: this.columns[0].title,
+      label: this.columns[0].title + ' *',
       attr: this.columns[0].attr,
       disabled: false,
       required: false,
