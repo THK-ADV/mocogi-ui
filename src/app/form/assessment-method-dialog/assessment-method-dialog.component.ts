@@ -44,7 +44,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
     ]
     this.dataSource = new MatTableDataSource<TableContent>()
     this.headerTitle = 'Prüfungsformen bearbeiten'
-    this.assessmentMethodInput = ({
+    this.assessmentMethodInput = {
       kind: 'options',
       label: this.columns[0].title + ' *',
       attr: this.columns[0].attr,
@@ -52,7 +52,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       required: false,
       data: data[0].filter(d => !data[1].some(dd => dd.method === d.abbrev)),
       show: (a) => a.deLabel,
-    })
+    }
     this.percentageInput = {
       kind: 'number',
       label: this.columns[1].title + ' (Optional)',
@@ -60,7 +60,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       disabled: false,
       required: false
     }
-    this.preconditionInput = ({
+    this.preconditionInput = {
       kind: 'options',
       label: this.columns[2].title + ' (Optional)',
       attr: this.columns[2].attr,
@@ -68,7 +68,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       required: false,
       data: data[0],
       show: (a) => a.deLabel,
-    })
+    }
     this.formGroup = new FormGroup({})
     this.formGroup.addControl(
       this.assessmentMethodInput.attr,
@@ -103,25 +103,13 @@ export class AssessmentMethodDialogComponent implements OnInit {
     this.dataSource.data = this.data[1].map(this.toTableContent)
   }
 
-  reduceOption = (a: AssessmentMethod) => {
-    const index = this.assessmentMethodOptionsInputComponent.options.indexOf(a, 0)
-    index > -1 && this.assessmentMethodOptionsInputComponent.options.splice(index, 1)
+  removeOption = (a: AssessmentMethod) => {
+    this.assessmentMethodOptionsInputComponent.removeOption(a)
   }
 
   addOption = (a: AssessmentMethod) => {
-    this.assessmentMethodOptionsInputComponent.options.push(a)
+    this.assessmentMethodOptionsInputComponent.addOption(a)
   }
-
-  toTableContent = (e: AssessmentMethodEntry): TableContent =>
-    ({
-      entry: e,
-      method: this.lookup(e.method),
-      percentage: e.percentage ? `${e.percentage} %` : '',
-      precondition: e.precondition.map(this.lookup).join(', ')
-    })
-
-  lookup = (method: string) =>
-    this.data[0].find(d => d.abbrev === method)?.deLabel ?? '???'
 
   cancel = () =>
     this.dialogRef.close() // TODO return with data. dispatch them back
@@ -143,7 +131,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
 
     this.dataSource.data = [...this.dataSource.data, tableContent]
     this.resetControls()
-    this.reduceOption(assessmentMethod)
+    this.removeOption(assessmentMethod)
   }
 
   delete = (e: TableContent) => {
@@ -200,4 +188,17 @@ export class AssessmentMethodDialogComponent implements OnInit {
     // console.log('valid p', this.validPercentage())
     // console.log('valid fg', this.formGroup.valid)
   }
+
+  // ???
+
+  toTableContent = (e: AssessmentMethodEntry): TableContent =>
+    ({
+      entry: e,
+      method: this.lookup(e.method),
+      percentage: e.percentage ? `${e.percentage} %` : '',
+      precondition: e.precondition.map(this.lookup).join(', ')
+    })
+
+  lookup = (method: string) =>
+    this.data[0].find(d => d.abbrev === method)?.deLabel ?? '???'
 }

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { combine, FormInput } from '../form-input'
-import { formControlForPainInput, NumberInput, TextInput } from '../plain-input/plain-input.component'
-import { formControlForOptionsInput, OptionsInput } from '../options-input/options-input.component'
-import { formControlForMultipleOptionsInput, MultipleOptionsInput } from '../multiple-options-input/multiple-options-input.component'
-import { formControlForReadOnlyInput, ReadOnlyInput } from '../read-only-input/read-only-input.component'
+import { formControlForInput, FormInput } from '../form-input'
+import { NumberInput, TextInput } from '../plain-input/plain-input.component'
+import { OptionsInput } from '../options-input/options-input.component'
+import { MultipleOptionsInput } from '../multiple-options-input/multiple-options-input.component'
+import { ReadOnlyInput } from '../read-only-input/read-only-input.component'
 
 export interface EditModulePayload {
   objectName: string
@@ -32,18 +32,11 @@ export class EditModuleComponent implements OnInit {
   buttonTitle: string = ''
   formGroup = new FormGroup({})
 
-  private formControlForInput = combine([
-    formControlForPainInput,
-    formControlForOptionsInput,
-    formControlForMultipleOptionsInput,
-    formControlForReadOnlyInput
-  ])
-
   ngOnInit() {
     this.buttonTitle = this.payload.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
     this.title = `${this.payload.objectName} ${this.buttonTitle.toLowerCase()}`
     this.payload.inputs.forEach(is => is.value.forEach(i => {
-      const fc = this.formControlForInput(i)
+      const fc = formControlForInput()(i)
       if (fc) {
         if (i.disabled) {
           fc.disable()
@@ -81,7 +74,7 @@ export class EditModuleComponent implements OnInit {
     i as MultipleOptionsInput<any>
 
   asReadOnly = (i: FormInput) =>
-    i as ReadOnlyInput<any>
+    i as ReadOnlyInput<any, any>
 
   formControl = (attr: string) =>
     // @ts-ignore

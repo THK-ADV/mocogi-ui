@@ -4,12 +4,12 @@ import { FormInput, FormInputLike, requiredError } from '../form-input'
 import { MatDialogRef } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 
-export interface ReadOnlyInput<A> extends FormInputLike {
+export interface ReadOnlyInput<Option, Output> extends FormInputLike {
   kind: 'read-only'
-  data: A[]
-  show: (a: A) => string
-  initialValue?: (as: A[]) => A[]
-  dialogInstance: () => MatDialogRef<any>
+  options: Option[]
+  show: (output: Output) => string
+  initialValue?: (as: Option[]) => Output[]
+  dialogInstance: () => MatDialogRef<any, Output[]>
 }
 
 export const formControlForReadOnlyInput = (i: FormInput): FormControl | undefined => {
@@ -29,9 +29,9 @@ export const formControlForReadOnlyInput = (i: FormInput): FormControl | undefin
   templateUrl: './read-only-input.component.html',
   styleUrls: ['./read-only-input.component.css']
 })
-export class ReadOnlyInputComponent<A> implements OnInit, OnDestroy {
+export class ReadOnlyInputComponent<A, DialogEntry> implements OnInit, OnDestroy {
   @Input() formControl!: FormControl
-  @Input() input!: ReadOnlyInput<A>
+  @Input() input!: ReadOnlyInput<A, DialogEntry>
 
   private sub?: Subscription
 
@@ -45,14 +45,14 @@ export class ReadOnlyInputComponent<A> implements OnInit, OnDestroy {
 
   initData = () => {
     if (this.input.initialValue) {
-      const options = this.input.initialValue(this.input.data)
+      const options = this.input.initialValue(this.input.options)
       this.setData(options)
     }
   }
 
-  setData = (data: A[]) => {
+  setData = (entries: DialogEntry[]) => {
     // toString is used by formControl to display the value
-    const options = data.map(a => ({value: a, toString: () => this.input.show(a)}))
+    const options = entries.map(a => ({value: a, toString: () => this.input.show(a)}))
     this.formControl.setValue(options)
   }
 

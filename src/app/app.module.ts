@@ -36,6 +36,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { ReadOnlyInputComponent } from './form/read-only-input/read-only-input.component'
 import { AssessmentMethodDialogComponent } from './form/assessment-method-dialog/assessment-method-dialog.component'
 import { MatCardModule } from '@angular/material/card'
+import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multiple-edit-dialog.component'
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MatCardModule } from '@angular/material/card'
     OptionsInputComponent,
     MultipleOptionsInputComponent,
     ReadOnlyInputComponent,
-    AssessmentMethodDialogComponent
+    AssessmentMethodDialogComponent,
+    MultipleEditDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -83,14 +83,27 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
     return this.options.filter(t => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0)
   }
 
+  // UI functions
+
   displayFn = (value?: A): string =>
     (value && this.input.show(value)) ?? ''
+
+  getErrorMessage = () =>
+    requiredError(this.formControl, this.input) ?? optionsError(this.formControl)
+
+  // Public API
+
+  removeOption = (a: A) => {
+    const index = this.options.indexOf(a, 0)
+    index > -1 && this.options.splice(index, 1)
+  }
+
+  addOption = (a: A) => {
+    this.options.push(a)
+  }
 
   reset = () => {
     this.formControl.reset(undefined, {emitEvent: false})
     this.initFilterOptions()
   }
-
-  getErrorMessage = () =>
-    requiredError(this.formControl, this.input) ?? optionsError(this.formControl)
 }

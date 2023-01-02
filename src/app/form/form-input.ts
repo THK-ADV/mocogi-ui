@@ -1,8 +1,10 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms'
-import { NumberInput, TextInput } from './plain-input/plain-input.component'
-import { OptionsInput } from './options-input/options-input.component'
-import { MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
-import { ReadOnlyInput } from './read-only-input/read-only-input.component'
+import { formControlForPainInput, NumberInput, TextInput } from './plain-input/plain-input.component'
+import { formControlForOptionsInput, OptionsInput } from './options-input/options-input.component'
+import { formControlForMultipleOptionsInput, MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
+import { formControlForReadOnlyInput, ReadOnlyInput } from './read-only-input/read-only-input.component'
+
+// FormInput
 
 export interface FormInputLike {
   kind: string
@@ -17,12 +19,17 @@ export type FormInput =
   NumberInput |
   OptionsInput<any> |
   MultipleOptionsInput<any> |
-  ReadOnlyInput<any>
+  ReadOnlyInput<any, any>
 // BooleanInput |
 // URLInput |
 // DateInput
 
-export const combine = (
+export const isOptionsInput = (i: FormInput): i is OptionsInput<any> =>
+  i.kind === 'options'
+
+// FormInput Combinator
+
+const combine = (
   fs: Array<(i: FormInput) => FormControl | undefined>
 ): (i: FormInput) => FormControl | undefined =>
   i => {
@@ -34,6 +41,17 @@ export const combine = (
     }
     return undefined
   }
+
+export function formControlForInput() {
+  return combine([
+    formControlForPainInput,
+    formControlForOptionsInput,
+    formControlForMultipleOptionsInput,
+    formControlForReadOnlyInput
+  ])
+}
+
+// FormInput Validation
 
 const invalidOptionKey = 'invalidObject'
 
