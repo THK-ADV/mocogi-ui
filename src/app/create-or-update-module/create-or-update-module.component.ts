@@ -1,17 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
-import { HttpService } from '../http/http.service'
+import { Grade, HttpService, PO, POPreview, StudyProgram } from '../http/http.service'
 import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
-
-export const requiredLabel = (label: string): string =>
-  label + ' *'
-
-export const optionalLabel = (label: string): string =>
-  label + ' (Optional)'
 
 @Component({
   selector: 'sched-create-or-update-module',
@@ -44,15 +38,19 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       this.goBack()
     } else {
       this.sub = forkJoin([
+        this.http.getAllModules(),
         this.http.allCoreData(),
         this.id ? this.http.metadataById(this.id) : of(undefined)
       ]).subscribe(xs => {
-        const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, studyFormTypes] = xs[0]
-        const metadata = xs[1]
+        const modules = xs[0]
+        const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, studyFormTypes, pos, grades, focusAreas, faculties, globalCriteria, studyPrograms] = xs[1]
+        const poPreviews = this.toPOPreview(pos, studyPrograms, grades)
+        const metadata = xs[2]
         this.payload = {
           objectName: metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
           inputs: inputs(
+            modules,
             moduleTypes,
             languages,
             seasons,
@@ -60,6 +58,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
             status,
             persons,
             assessmentMethods,
+            poPreviews,
             this.dialog,
             attr => this.editModuleComponent?.formControl(attr).value,
             metadata
@@ -68,6 +67,25 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+  toPOPreview = (pos: PO[], studyPrograms: StudyProgram[], grades: Grade[]): POPreview[] => {
+    const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`})
+    return pos.map(po => {
+      const sp = studyPrograms.find(s => s.abbrev === po.program)
+      if (!sp) {
+        return abort(po)
+      }
+      const grade = grades.find(g => g.abbrev === sp.grade)
+      if (!grade) {
+        return abort(po)
+      }
+      return {
+        id: po.abbrev,
+        label: `${sp.deLabel} PO ${po.version} (${grade.deLabel})`
+      }
+    })
+  }
+
 
 
   ngOnDestroy(): void {

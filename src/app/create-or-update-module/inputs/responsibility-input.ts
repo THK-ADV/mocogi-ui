@@ -3,8 +3,8 @@ import { OptionsInput } from '../../form/options-input/options-input.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { requiredLabel } from '../create-or-update-module.component'
 import { LecturerCallback } from '../callbacks/lecturer-callback'
+import { requiredLabel } from './inputs'
 
 export const moduleCoordinatorInput = (persons: Person[], metadata?: Metadata): OptionsInput<Person> =>
   ({
@@ -44,11 +44,9 @@ function dialogInstance(
   attr: string,
   currentPersons: (attr: string) => Person[],
 ) {
+  const columns = [{attr: 'person', title: 'Dozierende'}]
   const entries = currentPersons(attr)
-  const callback = new LecturerCallback(persons, entries)
-  const columns = [
-    {attr: 'person', title: 'Dozierende'},
-  ]
+  const callback = new LecturerCallback(persons, entries, columns[0].attr, showPerson)
 
   return MultipleEditDialogComponent.instance(
     dialog,

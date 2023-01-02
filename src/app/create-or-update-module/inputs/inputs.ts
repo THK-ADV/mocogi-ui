@@ -1,4 +1,15 @@
-import { AssessmentMethod, Language, Location, Metadata, ModuleType, Person, Season, Status } from '../../http/http.service'
+import {
+  AssessmentMethod,
+  Language,
+  Location,
+  Metadata,
+  Module,
+  ModuleType,
+  Person,
+  POPreview,
+  Season,
+  Status
+} from '../../http/http.service'
 import {
   abbreviationInput,
   creditsInput,
@@ -14,8 +25,16 @@ import { lecturerInput, moduleCoordinatorInput } from './responsibility-input'
 import { assessmentMethodsMandatoryInput, assessmentMethodsOptionalInput } from './assessment-method-input'
 import { exerciseInput, lectureInput, practicalInput, projectSupervisionInput, projectWorkInput, seminarInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
+import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
+
+export const requiredLabel = (label: string): string =>
+  label + ' *'
+
+export const optionalLabel = (label: string): string =>
+  label + ' (Optional)'
 
 export function inputs(
+  modules: Module[],
   moduleTypes: ModuleType[],
   languages: Language[],
   seasons: Season[],
@@ -23,6 +42,7 @@ export function inputs(
   status: Status[],
   persons: Person[],
   assessmentMethods: AssessmentMethod[],
+  pos: POPreview[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => any,
   metadata?: Metadata
@@ -90,6 +110,20 @@ export function inputs(
     }
   }
 
+  function prerequisitesSection() {
+    return {
+      header: 'Voraussetzungen',
+      value: prerequisitesInputs(
+        dialog,
+        modules,
+        currentPrerequisitesModulesSelection,
+        pos,
+        currentPrerequisitesPOsSelection,
+        metadata
+      )
+    }
+  }
+
   function currentMultipleSelectionValue<A>(
     attr: string,
     fallback: (metadata: Metadata) => A[]
@@ -105,10 +139,31 @@ export function inputs(
     )
   }
 
+  function currentPrerequisitesModulesSelection(attr: string, kind: PrerequisitesKind) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => modules.filter(x => {
+        const modules = kind === 'required' ? m.prerequisites.required?.modules : m.prerequisites.recommended?.modules
+        return modules?.some(y => y === x.abbrev)
+      })
+    )
+  }
+
+  function currentPrerequisitesPOsSelection(attr: string, kind: PrerequisitesKind) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => pos.filter(x => {
+        const pos = kind === 'required' ? m.prerequisites.required?.pos : m.prerequisites.recommended?.pos
+        pos?.some(y => y === x.id)
+      })
+    )
+  }
+
   return [
-    generalInformationSection(),
-    responsibilitySection(),
-    assessmentMethodsSection(),
-    workloadSection()
+    // generalInformationSection(),
+    // responsibilitySection(),
+    // assessmentMethodsSection(),
+    // workloadSection(),
+    prerequisitesSection()
   ]
 }

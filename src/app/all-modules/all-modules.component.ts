@@ -16,7 +16,7 @@ export class AllModulesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.service.allMetadata()
+    this.sub = this.service.getAllModules()
       .subscribe(xs => this.metadata = xs)
   }
 

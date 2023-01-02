@@ -7,6 +7,11 @@ export interface TextInput extends FormInputLike {
   kind: 'text'
 }
 
+export interface TextAreaInput extends FormInputLike {
+  initialValue?: string
+  kind: 'text-area'
+}
+
 export interface NumberInput extends FormInputLike {
   initialValue?: number
   min?: number
@@ -16,6 +21,7 @@ export interface NumberInput extends FormInputLike {
 
 export const formControlForPainInput = (i: FormInput): FormControl | undefined => {
   switch (i.kind) {
+    case 'text-area':
     case 'text':
       return new FormControl(
         {value: i.initialValue, disabled: i.disabled},
@@ -55,10 +61,13 @@ export const maxError = (formControl: FormControl): string | undefined =>
 })
 export class PlainInputComponent {
   @Input() formControl!: FormControl
-  @Input() input!: TextInput | NumberInput
+  @Input() input!: TextInput | NumberInput | TextAreaInput
 
   getErrorMessage = () =>
     requiredError(this.formControl, this.input)
     ?? minError(this.formControl)
     ?? maxError(this.formControl)
+
+  isTextArea = (): boolean =>
+    this.input.kind === 'text-area'
 }

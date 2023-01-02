@@ -18,19 +18,19 @@ export interface Participants {
   max: number
 }
 
-export interface Module {
+export interface ModulePreview {
   id: string
   abbrev: string
 }
 
 export interface Parent {
   kind: 'parent'
-  children: Module[]
+  children: ModulePreview[]
 }
 
 export interface Child {
   kind: 'child'
-  parent: Module
+  parent: ModulePreview
 }
 
 export type ModuleRelation = Parent | Child
@@ -193,6 +193,11 @@ export interface PO {
   program: string
 }
 
+export interface POPreview {
+  id: string
+  label: string
+}
+
 export interface Grade {
   abbrev: string
   deLabel: string
@@ -254,6 +259,12 @@ export interface Competence {
   enDesc: string
 }
 
+export interface Module {
+  id: string
+  title: string
+  abbrev: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -263,11 +274,11 @@ export class HttpService {
   constructor(private readonly http: HttpClient) {
   }
 
-  allMetadata = (): Observable<MetadataPreview[]> =>
-    this.http.get<MetadataPreview[]>('metadata')
+  getAllModules = (): Observable<Module[]> =>
+    this.http.get<Module[]>('metadata?preview=true')
 
-  allMetadataForUser = (user: String): Observable<MetadataPreview[]> =>
-    this.http.get<MetadataPreview[]>(`metadata?user=${user}&preview=true`)
+  getAllModulesForUser = (user: String): Observable<Module[]> =>
+    this.http.get<Module[]>(`metadata?user=${user}&preview=true`)
 
   metadataById = (id: string): Observable<Metadata> =>
     this.http.get<Metadata>(`metadata/${id}`)

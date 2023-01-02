@@ -1,5 +1,5 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms'
-import { formControlForPainInput, NumberInput, TextInput } from './plain-input/plain-input.component'
+import { formControlForPainInput, NumberInput, TextAreaInput, TextInput } from './plain-input/plain-input.component'
 import { formControlForOptionsInput, OptionsInput } from './options-input/options-input.component'
 import { formControlForMultipleOptionsInput, MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
 import { formControlForReadOnlyInput, ReadOnlyInput } from './read-only-input/read-only-input.component'
@@ -17,12 +17,10 @@ export interface FormInputLike {
 export type FormInput =
   TextInput |
   NumberInput |
+  TextAreaInput |
   OptionsInput<any> |
   MultipleOptionsInput<any> |
   ReadOnlyInput<any, any>
-// BooleanInput |
-// URLInput |
-// DateInput
 
 export const isOptionsInput = (i: FormInput): i is OptionsInput<any> =>
   i.kind === 'options'

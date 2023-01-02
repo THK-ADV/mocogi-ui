@@ -3,7 +3,7 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { AssessmentMethodCallback } from '../callbacks/assessment-method.callback'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
-import { optionalLabel, requiredLabel } from '../create-or-update-module.component'
+import { optionalLabel, requiredLabel } from './inputs'
 
 // TODO apply döner pattern?
 
