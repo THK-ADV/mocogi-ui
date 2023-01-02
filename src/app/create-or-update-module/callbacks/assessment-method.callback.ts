@@ -6,18 +6,18 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
-  readonly assessmentMethods: { [id: string]: AssessmentMethod } = {}
-  readonly entries: { [id: string]: AssessmentMethodEntry } = {}
+  readonly all: { [id: string]: AssessmentMethod } = {}
+  readonly selected: { [id: string]: AssessmentMethodEntry } = {}
 
-  constructor(assessmentMethods: Readonly<AssessmentMethod[]>, entries: Readonly<AssessmentMethodEntry[]>) {
-    this.assessmentMethods = arrayToObject(assessmentMethods, a => a.abbrev)
-    this.entries = arrayToObject(entries, a => a.method)
+  constructor(all: Readonly<AssessmentMethod[]>, selected: Readonly<AssessmentMethodEntry[]>) {
+    this.all = arrayToObject(all, a => a.abbrev)
+    this.selected = arrayToObject(selected, a => a.method)
   }
 
   filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
     const data = optionsInput.data as AssessmentMethod[]
     if (optionsInput.attr === 'method') {
-      return data.filter(d => !this.entries[d.abbrev])
+      return data.filter(d => !this.selected[d.abbrev])
     } else {
       return data
     }
@@ -99,7 +99,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     controls['method'].value as AssessmentMethod
 
   private lookup = (method: string): AssessmentMethod | undefined =>
-    this.assessmentMethods[method]
+    this.all[method]
 
   private lookupLabel = (method: string): string =>
     this.lookup(method)?.deLabel ?? '???'

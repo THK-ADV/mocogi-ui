@@ -3,34 +3,37 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { AssessmentMethodCallback } from '../callbacks/assessment-method.callback'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
+import { optionalLabel, requiredLabel } from '../create-or-update-module.component'
 
 // TODO apply döner pattern?
 
 export function assessmentMethodsInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
-  currentEntries: () => AssessmentMethodEntry[],
+  currentEntries: (attr: string) => AssessmentMethodEntry[],
 ): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-  const entries = currentEntries()
+  const attr = 'assessment-methods-mandatory'
+  const entries = currentEntries(attr)
   return {
     kind: 'read-only',
     label: 'Prüfungsformen',
-    attr: 'assessment-methods-mandatory',
+    attr: attr,
     disabled: false,
     required: true,
     options: assessmentMethods,
     show: (e) => assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???', // TODO maybe change everything to objects
     initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
-    dialogInstance: () => assessmentMethodsDialogInstance(dialog, assessmentMethods, currentEntries)
+    dialogInstance: () => assessmentMethodsDialogInstance(dialog, assessmentMethods, attr, currentEntries)
   }
 }
 
 function assessmentMethodsDialogInstance(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
-  currentEntries: () => AssessmentMethodEntry[],
+  attr: string,
+  currentEntries: (attr: string) => AssessmentMethodEntry[],
 ) {
-  const entries = currentEntries()
+  const entries = currentEntries(attr)
   const callback = new AssessmentMethodCallback(assessmentMethods, entries)
   const columns = [
     {attr: 'method', title: 'Prüfungsform'},
@@ -46,7 +49,7 @@ function assessmentMethodsDialogInstance(
     [
       {
         kind: 'options',
-        label: columns[0].title + ' *',
+        label: requiredLabel(columns[0].title),
         attr: columns[0].attr,
         disabled: false,
         required: false,
@@ -55,14 +58,14 @@ function assessmentMethodsDialogInstance(
       },
       {
         kind: 'number',
-        label: columns[1].title + ' (Optional)',
+        label: optionalLabel(columns[1].title),
         attr: columns[1].attr,
         disabled: false,
         required: false
       },
       {
         kind: 'options',
-        label: columns[2].title + ' (Optional)',
+        label: optionalLabel(columns[2].title),
         attr: columns[2].attr,
         disabled: false,
         required: false,

@@ -1,6 +1,10 @@
 import { Metadata, Person } from '../../http/http.service'
 import { OptionsInput } from '../../form/options-input/options-input.component'
-import { MultipleOptionsInput } from '../../form/multiple-options-input/multiple-options-input.component'
+import { MatDialog } from '@angular/material/dialog'
+import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
+import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
+import { requiredLabel } from '../create-or-update-module.component'
+import { LecturerCallback } from '../callbacks/lecturer-callback'
 
 export const moduleCoordinatorInput = (persons: Person[], metadata?: Metadata): OptionsInput<Person> =>
   ({
@@ -14,19 +18,59 @@ export const moduleCoordinatorInput = (persons: Person[], metadata?: Metadata): 
     initialValue: metadata && (as => as.find(a => metadata.moduleManagement.some(m => m === a.id)))
   })
 
-export const lecturerInput = (persons: Person[], metadata?: Metadata): MultipleOptionsInput<Person> =>
-  ({
-    kind: 'multiple-options',
+export function lecturerInput(
+  dialog: MatDialog,
+  persons: Person[],
+  currentPersons: (attr: string) => Person[],
+): ReadOnlyInput<Person, Person> {
+  const attr = 'lecturer'
+  const entries = currentPersons(attr)
+  return {
+    kind: 'read-only',
     label: 'Dozierende',
-    attr: 'lecturer',
+    attr: attr,
     disabled: false,
     required: true,
-    data: persons,
+    options: persons,
     show: showPerson,
-    initialValue: metadata && (xs => xs.filter(a => metadata.lecturers.some(m => m === a.id)))
-  })
+    initialValue: xs => entries.filter(p => xs.some(x => x.id === p.id)),
+    dialogInstance: () => dialogInstance(dialog, persons, attr, currentPersons)
+  }
+}
 
-const showPerson = (p: Person): string => {
+function dialogInstance(
+  dialog: MatDialog,
+  persons: Person[],
+  attr: string,
+  currentPersons: (attr: string) => Person[],
+) {
+  const entries = currentPersons(attr)
+  const callback = new LecturerCallback(persons, entries)
+  const columns = [
+    {attr: 'person', title: 'Dozierende'},
+  ]
+
+  return MultipleEditDialogComponent.instance(
+    dialog,
+    callback,
+    columns,
+    'Dozierende bearbeiten',
+    [
+      {
+        kind: 'options',
+        label: requiredLabel(columns[0].title),
+        attr: columns[0].attr,
+        disabled: false,
+        required: false,
+        data: persons,
+        show: showPerson,
+      }
+    ],
+    entries
+  )
+}
+
+export const showPerson = (p: Person): string => {
   switch (p.kind) {
     case 'single':
       return `${p.lastname}, ${p.firstname}`

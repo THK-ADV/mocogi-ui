@@ -1,18 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
-import {
-  AssessmentMethod,
-  AssessmentMethodEntry,
-  HttpService,
-  Language,
-  Location,
-  Metadata,
-  ModuleType,
-  Person,
-  Season,
-  Status
-} from '../http/http.service'
+import { AssessmentMethod, HttpService, Language, Location, Metadata, ModuleType, Person, Season, Status } from '../http/http.service'
 import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -29,6 +18,12 @@ import {
 } from './inputs/simple-inputs'
 import { lecturerInput, moduleCoordinatorInput } from './inputs/responsibility-input'
 import { assessmentMethodsInput } from './inputs/assessment-method-input'
+
+export const requiredLabel = (label: string): string =>
+  label + ' *'
+
+export const optionalLabel = (label: string): string =>
+  label + ' (Optional)'
 
 @Component({
   selector: 'sched-create-or-update-module',
@@ -106,7 +101,11 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       header: 'Verantwortliche',
       value: [
         moduleCoordinatorInput(persons, metadata),
-        lecturerInput(persons, metadata),
+        lecturerInput(
+          this.dialog,
+          persons,
+          attr => this.currentLecturerSelection(attr, persons, metadata)
+        ),
       ]
     })
 
@@ -114,14 +113,28 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     ({
       header: 'Prüfungsformen',
       value: [
-        assessmentMethodsInput(this.dialog, assessmentMethods, () => this.currentAssessmentMethods(metadata))
+        assessmentMethodsInput(
+          this.dialog,
+          assessmentMethods,
+          attr => this.currentAssessmentMethodMandatorySelection(attr, metadata)
+        )
       ]
     })
 
-  private currentAssessmentMethods = (metadata?: Metadata): AssessmentMethodEntry[] => {
-    const entries = this.editModuleComponent?.formControl('assessment-methods-mandatory').value
-    return Array.isArray(entries) ? entries.map(e => e.value) : (metadata?.assessmentMethods.mandatory ?? [])
+  private currentMultipleSelectionValue = <A>(attr: string, metadata: Metadata | undefined, fallback: (metadata: Metadata) => A[]): A[] => {
+    const entries = this.editModuleComponent?.formControl(attr).value
+    return Array.isArray(entries) ? entries.map(e => e.value) : (metadata ? fallback(metadata) : [])
   }
+
+  private currentLecturerSelection = (attr: string, allPersons: Person[], metadata?: Metadata) =>
+    this.currentMultipleSelectionValue(
+      attr,
+      metadata,
+      m => allPersons.filter(p => m.lecturers.some(l => l === p.id))
+    )
+
+  private currentAssessmentMethodMandatorySelection = (attr: string, metadata?: Metadata) =>
+    this.currentMultipleSelectionValue(attr, metadata, m => m.assessmentMethods.mandatory)
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()
