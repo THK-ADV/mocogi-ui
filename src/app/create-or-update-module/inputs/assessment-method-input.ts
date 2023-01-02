@@ -4,107 +4,99 @@ import { AssessmentMethodCallback } from '../callbacks/assessment-method.callbac
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
 import { optionalLabel, requiredLabel } from './inputs'
+import { FormInput } from '../../form/form-input'
 
 // TODO apply döner pattern?
 
-export function assessmentMethodsMandatoryInput(
-  dialog: MatDialog,
-  assessmentMethods: AssessmentMethod[],
-  currentEntries: (attr: string) => AssessmentMethodEntry[],
-): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-  return go(
-    dialog,
-    assessmentMethods,
-    currentEntries,
-    'Prüfungsformen für alle Pflicht Studiengänge',
-    'assessment-methods-mandatory',
-    true
-  )
-}
+export type AssessmentMethodKind = 'mandatory' | 'optional'
 
-export function assessmentMethodsOptionalInput(
+export function assessmentMethodInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
-  currentEntries: (attr: string) => AssessmentMethodEntry[],
-): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-  return go(
-    dialog,
-    assessmentMethods,
-    currentEntries,
-    optionalLabel('Prüfungsformen für alle als WPF belegbare Studiengänge'),
-    'assessment-methods-optional',
-    false
-  )
-}
-
-function go(
-  dialog: MatDialog,
-  assessmentMethods: AssessmentMethod[],
-  currentEntries: (attr: string) => AssessmentMethodEntry[],
-  label: string,
-  attr: string,
-  required: boolean
-): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-  const entries = currentEntries(attr)
-  return {
-    kind: 'read-only',
-    label: label,
-    attr: attr,
-    disabled: false,
-    required: required,
-    options: assessmentMethods,
-    show: (e) => assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???', // TODO maybe change everything to objects
-    initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
-    dialogInstance: () => assessmentMethodsDialogInstance(dialog, assessmentMethods, attr, currentEntries)
+  currentEntries: (attr: string, kind: AssessmentMethodKind) => AssessmentMethodEntry[],
+): FormInput[] {
+  function assessmentMethodsMandatoryInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+    return go('mandatory')
   }
-}
 
-function assessmentMethodsDialogInstance(
-  dialog: MatDialog,
-  assessmentMethods: AssessmentMethod[],
-  attr: string,
-  currentEntries: (attr: string) => AssessmentMethodEntry[],
-) {
-  const entries = currentEntries(attr)
-  const callback = new AssessmentMethodCallback(assessmentMethods, entries)
-  const columns = [
-    {attr: 'method', title: 'Prüfungsform'},
-    {attr: 'percentage', title: 'Prozentualer Anteil'},
-    {attr: 'precondition', title: 'Vorbedingungen'},
+  function assessmentMethodsOptionalInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+    return go('optional')
+  }
+
+  function go(
+    kind: AssessmentMethodKind
+  ): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+    const attr = `assessment-methods-${kind}`
+    const entries = currentEntries(attr, kind)
+    return {
+      kind: 'read-only',
+      label: label(kind),
+      attr: attr,
+      disabled: false,
+      required: kind === 'mandatory',
+      options: assessmentMethods,
+      show: (e) => assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???', // TODO maybe change everything to objects
+      initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
+      dialogInstance: () => dialogInstance(attr, kind)
+    }
+  }
+
+  function dialogInstance(attr: string, kind: AssessmentMethodKind) {
+    const entries = currentEntries(attr, kind)
+    const callback = new AssessmentMethodCallback(assessmentMethods, entries)
+    const columns = [
+      {attr: 'method', title: 'Prüfungsform'},
+      {attr: 'percentage', title: 'Prozentualer Anteil'},
+      {attr: 'precondition', title: 'Vorbedingungen'},
+    ]
+
+    return MultipleEditDialogComponent.instance(
+      dialog,
+      callback,
+      columns,
+      'Prüfungsformen bearbeiten',
+      [
+        {
+          kind: 'options',
+          label: requiredLabel(columns[0].title),
+          attr: columns[0].attr,
+          disabled: false,
+          required: false,
+          data: assessmentMethods,
+          show: (a) => a.deLabel,
+        },
+        {
+          kind: 'number',
+          label: optionalLabel(columns[1].title),
+          attr: columns[1].attr,
+          disabled: false,
+          required: false
+        },
+        {
+          kind: 'options',
+          label: optionalLabel(columns[2].title),
+          attr: columns[2].attr,
+          disabled: false,
+          required: false,
+          data: assessmentMethods,
+          show: (a) => a.deLabel,
+        }
+      ],
+      entries
+    )
+  }
+
+  function label(kind: AssessmentMethodKind): string {
+    switch (kind) {
+      case 'mandatory':
+        return 'Prüfungsformen für alle Pflicht Studiengänge'
+      case 'optional':
+        return optionalLabel('Prüfungsformen für alle als WPF belegbare Studiengänge')
+    }
+  }
+
+  return [
+    assessmentMethodsMandatoryInput(),
+    assessmentMethodsOptionalInput()
   ]
-
-  return MultipleEditDialogComponent.instance(
-    dialog,
-    callback,
-    columns,
-    'Prüfungsformen bearbeiten',
-    [
-      {
-        kind: 'options',
-        label: requiredLabel(columns[0].title),
-        attr: columns[0].attr,
-        disabled: false,
-        required: false,
-        data: assessmentMethods,
-        show: (a) => a.deLabel,
-      },
-      {
-        kind: 'number',
-        label: optionalLabel(columns[1].title),
-        attr: columns[1].attr,
-        disabled: false,
-        required: false
-      },
-      {
-        kind: 'options',
-        label: optionalLabel(columns[2].title),
-        attr: columns[2].attr,
-        disabled: false,
-        required: false,
-        data: assessmentMethods,
-        show: (a) => a.deLabel,
-      }
-    ],
-    entries
-  )
 }
