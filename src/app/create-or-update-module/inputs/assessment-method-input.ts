@@ -7,19 +7,51 @@ import { optionalLabel, requiredLabel } from '../create-or-update-module.compone
 
 // TODO apply döner pattern?
 
-export function assessmentMethodsInput(
+export function assessmentMethodsMandatoryInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
   currentEntries: (attr: string) => AssessmentMethodEntry[],
 ): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-  const attr = 'assessment-methods-mandatory'
+  return go(
+    dialog,
+    assessmentMethods,
+    currentEntries,
+    'Prüfungsformen für alle Pflicht Studiengänge',
+    'assessment-methods-mandatory',
+    true
+  )
+}
+
+export function assessmentMethodsOptionalInput(
+  dialog: MatDialog,
+  assessmentMethods: AssessmentMethod[],
+  currentEntries: (attr: string) => AssessmentMethodEntry[],
+): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+  return go(
+    dialog,
+    assessmentMethods,
+    currentEntries,
+    optionalLabel('Prüfungsformen für alle als WPF belegbare Studiengänge'),
+    'assessment-methods-optional',
+    false
+  )
+}
+
+function go(
+  dialog: MatDialog,
+  assessmentMethods: AssessmentMethod[],
+  currentEntries: (attr: string) => AssessmentMethodEntry[],
+  label: string,
+  attr: string,
+  required: boolean
+): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
   const entries = currentEntries(attr)
   return {
     kind: 'read-only',
-    label: 'Prüfungsformen',
+    label: label,
     attr: attr,
     disabled: false,
-    required: true,
+    required: required,
     options: assessmentMethods,
     show: (e) => assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???', // TODO maybe change everything to objects
     initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),

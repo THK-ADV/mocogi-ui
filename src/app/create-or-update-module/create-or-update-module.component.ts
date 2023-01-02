@@ -17,7 +17,7 @@ import {
   titleInput
 } from './inputs/simple-inputs'
 import { lecturerInput, moduleCoordinatorInput } from './inputs/responsibility-input'
-import { assessmentMethodsInput } from './inputs/assessment-method-input'
+import { assessmentMethodsMandatoryInput, assessmentMethodsOptionalInput } from './inputs/assessment-method-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -113,15 +113,24 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     ({
       header: 'Prüfungsformen',
       value: [
-        assessmentMethodsInput(
+        assessmentMethodsMandatoryInput(
           this.dialog,
           assessmentMethods,
-          attr => this.currentAssessmentMethodMandatorySelection(attr, metadata)
+          attr => this.currentMultipleSelectionValue(attr, metadata, m => m.assessmentMethods.mandatory)
+        ),
+        assessmentMethodsOptionalInput(
+          this.dialog,
+          assessmentMethods,
+          attr => this.currentMultipleSelectionValue(attr, metadata, m => m.assessmentMethods.optional)
         )
       ]
     })
 
-  private currentMultipleSelectionValue = <A>(attr: string, metadata: Metadata | undefined, fallback: (metadata: Metadata) => A[]): A[] => {
+  private currentMultipleSelectionValue = <A>(
+    attr: string,
+    metadata: Metadata | undefined,
+    fallback: (metadata: Metadata) => A[]
+  ): A[] => {
     const entries = this.editModuleComponent?.formControl(attr).value
     return Array.isArray(entries) ? entries.map(e => e.value) : (metadata ? fallback(metadata) : [])
   }
@@ -132,9 +141,6 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       metadata,
       m => allPersons.filter(p => m.lecturers.some(l => l === p.id))
     )
-
-  private currentAssessmentMethodMandatorySelection = (attr: string, metadata?: Metadata) =>
-    this.currentMultipleSelectionValue(attr, metadata, m => m.assessmentMethods.mandatory)
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()
