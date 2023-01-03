@@ -16,6 +16,7 @@ import { assessmentMethodInput, AssessmentMethodKind } from './assessment-method
 import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
+import { poInput } from './po-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -79,6 +80,19 @@ export function inputs(
     }
   }
 
+  function poSection() {
+    return {
+      header: 'Verwendung des Moduls in weiteren Studiengängen',
+      value: poInput(
+        dialog,
+        pos,
+        modules, // TODO generic modules only
+        attr => currentMultipleSelectionValue(attr, m => m.po.mandatory),
+        attr => currentMultipleSelectionValue(attr, m => m.po.optional),
+      )
+    }
+  }
+
   function currentMultipleSelectionValue<A>(
     attr: string,
     fallback: (metadata: Metadata) => A[]
@@ -119,10 +133,11 @@ export function inputs(
   }
 
   return [
-    generalInformationSection(),
-    responsibilitySection(),
-    assessmentMethodsSection(),
-    workloadSection(),
-    prerequisitesSection()
+    // generalInformationSection(),
+    // responsibilitySection(),
+    // assessmentMethodsSection(),
+    // workloadSection(),
+    // prerequisitesSection(),
+    poSection()
   ]
 }

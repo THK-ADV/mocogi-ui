@@ -38,7 +38,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       this.goBack()
     } else {
       this.sub = forkJoin([
-        this.http.getAllModules(),
+        this.http.allModules(),
         this.http.allCoreData(),
         this.id ? this.http.metadataById(this.id) : of(undefined)
       ]).subscribe(xs => {
@@ -69,7 +69,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   }
 
   toPOPreview = (pos: PO[], studyPrograms: StudyProgram[], grades: Grade[]): POPreview[] => {
-    const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`})
+    const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`, abbrev: '???'})
     return pos.map(po => {
       const sp = studyPrograms.find(s => s.abbrev === po.program)
       if (!sp) {
@@ -81,12 +81,11 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       }
       return {
         id: po.abbrev,
-        label: `${sp.deLabel} PO ${po.version} (${grade.deLabel})`
+        label: `${sp.deLabel} PO ${po.version} (${grade.deLabel})`,
+        abbrev: `${sp.abbrev} PO ${po.version} (${grade.deLabel})`
       }
     })
   }
-
-
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()

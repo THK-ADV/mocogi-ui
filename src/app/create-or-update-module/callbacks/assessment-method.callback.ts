@@ -4,6 +4,7 @@ import { arrayToObject } from '../../types/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
+import { validMandatoryObject, validOptionalNumber, validOptionalObject } from './callback-validation'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
   readonly all: { [id: string]: AssessmentMethod } = {}
@@ -27,12 +28,14 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.addOption(method)
+    component?.reset()
   }
 
   removeOptionFromOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<any>>): void {
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.removeOption(method)
+    component?.reset()
   }
 
   tableContent(tableEntry: AssessmentMethodEntry, attr: string): string {
@@ -78,16 +81,13 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
   }
 
   private validAssessmentMethod = (value: any) =>
-    value !== undefined &&
-    value !== '' &&
-    value !== null
+    validMandatoryObject(value)
 
   private validPercentage = (value: any) =>
-    value === undefined ||
-    (typeof value === 'string' && !isNaN(Number(value)))
+    validOptionalNumber(value)
 
   private validPrecondition = (value: any) =>
-    value === undefined || typeof value === 'object' || value === ''
+    validOptionalObject(value)
 
   private getPreconditionValue = (controls: { [p: string]: FormControl }) =>
     controls['precondition'].value as AssessmentMethod | undefined

@@ -37,6 +37,8 @@ import { ReadOnlyInputComponent } from './form/read-only-input/read-only-input.c
 import { AssessmentMethodDialogComponent } from './form/assessment-method-dialog/assessment-method-dialog.component'
 import { MatCardModule } from '@angular/material/card'
 import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multiple-edit-dialog.component'
+import { BooleanInputComponent } from './form/boolean-input/boolean-input.component'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 
 @NgModule({
@@ -54,7 +56,8 @@ import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multipl
     MultipleOptionsInputComponent,
     ReadOnlyInputComponent,
     AssessmentMethodDialogComponent,
-    MultipleEditDialogComponent
+    MultipleEditDialogComponent,
+    BooleanInputComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multipl
     MatAutocompleteModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

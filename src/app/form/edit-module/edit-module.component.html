@@ -23,6 +23,12 @@
           [input]="asReadOnly(i)"
           [formControl]="formControl(i.attr)">
         </sched-read-only-input>
+        <sched-boolean-input
+          *ngSwitchCase="'boolean'"
+          ngDefaultControl
+          [input]="asBoolean(i)"
+          [formControl]="formControl(i.attr)">
+        </sched-boolean-input>
         <sched-plain-input
           *ngSwitchDefault
           ngDefaultControl

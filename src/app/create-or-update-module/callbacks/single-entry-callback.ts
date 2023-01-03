@@ -3,6 +3,7 @@ import { arrayToObject } from '../../types/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
+import { validMandatoryObject } from './callback-validation'
 
 export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallback<A> {
   readonly id: (a: A) => string
@@ -32,12 +33,14 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
     const a = this.lookup(this.id(option))
     const component = components.find(a => a.input.attr === this.attr)
     a && component && component.addOption(a)
+    component?.reset()
   }
 
   removeOptionFromOptionsInputComponent(option: A, components: QueryList<OptionsInputComponent<any>>): void {
     const a = this.lookup(this.id(option))
     const component = components.find(a => a.input.attr === this.attr)
     a && component && component.removeOption(a)
+    component?.reset()
   }
 
   tableContent(tableEntry: A, attr: string): string {
@@ -67,9 +70,7 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
   }
 
   private validA = (value: any) =>
-    value !== undefined &&
-    value !== '' &&
-    value !== null
+    validMandatoryObject(value)
 
   private getAValue = (controls: { [p: string]: FormControl }) =>
     controls[this.attr].value as A

@@ -196,6 +196,7 @@ export interface PO {
 export interface POPreview {
   id: string
   label: string
+  abbrev: string
 }
 
 export interface Grade {
@@ -274,10 +275,10 @@ export class HttpService {
   constructor(private readonly http: HttpClient) {
   }
 
-  getAllModules = (): Observable<Module[]> =>
+  allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('metadata?preview=true')
 
-  getAllModulesForUser = (user: String): Observable<Module[]> =>
+  allModulesForUser = (user: String): Observable<Module[]> =>
     this.http.get<Module[]>(`metadata?user=${user}&preview=true`)
 
   metadataById = (id: string): Observable<Metadata> =>
@@ -307,8 +308,8 @@ export class HttpService {
   allStudyFormTypes = (): Observable<StudyFormType[]> =>
     this.http.get<StudyFormType[]>('studyFormTypes')
 
-  allPOs = (): Observable<PO[]> =>
-    this.http.get<PO[]>('pos').pipe(
+  allValidPOs = (): Observable<PO[]> =>
+    this.http.get<PO[]>('pos?valid=true').pipe(
       map(pos => pos.map(po => ({
         ...po,
         date: new Date(po.date),
@@ -351,7 +352,7 @@ export class HttpService {
       this.allSeasons(),
       this.allPersons(),
       this.allStudyFormTypes(),
-      this.allPOs(),
+      this.allValidPOs(),
       this.allGrades(),
       this.allFocusArea(),
       this.allFaculties(),

@@ -27,7 +27,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sub = this.http.getAllModulesForUser('cko')
+    this.sub = this.http.allModulesForUser('cko')
       .subscribe(xs => this.dataSource.data = xs)
   }
 

@@ -7,6 +7,8 @@ import { formControlForInput, FormInput, isOptionsInput } from '../form-input'
 import { NonEmptyArray } from '../../types/non-empty-array'
 import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
+import { BooleanInput } from '../boolean-input/boolean-input.component'
+import { KeyValue } from '@angular/common'
 
 export interface MultipleEditDialogComponentCallback<TableEntry> {
   filterInitialOptionsForComponent: (optionsInput: OptionsInput<any>) => any[]
@@ -111,10 +113,12 @@ export class MultipleEditDialogComponent<TableEntry> implements OnDestroy {
 
   add = () => {
     if (this.callback === undefined) {
+      console.log('callback is undefined')
       return
     }
     const alreadyExists = this.callback.tableEntryAlreadyExists(this.controls)
     if (this.dataSource.data.some(alreadyExists)) {
+      console.log('already exists', this.dataSource.data, this.controls)
       return
     }
     const tableEntry = this.callback.toTableEntry(this.controls)
@@ -145,11 +149,18 @@ export class MultipleEditDialogComponent<TableEntry> implements OnDestroy {
   asOptions = (i: [FormInput, FormControl]) =>
     i[0] as OptionsInput<any>
 
+  asBoolean = (i: [FormInput, FormControl]) =>
+    i[0] as BooleanInput
+
   getInputKind = (i: [FormInput, FormControl]): string =>
     i[0].kind
 
   getInputFormControl = (i: [FormInput, FormControl]): FormControl =>
     i[1]
+
+  originalOrder = (a: KeyValue<any, any>, b: KeyValue<any, any>): number => {
+    return 0
+  }
 
   private resetControls = () => {
     if (this.callback === undefined) {

@@ -3,7 +3,7 @@
 <div class="modalContainer">
   <mat-card [formGroup]="formGroup">
     <mat-card-content>
-      <ng-container *ngFor="let input of inputs | keyvalue">
+      <ng-container *ngFor="let input of inputs | keyvalue: originalOrder">
         <ng-container [ngSwitch]="getInputKind(input.value)">
           <sched-options-input
             #options
@@ -12,6 +12,12 @@
             [input]="asOptions(input.value)"
             [formControl]="getInputFormControl(input.value)">
           </sched-options-input>
+          <sched-boolean-input
+            *ngSwitchCase="'boolean'"
+            ngDefaultControl
+            [input]="asBoolean(input.value)"
+            [formControl]="getInputFormControl(input.value)">
+          </sched-boolean-input>
           <sched-plain-input
             *ngSwitchDefault
             ngDefaultControl
@@ -65,7 +71,9 @@
   </ng-container>
 
   <mat-dialog-actions>
-    <button type="button" mat-flat-button (click)="applyChanges()" color="primary" cdkFocusInitial>Änderungen Übernehmen</button>
+    <button type="button" mat-flat-button (click)="applyChanges()" color="primary" cdkFocusInitial>Änderungen
+      Übernehmen
+    </button>
     <button type="button" mat-flat-button (click)="cancel()">Schließen</button>
   </mat-dialog-actions>
 </div>

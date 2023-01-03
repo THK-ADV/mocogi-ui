@@ -35,7 +35,7 @@ export function assessmentMethodInput(
       disabled: false,
       required: kind === 'mandatory',
       options: assessmentMethods,
-      show: (e) => assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???', // TODO maybe change everything to objects
+      show: showAssessmentMethodEntry,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
       dialogInstance: () => dialogInstance(attr, kind)
     }
@@ -84,6 +84,11 @@ export function assessmentMethodInput(
       ],
       entries
     )
+  }
+
+  function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
+    // TODO maybe change everything to objects
+    return assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???'
   }
 
   function label(kind: AssessmentMethodKind): string {

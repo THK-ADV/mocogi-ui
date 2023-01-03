@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { ModuleCallback } from '../callbacks/module-callback'
 import { FormInput } from '../../form/form-input'
-import { PoCallback } from '../callbacks/po-callback'
+import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -113,7 +113,7 @@ export function prerequisitesInputs(
   function poDialogInstance(attr: string, kind: PrerequisitesKind) {
     const columns = [{attr: 'po', title: 'Studiengang mit PO'}]
     const entries = currentPOs(attr, kind)
-    const callback = new PoCallback(allPOs, entries, columns[0].attr, showPO)
+    const callback = new PrerequisitesPoCallback(allPOs, entries, columns[0].attr, showPO)
 
     return MultipleEditDialogComponent.instance(
       dialog,

@@ -3,6 +3,7 @@ import { formControlForPainInput, NumberInput, TextAreaInput, TextInput } from '
 import { formControlForOptionsInput, OptionsInput } from './options-input/options-input.component'
 import { formControlForMultipleOptionsInput, MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
 import { formControlForReadOnlyInput, ReadOnlyInput } from './read-only-input/read-only-input.component'
+import { BooleanInput, formControlForBooleanInput } from './boolean-input/boolean-input.component'
 
 // FormInput
 
@@ -18,6 +19,7 @@ export type FormInput =
   TextInput |
   NumberInput |
   TextAreaInput |
+  BooleanInput |
   OptionsInput<any> |
   MultipleOptionsInput<any> |
   ReadOnlyInput<any, any>
@@ -45,7 +47,8 @@ export function formControlForInput() {
     formControlForPainInput,
     formControlForOptionsInput,
     formControlForMultipleOptionsInput,
-    formControlForReadOnlyInput
+    formControlForReadOnlyInput,
+    formControlForBooleanInput
   ])
 }
 

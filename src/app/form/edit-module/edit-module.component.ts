@@ -5,6 +5,7 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { OptionsInput } from '../options-input/options-input.component'
 import { MultipleOptionsInput } from '../multiple-options-input/multiple-options-input.component'
 import { ReadOnlyInput } from '../read-only-input/read-only-input.component'
+import { BooleanInput } from '../boolean-input/boolean-input.component'
 
 export interface EditModulePayload {
   objectName: string
@@ -75,6 +76,9 @@ export class EditModuleComponent implements OnInit {
 
   asReadOnly = (i: FormInput) =>
     i as ReadOnlyInput<any, any>
+
+  asBoolean = (i: FormInput) =>
+    i as BooleanInput
 
   formControl = (attr: string) =>
     // @ts-ignore
