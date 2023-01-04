@@ -1,10 +1,12 @@
 import { MultipleEditDialogComponentCallback } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { AssessmentMethod, AssessmentMethodEntry } from '../../http/http.service'
-import { arrayToObject } from '../../types/array-to-object'
+import { arrayToObject } from '../../ops/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryObject, validOptionalNumber, validOptionalObject } from './callback-validation'
+import { mapOpt } from '../../ops/undefined-ops'
+import { showLabel } from '../../ops/show-instances'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
   readonly all: { [id: string]: AssessmentMethod } = {}
@@ -102,5 +104,5 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     this.all[method]
 
   private lookupLabel = (method: string): string =>
-    this.lookup(method)?.deLabel ?? '???'
+    mapOpt(this.lookup(method), showLabel) ?? '???'
 }

@@ -1,5 +1,5 @@
 import { MultipleEditDialogComponentCallback } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { arrayToObject } from '../../types/array-to-object'
+import { arrayToObject } from '../../ops/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'

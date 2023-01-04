@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { map, Observable, zip } from 'rxjs'
 
+export interface Label {
+  deLabel: string
+  enLabel: string
+}
+
 export interface Workload {
   lecture: number,
   seminar: number,

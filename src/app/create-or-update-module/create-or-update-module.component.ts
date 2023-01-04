@@ -6,6 +6,7 @@ import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
+import { showLabel } from '../ops/show-instances'
 
 @Component({
   selector: 'sched-create-or-update-module',
@@ -83,8 +84,8 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       }
       return {
         id: po.abbrev,
-        label: `${sp.deLabel} PO ${po.version} (${grade.deLabel})`,
-        abbrev: `${sp.abbrev} PO ${po.version} (${grade.deLabel})`
+        label: `${showLabel(sp)} PO ${po.version} (${showLabel(grade)})`,
+        abbrev: `${sp.abbrev} PO ${po.version} (${showLabel(grade)})`
       }
     })
   }

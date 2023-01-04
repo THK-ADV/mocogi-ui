@@ -1,12 +1,8 @@
-import { Language, Location, Metadata, ModuleType, Participants, Season, Status } from '../../http/http.service'
+import { Language, Location, Metadata, ModuleType, Season, Status } from '../../http/http.service'
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
-import { optionalLabel, requiredLabel } from './inputs'
-import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
-import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { PrerequisitesKind } from './prerequisites-input'
+import { showLabel } from '../../ops/show-instances'
 
 export function simpleInput(
   modulesTypes: ModuleType[],
@@ -46,7 +42,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: modulesTypes,
-      show: a => a.deLabel,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType))
     }
   }
@@ -71,7 +67,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: languages,
-      show: a => a.deLabel,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language))
     }
   }
@@ -96,7 +92,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: seasons,
-      show: a => a.deLabel,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season))
     }
   }
@@ -109,7 +105,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: locations,
-      show: a => a.deLabel,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location))
     }
   }
@@ -122,7 +118,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: status,
-      show: a => a.deLabel,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status))
     }
   }

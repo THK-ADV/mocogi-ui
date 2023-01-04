@@ -5,8 +5,8 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { MatDialog } from '@angular/material/dialog'
 import { optionalLabel, requiredLabel } from './inputs'
 import { FormInput } from '../../form/form-input'
-
-// TODO apply döner pattern?
+import { mapOpt } from '../../ops/undefined-ops'
+import { showLabel } from '../../ops/show-instances'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -63,7 +63,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: (a) => a.deLabel,
+          show: showLabel,
         },
         {
           kind: 'number',
@@ -79,16 +79,16 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: (a) => a.deLabel,
+          show: showLabel,
         }
       ],
       entries
     )
   }
 
+  // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
-    // TODO maybe change everything to objects
-    return assessmentMethods.find(a => a.abbrev === e.method)?.deLabel ?? '???'
+    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), showLabel) ?? '???'
   }
 
   function label(kind: AssessmentMethodKind): string {

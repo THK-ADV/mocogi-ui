@@ -7,6 +7,7 @@ import { CompetenceCallback } from '../callbacks/competence-callback'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { GlobalCriteriaCallback } from '../callbacks/global-criteria-callback'
 import { ModuleCallback } from '../callbacks/module-callback'
+import { showLabel, showModule } from '../../ops/show-instances'
 
 export function miscellaneousInput(
   dialog: MatDialog,
@@ -27,7 +28,7 @@ export function miscellaneousInput(
       disabled: false,
       required: false,
       options: competences,
-      show: showCompetence,
+      show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
       dialogInstance: () => competenceDialogInstance(attr)
     }
@@ -43,7 +44,7 @@ export function miscellaneousInput(
       disabled: false,
       required: false,
       options: globalCriteria,
-      show: showGlobalCriteria,
+      show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
       dialogInstance: () => globalCriteriaDialogInstance(attr)
     }
@@ -68,7 +69,7 @@ export function miscellaneousInput(
   function competenceDialogInstance(attr: string) {
     const columns = [{attr: 'competence', title: 'Kompetenzen'}]
     const entries = currentCompetences(attr)
-    const callback = new CompetenceCallback(competences, entries, columns[0].attr, showCompetence)
+    const callback = new CompetenceCallback(competences, entries, columns[0].attr, showLabel)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -83,7 +84,7 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: competences,
-          show: showCompetence,
+          show: showLabel,
         }
       ],
       entries
@@ -93,7 +94,7 @@ export function miscellaneousInput(
   function globalCriteriaDialogInstance(attr: string) {
     const columns = [{attr: 'global-criteria', title: 'Globale Kriterien'}]
     const entries = currentGlobalCriteria(attr)
-    const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, showGlobalCriteria)
+    const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, showLabel)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -108,7 +109,7 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: globalCriteria,
-          show: showGlobalCriteria,
+          show: showLabel,
         }
       ],
       entries
@@ -138,19 +139,6 @@ export function miscellaneousInput(
       ],
       entries
     )
-  }
-
-  function showCompetence(c: Competence): string {
-    return c.deLabel
-  }
-
-  // TODO refactor
-  function showGlobalCriteria(c: GlobalCriteria): string {
-    return c.deLabel
-  }
-
-  function showModule(m: Module): string {
-    return m.title
   }
 
   return [

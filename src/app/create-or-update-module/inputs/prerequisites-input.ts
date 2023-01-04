@@ -7,6 +7,7 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { ModuleCallback } from '../callbacks/module-callback'
 import { FormInput } from '../../form/form-input'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
+import { showModule } from '../../ops/show-instances'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -142,10 +143,6 @@ export function prerequisitesInputs(
       case 'recommended':
         return 'Empfohlene Voraussetzungen'
     }
-  }
-
-  function showModule(module: Module): string {
-    return module.title
   }
 
   function showPO(po: POPreview): string {
