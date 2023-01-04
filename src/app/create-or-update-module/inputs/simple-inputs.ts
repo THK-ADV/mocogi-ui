@@ -1,7 +1,12 @@
-import { Language, Location, Metadata, ModuleType, Season, Status } from '../../http/http.service'
+import { Language, Location, Metadata, ModuleType, Participants, Season, Status } from '../../http/http.service'
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
+import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
+import { optionalLabel, requiredLabel } from './inputs'
+import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
+import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
+import { PrerequisitesKind } from './prerequisites-input'
 
 export function simpleInput(
   modulesTypes: ModuleType[],

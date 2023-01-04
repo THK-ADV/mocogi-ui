@@ -43,7 +43,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         this.id ? this.http.metadataById(this.id) : of(undefined)
       ]).subscribe(xs => {
         const modules = xs[0]
-        const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, studyFormTypes, pos, grades, focusAreas, faculties, globalCriteria, studyPrograms] = xs[1]
+        const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, pos, grades, globalCriteria, studyPrograms, competences] = xs[1]
         const poPreviews = this.toPOPreview(pos, studyPrograms, grades)
         const metadata = xs[2]
         this.payload = {
@@ -59,6 +59,8 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
             persons,
             assessmentMethods,
             poPreviews,
+            competences,
+            globalCriteria,
             this.dialog,
             attr => this.editModuleComponent?.formControl(attr).value,
             metadata

@@ -1,5 +1,7 @@
 import {
   AssessmentMethod,
+  Competence,
+  GlobalCriteria,
   Language,
   Location,
   Metadata,
@@ -17,6 +19,7 @@ import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
 import { poInput } from './po-input'
+import { miscellaneousInput } from './miscellaneous-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -34,6 +37,8 @@ export function inputs(
   persons: Person[],
   assessmentMethods: AssessmentMethod[],
   pos: POPreview[],
+  competences: Competence[],
+  globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => any,
   metadata?: Metadata
@@ -93,6 +98,21 @@ export function inputs(
     }
   }
 
+  function miscellaneousSection() {
+    return {
+      header: 'Sonstige Informationen',
+      value: miscellaneousInput(
+        dialog,
+        competences,
+        modules,
+        globalCriteria,
+        currentCompetencesSelection,
+        currentGlobalCriteriaSelection,
+        currentTaughtWithSelection
+      )
+    }
+  }
+
   function currentMultipleSelectionValue<A>(
     attr: string,
     fallback: (metadata: Metadata) => A[]
@@ -132,12 +152,34 @@ export function inputs(
     )
   }
 
+  function currentCompetencesSelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => competences.filter(c => m.competences.some(x => x === c.abbrev))
+    )
+  }
+
+  function currentGlobalCriteriaSelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => globalCriteria.filter(g => m.globalCriteria.some(x => x === g.abbrev))
+    )
+  }
+
+  function currentTaughtWithSelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => modules.filter(mod => m.taughtWith.some(x => x === mod.id))
+    )
+  }
+
   return [
-    // generalInformationSection(),
+    //generalInformationSection(),
     // responsibilitySection(),
     // assessmentMethodsSection(),
     // workloadSection(),
     // prerequisitesSection(),
-    poSection()
+    // poSection(),
+    miscellaneousSection()
   ]
 }
