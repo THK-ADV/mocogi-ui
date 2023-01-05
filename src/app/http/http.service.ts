@@ -104,6 +104,8 @@ export interface Metadata {
   taughtWith: string[]
 }
 
+export type MetadataProtocol = Omit<Metadata, 'id'>
+
 export interface MetadataPreview {
   id: string
   title: string

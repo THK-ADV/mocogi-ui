@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
-import { Grade, HttpService, PO, POPreview, StudyProgram } from '../http/http.service'
-import { forkJoin, of, Subscription } from 'rxjs'
+import { Grade, HttpService, MetadataProtocol, PO, POPreview, StudyProgram } from '../http/http.service'
+import { forkJoin, from, of, Subscription } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
@@ -98,17 +98,60 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     this.location.back()
 
   onSubmit = (any: any) => {
-    const go = (array: any, depth: number) => {
-      for (const k in array) {
-        const v = array[k]
-        if (Array.isArray(v)) {
-          go(v, depth + 1)
-        } else {
-          const ws = ' '.repeat(depth * 3)
-          console.log(ws, k, v)
+    console.log(this.unwrap(any))
+  }
+
+  private unwrap = (any: any): MetadataProtocol => {
+    const fromArray = (any: any, key: string) =>
+      (any as Array<{ value: any }>).map(a => a.value[key])
+
+    return {
+      title: any['title'],
+      abbrev: any['abbreviation'],
+      moduleType: any['moduleType'].abbrev,
+      ects: any['ects'],
+      language: any['language'].abbrev,
+      duration: any['duration'],
+      season: any['season'].abbrev,
+      workload: {
+        lecture: any['workload-lecture'],
+        seminar: any['workload-seminar'],
+        practical: any['workload-practical'],
+        exercise: any['workload-exercise'],
+        projectSupervision: any['workload-projectSupervision'],
+        projectWork: any['workload-projectWork'],
+        selfStudy: 0, // TODO
+        total: 0 // TODO
+      },
+      status: any['status'].abbrev,
+      location: any['location'].abbrev,
+      participants: undefined, // TODO
+      moduleRelation: undefined, // TODO
+      moduleManagement: [any['moduleCoordinator'].id],
+      lecturers: fromArray(any['lecturer'], 'id'),
+      assessmentMethods: {
+        mandatory: fromArray(any['assessment-methods-mandatory'], 'method'),
+        optional: fromArray(any['assessment-methods-optional'], 'method')
+      },
+      prerequisites: {
+        recommended: {
+          text: any['recommended-prerequisites-text'],
+          pos: fromArray(any['recommended-prerequisites-po'], 'id'),
+          modules: fromArray(any['recommended-prerequisites-modules'], 'id'),
+        },
+        required: {
+          text: any['required-prerequisites-text'],
+          pos: fromArray(any['required-prerequisites-po'], 'id'),
+          modules: fromArray(any['required-prerequisites-modules'], 'id'),
         }
-      }
+      },
+      po: {
+        mandatory: fromArray(any['po-mandatory'], 'po'),
+        optional: fromArray(any['po-optional'], 'po')
+      },
+      competences: any['competences'],
+      globalCriteria: any['global-criteria'],
+      taughtWith: any['taught-with']
     }
-    go(any, 0)
   }
 }

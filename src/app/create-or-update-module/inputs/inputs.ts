@@ -174,12 +174,12 @@ export function inputs(
   }
 
   return [
-    //generalInformationSection(),
-    // responsibilitySection(),
-    // assessmentMethodsSection(),
-    // workloadSection(),
-    // prerequisitesSection(),
-    // poSection(),
+    generalInformationSection(),
+    responsibilitySection(),
+    assessmentMethodsSection(),
+    workloadSection(),
+    prerequisitesSection(),
+    poSection(),
     miscellaneousSection()
   ]
 }

@@ -31,7 +31,7 @@ export function workloadInput(metadata?: Metadata): FormInput[] {
     return {
       kind: 'number',
       label: label,
-      attr: `workload-${attr}'`,
+      attr: `workload-${attr}`,
       disabled: false,
       required: true,
       initialValue: initialValue ?? 0,
