@@ -7,6 +7,7 @@ import {
   Metadata,
   Module,
   ModuleType,
+  Participants,
   Person,
   POPreview,
   Season,
@@ -20,6 +21,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
 import { poInput } from './po-input'
 import { miscellaneousInput } from './miscellaneous-input'
+import { mapOpt } from '../../ops/undefined-ops'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -46,7 +48,16 @@ export function inputs(
   function generalInformationSection() {
     return {
       header: 'Allgemeine Informationen',
-      value: simpleInput(moduleTypes, languages, seasons, locations, status, metadata)
+      value: simpleInput(
+        dialog,
+        moduleTypes,
+        languages,
+        seasons,
+        locations,
+        status,
+        currentParticipants,
+        metadata
+      )
     }
   }
 
@@ -171,6 +182,11 @@ export function inputs(
       attr,
       m => modules.filter(mod => m.taughtWith.some(x => x === mod.id))
     )
+  }
+
+  function currentParticipants(attr: string): Participants | undefined {
+    const res = currentMultipleSelectionValue(attr, m => mapOpt(m.participants, a => [a]) ?? [])
+    return res.length === 0 ? undefined : res[0]
   }
 
   return [

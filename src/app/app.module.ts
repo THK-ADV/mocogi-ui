@@ -39,6 +39,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { BooleanInputComponent } from './form/boolean-input/boolean-input.component'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { ParticipantsComponent } from './form/participants/participants.component'
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     ReadOnlyInputComponent,
     AssessmentMethodDialogComponent,
     MultipleEditDialogComponent,
-    BooleanInputComponent
+    BooleanInputComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserModule,

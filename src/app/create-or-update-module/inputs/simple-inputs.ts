@@ -1,15 +1,22 @@
-import { Language, Location, Metadata, ModuleType, Season, Status } from '../../http/http.service'
+import { Language, Location, Metadata, ModuleType, Participants, Season, Status } from '../../http/http.service'
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel } from '../../ops/show-instances'
+import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
+import { optionalLabel } from './inputs'
+import { mapOpt } from '../../ops/undefined-ops'
+import { ParticipantsComponent } from '../../form/participants/participants.component'
+import { MatDialog } from '@angular/material/dialog'
 
 export function simpleInput(
+  dialog: MatDialog,
   modulesTypes: ModuleType[],
   languages: Language[],
   seasons: Season[],
   locations: Location[],
   status: Status[],
+  currentParticipants: (attr: string) => Participants | undefined,
   metadata?: Metadata
 ): FormInput[] {
   function titleInput(): TextInput {
@@ -123,6 +130,30 @@ export function simpleInput(
     }
   }
 
+  function participantsInput(): ReadOnlyInput<Participants, Participants> {
+    const attr = 'participants'
+    const entries = currentParticipants(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel('Teilnehmerbegrenzung'),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: [],
+      show: showParticipants,
+      initialValue: () => mapOpt(entries, a => [a]) ?? [],
+      dialogInstance: () => participantsDialogInstance(attr)
+    }
+  }
+
+  function participantsDialogInstance(attr: string) {
+    return ParticipantsComponent.instance(dialog, currentParticipants(attr))
+  }
+
+  function showParticipants(p: Participants): string {
+    return `${p.min} - ${p.max} Teilnehmer`
+  }
+
   return [
     titleInput(),
     abbreviationInput(),
@@ -133,5 +164,6 @@ export function simpleInput(
     frequencyInput(),
     locationsInput(),
     statusInput(),
+    participantsInput()
   ]
 }

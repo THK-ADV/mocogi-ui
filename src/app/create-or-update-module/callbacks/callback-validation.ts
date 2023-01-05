@@ -25,6 +25,13 @@ export function validMandatoryCommaSeparatedNumber(value: any): boolean {
     go(value)
 }
 
+export function validMandatoryNumber(value: any): boolean {
+  return value !== undefined &&
+    value !== '' &&
+    value !== null &&
+    !isNaN(Number(value))
+}
+
 // Optional
 
 export function validOptionalObject(value: any): boolean {
