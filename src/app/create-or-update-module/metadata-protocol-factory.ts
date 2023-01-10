@@ -1,13 +1,17 @@
-import { AssessmentMethods, MetadataProtocol, Participants, POs, Workload } from '../http/http.service'
+import { AssessmentMethods, MetadataProtocol, ModuleRelation, Participants, POs, Workload } from '../http/http.service'
 
 function fromArray(any: any, key: string) {
   return (any as Array<{ value: any }>).map(a => a.value[key])
 }
 
+function singleValue(any: any, property: string): any | undefined {
+  const res = (any[property] as Array<{ value: any }>).map(a => a.value)
+  return res.length === 0 ? undefined : res[0]
+}
+
 export function createMetadataProtocol(any: any): MetadataProtocol {
   function participants(): Participants | undefined {
-    const res = (any['participants'] as Array<{ value: any }>).map(a => a.value)
-    return res.length === 0 ? undefined : res[0]
+    return singleValue(any, 'participants')
   }
 
   function workload(): Workload {
@@ -52,6 +56,10 @@ export function createMetadataProtocol(any: any): MetadataProtocol {
     }
   }
 
+  function moduleRelation(): ModuleRelation | undefined {
+    return singleValue(any, 'module-relation')
+  }
+
   return {
     title: any['title'],
     abbrev: any['abbreviation'],
@@ -64,7 +72,7 @@ export function createMetadataProtocol(any: any): MetadataProtocol {
     status: any['status'].abbrev,
     location: any['location'].abbrev,
     participants: participants(),
-    moduleRelation: undefined, // TODO
+    moduleRelation: moduleRelation(),
     moduleManagement: [any['moduleCoordinator'].id],
     lecturers: fromArray(any['lecturer'], 'id'),
     assessmentMethods: assessmentMethods(),
