@@ -42,7 +42,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       this.sub = forkJoin([
         this.http.allModules(),
         this.http.allCoreData(),
-        this.id ? this.http.metadataById(this.id) : of(undefined)
+        this.id ? this.http.metadataById(this.id) : of(undefined) // TODO moduleCompendiumById
       ]).subscribe(xs => {
         const modules = xs[0]
         const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, pos, grades, globalCriteria, studyPrograms, competences] = xs[1]

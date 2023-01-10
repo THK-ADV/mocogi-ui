@@ -1,4 +1,47 @@
-import { AssessmentMethods, MetadataProtocol, ModuleRelation, Participants, POs, Workload } from '../http/http.service'
+import { AssessmentMethods, ModuleRelation, Participants, POs, PrerequisitesOutput } from '../http/http.service'
+
+export interface LearningOutcome {
+  what: string
+  whereby: string
+  wherefore: string
+}
+
+export interface WorkloadProtocol {
+  lecture: number,
+  seminar: number,
+  practical: number,
+  exercise: number,
+  projectSupervision: number,
+  projectWork: number
+}
+
+export interface ModuleCompendiumProtocol {
+  title: string,
+  abbrev: string,
+  moduleType: string,
+  ects: number,
+  language: string,
+  duration: number,
+  season: string,
+  workload: WorkloadProtocol,
+  status: string,
+  location: string,
+  participants?: Participants,
+  moduleRelation?: ModuleRelation,
+  moduleManagement: string[],
+  lecturers: string[],
+  assessmentMethods: AssessmentMethods,
+  prerequisites: PrerequisitesOutput,
+  po: POs,
+  competences: string[],
+  globalCriteria: string[],
+  taughtWith: string[],
+  learningOutcome: { de: LearningOutcome, en: LearningOutcome },
+  moduleContent: { de: string, en: string },
+  learningMethodsContent: { de: string, en: string },
+  literatureContent: { de: string, en: string },
+  particularitiesContent: { de: string, en: string },
+}
 
 function fromArray(any: any, key: string) {
   return (any as Array<{ value: any }>).map(a => a.value[key])
@@ -9,21 +52,19 @@ function singleValue(any: any, property: string): any | undefined {
   return res.length === 0 ? undefined : res[0]
 }
 
-export function createMetadataProtocol(any: any): MetadataProtocol {
+export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
   function participants(): Participants | undefined {
     return singleValue(any, 'participants')
   }
 
-  function workload(): Workload {
+  function workload(): WorkloadProtocol {
     return {
       lecture: any['workload-lecture'],
       seminar: any['workload-seminar'],
       practical: any['workload-practical'],
       exercise: any['workload-exercise'],
       projectSupervision: any['workload-projectSupervision'],
-      projectWork: any['workload-projectWork'],
-      selfStudy: 0, // TODO
-      total: 0 // TODO
+      projectWork: any['workload-projectWork']
     }
   }
 
@@ -60,6 +101,49 @@ export function createMetadataProtocol(any: any): MetadataProtocol {
     return singleValue(any, 'module-relation')
   }
 
+  function learningOutCome(): { de: LearningOutcome, en: LearningOutcome } {
+    return {
+      de: {
+        what: any['learning-outcome-content-what-de'],
+        whereby: any['learning-outcome-content-whereby-de'],
+        wherefore: any['learning-outcome-content-wherefore-de'],
+      },
+      en: {
+        what: any['learning-outcome-content-what-en'],
+        whereby: any['learning-outcome-content-whereby-en'],
+        wherefore: any['learning-outcome-content-wherefore-en'],
+      }
+    }
+  }
+
+  function moduleContent(): { de: string, en: string } {
+    return {
+      de: any['module-content-de'],
+      en: any['module-content-en']
+    }
+  }
+
+  function learningMethodsContent(): { de: string, en: string } {
+    return {
+      de: any['learning-methods-content-de'],
+      en: any['learning-methods-content-en']
+    }
+  }
+
+  function literatureContent(): { de: string, en: string } {
+    return {
+      de: any['literature-content-de'],
+      en: any['literature-content-en']
+    }
+  }
+
+  function particularitiesContent(): { de: string, en: string } {
+    return {
+      de: any['particularities-content-de'],
+      en: any['particularities-content-en']
+    }
+  }
+
   return {
     title: any['title'],
     abbrev: any['abbreviation'],
@@ -80,6 +164,11 @@ export function createMetadataProtocol(any: any): MetadataProtocol {
     po: po(),
     competences: any['competences'],
     globalCriteria: any['global-criteria'],
-    taughtWith: any['taught-with']
+    taughtWith: any['taught-with'],
+    learningOutcome: learningOutCome(),
+    moduleContent: moduleContent(),
+    learningMethodsContent: learningMethodsContent(),
+    literatureContent: literatureContent(),
+    particularitiesContent: particularitiesContent()
   }
 }

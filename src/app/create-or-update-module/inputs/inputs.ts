@@ -5,7 +5,8 @@ import {
   Language,
   Location,
   Metadata,
-  Module, ModuleRelation,
+  Module,
+  ModuleRelation,
   ModuleType,
   Participants,
   Person,
@@ -22,12 +23,19 @@ import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
 import { poInput } from './po-input'
 import { miscellaneousInput } from './miscellaneous-input'
 import { mapOpt } from '../../ops/undefined-ops'
+import { moduleContent } from './module-content-input'
+import { learningMethodsContent } from './learning-methods-content-input'
+import { literatureContent } from './literature-content-input'
+import { particularitiesContent } from './particularities-content-input'
+import { learningOutcomeContent } from './learning-outcome-content-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
 
 export const optionalLabel = (label: string): string =>
   label + ' (Optional)'
+
+export type Lang = 'de' | 'en'
 
 export function inputs(
   modules: Module[],
@@ -126,6 +134,41 @@ export function inputs(
     }
   }
 
+  function moduleContentSection() {
+    return {
+      header: 'Modulinhalte',
+      value: moduleContent()
+    }
+  }
+
+  function learningMethodsContentSection() {
+    return {
+      header: 'Lehr- und Lernmethoden',
+      value: learningMethodsContent()
+    }
+  }
+
+  function literatureContentSection() {
+    return {
+      header: 'Empfohlene Literatur',
+      value: literatureContent()
+    }
+  }
+
+  function particularitiesContentSection() {
+    return {
+      header: 'Besonderheiten',
+      value: particularitiesContent()
+    }
+  }
+
+  function learningOutcomeContentSection() {
+    return {
+      header: 'Angestrebte Lernergebnisse',
+      value: learningOutcomeContent()
+    }
+  }
+
   function currentMultipleSelectionValue<A>(
     attr: string,
     fallback: (metadata: Metadata) => A[]
@@ -203,6 +246,11 @@ export function inputs(
     workloadSection(),
     prerequisitesSection(),
     poSection(),
-    miscellaneousSection()
+    miscellaneousSection(),
+    learningOutcomeContentSection(),
+    moduleContentSection(),
+    learningMethodsContentSection(),
+    literatureContentSection(),
+    particularitiesContentSection()
   ]
 }
