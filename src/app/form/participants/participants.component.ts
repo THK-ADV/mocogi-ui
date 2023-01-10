@@ -11,6 +11,7 @@ import { validMandatoryNumber } from '../../create-or-update-module/callbacks/ca
   styleUrls: ['./participants.component.css']
 })
 export class ParticipantsComponent {
+  readonly headerTitle: string
   readonly formGroup: FormGroup
   readonly minInput: NumberInput
   readonly maxInput: NumberInput
@@ -19,6 +20,7 @@ export class ParticipantsComponent {
     private dialogRef: MatDialogRef<ParticipantsComponent, Participants[]>,
     @Inject(MAT_DIALOG_DATA) participants: Participants | undefined
   ) {
+    this.headerTitle = 'Teilnehmerbegrenzung bearbeiten'
     this.minInput = {
       kind: 'number',
       label: 'Min',

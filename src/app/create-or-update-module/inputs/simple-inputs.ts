@@ -1,4 +1,4 @@
-import { Language, Location, Metadata, ModuleType, Participants, Season, Status } from '../../http/http.service'
+import { Language, Location, Metadata, Module, ModuleRelation, ModuleType, Participants, Season, Status } from '../../http/http.service'
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
@@ -8,6 +8,7 @@ import { optionalLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
 import { ParticipantsComponent } from '../../form/participants/participants.component'
 import { MatDialog } from '@angular/material/dialog'
+import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -16,7 +17,9 @@ export function simpleInput(
   seasons: Season[],
   locations: Location[],
   status: Status[],
+  modules: Module[],
   currentParticipants: (attr: string) => Participants | undefined,
+  currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: Metadata
 ): FormInput[] {
   function titleInput(): TextInput {
@@ -154,6 +157,35 @@ export function simpleInput(
     return `${p.min} - ${p.max} Teilnehmer`
   }
 
+  function moduleRelationInput(): ReadOnlyInput<ModuleRelation, ModuleRelation> {
+    const attr = 'module-relation'
+    const entries = currentModuleRelation(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel('Modulbeziehung'),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: [],
+      show: showModuleRelation,
+      initialValue: () => mapOpt(entries, a => [a]) ?? [],
+      dialogInstance: () => moduleRelationDialogInstance(attr)
+    }
+  }
+
+  function showModuleRelation(m: ModuleRelation): string {
+    switch (m.kind) {
+      case 'parent':
+        return `Hat Submodule: ${m.children.map(a => a.abbrev).join(', ')}`
+      case 'child':
+        return `Gehört zum Modul: ${m.parent.abbrev}`
+    }
+  }
+
+  function moduleRelationDialogInstance(attr: string) {
+    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadata?.id)
+  }
+
   return [
     titleInput(),
     abbreviationInput(),
@@ -164,6 +196,7 @@ export function simpleInput(
     frequencyInput(),
     locationsInput(),
     statusInput(),
-    participantsInput()
+    participantsInput(),
+    moduleRelationInput()
   ]
 }

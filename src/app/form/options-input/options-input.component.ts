@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { FormInput, FormInputLike, mandatoryOptionsValidator, optionalOptionsValidator, optionsError, requiredError } from '../form-input'
 import { EMPTY, map, Observable, startWith, Subscription } from 'rxjs'
 import { FormControl, Validators } from '@angular/forms'
@@ -36,6 +36,7 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
 
   @Input() input!: OptionsInput<A>
   @Input() formControl!: FormControl
+  @Output() optionSelected = new EventEmitter<A>()
 
   options: A[] = []
   filteredOptions: Observable<A[]> = EMPTY

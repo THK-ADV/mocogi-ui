@@ -5,7 +5,7 @@ import {
   Language,
   Location,
   Metadata,
-  Module,
+  Module, ModuleRelation,
   ModuleType,
   Participants,
   Person,
@@ -55,7 +55,9 @@ export function inputs(
         seasons,
         locations,
         status,
+        modules,
         currentParticipants,
+        currentModuleRelation,
         metadata
       )
     }
@@ -186,6 +188,11 @@ export function inputs(
 
   function currentParticipants(attr: string): Participants | undefined {
     const res = currentMultipleSelectionValue(attr, m => mapOpt(m.participants, a => [a]) ?? [])
+    return res.length === 0 ? undefined : res[0]
+  }
+
+  function currentModuleRelation(attr: string): ModuleRelation | undefined {
+    const res = currentMultipleSelectionValue(attr, m => mapOpt(m.moduleRelation, a => [a]) ?? [])
     return res.length === 0 ? undefined : res[0]
   }
 

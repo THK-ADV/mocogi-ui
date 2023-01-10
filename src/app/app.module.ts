@@ -40,6 +40,8 @@ import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multipl
 import { BooleanInputComponent } from './form/boolean-input/boolean-input.component'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ParticipantsComponent } from './form/participants/participants.component'
+import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
+import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { ParticipantsComponent } from './form/participants/participants.componen
     AssessmentMethodDialogComponent,
     MultipleEditDialogComponent,
     BooleanInputComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    ModuleRelationComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
