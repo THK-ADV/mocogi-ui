@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { Module, ModulePreview, ModuleRelation } from '../../http/http.service'
+import { Module, ModuleRelation } from '../../http/http.service'
 import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
 import { showModule } from '../../ops/show-instances'
@@ -24,16 +24,16 @@ function showModuleRelationType(t: ModuleRelationType): string {
   }
 }
 
-function unknownModule(p: ModulePreview): Module {
-  return {id: p.id, abbrev: p.abbrev, title: '???'}
+function unknownModule(id: string): Module {
+  return {id: id, abbrev: '???', title: '???'}
 }
 
 function modulesOf(moduleRelation: ModuleRelation, modules: Module[]): Module[] {
   switch (moduleRelation.kind) {
     case 'parent':
-      return moduleRelation.children.map(p => modules.find(m => m.id === p.id) ?? unknownModule(p))
+      return moduleRelation.children.map(id => modules.find(m => m.id === id) ?? unknownModule(id))
     case 'child':
-      return [modules.find(m => m.id === moduleRelation.parent.id) ?? unknownModule(moduleRelation.parent)]
+      return [modules.find(m => m.id === moduleRelation.parent) ?? unknownModule(moduleRelation.parent)]
   }
 }
 
@@ -134,7 +134,7 @@ export class ModuleRelationComponent implements OnDestroy {
     if (!this.currentRelationType?.label) {
       return
     }
-    const modules = this.dataSource.data.map(d => ({id: d.id, abbrev: d.abbrev}))
+    const modules = this.dataSource.data.map(d => d.id)
     let res: ModuleRelation
     switch (this.currentRelationType?.label) {
       case 'parent':

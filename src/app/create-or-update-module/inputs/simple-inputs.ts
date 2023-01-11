@@ -176,9 +176,24 @@ export function simpleInput(
   function showModuleRelation(m: ModuleRelation): string {
     switch (m.kind) {
       case 'parent':
-        return `Hat Submodule: ${m.children.map(a => a.abbrev).join(', ')}`
+        let parent = `Hat Submodule: `
+        m.children.forEach((id, index) => {
+          const module = modules.find(m => m.id === id)
+          if (module) {
+            parent += module.abbrev
+            if (index !== m.children.length - 1) {
+              parent += ', '
+            }
+          }
+        })
+        return parent
       case 'child':
-        return `Gehört zum Modul: ${m.parent.abbrev}`
+        let child = 'Gehört zum Modul: '
+        const module = modules.find(m => m.id === m.id)
+        if (module) {
+          child += module.abbrev
+        }
+        return child
     }
   }
 

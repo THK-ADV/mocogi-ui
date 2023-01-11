@@ -23,19 +23,14 @@ export interface Participants {
   max: number
 }
 
-export interface ModulePreview {
-  id: string
-  abbrev: string
-}
-
 export interface Parent {
   kind: 'parent'
-  children: ModulePreview[]
+  children: string[]
 }
 
 export interface Child {
   kind: 'child'
-  parent: ModulePreview
+  parent: string
 }
 
 export type ModuleRelation = Parent | Child
@@ -281,10 +276,10 @@ export class HttpService {
   }
 
   allModules = (): Observable<Module[]> =>
-    this.http.get<Module[]>('metadata?preview=true')
+    this.http.get<Module[]>('modules')
 
   allModulesForUser = (user: String): Observable<Module[]> =>
-    this.http.get<Module[]>(`metadata?user=${user}&preview=true`)
+    this.http.get<Module[]>(`modules?user=${user}`)
 
   metadataById = (id: string): Observable<Metadata> =>
     this.http.get<Metadata>(`metadata/${id}`)
