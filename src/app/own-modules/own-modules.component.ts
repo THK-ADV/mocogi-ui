@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService, MetadataPreview } from '../http/http.service'
+import { HttpService } from '../http/http.service'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { TableHeaderColumn } from '../generic-ui/table-header-column'
+import { Module } from '../types/module'
 
 @Component({
   selector: 'sched-own-modules',
@@ -12,7 +13,7 @@ import { TableHeaderColumn } from '../generic-ui/table-header-column'
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 
-  dataSource: MatTableDataSource<MetadataPreview>
+  dataSource: MatTableDataSource<Module>
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
@@ -20,7 +21,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   sub?: Subscription
 
   constructor(private readonly http: HttpService, private readonly router: Router) {
-    this.dataSource = new MatTableDataSource<MetadataPreview>()
+    this.dataSource = new MatTableDataSource<Module>()
     this.columns = [{title: 'Name', attr: 'name'}]
     this.displayedColumns = this.columns.map(_ => _.attr)
     this.displayedColumns.push('action')
@@ -35,17 +36,17 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.sub?.unsubscribe()
   }
 
-  onEdit = (m: MetadataPreview) =>
+  onEdit = (m: Module) =>
     this.router.navigate(['/edit'], {state: {id: m.id}, queryParams: {action: 'update'}})
 
-  onSelect = (m: MetadataPreview) => {
+  onSelect = (m: Module) => {
 
   }
 
   onCreate = () =>
     this.router.navigate(['/edit'], {queryParams: {action: 'create'}})
 
-  tableContent = (m: MetadataPreview, attr: string): string => {
+  tableContent = (m: Module, attr: string): string => {
     switch (attr) {
       case 'name':
         return m.title

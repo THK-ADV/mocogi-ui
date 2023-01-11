@@ -1,11 +1,12 @@
 import { FormInput } from '../../form/form-input'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
-import { Module, POMandatory, POOptional, POPreview } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { optionalLabel, requiredLabel } from './inputs'
 import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
 import { PoOptionalCallback } from '../callbacks/po-optional-callback'
+import { POMandatory, POOptional, POPreview } from '../../types/pos'
+import { Module } from '../../types/module'
 
 export function poInput(
   dialog: MatDialog,

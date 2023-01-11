@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { Module, ModuleRelation } from '../../http/http.service'
 import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
 import { showModule } from '../../ops/show-instances'
@@ -10,6 +9,8 @@ import { validMandatoryObject } from '../../create-or-update-module/callbacks/ca
 import { mapOpt } from '../../ops/undefined-ops'
 import { ConfirmationDialogComponent } from '../../generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { Subscription } from 'rxjs'
+import { ModuleRelation } from '../../types/module-relation'
+import { Module } from '../../types/module'
 
 interface ModuleRelationType {
   label: 'parent' | 'child'

@@ -1,4 +1,3 @@
-import { Metadata, Module, POPreview } from '../../http/http.service'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { optionalLabel, requiredLabel } from './inputs'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
@@ -8,6 +7,9 @@ import { ModuleCallback } from '../callbacks/module-callback'
 import { FormInput } from '../../form/form-input'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 import { showModule } from '../../ops/show-instances'
+import { Metadata } from '../../types/metadata'
+import { POPreview } from '../../types/pos'
+import { Module } from '../../types/module'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 

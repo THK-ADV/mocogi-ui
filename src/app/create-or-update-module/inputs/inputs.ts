@@ -1,19 +1,3 @@
-import {
-  AssessmentMethod,
-  Competence,
-  GlobalCriteria,
-  Language,
-  Location,
-  Metadata,
-  Module,
-  ModuleRelation,
-  ModuleType,
-  Participants,
-  Person,
-  POPreview,
-  Season,
-  Status
-} from '../../http/http.service'
 import { simpleInput } from './simple-inputs'
 import { responsibilityInput } from './responsibility-input'
 import { assessmentMethodInput, AssessmentMethodKind } from './assessment-method-input'
@@ -28,6 +12,20 @@ import { learningMethodsContent } from './learning-methods-content-input'
 import { literatureContent } from './literature-content-input'
 import { particularitiesContent } from './particularities-content-input'
 import { learningOutcomeContent } from './learning-outcome-content-input'
+import { Participants } from '../../types/participants'
+import { ModuleRelation } from '../../types/module-relation'
+import { Metadata } from '../../types/metadata'
+import { Location } from '../../types/core/location'
+import { Language } from '../../types/core/language'
+import { Status } from '../../types/core/status'
+import { AssessmentMethod } from '../../types/core/assessment-method'
+import { ModuleType } from '../../types/core/module-type'
+import { Season } from '../../types/core/season'
+import { Person } from '../../types/core/person'
+import { POPreview } from '../../types/pos'
+import { GlobalCriteria } from '../../types/core/global-criteria'
+import { Competence } from '../../types/core/competence'
+import { Module } from '../../types/module'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'

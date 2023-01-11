@@ -1,4 +1,3 @@
-import { AssessmentMethod, AssessmentMethodEntry } from '../../http/http.service'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { AssessmentMethodCallback } from '../callbacks/assessment-method.callback'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
@@ -7,6 +6,8 @@ import { optionalLabel, requiredLabel } from './inputs'
 import { FormInput } from '../../form/form-input'
 import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
+import { AssessmentMethodEntry } from '../../types/assessment-methods'
+import { AssessmentMethod } from '../../types/core/assessment-method'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 

@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForPainInput, NumberInput } from '../plain-input/plain-input.component'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { Participants } from '../../http/http.service'
 import { validMandatoryNumber } from '../../create-or-update-module/callbacks/callback-validation'
+import { Participants } from '../../types/participants'
 
 @Component({
   selector: 'sched-participants',

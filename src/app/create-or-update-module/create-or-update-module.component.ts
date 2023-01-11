@@ -1,13 +1,17 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
-import { Grade, HttpService, PO, POPreview, StudyProgram } from '../http/http.service'
+import { HttpService } from '../http/http.service'
 import { forkJoin, of, Subscription } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
 import { showLabel } from '../ops/show-instances'
 import { createMetadataProtocol } from './metadata-protocol-factory'
+import { POPreview } from '../types/pos'
+import { PO } from '../types/core/po'
+import { Grade } from '../types/core/grade'
+import { StudyProgram } from '../types/core/study-program'
 
 @Component({
   selector: 'sched-create-or-update-module',

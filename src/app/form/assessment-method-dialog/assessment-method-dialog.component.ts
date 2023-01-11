@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { FormControl, FormGroup } from '@angular/forms'
-import { AssessmentMethod, AssessmentMethodEntry } from '../../http/http.service'
 import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
 import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
 import { formControlForPainInput, NumberInput } from '../plain-input/plain-input.component'
 import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
+import { AssessmentMethodEntry } from '../../types/assessment-methods'
+import { AssessmentMethod } from '../../types/core/assessment-method'
 
 export interface TableContent {
   entry: AssessmentMethodEntry

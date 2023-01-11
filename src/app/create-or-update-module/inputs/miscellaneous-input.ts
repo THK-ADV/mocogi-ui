@@ -1,5 +1,4 @@
 import { FormInput } from '../../form/form-input'
-import { Competence, GlobalCriteria, Module } from '../../http/http.service'
 import { optionalLabel, requiredLabel } from './inputs'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -8,6 +7,9 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { GlobalCriteriaCallback } from '../callbacks/global-criteria-callback'
 import { ModuleCallback } from '../callbacks/module-callback'
 import { showLabel, showModule } from '../../ops/show-instances'
+import { GlobalCriteria } from '../../types/core/global-criteria'
+import { Competence } from '../../types/core/competence'
+import { Module } from '../../types/module'
 
 export function miscellaneousInput(
   dialog: MatDialog,

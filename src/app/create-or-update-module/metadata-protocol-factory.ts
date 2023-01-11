@@ -1,4 +1,8 @@
-import { AssessmentMethods, ModuleRelation, Participants, POs, PrerequisitesOutput } from '../http/http.service'
+import { Participants } from '../types/participants'
+import { ModuleRelation } from '../types/module-relation'
+import { AssessmentMethods } from '../types/assessment-methods'
+import { PrerequisitesOutput } from '../types/prerequisites'
+import { POs } from '../types/pos'
 
 export interface LearningOutcome {
   what: string

@@ -1,6 +1,6 @@
-import { Metadata } from '../../http/http.service'
 import { NumberInput } from '../../form/plain-input/plain-input.component'
 import { FormInput } from '../../form/form-input'
+import { Metadata } from '../../types/metadata'
 
 export function workloadInput(metadata?: Metadata): FormInput[] {
   function lectureInput(): NumberInput {

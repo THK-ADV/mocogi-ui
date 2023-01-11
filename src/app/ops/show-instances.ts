@@ -1,4 +1,5 @@
-import { Label, Module } from '../http/http.service'
+import { Label } from '../types/core/label'
+import { Module } from '../types/module'
 
 export function showLabel(label: Label): string {
   return label.deLabel

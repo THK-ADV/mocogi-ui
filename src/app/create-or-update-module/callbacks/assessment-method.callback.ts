@@ -1,5 +1,4 @@
 import { MultipleEditDialogComponentCallback } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { AssessmentMethod, AssessmentMethodEntry } from '../../http/http.service'
 import { arrayToObject } from '../../ops/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
@@ -7,6 +6,8 @@ import { FormControl } from '@angular/forms'
 import { validMandatoryObject, validOptionalNumber, validOptionalObject } from './callback-validation'
 import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
+import { AssessmentMethodEntry } from '../../types/assessment-methods'
+import { AssessmentMethod } from '../../types/core/assessment-method'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
   readonly all: { [id: string]: AssessmentMethod } = {}

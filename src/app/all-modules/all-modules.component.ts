@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService, MetadataPreview } from '../http/http.service'
+import { HttpService } from '../http/http.service'
 import { Subscription } from 'rxjs'
+import { Module } from '../types/module'
 
 @Component({
   selector: 'sched-all-modules',
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs'
 })
 export class AllModulesComponent implements OnInit, OnDestroy {
 
-  metadata: MetadataPreview[] = []
+  modules: Module[] = []
   sub?: Subscription
 
   constructor(private readonly service: HttpService) {
@@ -17,13 +18,13 @@ export class AllModulesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.service.allModules()
-      .subscribe(xs => this.metadata = xs)
+      .subscribe(xs => this.modules = xs)
   }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe()
   }
 
-  urlFor = (m: MetadataPreview): string => '/public/' + m.id + '.html'
+  urlFor = (m: Module): string => '/public/' + m.id + '.html'
 
 }

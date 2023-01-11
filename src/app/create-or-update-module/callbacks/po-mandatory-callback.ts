@@ -1,11 +1,11 @@
 import { MultipleEditDialogComponentCallback } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { POMandatory, POPreview } from '../../http/http.service'
 import { arrayToObject } from '../../ops/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryCommaSeparatedNumber, validMandatoryObject, validOptionalCommaSeparatedNumber } from './callback-validation'
 import { foldOpt } from '../../ops/undefined-ops'
+import { POMandatory, POPreview } from '../../types/pos'
 
 export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<POMandatory> {
   readonly all: { [id: string]: POPreview } = {}

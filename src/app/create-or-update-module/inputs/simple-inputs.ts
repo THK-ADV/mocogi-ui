@@ -1,4 +1,3 @@
-import { Language, Location, Metadata, Module, ModuleRelation, ModuleType, Participants, Season, Status } from '../../http/http.service'
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
@@ -9,6 +8,15 @@ import { mapOpt } from '../../ops/undefined-ops'
 import { ParticipantsComponent } from '../../form/participants/participants.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
+import { Participants } from '../../types/participants'
+import { ModuleRelation } from '../../types/module-relation'
+import { Metadata } from '../../types/metadata'
+import { Location } from '../../types/core/location'
+import { Language } from '../../types/core/language'
+import { Status } from '../../types/core/status'
+import { ModuleType } from '../../types/core/module-type'
+import { Season } from '../../types/core/season'
+import { Module } from '../../types/module'
 
 export function simpleInput(
   dialog: MatDialog,

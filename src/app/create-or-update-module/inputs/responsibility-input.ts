@@ -1,4 +1,3 @@
-import { Metadata, Person } from '../../http/http.service'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
@@ -6,6 +5,8 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { FormInput } from '../../form/form-input'
+import { Metadata } from '../../types/metadata'
+import { Person } from '../../types/core/person'
 
 export function responsibilityInput(
   dialog: MatDialog,
