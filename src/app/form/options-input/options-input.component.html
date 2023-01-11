@@ -1,0 +1,18 @@
+<mat-form-field class="container-fluid" appearance="fill">
+  <mat-label>{{input.label}}</mat-label>
+  <input matInput
+         type="text"
+         [placeholder]='input.label'
+         [formControl]="formControl"
+         [matAutocomplete]="auto">
+  <mat-autocomplete autoActiveFirstOption
+                    #auto="matAutocomplete"
+                    (optionSelected)="optionSelected.emit($event.option.value)"
+                    [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async"
+                [value]="option">
+      {{displayFn(option)}}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>

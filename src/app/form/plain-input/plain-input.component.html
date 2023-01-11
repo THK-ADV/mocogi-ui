@@ -1,0 +1,17 @@
+<mat-form-field class="container-fluid" appearance="fill">
+  <mat-label>{{input.label}}</mat-label>
+  <ng-container *ngIf="isTextArea(); else noTextArea">
+    <textarea matInput
+              [placeholder]="input.label"
+              [type]="input.kind"
+              [formControl]="formControl">
+    </textarea>
+  </ng-container>
+  <ng-template #noTextArea>
+    <input matInput
+           [placeholder]="input.label"
+           [type]="input.kind"
+           [formControl]="formControl">
+  </ng-template>
+  <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
