@@ -7,7 +7,7 @@ import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
 import { showLabel } from '../ops/show-instances'
-import { createMetadataProtocol } from './metadata-protocol-factory'
+import { createMetadataProtocol, ModuleCompendiumProtocol } from './metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
 import { Grade } from '../types/core/grade'
@@ -25,8 +25,10 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   payload?: EditModulePayload
 
   private readonly id?: string
-  private readonly action: string | null
-  private sub?: Subscription
+  private readonly action!: string
+  private readonly branch!: string
+  private readonly moduleCompendium?: ModuleCompendiumProtocol
+  private subs: Subscription[] = []
 
   constructor(
     private route: ActivatedRoute,
@@ -35,15 +37,18 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     private http: HttpService,
     private dialog: MatDialog
   ) {
+    this.action = this.route.snapshot.queryParamMap.get('action')!
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
-    this.action = this.route.snapshot.queryParamMap.get('action')
+    this.branch = this.router.getCurrentNavigation()?.extras?.state?.['branch']
+    this.moduleCompendium = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
+    console.log(this.moduleCompendium)
   }
 
   ngOnInit(): void {
     if (this.action === 'update' && this.id === undefined) {
       this.goBack()
     } else {
-      this.sub = forkJoin([
+      const sub = forkJoin([
         this.http.allModules(),
         this.http.allCoreData(),
         this.id ? this.http.metadataById(this.id) : of(undefined) // TODO moduleCompendiumById
@@ -73,6 +78,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
           )
         }
       })
+      this.subs.push(sub)
     }
   }
 
@@ -96,13 +102,18 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe()
+    this.subs.forEach(s => s.unsubscribe())
   }
 
   goBack = (): void =>
     this.location.back()
 
   onSubmit = (any: any) => {
-    console.log(createMetadataProtocol(any))
+    const mc = createMetadataProtocol(any)
+    const status = this.action === 'update' ? 'modified' : 'added'
+    this.subs.push(
+      this.http.addToDrafts(this.branch, mc, status, this.id)
+        .subscribe(res => console.log(res))
+    )
   }
 }

@@ -18,6 +18,9 @@ import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
+import { UserBranch } from '../types/user-branch'
+import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
+import { ModuleCompendiumProtocol } from '../create-or-update-module/metadata-protocol-factory'
 
 @Injectable({
   providedIn: 'root'
@@ -110,4 +113,40 @@ export class HttpService {
       this.allStudyPrograms(),
       this.allCompetences(),
     )
+
+  branchForUser = (username: string): Observable<UserBranch | undefined> =>
+    this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
+      map(b => b ? b : undefined)
+    )
+
+  createBranch = (username: string): Observable<UserBranch> =>
+    this.http.post<UserBranch>(`git/branch`, {'username': username})
+
+
+  moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
+    this.http.get<ModuleDraft[]>(`moduleDrafts/${branch}`).pipe(
+      map(xs => xs.map(this.convertModuleDraft))
+    )
+
+  addToDrafts = (
+    branch: string,
+    mc: ModuleCompendiumProtocol,
+    status: ModuleDraftStatus,
+    id: string | undefined
+  ): Observable<ModuleDraft> => {
+    const body = {
+      data: JSON.stringify(mc),
+      branch: branch,
+      status: status
+    }
+    const request = id
+      ? this.http.put<ModuleDraft>(`moduleDrafts/${id}`, body)
+      : this.http.post<ModuleDraft>('moduleDrafts', body)
+
+    return request.pipe(map(this.convertModuleDraft))
+  }
+
+  private convertModuleDraft = (draft: ModuleDraft): ModuleDraft =>
+    // @ts-ignore
+    ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
 }
