@@ -35,13 +35,12 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: AngularLocation,
     private http: HttpService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.action = this.route.snapshot.queryParamMap.get('action')!
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
     this.branch = this.router.getCurrentNavigation()?.extras?.state?.['branch']
     this.moduleCompendium = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
-    console.log(this.moduleCompendium)
   }
 
   ngOnInit(): void {
@@ -57,8 +56,6 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, pos, grades, globalCriteria, studyPrograms, competences] = xs[1]
         const poPreviews = this.toPOPreview(pos, studyPrograms, grades)
         const moduleCompendium = xs[2]
-        console.log(moduleCompendium?.deContent)
-        console.log(moduleCompendium?.enContent)
         this.payload = {
           objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
@@ -115,7 +112,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     const status = this.action === 'update' ? 'modified' : 'added'
     this.subs.push(
       this.http.addToDrafts(this.branch, mc, status, this.id)
-        .subscribe(res => console.log(res))
+        .subscribe(draft => console.log(draft))
     )
   }
 }

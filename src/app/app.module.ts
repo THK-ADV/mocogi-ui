@@ -41,7 +41,8 @@ import { BooleanInputComponent } from './form/boolean-input/boolean-input.compon
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ParticipantsComponent } from './form/participants/participants.component'
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
-import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
+import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
     BooleanInputComponent,
     ParticipantsComponent,
     ModuleRelationComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

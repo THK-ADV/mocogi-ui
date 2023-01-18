@@ -20,6 +20,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
+  validateChangesTitle = 'Alle Änderungen prüfen'
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
@@ -27,7 +28,10 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   private subs: Subscription[] = []
 
-  constructor(private readonly http: HttpService, private readonly router: Router) {
+  constructor(
+    private readonly http: HttpService,
+    private readonly router: Router,
+  ) {
     this.dataSource = new MatTableDataSource<Module>()
     this.columns = [{title: 'Name', attr: 'name'}]
     this.displayedColumns = this.columns.map(_ => _.attr)
@@ -35,19 +39,28 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('OwnModulesComponent OnInit')
     this.subs.push(
       this.http.allModulesForUser('cko')
-        .subscribe(xs => this.dataSource.data = xs),
+        .subscribe(xs => {
+          console.log('allModulesForUser')
+          this.dataSource.data = xs
+        }),
       this.http.branchForUser(this.username)
-        .subscribe(branch => this.branch = either(
-          branch !== undefined,
-          () => branch!,
-          () => undefined)
+        .subscribe(branch => {
+            console.log('branchForUser')
+            this.branch = either(
+              branch !== undefined,
+              () => branch!,
+              () => undefined
+            )
+          }
         )
     )
   }
 
   ngOnDestroy() {
+    console.log('OwnModulesComponent OnDestroy')
     this.subs.forEach(s => s.unsubscribe())
   }
 
@@ -81,6 +94,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Module Drafts
 
   getModelsDrafts = (branch: string) => {
+    console.log('OwnModulesComponent getModelsDrafts')
     this.subs.push(
       this.http.moduleDrafts(branch)
         .subscribe(drafts => this.moduleDrafts = drafts)
@@ -110,6 +124,12 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   onCreate = () =>
     this.router.navigate(['/edit'], {queryParams: {action: 'create'}})
+
+  // Validation
+
+  validateAllChanges = () => {
+
+  }
 
   // Table
 

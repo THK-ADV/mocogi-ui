@@ -40,7 +40,7 @@
     </table>
   </div>
 
-  <ng-container *ngIf="branch && !editMode">
+  <ng-container *ngIf="branch && !editMode; else noEdit">
     <button mat-flat-button
             [color]="'accent'"
             (click)="editBranch(branch)"
@@ -50,4 +50,13 @@
       <mat-icon>edit</mat-icon>
     </button>
   </ng-container>
+  <ng-template #noEdit>
+    <button mat-flat-button
+            [color]="'primary'"
+            (click)="validateAllChanges()"
+            [matTooltip]="validateChangesTitle"
+            matTooltipPosition="below">
+      {{validateChangesTitle}}
+    </button>
+  </ng-template>
 </div>
