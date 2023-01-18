@@ -1,8 +1,9 @@
 import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
+import { Content } from '../../types/content'
 
-export function learningOutcomeContent(): FormInput[] {
+export function learningOutcomeContent(deContent?: Content, enContent?: Content): FormInput[] {
   function go(lang: Lang): TextAreaInput[] {
     return [
       {

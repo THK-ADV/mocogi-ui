@@ -26,6 +26,7 @@ import { POPreview } from '../../types/pos'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
+import { ModuleCompendium } from '../../types/module-compendium'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -49,8 +50,10 @@ export function inputs(
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => any,
-  metadata?: Metadata
+  moduleCompendium?: ModuleCompendium
 ) {
+  const metadata = moduleCompendium?.metadata
+
   function generalInformationSection() {
     return {
       header: 'Allgemeine Informationen',
@@ -132,38 +135,38 @@ export function inputs(
     }
   }
 
+  function learningOutcomeContentSection() {
+    return {
+      header: 'Angestrebte Lernergebnisse',
+      value: learningOutcomeContent(moduleCompendium?.deContent, moduleCompendium?.enContent)
+    }
+  }
+
   function moduleContentSection() {
     return {
       header: 'Modulinhalte',
-      value: moduleContent()
+      value: moduleContent(moduleCompendium?.deContent, moduleCompendium?.enContent)
     }
   }
 
   function learningMethodsContentSection() {
     return {
       header: 'Lehr- und Lernmethoden',
-      value: learningMethodsContent()
+      value: learningMethodsContent(moduleCompendium?.deContent, moduleCompendium?.enContent)
     }
   }
 
   function literatureContentSection() {
     return {
       header: 'Empfohlene Literatur',
-      value: literatureContent()
+      value: literatureContent(moduleCompendium?.deContent, moduleCompendium?.enContent)
     }
   }
 
   function particularitiesContentSection() {
     return {
       header: 'Besonderheiten',
-      value: particularitiesContent()
-    }
-  }
-
-  function learningOutcomeContentSection() {
-    return {
-      header: 'Angestrebte Lernergebnisse',
-      value: learningOutcomeContent()
+      value: particularitiesContent(moduleCompendium?.deContent, moduleCompendium?.enContent)
     }
   }
 

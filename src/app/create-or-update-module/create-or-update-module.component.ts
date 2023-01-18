@@ -51,14 +51,16 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       const sub = forkJoin([
         this.http.allModules(),
         this.http.allCoreData(),
-        this.id ? this.http.metadataById(this.id) : of(undefined) // TODO moduleCompendiumById
+        this.id ? this.http.moduleCompendiumById(this.id) : of(undefined)
       ]).subscribe(xs => {
         const modules = xs[0]
         const [locations, languages, status, assessmentMethods, moduleTypes, seasons, persons, pos, grades, globalCriteria, studyPrograms, competences] = xs[1]
         const poPreviews = this.toPOPreview(pos, studyPrograms, grades)
-        const metadata = xs[2]
+        const moduleCompendium = xs[2]
+        console.log(moduleCompendium?.deContent)
+        console.log(moduleCompendium?.enContent)
         this.payload = {
-          objectName: metadata?.title ?? 'Neues Modul',
+          objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
           editType: this.action == 'create' ? 'create' : 'update',
           inputs: inputs(
             modules,
@@ -74,7 +76,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
             globalCriteria,
             this.dialog,
             attr => this.editModuleComponent?.formControl(attr).value,
-            metadata
+            moduleCompendium
           )
         }
       })

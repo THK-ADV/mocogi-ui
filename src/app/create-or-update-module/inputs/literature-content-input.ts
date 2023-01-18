@@ -1,15 +1,17 @@
 import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
+import { Content } from '../../types/content'
 
-export function literatureContent(): FormInput[] {
+export function literatureContent(deContent?: Content, enContent?: Content): FormInput[] {
   function go(lang: Lang): TextAreaInput {
     return {
       kind: 'text-area',
       label: label(lang),
       attr: `literature-content-${lang}`,
       disabled: false,
-      required: false
+      required: false,
+      initialValue: body(lang)
     }
   }
 
@@ -19,6 +21,15 @@ export function literatureContent(): FormInput[] {
         return 'Empfohlene Literatur (deutsch)'
       case 'en':
         return 'Recommended Reading (english)'
+    }
+  }
+
+  function body(lang: Lang) {
+    switch (lang) {
+      case 'de':
+        return deContent?.recommendedReadingBody ?? ''
+      case 'en':
+        return enContent?.recommendedReadingBody ?? ''
     }
   }
 

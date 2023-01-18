@@ -21,6 +21,7 @@ import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendiumProtocol } from '../create-or-update-module/metadata-protocol-factory'
+import { ModuleCompendium } from '../types/module-compendium'
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,8 @@ export class HttpService {
   allModulesForUser = (user: String): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
 
-  metadataById = (id: string): Observable<Metadata> =>
-    this.http.get<Metadata>(`metadata/${id}`)
+  moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
 
   allLocations = (): Observable<Location[]> =>
     this.http.get<Location[]>('locations')
