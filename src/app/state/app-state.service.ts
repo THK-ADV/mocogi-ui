@@ -6,23 +6,51 @@ import { UserBranch } from '../types/user-branch'
 import { either, Either } from '../types/either'
 import { ModuleDraft } from '../types/module-draft'
 
+interface State<A> {
+  value: A
+  subject: Subject<A>
+}
+
+function createState<A>(initialState: A): State<A> {
+  return {value: initialState, subject: new Subject<A>()}
+}
+
+function asObservable<A>(state: State<A>): Observable<A> {
+  return state.subject.asObservable()
+}
+
+function emitCurrentValue<A>(state: State<A>) {
+  state.subject.next(state.value)
+}
+
+function updateArrayState<A>(state: State<A>, updateState: () => Observable<A>): Subscription | undefined {
+  if (Array.isArray(state.value)) {
+    if (state.value.length !== 0) {
+      emitCurrentValue(state)
+      return undefined
+    } else {
+      return updateState().subscribe(a => {
+        state.value = a
+        emitCurrentValue(state)
+      })
+    }
+  } else {
+    throw new Error('unable to handle type of ' + state)
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AppStateService implements OnDestroy {
   private subs: Subscription[] = []
 
-  private usersModules: ReadonlyArray<Module> = []
-  private usersModulesSubject = new Subject<ReadonlyArray<Module>>()
+  private usersModules = createState<ReadonlyArray<Module>>([])
+  private moduleDrafts = createState<ReadonlyArray<ModuleDraft>>([])
+  private editMode = createState(false)
 
   private userBranch?: Either<undefined, UserBranch>
   private userBranchSubject = new Subject<Either<undefined, UserBranch>>()
-
-  private moduleDrafts: ReadonlyArray<ModuleDraft> = []
-  private moduleDraftsSubject = new Subject<ReadonlyArray<ModuleDraft>>()
-
-  private editMode: boolean = false
-  private editModeSubject = new Subject<boolean>()
 
   constructor(private readonly http: HttpService) {
     console.log('AppStateService constructor')
@@ -33,24 +61,19 @@ export class AppStateService implements OnDestroy {
     this.subs.forEach(s => s.unsubscribe())
   }
 
+  private subscribe = (s: Subscription | undefined) =>
+    s && this.subs.push(s)
+
   // Users Modules
 
   getModulesForUser = (user: string) => {
-    if (this.usersModules.length !== 0) {
-      this.usersModulesSubject.next(this.usersModules)
-    } else {
-      this.subs.push(
-        this.http.allModulesForUser(user)
-          .subscribe(xs => {
-            this.usersModules = xs
-            this.usersModulesSubject.next(xs)
-          })
-      )
-    }
+    this.subscribe(
+      updateArrayState(this.usersModules, () => this.http.allModulesForUser(user))
+    )
   }
 
   usersModules$ = (): Observable<ReadonlyArray<Module>> =>
-    this.usersModulesSubject.asObservable()
+    asObservable(this.usersModules)
 
   // Users Branch
 
@@ -92,33 +115,25 @@ export class AppStateService implements OnDestroy {
   // Module Drafts
 
   getModuleDrafts = (branch: string) => {
-    if (this.moduleDrafts.length !== 0) {
-      this.moduleDraftsSubject.next(this.moduleDrafts)
-    } else {
-      this.subs.push(
-        this.http.moduleDrafts(branch)
-          .subscribe(xs => {
-            this.moduleDrafts = xs
-            this.moduleDraftsSubject.next(xs)
-          })
-      )
-    }
+    this.subscribe(
+      updateArrayState(this.moduleDrafts, () => this.http.moduleDrafts(branch))
+    )
   }
 
   moduleDrafts$ = (): Observable<ReadonlyArray<ModuleDraft>> =>
-    this.moduleDraftsSubject.asObservable()
+    asObservable(this.moduleDrafts)
 
   // Edit mode
 
   getEditMode = () => {
-    this.editModeSubject.next(this.editMode)
+    emitCurrentValue(this.editMode)
   }
 
   setEditMode = (value: boolean) => {
-    this.editMode = value
-    this.editModeSubject.next(value)
+    this.editMode.value = value
+    emitCurrentValue(this.editMode)
   }
 
   editMode$ = (): Observable<boolean> =>
-    this.editModeSubject.asObservable()
+    asObservable(this.editMode)
 }
