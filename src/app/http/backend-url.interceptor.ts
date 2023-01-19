@@ -10,6 +10,7 @@ export class BackendUrlInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log(request.url)
     return next.handle(
       request.clone({
         url: `${environment.backendUrl}/${request.url}`

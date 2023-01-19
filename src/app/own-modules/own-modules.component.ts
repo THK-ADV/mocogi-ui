@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService } from '../http/http.service'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { TableHeaderColumn } from '../generic-ui/table-header-column'
 import { Module } from '../types/module'
-import { either, Either, fold, right, rightValue } from '../types/either'
+import { Either, fold, rightValue } from '../types/either'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
+import { AppStateService } from '../state/app-state.service'
+import { mapOpt } from '../ops/undefined-ops'
 
 @Component({
   selector: 'sched-own-modules',
@@ -24,43 +25,37 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
-  moduleDrafts: ModuleDraft[] = []
+  moduleDrafts: ReadonlyArray<ModuleDraft> = []
 
   private subs: Subscription[] = []
 
   constructor(
-    private readonly http: HttpService,
     private readonly router: Router,
+    private readonly appState: AppStateService
   ) {
     this.dataSource = new MatTableDataSource<Module>()
     this.columns = [{title: 'Name', attr: 'name'}]
     this.displayedColumns = this.columns.map(_ => _.attr)
     this.displayedColumns.push('action')
+    const s1 = appState.usersModules$()
+      .subscribe(xs => this.dataSource.data = [...xs])
+    const s2 = appState.userBranch$()
+      .subscribe(b => this.branch = b)
+    const s3 = appState.moduleDrafts$()
+      .subscribe(xs => this.moduleDrafts = xs)
+    const s4 = appState.editMode$()
+      .subscribe(b => this.editMode = b)
+    this.subs.push(s1, s2, s3, s4)
   }
 
   ngOnInit() {
-    console.log('OwnModulesComponent OnInit')
-    this.subs.push(
-      this.http.allModulesForUser('cko')
-        .subscribe(xs => {
-          console.log('allModulesForUser')
-          this.dataSource.data = xs
-        }),
-      this.http.branchForUser(this.username)
-        .subscribe(branch => {
-            console.log('branchForUser')
-            this.branch = either(
-              branch !== undefined,
-              () => branch!,
-              () => undefined
-            )
-          }
-        )
-    )
+    this.appState.getModulesForUser('cko')
+    this.appState.getBranchForUser(this.username)
+    this.appState.getEditMode()
+    mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
   }
 
   ngOnDestroy() {
-    console.log('OwnModulesComponent OnDestroy')
     this.subs.forEach(s => s.unsubscribe())
   }
 
@@ -70,36 +65,24 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     fold(
       e,
       branch => {
-        this.editMode = true
-        this.getModelsDrafts(branch.branch)
+        this.appState.setEditMode(true)
+        this.appState.getModuleDrafts(branch.branch)
       },
       () => {
-        this.subs.push(
-          this.http.createBranch(this.username)
-            .subscribe(branch => {
-              if (branch) {
-                this.branch = right(branch)
-                this.editMode = true
-                this.getModelsDrafts(branch.branch)
-              }
-            })
-        )
+        this.appState.createBranchForUser(
+          this.username,
+          branch => {
+            if (branch.value) {
+              this.appState.setEditMode(true)
+              this.appState.getModuleDrafts(branch.value.branch)
+            }
+          })
       }
     )
   }
 
   titleOfBranch = (e: Either<undefined, UserBranch>) =>
     fold(e, () => 'Änderungen fortsetzen', () => 'Änderungen vornehmen')
-
-  // Module Drafts
-
-  getModelsDrafts = (branch: string) => {
-    console.log('OwnModulesComponent getModelsDrafts')
-    this.subs.push(
-      this.http.moduleDrafts(branch)
-        .subscribe(drafts => this.moduleDrafts = drafts)
-    )
-  }
 
   // Navigation
 
