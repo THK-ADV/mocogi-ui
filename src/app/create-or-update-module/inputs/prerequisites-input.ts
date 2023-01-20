@@ -7,9 +7,9 @@ import { ModuleCallback } from '../callbacks/module-callback'
 import { FormInput } from '../../form/form-input'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 import { showModule } from '../../ops/show-instances'
-import { Metadata } from '../../types/metadata'
 import { POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
+import { PrerequisitesOutput } from '../../types/prerequisites'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -19,14 +19,14 @@ export function prerequisitesInputs(
   currentModules: (attr: string, kind: PrerequisitesKind) => Module[],
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
-  metadata?: Metadata
+  prerequisites?: PrerequisitesOutput
 ): FormInput[] {
   function requiredPrerequisitesText(): TextAreaInput {
-    return text('required', metadata?.prerequisites.required?.text)
+    return text('required', prerequisites?.required?.text)
   }
 
   function recommendedPrerequisitesText(): TextAreaInput {
-    return text('recommended', metadata?.prerequisites.recommended?.text)
+    return text('recommended', prerequisites?.recommended?.text)
   }
 
   function requiredPrerequisitesModules(): ReadOnlyInput<Module, Module> {

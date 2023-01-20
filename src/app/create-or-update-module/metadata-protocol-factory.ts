@@ -1,8 +1,11 @@
 import { Participants } from '../types/participants'
 import { ModuleRelation } from '../types/module-relation'
 import { AssessmentMethods } from '../types/assessment-methods'
-import { PrerequisitesOutput } from '../types/prerequisites'
 import { POs } from '../types/pos'
+import { WorkloadProtocol } from '../types/workload'
+import { MetadataProtocol } from '../types/metadata'
+import { ModuleCompendiumProtocol } from '../types/module-compendium'
+import { Content } from '../types/content'
 
 export interface LearningOutcome {
   what: string
@@ -10,45 +13,8 @@ export interface LearningOutcome {
   wherefore: string
 }
 
-export interface WorkloadProtocol {
-  lecture: number,
-  seminar: number,
-  practical: number,
-  exercise: number,
-  projectSupervision: number,
-  projectWork: number
-}
-
-export interface ModuleCompendiumProtocol {
-  title: string,
-  abbrev: string,
-  moduleType: string,
-  ects: number,
-  language: string,
-  duration: number,
-  season: string,
-  workload: WorkloadProtocol,
-  status: string,
-  location: string,
-  participants?: Participants,
-  moduleRelation?: ModuleRelation,
-  moduleManagement: string[],
-  lecturers: string[],
-  assessmentMethods: AssessmentMethods,
-  prerequisites: PrerequisitesOutput,
-  po: POs,
-  competences: string[],
-  globalCriteria: string[],
-  taughtWith: string[],
-  learningOutcome: { de: LearningOutcome, en: LearningOutcome },
-  moduleContent: { de: string, en: string },
-  learningMethodsContent: { de: string, en: string },
-  literatureContent: { de: string, en: string },
-  particularitiesContent: { de: string, en: string },
-}
-
-function fromArray(any: any, key: string) {
-  return (any as Array<{ value: any }>).map(a => a.value[key])
+function fromArray(any: any, key?: string) {
+  return (any as Array<{ value: any }>).map(a => key ? a.value[key] : a.value )
 }
 
 function singleValue(any: any, property: string): any | undefined {
@@ -57,6 +23,32 @@ function singleValue(any: any, property: string): any | undefined {
 }
 
 export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
+
+  function metadata(): MetadataProtocol {
+    return {
+      title: any['title'],
+      abbrev: any['abbreviation'],
+      moduleType: any['moduleType'].abbrev,
+      ects: any['ects'],
+      language: any['language'].abbrev,
+      duration: any['duration'],
+      season: any['season'].abbrev,
+      workload: workload(),
+      status: any['status'].abbrev,
+      location: any['location'].abbrev,
+      participants: participants(),
+      moduleRelation: moduleRelation(),
+      moduleManagement: [any['moduleCoordinator'].id],
+      lecturers: fromArray(any['lecturer'], 'id'),
+      assessmentMethods: assessmentMethods(),
+      prerequisites: prerequisites(),
+      po: po(),
+      competences: fromArray(any['competences'], 'abbrev'),
+      globalCriteria: fromArray(any['global-criteria'], 'abbrev'),
+      taughtWith: fromArray(any['taught-with'], 'id')
+    }
+  }
+
   function participants(): Participants | undefined {
     return singleValue(any, 'participants')
   }
@@ -74,8 +66,8 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
 
   function assessmentMethods(): AssessmentMethods {
     return {
-      mandatory: fromArray(any['assessment-methods-mandatory'], 'method'),
-      optional: fromArray(any['assessment-methods-optional'], 'method')
+      mandatory: fromArray(any['assessment-methods-mandatory']),
+      optional: fromArray(any['assessment-methods-optional'])
     }
   }
 
@@ -96,8 +88,8 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
 
   function po(): POs {
     return {
-      mandatory: fromArray(any['po-mandatory'], 'po'),
-      optional: fromArray(any['po-optional'], 'po')
+      mandatory: fromArray(any['po-mandatory']),
+      optional: fromArray(any['po-optional'])
     }
   }
 
@@ -120,59 +112,29 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
     }
   }
 
-  function moduleContent(): { de: string, en: string } {
+  function deContent(): Content {
     return {
-      de: any['module-content-de'],
-      en: any['module-content-en']
+      learningOutcomeBody: 'TODO',
+      contentBody: any['module-content-de'],
+      teachingAndLearningMethodsBody: any['learning-methods-content-de'],
+      recommendedReadingBody: any['literature-content-de'],
+      particularitiesBody: any['particularities-content-de'],
     }
   }
 
-  function learningMethodsContent(): { de: string, en: string } {
+  function enContent(): Content {
     return {
-      de: any['learning-methods-content-de'],
-      en: any['learning-methods-content-en']
-    }
-  }
-
-  function literatureContent(): { de: string, en: string } {
-    return {
-      de: any['literature-content-de'],
-      en: any['literature-content-en']
-    }
-  }
-
-  function particularitiesContent(): { de: string, en: string } {
-    return {
-      de: any['particularities-content-de'],
-      en: any['particularities-content-en']
+      learningOutcomeBody: 'TODO',
+      contentBody: any['module-content-en'],
+      teachingAndLearningMethodsBody: any['learning-methods-content-en'],
+      recommendedReadingBody: any['literature-content-en'],
+      particularitiesBody: any['particularities-content-en'],
     }
   }
 
   return {
-    title: any['title'],
-    abbrev: any['abbreviation'],
-    moduleType: any['moduleType'].abbrev,
-    ects: any['ects'],
-    language: any['language'].abbrev,
-    duration: any['duration'],
-    season: any['season'].abbrev,
-    workload: workload(),
-    status: any['status'].abbrev,
-    location: any['location'].abbrev,
-    participants: participants(),
-    moduleRelation: moduleRelation(),
-    moduleManagement: [any['moduleCoordinator'].id],
-    lecturers: fromArray(any['lecturer'], 'id'),
-    assessmentMethods: assessmentMethods(),
-    prerequisites: prerequisites(),
-    po: po(),
-    competences: any['competences'],
-    globalCriteria: any['global-criteria'],
-    taughtWith: any['taught-with'],
-    learningOutcome: learningOutCome(),
-    moduleContent: moduleContent(),
-    learningMethodsContent: learningMethodsContent(),
-    literatureContent: literatureContent(),
-    particularitiesContent: particularitiesContent()
+    metadata: metadata(),
+    deContent: deContent(),
+    enContent: enContent()
   }
 }

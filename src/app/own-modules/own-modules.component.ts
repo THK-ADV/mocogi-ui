@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { TableHeaderColumn } from '../generic-ui/table-header-column'
 import { Module } from '../types/module'
-import { Either, fold, rightValue } from '../types/either'
+import { Either, fold } from '../types/either'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
@@ -17,7 +17,7 @@ import { mapOpt } from '../ops/undefined-ops'
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 
-  dataSource: MatTableDataSource<Module>
+  dataSource: MatTableDataSource<[Module, ModuleDraft | undefined]>
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
@@ -25,7 +25,6 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
-  moduleDrafts: ReadonlyArray<ModuleDraft> = []
 
   private subs: Subscription[] = []
 
@@ -33,19 +32,19 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly appState: AppStateService
   ) {
-    this.dataSource = new MatTableDataSource<Module>()
+    this.dataSource = new MatTableDataSource()
     this.columns = [{title: 'Name', attr: 'name'}]
     this.displayedColumns = this.columns.map(_ => _.attr)
     this.displayedColumns.push('action')
-    const s1 = appState.usersModules$()
+    const s0 = appState.usersModules$()
+      .subscribe(xs => this.dataSource.data = xs.map(a => [a, undefined]))
+    const s1 = appState.usersDraftingModules$()
       .subscribe(xs => this.dataSource.data = [...xs])
     const s2 = appState.userBranch$()
       .subscribe(b => this.branch = b)
-    const s3 = appState.moduleDrafts$()
-      .subscribe(xs => this.moduleDrafts = xs)
-    const s4 = appState.editMode$()
+    const s3 = appState.editMode$()
       .subscribe(b => this.editMode = b)
-    this.subs.push(s1, s2, s3, s4)
+    this.subs.push(s0, s1, s2, s3)
   }
 
   ngOnInit() {
@@ -86,14 +85,13 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   // Navigation
 
-  onEdit = (m: Module) =>
+  onEdit = ([module, draft]: [Module, ModuleDraft | undefined]) =>
     this.router.navigate(
       ['/edit'],
       {
         state: {
-          id: m.id,
-          branch: rightValue(this.branch!).branch,
-          moduleCompendium: this.moduleDrafts.find(d => d.module === m.id)
+          id: module.id,
+          moduleCompendium: draft?.data
         },
         queryParams: {
           action: 'update'
@@ -101,7 +99,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       }
     )
 
-  onSelect = (m: Module) => {
+  onSelect = ([m, d]: [Module, ModuleDraft | undefined]) => {
 
   }
 
@@ -116,11 +114,10 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   // Table
 
-  tableContent = (m: Module, attr: string): string => {
+  tableContent = ([module, draft]: [Module, ModuleDraft | undefined], attr: string): string => {
     switch (attr) {
       case 'name':
-        let str = m.title
-        const draft = this.moduleDrafts.find(d => d.module === m.id)
+        let str = draft ? draft.data.metadata.title : module.title
         if (draft) {
           str += ` (${draft.status})`
         }
@@ -130,8 +127,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     }
   }
 
-  tableColor = (m: Module) => {
-    const draft = this.moduleDrafts.find(d => d.module === m.id)
+  tableColor = ([, draft]: [Module, ModuleDraft | undefined]) => {
     if (!draft) {
       return '#000000'
     }

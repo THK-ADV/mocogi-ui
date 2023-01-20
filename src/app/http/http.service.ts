@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable, zip } from 'rxjs'
-import { Metadata } from '../types/metadata'
+import { map, Observable } from 'rxjs'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -20,8 +19,7 @@ import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
-import { ModuleCompendiumProtocol } from '../create-or-update-module/metadata-protocol-factory'
-import { ModuleCompendium } from '../types/module-compendium'
+import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 
 @Injectable({
   providedIn: 'root'
@@ -98,22 +96,6 @@ export class HttpService {
 
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
-
-  allCoreData = () =>
-    zip(
-      this.allLocations(),
-      this.allLanguages(),
-      this.allStatus(),
-      this.allAssessmentMethods(),
-      this.allModuleTypes(),
-      this.allSeasons(),
-      this.allPersons(),
-      this.allValidPOs(),
-      this.allGrades(),
-      this.allGlobalCriteria(),
-      this.allStudyPrograms(),
-      this.allCompetences(),
-    )
 
   branchForUser = (username: string): Observable<UserBranch | undefined> =>
     this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(

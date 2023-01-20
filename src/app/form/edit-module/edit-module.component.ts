@@ -61,7 +61,7 @@ export class EditModuleComponent implements OnInit {
     console.log('is valid: ', this.formGroup.valid)
     for (const attr in this.formGroup.controls) {
       const ctrl = this.formGroup.get(attr)
-      console.log(attr, ctrl?.value, ctrl?.errors)
+      ctrl?.errors && console.log(attr, ctrl?.value, ctrl?.errors)
     }
   }
 

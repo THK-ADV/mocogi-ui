@@ -1,4 +1,4 @@
-import { ModuleCompendiumProtocol } from '../create-or-update-module/metadata-protocol-factory'
+import { ModuleCompendiumProtocol } from './module-compendium'
 
 export type ModuleDraftStatus = 'added' | 'modified'
 

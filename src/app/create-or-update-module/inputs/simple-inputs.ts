@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
 import { Participants } from '../../types/participants'
 import { ModuleRelation } from '../../types/module-relation'
-import { Metadata } from '../../types/metadata'
+import { MetadataLike } from '../../types/metadata'
 import { Location } from '../../types/core/location'
 import { Language } from '../../types/core/language'
 import { Status } from '../../types/core/status'
@@ -28,7 +28,8 @@ export function simpleInput(
   modules: Module[],
   currentParticipants: (attr: string) => Participants | undefined,
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
-  metadata?: Metadata
+  metadata?: MetadataLike,
+  metadataId?: string
 ): FormInput[] {
   function titleInput(): TextInput {
     return {
@@ -206,7 +207,7 @@ export function simpleInput(
   }
 
   function moduleRelationDialogInstance(attr: string) {
-    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadata?.id)
+    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadataId)
   }
 
   return [

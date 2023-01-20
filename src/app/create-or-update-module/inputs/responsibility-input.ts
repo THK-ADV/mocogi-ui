@@ -5,14 +5,13 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { FormInput } from '../../form/form-input'
-import { Metadata } from '../../types/metadata'
 import { Person } from '../../types/core/person'
 
 export function responsibilityInput(
   dialog: MatDialog,
   persons: Person[],
   currentLecturer: (attr: string) => Person[],
-  metadata?: Metadata
+  moduleManagement?: string[]
 ): FormInput[] {
   function moduleCoordinatorInput(): OptionsInput<Person> {
     return {
@@ -23,7 +22,7 @@ export function responsibilityInput(
       required: true,
       data: persons,
       show: showPerson,
-      initialValue: metadata && (as => as.find(a => metadata.moduleManagement.some(m => m === a.id)))
+      initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id)))
     }
   }
 
