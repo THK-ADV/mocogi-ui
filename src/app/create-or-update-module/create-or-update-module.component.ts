@@ -7,7 +7,7 @@ import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
 import { showLabel } from '../ops/show-instances'
-import { createMetadataProtocol } from './metadata-protocol-factory'
+import { createMetadataProtocol } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
 import { Grade } from '../types/core/grade'

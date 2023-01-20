@@ -1,11 +1,11 @@
-import { Participants } from '../types/participants'
-import { ModuleRelation } from '../types/module-relation'
-import { AssessmentMethods } from '../types/assessment-methods'
-import { POs } from '../types/pos'
-import { WorkloadProtocol } from '../types/workload'
-import { MetadataProtocol } from '../types/metadata'
-import { ModuleCompendiumProtocol } from '../types/module-compendium'
-import { Content } from '../types/content'
+import { Participants } from './participants'
+import { ModuleRelation } from './module-relation'
+import { AssessmentMethods } from './assessment-methods'
+import { POs } from './pos'
+import { WorkloadProtocol } from './workload'
+import { MetadataProtocol } from './metadata'
+import { ModuleCompendiumProtocol } from './module-compendium'
+import { Content } from './content'
 
 export interface LearningOutcome {
   what: string
@@ -14,7 +14,7 @@ export interface LearningOutcome {
 }
 
 function fromArray(any: any, key?: string) {
-  return (any as Array<{ value: any }>).map(a => key ? a.value[key] : a.value )
+  return (any as Array<{ value: any }>).map(a => key ? a.value[key] : a.value)
 }
 
 function singleValue(any: any, property: string): any | undefined {
