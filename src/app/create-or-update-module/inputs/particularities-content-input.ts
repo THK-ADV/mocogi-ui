@@ -27,9 +27,9 @@ export function particularitiesContent(deContent?: Content, enContent?: Content)
   function body(lang: Lang) {
     switch (lang) {
       case 'de':
-        return deContent?.particularitiesBody ?? ''
+        return deContent?.particularities ?? ''
       case 'en':
-        return enContent?.particularitiesBody ?? ''
+        return enContent?.particularities ?? ''
     }
   }
 

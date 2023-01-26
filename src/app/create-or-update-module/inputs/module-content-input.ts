@@ -27,9 +27,9 @@ export function moduleContent(deContent?: Content, enContent?: Content): FormInp
   function body(lang: Lang) {
     switch (lang) {
       case 'de':
-        return deContent?.contentBody ?? ''
+        return deContent?.content ?? ''
       case 'en':
-        return enContent?.contentBody ?? ''
+        return enContent?.content ?? ''
     }
   }
 

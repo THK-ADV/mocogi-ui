@@ -6,6 +6,7 @@ import { WorkloadProtocol } from './workload'
 import { MetadataProtocol } from './metadata'
 import { ModuleCompendiumProtocol } from './module-compendium'
 import { Content } from './content'
+import { toNumber, toString } from './type-conversions'
 
 export interface LearningOutcome {
   what: string
@@ -26,19 +27,19 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
 
   function metadata(): MetadataProtocol {
     return {
-      title: any['title'],
-      abbrev: any['abbreviation'],
-      moduleType: any['moduleType'].abbrev,
-      ects: any['ects'],
-      language: any['language'].abbrev,
-      duration: any['duration'],
-      season: any['season'].abbrev,
+      title: toString(any['title']),
+      abbrev: toString(any['abbreviation']),
+      moduleType: toString(any['moduleType'].abbrev),
+      ects: toNumber(any['ects']),
+      language: toString(any['language'].abbrev),
+      duration: toNumber(any['duration']),
+      season: toString(any['season'].abbrev),
       workload: workload(),
-      status: any['status'].abbrev,
-      location: any['location'].abbrev,
+      status: toString(any['status'].abbrev),
+      location: toString(any['location'].abbrev),
       participants: participants(),
       moduleRelation: moduleRelation(),
-      moduleManagement: [any['moduleCoordinator'].id],
+      moduleManagement: [toString(any['moduleCoordinator'].id)],
       lecturers: fromArray(any['lecturer'], 'id'),
       assessmentMethods: assessmentMethods(),
       prerequisites: prerequisites(),
@@ -55,12 +56,12 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
 
   function workload(): WorkloadProtocol {
     return {
-      lecture: any['workload-lecture'],
-      seminar: any['workload-seminar'],
-      practical: any['workload-practical'],
-      exercise: any['workload-exercise'],
-      projectSupervision: any['workload-projectSupervision'],
-      projectWork: any['workload-projectWork']
+      lecture: toNumber(any['workload-lecture']),
+      seminar: toNumber(any['workload-seminar']),
+      practical: toNumber(any['workload-practical']),
+      exercise: toNumber(any['workload-exercise']),
+      projectSupervision: toNumber(any['workload-projectSupervision']),
+      projectWork: toNumber(any['workload-projectWork'])
     }
   }
 
@@ -74,12 +75,12 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
   function prerequisites() {
     return {
       recommended: {
-        text: any['recommended-prerequisites-text'],
+        text: toString(any['recommended-prerequisites-text']),
         pos: fromArray(any['recommended-prerequisites-po'], 'id'),
         modules: fromArray(any['recommended-prerequisites-modules'], 'id'),
       },
       required: {
-        text: any['required-prerequisites-text'],
+        text: toString(any['required-prerequisites-text']),
         pos: fromArray(any['required-prerequisites-po'], 'id'),
         modules: fromArray(any['required-prerequisites-modules'], 'id'),
       }
@@ -100,35 +101,35 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
   function learningOutCome(): { de: LearningOutcome, en: LearningOutcome } {
     return {
       de: {
-        what: any['learning-outcome-content-what-de'],
-        whereby: any['learning-outcome-content-whereby-de'],
-        wherefore: any['learning-outcome-content-wherefore-de'],
+        what: toString(any['learning-outcome-content-what-de']),
+        whereby: toString(any['learning-outcome-content-whereby-de']),
+        wherefore: toString(any['learning-outcome-content-wherefore-de']),
       },
       en: {
-        what: any['learning-outcome-content-what-en'],
-        whereby: any['learning-outcome-content-whereby-en'],
-        wherefore: any['learning-outcome-content-wherefore-en'],
+        what: toString(any['learning-outcome-content-what-en']),
+        whereby: toString(any['learning-outcome-content-whereby-en']),
+        wherefore: toString(any['learning-outcome-content-wherefore-en']),
       }
     }
   }
 
   function deContent(): Content {
     return {
-      learningOutcomeBody: 'TODO',
-      contentBody: any['module-content-de'],
-      teachingAndLearningMethodsBody: any['learning-methods-content-de'],
-      recommendedReadingBody: any['literature-content-de'],
-      particularitiesBody: any['particularities-content-de'],
+      learningOutcome: 'TODO',
+      content: toString(any['module-content-de']),
+      teachingAndLearningMethods: toString(any['learning-methods-content-de']),
+      recommendedReading: toString(any['literature-content-de']),
+      particularities: toString(any['particularities-content-de']),
     }
   }
 
   function enContent(): Content {
     return {
-      learningOutcomeBody: 'TODO',
-      contentBody: any['module-content-en'],
-      teachingAndLearningMethodsBody: any['learning-methods-content-en'],
-      recommendedReadingBody: any['literature-content-en'],
-      particularitiesBody: any['particularities-content-en'],
+      learningOutcome: 'TODO',
+      content: toString(any['module-content-en']),
+      teachingAndLearningMethods: toString(any['learning-methods-content-en']),
+      recommendedReading: toString(any['literature-content-en']),
+      particularities: toString(any['particularities-content-en']),
     }
   }
 

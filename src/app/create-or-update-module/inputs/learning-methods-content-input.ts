@@ -27,9 +27,9 @@ export function learningMethodsContent(deContent?: Content, enContent?: Content)
   function body(lang: Lang) {
     switch (lang) {
       case 'de':
-        return deContent?.teachingAndLearningMethodsBody ?? ''
+        return deContent?.teachingAndLearningMethods ?? ''
       case 'en':
-        return enContent?.teachingAndLearningMethodsBody ?? ''
+        return enContent?.teachingAndLearningMethods ?? ''
     }
   }
 

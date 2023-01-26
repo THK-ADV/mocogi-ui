@@ -74,7 +74,6 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       this.appState.coreData$(),
       moduleCompendium$
     ]).subscribe(([modules, coreData, moduleCompendium]) => {
-      console.log(moduleCompendium)
       const [
         locations,
         languages,
@@ -132,7 +131,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
 
   onSubmit = (any: any) => {
     const mc = createMetadataProtocol(any)
-    const status = this.action === 'update' ? 'modified' : 'added'
-    this.appState.addModuleDraft(mc, status, this.id)
+    console.log(mc)
+    this.appState.addModuleDraft(mc, this.id)
   }
 }

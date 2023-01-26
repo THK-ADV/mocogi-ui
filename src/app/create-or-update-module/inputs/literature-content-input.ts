@@ -27,9 +27,9 @@ export function literatureContent(deContent?: Content, enContent?: Content): For
   function body(lang: Lang) {
     switch (lang) {
       case 'de':
-        return deContent?.recommendedReadingBody ?? ''
+        return deContent?.recommendedReading ?? ''
       case 'en':
-        return enContent?.recommendedReadingBody ?? ''
+        return enContent?.recommendedReading ?? ''
     }
   }
 

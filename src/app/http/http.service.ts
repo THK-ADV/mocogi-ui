@@ -18,8 +18,9 @@ import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
-import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
+import { ModuleDraft } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { PipelineError } from '../types/pipeline-error'
 
 @Injectable({
   providedIn: 'root'
@@ -114,13 +115,11 @@ export class HttpService {
   addToDrafts = (
     branch: string,
     mc: ModuleCompendiumProtocol,
-    status: ModuleDraftStatus,
     id: string | undefined
   ): Observable<ModuleDraft> => {
     const body = {
       data: JSON.stringify(mc),
       branch: branch,
-      status: status
     }
     const request = id
       ? this.http.put<ModuleDraft>(`moduleDrafts/${id}`, body)

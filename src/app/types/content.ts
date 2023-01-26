@@ -1,7 +1,7 @@
 export interface Content {
-  learningOutcomeBody: string
-  contentBody: string
-  teachingAndLearningMethodsBody: string
-  recommendedReadingBody: string
-  particularitiesBody: string
+  learningOutcome: string
+  content: string
+  teachingAndLearningMethods: string
+  recommendedReading: string
+  particularities: string
 }
