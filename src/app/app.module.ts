@@ -42,7 +42,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ParticipantsComponent } from './form/participants/participants.component'
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component';
+import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ParticipantsComponent,
     ModuleRelationComponent,
     ConfirmationDialogComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ModuleCompendiumHtmlComponent,
+    UnsafeHtmlPipe
   ],
   imports: [
     BrowserModule,

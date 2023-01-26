@@ -9,6 +9,7 @@ import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
+import { PipelineError } from '../types/pipeline-error'
 
 @Component({
   selector: 'sched-own-modules',
@@ -25,6 +26,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
+  pipelineErrors: ReadonlyArray<PipelineError> = []
 
   private subs: Subscription[] = []
 
@@ -44,7 +46,9 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       .subscribe(b => this.branch = b)
     const s3 = appState.editMode$()
       .subscribe(b => this.editMode = b)
-    this.subs.push(s0, s1, s2, s3)
+    const s4 = appState.pipelineErrors$()
+      .subscribe(xs => this.pipelineErrors = xs)
+    this.subs.push(s0, s1, s2, s3, s4)
   }
 
   ngOnInit() {
@@ -52,6 +56,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
     mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
+    this.appState.getPipelineErrors()
   }
 
   ngOnDestroy() {
@@ -99,8 +104,8 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       }
     )
 
-  onSelect = ([m, d]: [Module, ModuleDraft | undefined]) => {
-
+  show = ([m, d]: [Module, ModuleDraft | undefined]) => {
+    this.router.navigate(['/show'], {state: {id: m.id}})
   }
 
   onCreate = () =>
@@ -109,7 +114,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Validation
 
   validateAllChanges = () => {
-
+    this.appState.getPipelineErrors()
   }
 
   // Table
@@ -136,6 +141,17 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
         return '#309656'
       case 'modified':
         return '#bd4c1a'
+    }
+  }
+
+  showPipelineError = (e: PipelineError): string => {
+    switch (e.kind) {
+      case 'parsing-error':
+        return JSON.stringify(e.error)
+      case 'printing-error':
+        return JSON.stringify(e.error)
+      case 'validation-error':
+        return JSON.stringify(e.error)
     }
   }
 }

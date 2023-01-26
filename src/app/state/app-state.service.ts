@@ -4,7 +4,7 @@ import { map, Observable, Subject, Subscription, tap, zip } from 'rxjs'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
 import { either, Either } from '../types/either'
-import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
+import { ModuleDraft } from '../types/module-draft'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -18,6 +18,7 @@ import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { ModuleCompendiumProtocol } from '../types/module-compendium'
+import { PipelineError } from '../types/pipeline-error'
 
 interface State<A> {
   value: A
@@ -77,6 +78,8 @@ export class AppStateService implements OnDestroy {
 
   private userBranch?: Either<undefined, UserBranch>
   private userBranchSubject = new Subject<Either<undefined, UserBranch>>()
+
+  private pipelineErrors = createState<ReadonlyArray<PipelineError>>([])
 
   constructor(private readonly http: HttpService) {
     console.log('AppStateService constructor')
@@ -146,15 +149,16 @@ export class AppStateService implements OnDestroy {
     )
   }
 
-  addModuleDraft = (mc: ModuleCompendiumProtocol, status: ModuleDraftStatus, id: string | undefined) => {
+  addModuleDraft = (mc: ModuleCompendiumProtocol, id: string | undefined) => {
     const branch = this.userBranch?.value?.branch
     if (!branch) {
       return
     }
 
     this.addSubscription(
-      this.http.addToDrafts(branch, mc, status, id)
+      this.http.addToDrafts(branch, mc, id)
         .subscribe(draft => {
+          console.log(draft)
           const index = this.moduleDrafts.value.findIndex(d => d.module === draft.module)
           if (index === -1) {
             this.moduleDrafts.value = [...this.moduleDrafts.value, draft]
@@ -262,4 +266,18 @@ export class AppStateService implements OnDestroy {
       this.studyPrograms.subject.asObservable(),
       this.competences.subject.asObservable()
     )
+
+  // Validation
+
+  getPipelineErrors = () => {
+    const branch = this.userBranch?.value?.branch
+    if (branch) {
+      this.addSubscription(
+        updateArrayState(this.pipelineErrors, () => this.http.validate(branch))
+      )
+    }
+  }
+
+  pipelineErrors$ = (): Observable<ReadonlyArray<PipelineError>> =>
+    asObservable(this.pipelineErrors)
 }

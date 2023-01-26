@@ -132,4 +132,10 @@ export class HttpService {
   private convertModuleDraft = (draft: ModuleDraft): ModuleDraft =>
     // @ts-ignore
     ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
+
+  validate = (branch: string): Observable<PipelineError[]> =>
+    this.http.get<PipelineError[]>(`moduleDrafts/${branch}/validate`)
+
+  moduleCompendiumHtmlFile = (id: string) =>
+    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
 }

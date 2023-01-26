@@ -24,6 +24,13 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <button mat-stroked-button
+                  color="primary"
+                  (click)="show(element)"
+                  matTooltip="Anzeigen"
+                  matTooltipPosition="left">
+            <mat-icon>visibility</mat-icon>
+          </button>
           <button *ngIf="editMode"
                   mat-stroked-button
                   color="primary"
@@ -36,7 +43,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="show(row)"></tr>
     </table>
   </div>
 
@@ -59,4 +66,9 @@
       {{validateChangesTitle}}
     </button>
   </ng-template>
+
+  <ng-container *ngIf="pipelineErrors.length > 0">
+    <h2>Fehler</h2>
+    <p *ngFor="let e of pipelineErrors">{{showPipelineError(e)}}</p>
+  </ng-container>
 </div>

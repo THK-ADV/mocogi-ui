@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
 import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'edit',
     component: CreateOrUpdateModuleComponent
+  },
+  {
+    path: 'show',
+    component: ModuleCompendiumHtmlComponent
   },
   {
     path: '**',
