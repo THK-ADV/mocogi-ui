@@ -8,8 +8,8 @@ import { Either, fold } from '../types/either'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
-import { mapOpt } from '../ops/undefined-ops'
 import { PipelineError } from '../types/pipeline-error'
+import { mapOpt } from '../ops/undefined-ops'
 
 @Component({
   selector: 'sched-own-modules',
@@ -55,7 +55,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.getModulesForUser('cko')
     this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
-    mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
+    this.editMode && mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
     this.appState.getPipelineErrors()
   }
 
