@@ -8,7 +8,7 @@ import { Either, fold } from '../types/either'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
-import { PipelineError } from '../types/pipeline-error'
+import { PipelineError, ValidationResult } from '../types/validation-result'
 import { mapOpt } from '../ops/undefined-ops'
 
 @Component({
@@ -26,7 +26,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
-  pipelineErrors: ReadonlyArray<PipelineError> = []
+  validationResult?: ValidationResult
 
   private subs: Subscription[] = []
 
@@ -43,11 +43,11 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     const s1 = appState.usersDraftingModules$()
       .subscribe(xs => this.dataSource.data = [...xs])
     const s2 = appState.userBranch$()
-      .subscribe(b => this.branch = b)
+      .subscribe(x => this.branch = x)
     const s3 = appState.editMode$()
-      .subscribe(b => this.editMode = b)
-    const s4 = appState.pipelineErrors$()
-      .subscribe(xs => this.pipelineErrors = xs)
+      .subscribe(x => this.editMode = x)
+    const s4 = appState.validationResult$()
+      .subscribe(x => this.validationResult = x)
     this.subs.push(s0, s1, s2, s3, s4)
   }
 
@@ -56,7 +56,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
     this.editMode && mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
-    this.appState.getPipelineErrors()
+    this.appState.getValidationResult()
   }
 
   ngOnDestroy() {
@@ -114,7 +114,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Validation
 
   validateAllChanges = () => {
-    this.appState.getPipelineErrors()
+    this.appState.getValidationResult()
   }
 
   // Table
@@ -144,8 +144,11 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     }
   }
 
+  validationErrors = (res: ValidationResult): ReadonlyArray<PipelineError> | null =>
+    res.data
+
   showPipelineError = (e: PipelineError): string => {
-    switch (e.kind) {
+    switch (e.tag) {
       case 'parsing-error':
         return JSON.stringify(e.error)
       case 'printing-error':

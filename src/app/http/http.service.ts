@@ -20,7 +20,7 @@ import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
-import { PipelineError } from '../types/pipeline-error'
+import { ValidationResult } from '../types/validation-result'
 
 @Injectable({
   providedIn: 'root'
@@ -132,8 +132,8 @@ export class HttpService {
     // @ts-ignore
     ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
 
-  validate = (branch: string): Observable<PipelineError[]> =>
-    this.http.get<PipelineError[]>(`moduleDrafts/${branch}/validate`)
+  validate = (branch: string): Observable<ValidationResult> =>
+    this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
 
   moduleCompendiumHtmlFile = (id: string) =>
     this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})

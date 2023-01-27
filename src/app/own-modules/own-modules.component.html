@@ -67,8 +67,13 @@
     </button>
   </ng-template>
 
-  <ng-container *ngIf="pipelineErrors.length > 0">
-    <h2>Fehler</h2>
-    <p *ngFor="let e of pipelineErrors">{{showPipelineError(e)}}</p>
+  <ng-container *ngIf="validationResult">
+    <ng-container *ngIf="validationErrors(validationResult) as errs; else valid">
+      <h2>Fehler beim Validieren:</h2>
+      <p *ngFor="let e of errs">{{showPipelineError(e)}}</p>
+    </ng-container>
+    <ng-template #valid>
+      <h2>Alles valide 🚀</h2>
+    </ng-template>
   </ng-container>
 </div>

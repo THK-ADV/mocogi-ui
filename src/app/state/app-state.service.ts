@@ -18,10 +18,15 @@ import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { ModuleCompendiumProtocol } from '../types/module-compendium'
-import { PipelineError } from '../types/pipeline-error'
+import { ValidationResult } from '../types/validation-result'
 
 interface State<A> {
   value: A
+  subject: Subject<A>
+}
+
+interface MaybeState<A> {
+  value: A | undefined
   subject: Subject<A>
 }
 
@@ -29,7 +34,11 @@ function createState<A>(initialState: A): State<A> {
   return {value: initialState, subject: new Subject<A>()}
 }
 
-function asObservable<A>(state: State<A>): Observable<A> {
+function createMaybeState<A>(initialState?: A): MaybeState<A> {
+  return {value: initialState, subject: new Subject<A>()}
+}
+
+function asObservable<A>(state: State<A> | MaybeState<A>): Observable<A> {
   return state.subject.asObservable()
 }
 
@@ -37,19 +46,31 @@ function emitCurrentValue<A>(state: State<A>) {
   state.subject.next(state.value)
 }
 
-function updateArrayState<A>(state: State<A>, updateState: () => Observable<A>): Subscription | undefined {
+function updateArrayState<A>(state: State<A>, update: () => Observable<A>): Subscription | undefined {
   if (Array.isArray(state.value)) {
     if (state.value.length !== 0) {
       emitCurrentValue(state)
       return undefined
     } else {
-      return updateState().subscribe(a => {
+      return update().subscribe(a => {
         state.value = a
         emitCurrentValue(state)
       })
     }
   } else {
     throw new Error('unable to handle type of ' + state)
+  }
+}
+
+function updateMaybeState<A>(state: MaybeState<A>, update: () => Observable<A>): Subscription | undefined {
+  if (state.value) {
+    state.subject.next(state.value)
+    return undefined
+  } else {
+    return update().subscribe(a => {
+      state.value = a
+      state.subject.next(a)
+    })
   }
 }
 
@@ -75,11 +96,10 @@ export class AppStateService implements OnDestroy {
   private globalCriteria = createState<ReadonlyArray<GlobalCriteria>>([])
   private studyPrograms = createState<ReadonlyArray<StudyProgram>>([])
   private competences = createState<ReadonlyArray<Competence>>([])
+  private validationResult = createMaybeState<ValidationResult>()
 
   private userBranch?: Either<undefined, UserBranch>
   private userBranchSubject = new Subject<Either<undefined, UserBranch>>()
-
-  private pipelineErrors = createState<ReadonlyArray<PipelineError>>([])
 
   constructor(private readonly http: HttpService) {
     console.log('AppStateService constructor')
@@ -269,15 +289,16 @@ export class AppStateService implements OnDestroy {
 
   // Validation
 
-  getPipelineErrors = () => {
+  getValidationResult = () => {
     const branch = this.userBranch?.value?.branch
-    if (branch) {
-      this.addSubscription(
-        updateArrayState(this.pipelineErrors, () => this.http.validate(branch))
-      )
+    if (!branch) {
+      return
     }
+    this.addSubscription(
+      updateMaybeState(this.validationResult, () => this.http.validate(branch))
+    )
   }
 
-  pipelineErrors$ = (): Observable<ReadonlyArray<PipelineError>> =>
-    asObservable(this.pipelineErrors)
+  validationResult$ = (): Observable<ValidationResult> =>
+    asObservable(this.validationResult)
 }
