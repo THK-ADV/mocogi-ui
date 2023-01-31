@@ -56,7 +56,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
     this.editMode && mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
-    this.appState.getValidationResult()
+    this.editMode && this.appState.getValidationResult()
   }
 
   ngOnDestroy() {

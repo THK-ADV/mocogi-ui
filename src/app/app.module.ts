@@ -21,7 +21,7 @@ import { RouterOutlet } from '@angular/router'
 import { HeaderComponent } from './structure/header/header.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
-import { BackendUrlInterceptor } from './http/backend-url.interceptor'
+import { HttpInterceptorDecorator } from './http/http-interceptor-decorator.service'
 import { PlainInputComponent } from './form/plain-input/plain-input.component'
 import { EditModuleComponent } from './form/edit-module/edit-module.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -41,11 +41,11 @@ import { BooleanInputComponent } from './form/boolean-input/boolean-input.compon
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ParticipantsComponent } from './form/participants/participants.component'
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
-import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component';
-import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
-
+import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
+import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe';
+import { AlertComponent } from './alert/alert.component'
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
     ConfirmationDialogComponent,
     PageNotFoundComponent,
     ModuleCompendiumHtmlComponent,
-    UnsafeHtmlPipe
+    UnsafeHtmlPipe,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +100,7 @@ import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: BackendUrlInterceptor,
+      useClass: HttpInterceptorDecorator,
       multi: true
     },
   ],
