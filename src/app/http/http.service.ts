@@ -149,8 +149,11 @@ export class HttpService {
   validate = (branch: string): Observable<ValidationResult> =>
     this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
 
-  // Review
+  // Commit
 
-  review = (branch: string, username: string): Observable<any> =>
-    this.http.put<any>(`moduleDrafts/${branch}/review`, { username })
+  commit = (branch: string, username: string): Observable<any> =>
+    this.http.put<any>(`moduleDrafts/${branch}/commit`, {username})
+
+  revertCommit = (branch: string): Observable<any> =>
+    this.http.delete<any>(`moduleDrafts/${branch}/revertCommit`)
 }

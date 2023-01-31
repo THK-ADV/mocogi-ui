@@ -126,14 +126,18 @@ export class AppStateService implements OnDestroy {
 
   // Users Branch
 
+  private forceUpdateBranchForUser = (username: string) => {
+    this.subs.push(
+      this.http.branchForUser(username)
+        .subscribe(this.updateUsersBranch)
+    )
+  }
+
   getBranchForUser = (username: string) => {
     if (this.userBranch) {
       this.userBranchSubject.next(this.userBranch)
     } else {
-      this.subs.push(
-        this.http.branchForUser(username)
-          .subscribe(this.updateUsersBranch)
-      )
+      this.forceUpdateBranchForUser(username)
     }
   }
 
@@ -314,9 +318,9 @@ export class AppStateService implements OnDestroy {
   validationResult$ = (): Observable<ValidationResult> =>
     asObservable(this.validationResult)
 
-  // Review
+  // Commit
 
-  forceReview = (username: string) => {
+  forceCommit = (username: string) => {
     const branch = this.userBranch?.value
     if (!branch) {
       return
@@ -325,15 +329,31 @@ export class AppStateService implements OnDestroy {
       return
     }
     this.addSubscription(
-      this.http.review(branch.branch, username)
-        .subscribe(res => {
-          if (res) { // update branch because commit id state might be changed
-            this.addSubscription(
-              this.http.branchForUser(username)
-                .subscribe(this.updateUsersBranch)
-            )
-          }
+      this.http.commit(branch.branch, username)
+        .subscribe(() => {
+          // update branch because commit id state might be changed
+          this.forceUpdateBranchForUser(username)
         })
     )
   }
+
+  forceRevertCommit = (username: string) => {
+    const branch = this.userBranch?.value
+    if (!branch) {
+      return
+    }
+    if (!branch.commitId) {
+      return
+    }
+    this.addSubscription(
+      this.http.revertCommit(branch.branch)
+        .subscribe(() => {
+          // update branch because commit id state might be changed
+          this.forceUpdateBranchForUser(username)
+        })
+    )
+  }
+
+  alreadyCommitted = () =>
+    this.userBranch?.value?.commitId != undefined
 }

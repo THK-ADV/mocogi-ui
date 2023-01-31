@@ -1,7 +1,7 @@
 <div class="own-modules">
   <h1>{{headerTitle}}</h1>
   <div class="abstractTableMainTitle">
-    <button *ngIf="editMode && !reviewed()"
+    <button *ngIf="editMode && !alreadyCommitted()"
             mat-flat-button
             [color]="'primary'"
             (click)="onCreate()"
@@ -31,7 +31,7 @@
                   matTooltipPosition="left">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button *ngIf="editMode && !reviewed()"
+          <button *ngIf="editMode && !alreadyCommitted()"
                   mat-stroked-button
                   color="primary"
                   (click)="onEdit(element)"
@@ -59,7 +59,7 @@
       </button>
     </ng-container>
     <ng-template #edit>
-      <button *ngIf="!reviewed()"
+      <button *ngIf="!alreadyCommitted()"
               mat-flat-button
               [color]="'primary'"
               (click)="validateAllChanges()"
@@ -74,16 +74,23 @@
         </ng-container>
         <ng-template #valid>
           <h2>Alles korrekt 🚀</h2>
-          <ng-container *ngIf="reviewed(); else review">
+          <ng-container *ngIf="alreadyCommitted(); else review">
             <h2>Zum Review freigegeben 🚀</h2>
+            <button mat-flat-button
+                    [color]="'warn'"
+                    (click)="revertCommit()"
+                    [matTooltip]="revertCommitTitle"
+                    matTooltipPosition="below">
+              {{revertCommitTitle}}
+            </button>
           </ng-container>
           <ng-template #review>
             <button mat-flat-button
-                    [color]="'primary'"
-                    (click)="reviewAllChanges()"
-                    [matTooltip]="reviewTitle"
+                    [color]="'accent'"
+                    (click)="commitAllChanges()"
+                    [matTooltip]="commitTitle"
                     matTooltipPosition="below">
-              {{reviewTitle}}
+              {{commitTitle}}
             </button>
           </ng-template>
         </ng-template>
