@@ -1,7 +1,7 @@
 <div class="own-modules">
   <h1>{{headerTitle}}</h1>
   <div class="abstractTableMainTitle">
-    <button *ngIf="editMode"
+    <button *ngIf="editMode && !reviewed()"
             mat-flat-button
             [color]="'primary'"
             (click)="onCreate()"
@@ -31,7 +31,7 @@
                   matTooltipPosition="left">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button *ngIf="editMode"
+          <button *ngIf="editMode && !reviewed()"
                   mat-stroked-button
                   color="primary"
                   (click)="onEdit(element)"
@@ -59,7 +59,8 @@
       </button>
     </ng-container>
     <ng-template #edit>
-      <button mat-flat-button
+      <button *ngIf="!reviewed()"
+              mat-flat-button
               [color]="'primary'"
               (click)="validateAllChanges()"
               [matTooltip]="validateChangesTitle"

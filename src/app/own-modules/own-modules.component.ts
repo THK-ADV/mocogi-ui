@@ -10,6 +10,8 @@ import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
 import { PipelineError, ValidationResult } from '../types/validation-result'
 
+// TODO add proper State Management
+
 @Component({
   selector: 'sched-own-modules',
   templateUrl: './own-modules.component.html',
