@@ -2,6 +2,7 @@ import { NonEmptyArray } from './non-empty-array'
 
 export interface ParsingError {
   tag: 'parsing-error'
+  metadata: string
   error: {
     found: string
     expected: string
@@ -10,6 +11,7 @@ export interface ParsingError {
 
 export interface PrintingError {
   tag: 'printing-error'
+  metadata: string
   error: {
     found: string
     expected: string
@@ -18,10 +20,9 @@ export interface PrintingError {
 
 export interface ValidationError {
   tag: 'validation-error'
+  metadata: string
   error: {
-    id: string
-    title: string
-    errors: string[]
+    errs: string[]
   }
 }
 

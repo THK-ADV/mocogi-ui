@@ -31,14 +31,23 @@ export class HttpService {
   constructor(private readonly http: HttpClient) {
   }
 
+  // Modules
+
   allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules')
 
   allModulesForUser = (user: String): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
 
+  // Module Compendium
+
   moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
     this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
+
+  moduleCompendiumHtmlFile = (id: string) =>
+    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
+
+  // Core Data
 
   allLocations = (): Observable<Location[]> =>
     this.http.get<Location[]>('locations')
@@ -98,6 +107,8 @@ export class HttpService {
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
 
+  // Branch
+
   branchForUser = (username: string): Observable<UserBranch | undefined> =>
     this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
       map(b => b ? b : undefined)
@@ -106,6 +117,7 @@ export class HttpService {
   createBranch = (username: string): Observable<UserBranch> =>
     this.http.post<UserBranch>(`git/branch`, {'username': username})
 
+  // Module Draft
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
     this.http.get<ModuleDraft[]>(`moduleDrafts/${branch}`).pipe(
@@ -132,9 +144,8 @@ export class HttpService {
     // @ts-ignore
     ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
 
+  // Validation
+
   validate = (branch: string): Observable<ValidationResult> =>
     this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
-
-  moduleCompendiumHtmlFile = (id: string) =>
-    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
 }
