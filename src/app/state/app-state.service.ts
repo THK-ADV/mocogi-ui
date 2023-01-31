@@ -62,8 +62,8 @@ function updateArrayState<A>(state: State<A>, update: () => Observable<A>): Subs
   }
 }
 
-function updateMaybeState<A>(state: MaybeState<A>, update: () => Observable<A>): Subscription | undefined {
-  if (state.value) {
+function updateMaybeState<A>(state: MaybeState<A>, force: boolean, update: () => Observable<A>): Subscription | undefined {
+  if (state.value && !force) {
     state.subject.next(state.value)
     return undefined
   } else {
@@ -163,7 +163,11 @@ export class AppStateService implements OnDestroy {
 
   // Module Drafts
 
-  getModuleDrafts = (branch: string) => {
+  getModuleDrafts = () => {
+    const branch = this.userBranch?.value?.branch
+    if (!branch) {
+      return
+    }
     this.addSubscription(
       updateArrayState(this.moduleDrafts, () => this.http.moduleDrafts(branch))
     )
@@ -289,16 +293,47 @@ export class AppStateService implements OnDestroy {
 
   // Validation
 
-  getValidationResult = () => {
+  private updateValidationState = (force: boolean) => {
     const branch = this.userBranch?.value?.branch
     if (!branch) {
       return
     }
     this.addSubscription(
-      updateMaybeState(this.validationResult, () => this.http.validate(branch))
+      updateMaybeState(this.validationResult, force, () => this.http.validate(branch))
     )
+  }
+
+  getValidationResult = () => {
+    this.updateValidationState(false)
+  }
+
+  forceValidation = () => {
+    this.updateValidationState(true)
   }
 
   validationResult$ = (): Observable<ValidationResult> =>
     asObservable(this.validationResult)
+
+  // Review
+
+  forceReview = (username: string) => {
+    const branch = this.userBranch?.value
+    if (!branch) {
+      return
+    }
+    if (branch.commitId) {
+      return
+    }
+    this.addSubscription(
+      this.http.review(branch.branch, username)
+        .subscribe(res => {
+          if (res) { // update branch because commit id state might be changed
+            this.addSubscription(
+              this.http.branchForUser(username)
+                .subscribe(this.updateUsersBranch)
+            )
+          }
+        })
+    )
+  }
 }

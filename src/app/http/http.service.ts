@@ -148,4 +148,9 @@ export class HttpService {
 
   validate = (branch: string): Observable<ValidationResult> =>
     this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
+
+  // Review
+
+  review = (branch: string, username: string): Observable<any> =>
+    this.http.put<any>(`moduleDrafts/${branch}/review`, { username })
 }

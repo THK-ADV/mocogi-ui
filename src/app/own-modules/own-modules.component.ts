@@ -9,7 +9,6 @@ import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
 import { PipelineError, ValidationResult } from '../types/validation-result'
-import { mapOpt } from '../ops/undefined-ops'
 
 @Component({
   selector: 'sched-own-modules',
@@ -22,7 +21,8 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
-  validateChangesTitle = 'Alle Änderungen prüfen'
+  validateChangesTitle = 'Änderungen auf Korrektheit prüfen'
+  reviewTitle = 'Änderungen zum Review freigeben'
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
@@ -55,7 +55,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.getModulesForUser('cko')
     this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
-    this.editMode && mapOpt(this.branch?.value?.branch, this.appState.getModuleDrafts)
+    this.editMode && this.appState.getModuleDrafts()
     this.editMode && this.appState.getValidationResult()
   }
 
@@ -68,9 +68,10 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   editBranch = (e: Either<undefined, UserBranch>) => {
     fold(
       e,
-      branch => {
+      () => {
         this.appState.setEditMode(true)
-        this.appState.getModuleDrafts(branch.branch)
+        this.appState.getModuleDrafts()
+        this.appState.getValidationResult()
       },
       () => {
         this.appState.createBranchForUser(
@@ -78,7 +79,8 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
           branch => {
             if (branch.value) {
               this.appState.setEditMode(true)
-              this.appState.getModuleDrafts(branch.value.branch)
+              this.appState.getModuleDrafts()
+              this.appState.getValidationResult()
             }
           })
       }
@@ -114,8 +116,17 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Validation
 
   validateAllChanges = () => {
-    this.appState.getValidationResult()
+    this.appState.forceValidation()
   }
+
+  // Review
+
+  reviewAllChanges = () => {
+    this.appState.forceReview(this.username)
+  }
+
+  reviewed = () =>
+    this.branch?.value?.commitId !== undefined
 
   // Table
 

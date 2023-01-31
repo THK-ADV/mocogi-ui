@@ -36,17 +36,21 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      const errorJson = JSON.parse(error.error)
-      const alert: Alert = {
-        type: 'danger',
-        body: {
-          kind: 'html',
-          value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${errorJson.request}</p>\
-                  <p><strong>Fehlernachricht:</strong><br>${errorJson.message}</p>`
-        },
-        autoDismiss: false
+      if (error?.error) {
+        const alert: Alert = {
+          type: 'danger',
+          body: {
+            kind: 'html',
+            value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${error.error.request}</p>\
+                  <p><strong>Fehlernachricht:</strong><br>${error.error.message}</p>`
+          },
+          autoDismiss: false
+        }
+        this.alertService.report(alert)
+      } else {
+        console.error(`Backend returned code ${error.status}, body was: `, error.error)
       }
-      this.alertService.report(alert)
+
     }
     return EMPTY
   }

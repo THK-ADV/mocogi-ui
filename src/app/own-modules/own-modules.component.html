@@ -47,33 +47,46 @@
     </table>
   </div>
 
-  <ng-container *ngIf="branch && !editMode; else noEdit">
-    <button mat-flat-button
-            [color]="'accent'"
-            (click)="editBranch(branch)"
-            [matTooltip]="titleOfBranch(branch)"
-            matTooltipPosition="below">
-      {{titleOfBranch(branch)}}
-      <mat-icon>edit</mat-icon>
-    </button>
-  </ng-container>
-  <ng-template #noEdit>
-    <button mat-flat-button
-            [color]="'primary'"
-            (click)="validateAllChanges()"
-            [matTooltip]="validateChangesTitle"
-            matTooltipPosition="below">
-      {{validateChangesTitle}}
-    </button>
-  </ng-template>
-
-  <ng-container *ngIf="validationResult">
-    <ng-container *ngIf="validationErrors(validationResult) as errs; else valid">
-      <h2>Fehler beim Validieren:</h2>
-      <p *ngFor="let e of errs">{{showPipelineError(e)}}</p>
+  <ng-container *ngIf="branch">
+    <ng-container *ngIf="!editMode; else edit">
+      <button mat-flat-button
+              [color]="'accent'"
+              (click)="editBranch(branch)"
+              [matTooltip]="titleOfBranch(branch)"
+              matTooltipPosition="below">
+        {{titleOfBranch(branch)}}
+        <mat-icon>edit</mat-icon>
+      </button>
     </ng-container>
-    <ng-template #valid>
-      <h2>Alles valide 🚀</h2>
+    <ng-template #edit>
+      <button mat-flat-button
+              [color]="'primary'"
+              (click)="validateAllChanges()"
+              [matTooltip]="validateChangesTitle"
+              matTooltipPosition="below">
+        {{validateChangesTitle}}
+      </button>
+      <ng-container *ngIf="validationResult">
+        <ng-container *ngIf="validationErrors(validationResult) as errs; else valid">
+          <h2>Fehler beim Validieren:</h2>
+          <p *ngFor="let e of errs">{{showPipelineError(e)}}</p>
+        </ng-container>
+        <ng-template #valid>
+          <h2>Alles korrekt 🚀</h2>
+          <ng-container *ngIf="reviewed(); else review">
+            <h2>Zum Review freigegeben 🚀</h2>
+          </ng-container>
+          <ng-template #review>
+            <button mat-flat-button
+                    [color]="'primary'"
+                    (click)="reviewAllChanges()"
+                    [matTooltip]="reviewTitle"
+                    matTooltipPosition="below">
+              {{reviewTitle}}
+            </button>
+          </ng-template>
+        </ng-template>
+      </ng-container>
     </ng-template>
   </ng-container>
 </div>
