@@ -24,8 +24,8 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   displayedColumns: string[]
   headerTitle = 'Meine Module'
   validateChangesTitle = 'Änderungen auf Korrektheit prüfen'
-  commitTitle = 'Änderungen zum Review freigeben'
-  revertCommitTitle = 'Review zurückziehen'
+  reviewTitle = 'Änderungen zum Review freigeben'
+  revertReviewTitle = 'Review zurückziehen'
   branch?: Either<undefined, UserBranch>
   editMode: boolean = false
   username = 'kohls'
@@ -122,17 +122,20 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.forceValidation()
   }
 
-  // Commit
+  // Review
 
-  commitAllChanges = () => {
-    this.appState.forceCommit(this.username)
+  reviewAllChanges = () => {
+    this.appState.forceReview(this.username)
   }
 
-  alreadyCommitted = () =>
-    this.appState.alreadyCommitted()
+  alreadyReviewed = () =>
+    this.appState.alreadyReviewed()
 
-  revertCommit = () => {
-    this.appState.forceRevertCommit(this.username)
+  canReview = () =>
+    this.appState.canReview() && !this.alreadyReviewed()
+
+  revertReview = () => {
+    this.appState.forceRevertReview(this.username)
   }
 
   // Table

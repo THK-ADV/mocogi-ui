@@ -27,7 +27,7 @@ interface State<A> {
 
 interface MaybeState<A> {
   value: A | undefined
-  subject: Subject<A>
+  subject: Subject<A | undefined>
 }
 
 function createState<A>(initialState: A): State<A> {
@@ -35,10 +35,10 @@ function createState<A>(initialState: A): State<A> {
 }
 
 function createMaybeState<A>(initialState?: A): MaybeState<A> {
-  return {value: initialState, subject: new Subject<A>()}
+  return {value: initialState, subject: new Subject()}
 }
 
-function asObservable<A>(state: State<A> | MaybeState<A>): Observable<A> {
+function asObservable<A>(state: State<A>): Observable<A> {
   return state.subject.asObservable()
 }
 
@@ -96,7 +96,7 @@ export class AppStateService implements OnDestroy {
   private globalCriteria = createState<ReadonlyArray<GlobalCriteria>>([])
   private studyPrograms = createState<ReadonlyArray<StudyProgram>>([])
   private competences = createState<ReadonlyArray<Competence>>([])
-  private validationResult = createMaybeState<ValidationResult>()
+  private validationResult = createMaybeState<ValidationResult>(undefined)
 
   private userBranch?: Either<undefined, UserBranch>
   private userBranchSubject = new Subject<Either<undefined, UserBranch>>()
@@ -194,6 +194,7 @@ export class AppStateService implements OnDestroy {
             this.moduleDrafts.value = this.moduleDrafts.value.map(d => d.module === draft.module ? draft : d)
           }
           emitCurrentValue(this.moduleDrafts)
+          this.resetValidationState()
         })
     )
   }
@@ -297,6 +298,11 @@ export class AppStateService implements OnDestroy {
 
   // Validation
 
+  private resetValidationState = () => {
+    this.validationResult.value = undefined
+    this.validationResult.subject.next(undefined)
+  }
+
   private updateValidationState = (force: boolean) => {
     const branch = this.userBranch?.value?.branch
     if (!branch) {
@@ -315,12 +321,12 @@ export class AppStateService implements OnDestroy {
     this.updateValidationState(true)
   }
 
-  validationResult$ = (): Observable<ValidationResult> =>
-    asObservable(this.validationResult)
+  validationResult$ = (): Observable<ValidationResult | undefined> =>
+    this.validationResult.subject.asObservable()
 
-  // Commit
+  // Review
 
-  forceCommit = (username: string) => {
+  forceReview = (username: string) => {
     const branch = this.userBranch?.value
     if (!branch) {
       return
@@ -337,7 +343,7 @@ export class AppStateService implements OnDestroy {
     )
   }
 
-  forceRevertCommit = (username: string) => {
+  forceRevertReview = (username: string) => {
     const branch = this.userBranch?.value
     if (!branch) {
       return
@@ -350,10 +356,14 @@ export class AppStateService implements OnDestroy {
         .subscribe(() => {
           // update branch because commit id state might be changed
           this.forceUpdateBranchForUser(username)
+          this.resetValidationState()
         })
     )
   }
 
-  alreadyCommitted = () =>
-    this.userBranch?.value?.commitId != undefined
+  alreadyReviewed = () =>
+    this.userBranch?.value?.commitId != undefined && this.userBranch?.value?.mergeRequestId != undefined
+
+  canReview = () =>
+    this.moduleDrafts.value.length > 0
 }

@@ -1,7 +1,7 @@
 <div class="own-modules">
   <h1>{{headerTitle}}</h1>
   <div class="abstractTableMainTitle">
-    <button *ngIf="editMode && !alreadyCommitted()"
+    <button *ngIf="editMode && !alreadyReviewed()"
             mat-flat-button
             [color]="'primary'"
             (click)="onCreate()"
@@ -31,7 +31,7 @@
                   matTooltipPosition="left">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button *ngIf="editMode && !alreadyCommitted()"
+          <button *ngIf="editMode && !alreadyReviewed()"
                   mat-stroked-button
                   color="primary"
                   (click)="onEdit(element)"
@@ -59,7 +59,7 @@
       </button>
     </ng-container>
     <ng-template #edit>
-      <button *ngIf="!alreadyCommitted()"
+      <button *ngIf="!alreadyReviewed()"
               mat-flat-button
               [color]="'primary'"
               (click)="validateAllChanges()"
@@ -74,23 +74,24 @@
         </ng-container>
         <ng-template #valid>
           <h2>Alles korrekt 🚀</h2>
-          <ng-container *ngIf="alreadyCommitted(); else review">
+          <ng-container *ngIf="alreadyReviewed(); else review">
             <h2>Zum Review freigegeben 🚀</h2>
             <button mat-flat-button
                     [color]="'warn'"
-                    (click)="revertCommit()"
-                    [matTooltip]="revertCommitTitle"
+                    (click)="revertReview()"
+                    [matTooltip]="revertReviewTitle"
                     matTooltipPosition="below">
-              {{revertCommitTitle}}
+              {{revertReviewTitle}}
             </button>
           </ng-container>
           <ng-template #review>
-            <button mat-flat-button
+            <button *ngIf="canReview()"
+                    mat-flat-button
                     [color]="'accent'"
-                    (click)="commitAllChanges()"
-                    [matTooltip]="commitTitle"
+                    (click)="reviewAllChanges()"
+                    [matTooltip]="reviewTitle"
                     matTooltipPosition="below">
-              {{commitTitle}}
+              {{reviewTitle}}
             </button>
           </ng-template>
         </ng-template>
