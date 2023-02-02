@@ -78,4 +78,7 @@ export class ParticipantsComponent {
       validMandatoryNumber(min) &&
       +min >= 0 && +min < +max
   }
+
+  delete = () =>
+    this.dialogRef.close([])
 }
