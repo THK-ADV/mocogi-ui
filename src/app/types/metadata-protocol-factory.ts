@@ -98,24 +98,24 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
     return singleValue(any, 'module-relation')
   }
 
-  function learningOutCome(): { de: LearningOutcome, en: LearningOutcome } {
-    return {
-      de: {
-        what: toString(any['learning-outcome-content-what-de']),
-        whereby: toString(any['learning-outcome-content-whereby-de']),
-        wherefore: toString(any['learning-outcome-content-wherefore-de']),
-      },
-      en: {
-        what: toString(any['learning-outcome-content-what-en']),
-        whereby: toString(any['learning-outcome-content-whereby-en']),
-        wherefore: toString(any['learning-outcome-content-wherefore-en']),
-      }
-    }
-  }
+  // function learningOutCome(): { de: LearningOutcome, en: LearningOutcome } {
+  //   return {
+  //     de: {
+  //       what: toString(any['learning-outcome-content-what-de']),
+  //       whereby: toString(any['learning-outcome-content-whereby-de']),
+  //       wherefore: toString(any['learning-outcome-content-wherefore-de']),
+  //     },
+  //     en: {
+  //       what: toString(any['learning-outcome-content-what-en']),
+  //       whereby: toString(any['learning-outcome-content-whereby-en']),
+  //       wherefore: toString(any['learning-outcome-content-wherefore-en']),
+  //     }
+  //   }
+  // }
 
   function deContent(): Content {
     return {
-      learningOutcome: 'TODO',
+      learningOutcome: toString(any['learning-outcome-content-de']),
       content: toString(any['module-content-de']),
       teachingAndLearningMethods: toString(any['learning-methods-content-de']),
       recommendedReading: toString(any['literature-content-de']),
@@ -125,7 +125,7 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
 
   function enContent(): Content {
     return {
-      learningOutcome: 'TODO',
+      learningOutcome: toString(any['learning-outcome-content-en']),
       content: toString(any['module-content-en']),
       teachingAndLearningMethods: toString(any['learning-methods-content-en']),
       recommendedReading: toString(any['literature-content-en']),
