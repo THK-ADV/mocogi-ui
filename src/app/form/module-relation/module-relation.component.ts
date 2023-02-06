@@ -88,6 +88,8 @@ export class ModuleRelationComponent implements OnDestroy {
       show: showModuleRelationType,
       initialValue: moduleRelation && ((xs) => xs.find(x => x.label === moduleRelation.kind))
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.formGroup.addControl('type', formControlForOptionsInput(this.relationTypeInput))
     this.moduleInputType = {
       kind: 'options',
@@ -100,6 +102,8 @@ export class ModuleRelationComponent implements OnDestroy {
         : modules.filter(m => !this.dataSource.data.some(x => x.id === m.id)),
       show: showModule
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.formGroup.addControl('module', formControlForOptionsInput(this.moduleInputType))
   }
 

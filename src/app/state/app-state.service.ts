@@ -3,7 +3,7 @@ import { HttpService } from '../http/http.service'
 import { map, Observable, Subject, Subscription, tap, zip } from 'rxjs'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
-import { either, Either } from '../types/either'
+import { Either, left, right } from '../types/either'
 import { ModuleDraft } from '../types/module-draft'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
@@ -155,11 +155,7 @@ export class AppStateService implements OnDestroy {
     this.userBranchSubject.asObservable()
 
   private updateUsersBranch = (branch: UserBranch | undefined): Either<undefined, UserBranch> => {
-    const userBranch = either(
-      branch !== undefined,
-      () => branch!,
-      () => undefined
-    )
+    const userBranch = branch !== undefined ? right(branch) : left(undefined)
     this.userBranch = userBranch
     this.userBranchSubject.next(userBranch)
     return userBranch

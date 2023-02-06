@@ -29,8 +29,8 @@ export class EditModuleComponent implements OnInit {
   @Input() onCancel?: () => void
   @Input() onSubmit?: (any: any) => void
 
-  title: string = ''
-  buttonTitle: string = ''
+  title = ''
+  buttonTitle = ''
   formGroup = new FormGroup({})
 
   ngOnInit() {
@@ -69,18 +69,17 @@ export class EditModuleComponent implements OnInit {
     i as TextInput || i as NumberInput
 
   asOptions = (i: FormInput) =>
-    i as OptionsInput<any>
+    i as OptionsInput<unknown>
 
   asMultipleOptions = (i: FormInput) =>
-    i as MultipleOptionsInput<any>
+    i as MultipleOptionsInput<unknown>
 
   asReadOnly = (i: FormInput) =>
-    i as ReadOnlyInput<any, any>
+    i as ReadOnlyInput<unknown, unknown>
 
   asBoolean = (i: FormInput) =>
     i as BooleanInput
 
   formControl = (attr: string) =>
-    // @ts-ignore
-    this.formGroup.controls[attr] as FormControl
+    this.formGroup.get(attr) as FormControl
 }

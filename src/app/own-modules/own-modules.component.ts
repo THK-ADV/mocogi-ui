@@ -27,7 +27,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   reviewTitle = 'Änderungen zum Review freigeben'
   revertReviewTitle = 'Review zurückziehen'
   branch?: Either<undefined, UserBranch>
-  editMode: boolean = false
+  editMode = false
   username = 'kohls'
   validationResult?: ValidationResult
 
@@ -109,9 +109,8 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       }
     )
 
-  show = ([m, d]: [Module, ModuleDraft | undefined]) => {
+  show = ([m,]: [Module, ModuleDraft | undefined]) =>
     this.router.navigate(['/show'], {state: {id: m.id}})
-  }
 
   onCreate = () =>
     this.router.navigate(['/edit'], {queryParams: {action: 'create'}})
@@ -141,16 +140,14 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Table
 
   tableContent = ([module, draft]: [Module, ModuleDraft | undefined], attr: string): string => {
-    switch (attr) {
-      case 'name':
-        let str = draft ? draft.data.metadata.title : module.title
-        if (draft) {
-          str += ` (${draft.status})`
-        }
-        return str
-      default:
-        return '???'
+    if (attr !== 'name') {
+      return '???'
     }
+    let str = draft ? draft.data.metadata.title : module.title
+    if (draft) {
+      str += ` (${draft.status})`
+    }
+    return str
   }
 
   tableColor = ([, draft]: [Module, ModuleDraft | undefined]) => {

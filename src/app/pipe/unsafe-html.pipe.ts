@@ -9,7 +9,7 @@ export class UnsafeHtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {
   }
 
-  transform(value: unknown, ...args: unknown[]): unknown {
+  transform(value: unknown): unknown {
     if (typeof value === 'string') {
       return this.sanitizer.bypassSecurityTrustHtml(value)
     } else {

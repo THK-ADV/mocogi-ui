@@ -11,21 +11,19 @@ export interface MultipleOptionsInput<A> extends FormInputLike {
 }
 
 export const formControlForMultipleOptionsInput = (i: FormInput): FormControl | undefined => {
-  switch (i.kind) {
-    case 'multiple-options':
-      const fc = new FormControl(
-        {value: [], disabled: i.disabled},
-        i.required ? Validators.required : undefined
-      )
-      // fixes ExpressionChangedAfterItHasBeenCheckedError bug
-      if (Array.isArray(i.data)) {
-        const data = i.initialValue?.(i.data) as any
-        fc.setValue(data)
-      }
-      return fc
-    default:
-      return undefined
+  if (i.kind !== 'multiple-options') {
+    return undefined
   }
+  const fc = new FormControl<unknown[]>(
+    {value: [], disabled: i.disabled},
+    i.required ? Validators.required : undefined
+  )
+  // fixes ExpressionChangedAfterItHasBeenCheckedError bug
+  if (Array.isArray(i.data)) {
+    const data = i.initialValue?.(i.data) ?? null
+    fc.setValue(data)
+  }
+  return fc
 }
 
 @Component({

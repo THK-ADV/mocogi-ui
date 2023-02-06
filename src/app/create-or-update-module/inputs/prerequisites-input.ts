@@ -106,6 +106,8 @@ export function prerequisitesInputs(
           disabled: false,
           required: false,
           data: allModules,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showModule,
         }
       ],
@@ -131,6 +133,8 @@ export function prerequisitesInputs(
           disabled: false,
           required: false,
           data: allPOs,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showPO,
         }
       ],
@@ -152,11 +156,23 @@ export function prerequisitesInputs(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     requiredPrerequisitesText(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     requiredPrerequisitesModules(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     requiredPrerequisitesPOs(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     recommendedPrerequisitesText(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     recommendedPrerequisitesModules(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     recommendedPrerequisitesPOs()
   ]
 }

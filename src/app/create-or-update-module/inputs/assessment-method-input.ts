@@ -64,6 +64,8 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showLabel,
         },
         {
@@ -102,7 +104,11 @@ export function assessmentMethodInput(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     assessmentMethodsMandatoryInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     assessmentMethodsOptionalInput()
   ]
 }

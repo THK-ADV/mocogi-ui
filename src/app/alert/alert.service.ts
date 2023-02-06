@@ -9,9 +9,6 @@ export class AlertService {
 
   private alertSubject = new Subject<Alert>()
 
-  constructor() {
-  }
-
   alerts$ = () =>
     this.alertSubject.asObservable()
 

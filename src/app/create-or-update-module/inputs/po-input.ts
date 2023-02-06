@@ -72,6 +72,8 @@ export function poInput(
           disabled: false,
           required: false,
           data: allPOs,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: (a) => a.label,
         },
         {
@@ -116,6 +118,8 @@ export function poInput(
           disabled: false,
           required: false,
           data: allPOs,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: (a) => a.label,
         },
         {
@@ -125,6 +129,8 @@ export function poInput(
           disabled: false,
           required: false,
           data: genericModules,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: (a) => a.title,
         },
         {
@@ -155,7 +161,11 @@ export function poInput(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mandatory(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     optional()
   ]
 }

@@ -18,9 +18,17 @@ import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
-import { ModuleDraft } from '../types/module-draft'
+import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
+
+interface ModuleDraftJson {
+  module: string
+  data: string
+  branch: string
+  status: ModuleDraftStatus,
+  lastModified: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +44,7 @@ export class HttpService {
   allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules')
 
-  allModulesForUser = (user: String): Observable<Module[]> =>
+  allModulesForUser = (user: string): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
 
   // Module Compendium
@@ -120,7 +128,7 @@ export class HttpService {
   // Module Draft
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
-    this.http.get<ModuleDraft[]>(`moduleDrafts/${branch}`).pipe(
+    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
       map(xs => xs.map(this.convertModuleDraft))
     )
 
@@ -134,14 +142,13 @@ export class HttpService {
       branch: branch,
     }
     const request = id
-      ? this.http.put<ModuleDraft>(`moduleDrafts/${id}`, body)
-      : this.http.post<ModuleDraft>('moduleDrafts', body)
+      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${id}`, body)
+      : this.http.post<ModuleDraftJson>('moduleDrafts', body)
 
     return request.pipe(map(this.convertModuleDraft))
   }
 
-  private convertModuleDraft = (draft: ModuleDraft): ModuleDraft =>
-    // @ts-ignore
+  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft =>
     ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
 
   // Validation
@@ -151,9 +158,9 @@ export class HttpService {
 
   // Commit
 
-  commit = (branch: string, username: string): Observable<any> =>
-    this.http.put<any>(`moduleDrafts/${branch}/commit`, {username})
+  commit = (branch: string, username: string): Observable<unknown> =>
+    this.http.put<unknown>(`moduleDrafts/${branch}/commit`, {username})
 
-  revertCommit = (branch: string): Observable<any> =>
-    this.http.delete<any>(`moduleDrafts/${branch}/revertCommit`)
+  revertCommit = (branch: string): Observable<unknown> =>
+    this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
 }

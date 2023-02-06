@@ -60,6 +60,8 @@ export function responsibilityInput(
           disabled: false,
           required: false,
           data: persons,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showPerson,
         }
       ],
@@ -79,7 +81,11 @@ export function responsibilityInput(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     moduleCoordinatorInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     lecturerInput()
   ]
 }

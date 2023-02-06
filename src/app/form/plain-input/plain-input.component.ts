@@ -28,6 +28,7 @@ export const formControlForPainInput = (i: FormInput): FormControl | undefined =
         i.required ? Validators.required : undefined
       )
     case 'number':
+      // eslint-disable-next-line no-case-declarations
       const validators = []
       if (i.required) {
         validators.push(Validators.required)

@@ -185,6 +185,7 @@ export function simpleInput(
   function showModuleRelation(m: ModuleRelation): string {
     switch (m.kind) {
       case 'parent':
+        // eslint-disable-next-line no-case-declarations
         let parent = `Hat Submodule: `
         m.children.forEach((id, index) => {
           const module = modules.find(m => m.id === id)
@@ -197,7 +198,9 @@ export function simpleInput(
         })
         return parent
       case 'child':
+        // eslint-disable-next-line no-case-declarations
         let child = 'Gehört zum Modul: '
+        // eslint-disable-next-line no-case-declarations
         const module = modules.find(m => m.id === m.id)
         if (module) {
           child += module.abbrev
@@ -211,16 +214,38 @@ export function simpleInput(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     titleInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     abbreviationInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     moduleTypesInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     creditsInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     languagesInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     durationInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     frequencyInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     locationsInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     statusInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     participantsInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     moduleRelationInput()
   ]
 }

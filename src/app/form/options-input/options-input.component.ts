@@ -11,20 +11,20 @@ export interface OptionsInput<A> extends FormInputLike {
 }
 
 export const formControlForOptionsInput = (i: FormInput): FormControl | undefined => {
-  switch (i.kind) {
-    case 'options':
-      const fc = new FormControl(
-        {value: undefined, disabled: i.disabled},
-        i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator()
-      )
-      // fixes ExpressionChangedAfterItHasBeenCheckedError bug
-      if (Array.isArray(i.data)) {
-        fc.setValue(i.initialValue?.(i.data))
-      }
-      return fc
-    default:
-      return undefined
+  if (i.kind !== 'options') {
+    return undefined
   }
+  const fc = new FormControl(
+    {value: undefined, disabled: i.disabled},
+    i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator()
+  )
+  // fixes ExpressionChangedAfterItHasBeenCheckedError bug
+  if (Array.isArray(i.data)) {
+    // @ts-ignore
+    // const initialValue = i.initialValue?.(i.data)
+    // fc.setValue(i.initialValue?.(i.data))
+  }
+  return fc
 }
 
 @Component({

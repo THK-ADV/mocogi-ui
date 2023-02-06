@@ -9,6 +9,7 @@ import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
+import { formControlForInput, isOptionsInput } from '../form-input'
 
 export interface TableContent {
   entry: AssessmentMethodEntry
@@ -75,6 +76,8 @@ export class AssessmentMethodDialogComponent implements OnInit {
     this.formGroup = new FormGroup({})
     this.formGroup.addControl(
       this.assessmentMethodInput.attr,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       formControlForOptionsInput(this.assessmentMethodInput)
     )
     this.formGroup.addControl(
@@ -83,6 +86,8 @@ export class AssessmentMethodDialogComponent implements OnInit {
     )
     this.formGroup.addControl(
       this.preconditionInput.attr,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       formControlForOptionsInput(this.preconditionInput)
     )
   }

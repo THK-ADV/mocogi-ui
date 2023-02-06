@@ -18,7 +18,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     this.selected = arrayToObject(selected, a => a.method)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<unknown>): unknown[] {
     const data = optionsInput.data as AssessmentMethod[]
     if (optionsInput.attr === 'method') {
       return data.filter(d => !this.selected[d.abbrev])
@@ -27,14 +27,14 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     }
   }
 
-  addOptionToOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<any>>): void {
+  addOptionToOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<unknown>>): void {
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.addOption(method)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<any>>): void {
+  removeOptionFromOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<unknown>>): void {
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.removeOption(method)
@@ -83,13 +83,13 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
       !this.validPrecondition(controls['precondition'].value)
   }
 
-  private validAssessmentMethod = (value: any) =>
+  private validAssessmentMethod = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validPercentage = (value: any) =>
+  private validPercentage = (value: unknown) =>
     validOptionalNumber(value)
 
-  private validPrecondition = (value: any) =>
+  private validPrecondition = (value: unknown) =>
     validOptionalObject(value)
 
   private getPreconditionValue = (controls: { [p: string]: FormControl }) =>

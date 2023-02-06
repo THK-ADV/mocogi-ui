@@ -50,7 +50,6 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
       } else {
         console.error(`Backend returned code ${error.status}, body was: `, error.error)
       }
-
     }
     return EMPTY
   }

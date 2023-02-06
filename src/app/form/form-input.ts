@@ -20,11 +20,11 @@ export type FormInput =
   NumberInput |
   TextAreaInput |
   BooleanInput |
-  OptionsInput<any> |
-  MultipleOptionsInput<any> |
-  ReadOnlyInput<any, any>
+  OptionsInput<unknown> |
+  MultipleOptionsInput<unknown> |
+  ReadOnlyInput<unknown, unknown>
 
-export const isOptionsInput = (i: FormInput): i is OptionsInput<any> =>
+export const isOptionsInput = (i: FormInput): i is OptionsInput<unknown> =>
   i.kind === 'options'
 
 // FormInput Combinator
@@ -56,7 +56,7 @@ export function formControlForInput() {
 
 const invalidOptionKey = 'invalidObject'
 
-export const isJSON = (value: any): boolean =>
+export const isJSON = (value: unknown): boolean =>
   typeof value !== 'string'
 
 const error = () => ({[invalidOptionKey]: 'Invalide Auswahl'})

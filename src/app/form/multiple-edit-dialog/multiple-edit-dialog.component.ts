@@ -8,12 +8,11 @@ import { NonEmptyArray } from '../../types/non-empty-array'
 import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
-import { KeyValue } from '@angular/common'
 
 export interface MultipleEditDialogComponentCallback<TableEntry> {
-  filterInitialOptionsForComponent: (optionsInput: OptionsInput<any>) => any[]
-  removeOptionFromOptionsInputComponent: (option: TableEntry, components: QueryList<OptionsInputComponent<any>>) => void
-  addOptionToOptionsInputComponent: (option: TableEntry, components: QueryList<OptionsInputComponent<any>>) => void
+  filterInitialOptionsForComponent: (optionsInput: OptionsInput<unknown>) => unknown[]
+  removeOptionFromOptionsInputComponent: (option: TableEntry, components: QueryList<OptionsInputComponent<unknown>>) => void
+  addOptionToOptionsInputComponent: (option: TableEntry, components: QueryList<OptionsInputComponent<unknown>>) => void
   tableContent: (tableEntry: TableEntry, attr: string) => string
   tableEntryAlreadyExists: (controls: { [key: string]: FormControl }) => (e: TableEntry) => boolean
   toTableEntry: (controls: { [key: string]: FormControl }) => TableEntry
@@ -35,7 +34,7 @@ export class MultipleEditDialogComponent<TableEntry> implements OnDestroy {
   readonly inputs: { [key: string]: [FormInput, FormControl] } = {}
   readonly controls: { [key: string]: FormControl } = {}
 
-  @ViewChildren('options') options!: QueryList<OptionsInputComponent<any>>
+  @ViewChildren('options') options!: QueryList<OptionsInputComponent<unknown>>
 
   private callback?: MultipleEditDialogComponentCallback<TableEntry>
 
@@ -147,7 +146,7 @@ export class MultipleEditDialogComponent<TableEntry> implements OnDestroy {
     i[0] as TextInput || i[0] as NumberInput
 
   asOptions = (i: [FormInput, FormControl]) =>
-    i[0] as OptionsInput<any>
+    i[0] as OptionsInput<unknown>
 
   asBoolean = (i: [FormInput, FormControl]) =>
     i[0] as BooleanInput
@@ -158,7 +157,7 @@ export class MultipleEditDialogComponent<TableEntry> implements OnDestroy {
   getInputFormControl = (i: [FormInput, FormControl]): FormControl =>
     i[1]
 
-  originalOrder = (a: KeyValue<any, any>, b: KeyValue<any, any>): number => {
+  originalOrder = (): number => {
     return 0
   }
 

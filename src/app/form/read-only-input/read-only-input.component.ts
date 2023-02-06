@@ -9,7 +9,7 @@ export interface ReadOnlyInput<Option, Output> extends FormInputLike {
   options: Option[]
   show: (output: Output) => string
   initialValue?: (as: Option[]) => Output[]
-  dialogInstance: () => MatDialogRef<any, Output[]>
+  dialogInstance: () => MatDialogRef<unknown, Output[]>
 }
 
 export const formControlForReadOnlyInput = (i: FormInput): FormControl | undefined => {

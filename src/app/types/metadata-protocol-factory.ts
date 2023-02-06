@@ -8,17 +8,17 @@ import { ModuleCompendiumProtocol } from './module-compendium'
 import { Content } from './content'
 import { toNumber, toString } from './type-conversions'
 
-export interface LearningOutcome {
-  what: string
-  whereby: string
-  wherefore: string
-}
+// export interface LearningOutcome {
+//   what: string
+//   whereby: string
+//   wherefore: string
+// }
 
 function fromArray(any: any, key?: string) {
   return (any as Array<{ value: any }>).map(a => key ? a.value[key] : a.value)
 }
 
-function singleValue(any: any, property: string): any | undefined {
+function singleValue(any: any, property: string): unknown | undefined {
   const res = (any[property] as Array<{ value: any }>).map(a => a.value)
   return res.length === 0 ? undefined : res[0]
 }
@@ -51,6 +51,8 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
   }
 
   function participants(): Participants | undefined {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return singleValue(any, 'participants')
   }
 
@@ -95,6 +97,8 @@ export function createMetadataProtocol(any: any): ModuleCompendiumProtocol {
   }
 
   function moduleRelation(): ModuleRelation | undefined {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return singleValue(any, 'module-relation')
   }
 

@@ -86,6 +86,8 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: competences,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showLabel,
         }
       ],
@@ -111,6 +113,8 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: globalCriteria,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showLabel,
         }
       ],
@@ -136,6 +140,8 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: modules,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           show: showModule,
         }
       ],
@@ -144,8 +150,14 @@ export function miscellaneousInput(
   }
 
   return [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     competenceInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     globalCriteriaInput(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     taughtWithInput()
   ]
 }
