@@ -3,7 +3,7 @@ import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
 import { Content } from '../../types/content'
 
-export function learningOutcomeContent(deContent?: Content, enContent?: Content): FormInput[] {
+export function learningOutcomeContent(deContent?: Content, enContent?: Content) {
   // function go(lang: Lang): TextAreaInput[] {
   //   return [
   //     {
@@ -88,5 +88,5 @@ export function learningOutcomeContent(deContent?: Content, enContent?: Content)
     }
   }
 
-  return [go('de'), go('en')]
+  return <FormInput<unknown, unknown>[]>[go('de'), go('en')]
 }

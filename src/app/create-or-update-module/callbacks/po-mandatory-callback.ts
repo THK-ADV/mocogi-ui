@@ -7,7 +7,7 @@ import { validMandatoryCommaSeparatedNumber, validMandatoryObject, validOptional
 import { foldOpt } from '../../ops/undefined-ops'
 import { POMandatory, POPreview } from '../../types/pos'
 
-export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<POMandatory> {
+export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<POMandatory, POPreview> {
   readonly all: { [id: string]: POPreview } = {}
   readonly selected: { [id: string]: POMandatory } = {}
 
@@ -16,8 +16,11 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     this.selected = arrayToObject(selected, a => a.po)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
-    const data = optionsInput.data as POPreview[]
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<POPreview>): POPreview[] {
+    const data = optionsInput.data
+    if (!Array.isArray(data)) {
+      return []
+    }
     if (optionsInput.attr === 'po') {
       return data.filter(d => !this.selected[d.id])
     } else {
@@ -25,14 +28,14 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     }
   }
 
-  addOptionToOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<any>>): void {
+  addOptionToOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<unknown>>): void {
     const po = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
     po && component && component.addOption(po)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<any>>): void {
+  removeOptionFromOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<unknown>>): void {
     const po = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
     po && component && component.removeOption(po)

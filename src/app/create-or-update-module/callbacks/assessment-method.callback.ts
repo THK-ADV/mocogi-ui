@@ -9,7 +9,7 @@ import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
 
-export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
+export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry, AssessmentMethod> {
   readonly all: { [id: string]: AssessmentMethod } = {}
   readonly selected: { [id: string]: AssessmentMethodEntry } = {}
 
@@ -18,8 +18,11 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     this.selected = arrayToObject(selected, a => a.method)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<unknown>): unknown[] {
-    const data = optionsInput.data as AssessmentMethod[]
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<AssessmentMethod>): AssessmentMethod[] {
+    const data = optionsInput.data
+    if (!Array.isArray(data)) {
+      return []
+    }
     if (optionsInput.attr === 'method') {
       return data.filter(d => !this.selected[d.abbrev])
     } else {

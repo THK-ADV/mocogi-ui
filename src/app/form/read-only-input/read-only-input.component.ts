@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
-import { FormInput, FormInputLike, requiredError } from '../form-input'
+import { FormInputLike, requiredError } from '../form-input'
 import { MatDialogRef } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 
@@ -12,17 +12,11 @@ export interface ReadOnlyInput<Option, Output> extends FormInputLike {
   dialogInstance: () => MatDialogRef<unknown, Output[]>
 }
 
-export const formControlForReadOnlyInput = (i: FormInput): FormControl | undefined => {
-  switch (i.kind) {
-    case 'read-only':
-      return new FormControl(
-        {value: i.initialValue, disabled: i.disabled},
-        i.required ? Validators.required : undefined
-      )
-    default:
-      return undefined
-  }
-}
+export const formControlForReadOnlyInput = <A, B>(i: ReadOnlyInput<A, B>): FormControl =>
+  new FormControl(
+    {value: i.initialValue, disabled: i.disabled},
+    i.required ? Validators.required : undefined
+  )
 
 @Component({
   selector: 'sched-read-only-input',

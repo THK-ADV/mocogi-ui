@@ -1,4 +1,3 @@
-import { FormInput } from '../../form/form-input'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
@@ -7,6 +6,8 @@ import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
 import { PoOptionalCallback } from '../callbacks/po-optional-callback'
 import { POMandatory, POOptional, POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
 
 export function poInput(
   dialog: MatDialog,
@@ -14,9 +15,10 @@ export function poInput(
   genericModules: Module[],
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
-): FormInput[] {
+) {
 
   const dialogTitle = 'Zugehörigkeit zu Studiengängen bearbeiten'
+  const poColumn = {attr: 'po', title: 'Studiengang'}
 
   function mandatory(): ReadOnlyInput<POPreview, POMandatory> {
     const attr = 'po-mandatory'
@@ -50,32 +52,33 @@ export function poInput(
     }
   }
 
+  function poPreviewOptionsInput(): OptionsInput<POPreview> {
+    return {
+      kind: 'options',
+      label: requiredLabel(poColumn.title),
+      attr: poColumn.attr,
+      disabled: false,
+      required: false,
+      data: allPOs,
+      show: (a) => a.label,
+    }
+  }
+
   function mandatoryDialogInstance(attr: string) {
     const entries = currentMandatoryEntries(attr)
     const callback = new PoMandatoryCallback(allPOs, entries)
     const columns = [
-      {attr: 'po', title: 'Studiengang'},
+      poColumn,
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
       {attr: 'recommended-semester-part-time', title: 'Empfohlene Studiensemester für Teilzeit Studium (kommasepariert)'},
     ]
-
     return MultipleEditDialogComponent.instance(
       dialog,
       callback,
       columns,
       dialogTitle,
       [
-        {
-          kind: 'options',
-          label: requiredLabel(columns[0].title),
-          attr: columns[0].attr,
-          disabled: false,
-          required: false,
-          data: allPOs,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          show: (a) => a.label,
-        },
+        poPreviewOptionsInput(),
         {
           kind: 'text',
           label: requiredLabel(columns[1].title),
@@ -99,38 +102,25 @@ export function poInput(
     const entries = currentOptionalEntries(attr)
     const callback = new PoOptionalCallback(allPOs, entries, genericModules)
     const columns = [
-      {attr: 'po', title: 'Studiengang'},
+      poColumn,
       {attr: 'instance-of', title: 'Instanz von'},
       {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
     ]
-
     return MultipleEditDialogComponent.instance(
       dialog,
       callback,
       columns,
       dialogTitle,
       [
-        {
-          kind: 'options',
-          label: requiredLabel(columns[0].title),
-          attr: columns[0].attr,
-          disabled: false,
-          required: false,
-          data: allPOs,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          show: (a) => a.label,
-        },
-        {
+        poPreviewOptionsInput(),
+        <OptionsInput<Module>>{
           kind: 'options',
           label: requiredLabel(columns[1].title),
           attr: columns[1].attr,
           disabled: false,
           required: false,
           data: genericModules,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           show: (a) => a.title,
         },
         {
@@ -160,12 +150,8 @@ export function poInput(
     return allPOs.find(p => p.id === po.po)?.abbrev ?? '???'
   }
 
-  return [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  return <FormInput<unknown, unknown>[]>[
     mandatory(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     optional()
   ]
 }

@@ -27,6 +27,7 @@ import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
 import { ModuleCompendiumLike } from '../../types/module-compendium'
+import { FormInput } from '../../form/form-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -52,7 +53,7 @@ export function inputs(
   fromControlValueForAttr: (attr: string) => any,
   moduleCompendium?: ModuleCompendiumLike,
   metadataId?: string
-) {
+): { header: string, value: FormInput<unknown, unknown>[] }[] {
   const metadata = moduleCompendium?.metadata
   const deContent = moduleCompendium?.deContent
   const enContent = moduleCompendium?.enContent

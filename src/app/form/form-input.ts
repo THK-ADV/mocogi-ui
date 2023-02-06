@@ -1,5 +1,11 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms'
-import { formControlForPainInput, NumberInput, TextAreaInput, TextInput } from './plain-input/plain-input.component'
+import {
+  formControlForNumberInput,
+  formControlForTextInput,
+  NumberInput,
+  TextAreaInput,
+  TextInput
+} from './plain-input/plain-input.component'
 import { formControlForOptionsInput, OptionsInput } from './options-input/options-input.component'
 import { formControlForMultipleOptionsInput, MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'
 import { formControlForReadOnlyInput, ReadOnlyInput } from './read-only-input/read-only-input.component'
@@ -15,41 +21,51 @@ export interface FormInputLike {
   required: boolean
 }
 
-export type FormInput =
+export type FormInput<A = never, B = never> =
   TextInput |
   NumberInput |
   TextAreaInput |
   BooleanInput |
-  OptionsInput<unknown> |
-  MultipleOptionsInput<unknown> |
-  ReadOnlyInput<unknown, unknown>
+  OptionsInput<A> |
+  MultipleOptionsInput<A> |
+  ReadOnlyInput<A, B>
 
-export const isOptionsInput = (i: FormInput): i is OptionsInput<unknown> =>
+export const isOptionsInput = <A, B = never>(i: FormInput<A, B>): i is OptionsInput<A> =>
   i.kind === 'options'
+
+export const isMultipleOptionsInput = <A, B = never>(i: FormInput<A, B>): i is MultipleOptionsInput<A> =>
+  i.kind === 'multiple-options'
+
+export const isReadOnlyInput = <A, B>(i: FormInput<A, B>): i is ReadOnlyInput<A, B> =>
+  i.kind === 'read-only'
+
+export const asOptionsInput = <A, B = never>(i: FormInput<A, B>): OptionsInput<A> | undefined =>
+  isOptionsInput(i) ? i : undefined
+
+export const asMultipleOptionsInput = <A, B = never>(i: FormInput<A, B>): MultipleOptionsInput<A> | undefined =>
+  isMultipleOptionsInput(i) ? i : undefined
+
+export const asReadOnlyInput = <A, B>(i: FormInput<A, B>): ReadOnlyInput<A, B> | undefined =>
+  isReadOnlyInput(i) ? i : undefined
 
 // FormInput Combinator
 
-const combine = (
-  fs: Array<(i: FormInput) => FormControl | undefined>
-): (i: FormInput) => FormControl | undefined =>
-  i => {
-    for (const f of fs) {
-      const res = f(i)
-      if (res) {
-        return res
-      }
-    }
-    return undefined
+export const formControlForInput = <A, B>(i: FormInput<A, B>): FormControl => {
+  switch (i.kind) {
+    case 'text-area':
+    case 'text':
+      return formControlForTextInput(i)
+    case 'number':
+      return formControlForNumberInput(i)
+    case 'boolean':
+      return formControlForBooleanInput(i)
+    case 'options':
+      return formControlForOptionsInput(i)
+    case 'multiple-options':
+      return formControlForMultipleOptionsInput(i)
+    case 'read-only':
+      return formControlForReadOnlyInput(i)
   }
-
-export function formControlForInput() {
-  return combine([
-    formControlForPainInput,
-    formControlForOptionsInput,
-    formControlForMultipleOptionsInput,
-    formControlForReadOnlyInput,
-    formControlForBooleanInput
-  ])
 }
 
 // FormInput Validation

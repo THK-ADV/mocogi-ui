@@ -30,7 +30,7 @@ export function simpleInput(
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: MetadataLike,
   metadataId?: string
-): FormInput[] {
+) {
   function titleInput(): TextInput {
     return {
       kind: 'text',
@@ -213,39 +213,17 @@ export function simpleInput(
     return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadataId)
   }
 
-  return [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  return <FormInput<unknown, unknown>[]>[
     titleInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     abbreviationInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     moduleTypesInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     creditsInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     languagesInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     durationInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     frequencyInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     locationsInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     statusInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     participantsInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     moduleRelationInput()
   ]
 }

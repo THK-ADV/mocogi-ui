@@ -5,7 +5,7 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryObject } from './callback-validation'
 
-export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallback<A> {
+export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallback<A, A> {
   readonly id: (a: A) => string
   readonly show: (a: A) => string
   readonly attr: string
@@ -20,8 +20,11 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
     this.selected = arrayToObject(selected, id)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
-    const data = optionsInput.data as A[]
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<A>): A[] {
+    const data = optionsInput.data
+    if (!Array.isArray(data)) {
+      return []
+    }
     if (optionsInput.attr === this.attr) {
       return data.filter(a => !this.selected[this.id(a)])
     } else {
@@ -29,14 +32,14 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
     }
   }
 
-  addOptionToOptionsInputComponent(option: A, components: QueryList<OptionsInputComponent<any>>): void {
+  addOptionToOptionsInputComponent(option: A, components: QueryList<OptionsInputComponent<unknown>>): void {
     const a = this.lookup(this.id(option))
     const component = components.find(a => a.input.attr === this.attr)
     a && component && component.addOption(a)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: A, components: QueryList<OptionsInputComponent<any>>): void {
+  removeOptionFromOptionsInputComponent(option: A, components: QueryList<OptionsInputComponent<unknown>>): void {
     const a = this.lookup(this.id(option))
     const component = components.find(a => a.input.attr === this.attr)
     a && component && component.removeOption(a)

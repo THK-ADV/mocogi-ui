@@ -2,7 +2,7 @@ import { NumberInput } from '../../form/plain-input/plain-input.component'
 import { FormInput } from '../../form/form-input'
 import { WorkloadLike } from '../../types/workload'
 
-export function workloadInput(workload?: WorkloadLike): FormInput[] {
+export function workloadInput(workload?: WorkloadLike) {
   function lectureInput(): NumberInput {
     return go('Vorlesung', 'lecture', workload?.lecture)
   }
@@ -39,7 +39,7 @@ export function workloadInput(workload?: WorkloadLike): FormInput[] {
     }
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     lectureInput(),
     seminarInput(),
     practicalInput(),

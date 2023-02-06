@@ -15,6 +15,7 @@ import { StudyProgram } from '../types/core/study-program'
 import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
 import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { throwError } from '../types/error'
 
 function toPOPreview(
   pos: ReadonlyArray<PO>,
@@ -46,9 +47,9 @@ function toPOPreview(
 })
 export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editModuleComponent') editModuleComponent!: EditModuleComponent
+  @ViewChild('editModuleComponent') editModuleComponent!: EditModuleComponent<unknown, unknown>
 
-  payload?: EditModulePayload
+  payload?: EditModulePayload<unknown, unknown>
 
   private readonly id?: string
   private readonly action!: string
@@ -62,7 +63,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private appState: AppStateService
   ) {
-    this.action = this.route.snapshot.queryParamMap.get('action')!
+    this.action = route.snapshot.queryParamMap.get('action') ?? throwError('expected action parameter')
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
     const moduleCompendium: ModuleCompendiumProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
     const moduleCompendium$: Observable<ModuleCompendiumLike | undefined> =
@@ -91,7 +92,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
       const poPreviews = toPOPreview(pos, studyPrograms, grades)
       this.payload = {
         objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
-        editType: this.action == 'create' ? 'create' : 'update',
+        editType: this.action === 'create' ? 'create' : 'update',
         inputs: inputs(
           [...modules],
           [...moduleTypes],

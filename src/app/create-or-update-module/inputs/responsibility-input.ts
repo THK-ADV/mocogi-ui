@@ -4,15 +4,15 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
-import { FormInput } from '../../form/form-input'
 import { Person } from '../../types/core/person'
+import { FormInput } from '../../form/form-input'
 
 export function responsibilityInput(
   dialog: MatDialog,
   persons: Person[],
   currentLecturer: (attr: string) => Person[],
   moduleManagement?: string[]
-): FormInput[] {
+) {
   function moduleCoordinatorInput(): OptionsInput<Person> {
     return {
       kind: 'options',
@@ -53,15 +53,13 @@ export function responsibilityInput(
       columns,
       'Dozierende bearbeiten',
       [
-        {
+        <OptionsInput<Person>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
           disabled: false,
           required: false,
           data: persons,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           show: showPerson,
         }
       ],
@@ -80,12 +78,8 @@ export function responsibilityInput(
     }
   }
 
-  return [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  return <FormInput<unknown, unknown>[]>[
     moduleCoordinatorInput(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     lecturerInput()
   ]
 }

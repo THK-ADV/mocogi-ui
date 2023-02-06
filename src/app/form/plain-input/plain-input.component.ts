@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
-import { FormInput, FormInputLike, requiredError } from '../form-input'
+import { FormInputLike, requiredError } from '../form-input'
 
 export interface TextInput extends FormInputLike {
   initialValue?: string
@@ -19,30 +19,24 @@ export interface NumberInput extends FormInputLike {
   kind: 'number'
 }
 
-export const formControlForPainInput = (i: FormInput): FormControl | undefined => {
-  switch (i.kind) {
-    case 'text-area':
-    case 'text':
-      return new FormControl(
-        {value: i.initialValue, disabled: i.disabled},
-        i.required ? Validators.required : undefined
-      )
-    case 'number':
-      // eslint-disable-next-line no-case-declarations
-      const validators = []
-      if (i.required) {
-        validators.push(Validators.required)
-      }
-      if (i.min) {
-        validators.push(Validators.min(i.min))
-      }
-      if (i.max) {
-        validators.push(Validators.max(i.max))
-      }
-      return new FormControl({value: i.initialValue, disabled: i.disabled}, validators)
-    default:
-      return undefined
+export const formControlForTextInput = (i: TextInput | TextAreaInput): FormControl =>
+  new FormControl(
+    {value: i.initialValue, disabled: i.disabled},
+    i.required ? Validators.required : undefined
+  )
+
+export const formControlForNumberInput = (i: NumberInput): FormControl<number | undefined | null> => {
+  const validators = []
+  if (i.required) {
+    validators.push(Validators.required)
   }
+  if (i.min) {
+    validators.push(Validators.min(i.min))
+  }
+  if (i.max) {
+    validators.push(Validators.max(i.max))
+  }
+  return new FormControl({value: i.initialValue, disabled: i.disabled}, validators)
 }
 
 export const minError = (formControl: FormControl): string | undefined =>

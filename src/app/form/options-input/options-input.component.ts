@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
-import { FormInput, FormInputLike, mandatoryOptionsValidator, optionalOptionsValidator, optionsError, requiredError } from '../form-input'
+import { FormInputLike, mandatoryOptionsValidator, optionalOptionsValidator, optionsError, requiredError } from '../form-input'
 import { EMPTY, map, Observable, startWith, Subscription } from 'rxjs'
 import { FormControl, Validators } from '@angular/forms'
 
@@ -10,19 +10,15 @@ export interface OptionsInput<A> extends FormInputLike {
   initialValue?: (as: A[]) => A | undefined
 }
 
-export const formControlForOptionsInput = (i: FormInput): FormControl | undefined => {
-  if (i.kind !== 'options') {
-    return undefined
-  }
-  const fc = new FormControl(
+export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl => {
+  const fc = new FormControl<A | undefined>(
     {value: undefined, disabled: i.disabled},
     i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator()
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
   if (Array.isArray(i.data)) {
-    // @ts-ignore
-    // const initialValue = i.initialValue?.(i.data)
-    // fc.setValue(i.initialValue?.(i.data))
+    const initialValue = i.initialValue?.(i.data)
+    fc.setValue(initialValue)
   }
   return fc
 }

@@ -4,12 +4,13 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { ModuleCallback } from '../callbacks/module-callback'
-import { FormInput } from '../../form/form-input'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 import { showModule } from '../../ops/show-instances'
 import { POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
 import { PrerequisitesOutput } from '../../types/prerequisites'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -20,7 +21,7 @@ export function prerequisitesInputs(
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
   prerequisites?: PrerequisitesOutput
-): FormInput[] {
+) {
   function requiredPrerequisitesText(): TextAreaInput {
     return text('required', prerequisites?.required?.text)
   }
@@ -99,15 +100,13 @@ export function prerequisitesInputs(
       columns,
       'Module bearbeiten',
       [
-        {
+        <OptionsInput<Module>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
           disabled: false,
           required: false,
           data: allModules,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           show: showModule,
         }
       ],
@@ -126,15 +125,13 @@ export function prerequisitesInputs(
       columns,
       'Studiengänge bearbeiten',
       [
-        {
+        <OptionsInput<POPreview>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
           disabled: false,
           required: false,
           data: allPOs,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           show: showPO,
         }
       ],
@@ -155,24 +152,12 @@ export function prerequisitesInputs(
     return po.label
   }
 
-  return [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  return <FormInput<unknown, unknown>[]>[
     requiredPrerequisitesText(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     requiredPrerequisitesModules(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     requiredPrerequisitesPOs(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     recommendedPrerequisitesText(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     recommendedPrerequisitesModules(),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     recommendedPrerequisitesPOs()
   ]
 }
