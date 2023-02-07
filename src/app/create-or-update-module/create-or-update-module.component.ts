@@ -130,9 +130,10 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   goBack = (): void =>
     this.location.back()
 
-  onSubmit = (any: any) => {
-    const mc = createMetadataProtocol(any)
-    console.log(mc)
+  onSubmit = (value: unknown) => {
+    console.log(123)
+    console.log(JSON.stringify(value))
+    const mc = createMetadataProtocol(value)
     this.appState.addModuleDraft(mc, this.id)
   }
 }

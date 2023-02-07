@@ -25,7 +25,7 @@ export class EditModuleComponent<A, B> implements OnInit {
 
   @Input() payload!: EditModulePayload<A, B>
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (any: Partial<object>) => void
+  @Input() onSubmit?: (value: unknown) => void
 
   title = ''
   buttonTitle = ''

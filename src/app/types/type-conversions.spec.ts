@@ -5,7 +5,7 @@ describe('type conversions', () => {
     expect(toString(undefined)).toEqual('')
     expect(toString(null)).toEqual('')
     expect(toString('' as unknown)).toEqual('')
-    expect(toString(123)).toEqual('123')
+    expect(toString(123)).toEqual('')
     expect(toString('Hello')).toEqual('Hello')
     expect(toString('Hello' as unknown)).toEqual('Hello')
   })

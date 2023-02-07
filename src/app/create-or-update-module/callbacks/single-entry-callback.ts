@@ -72,7 +72,7 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
     return !this.validA(controls[this.attr].value)
   }
 
-  private validA = (value: any) =>
+  private validA = (value: unknown) =>
     validMandatoryObject(value)
 
   private getAValue = (controls: { [p: string]: FormControl }) =>

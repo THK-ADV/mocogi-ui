@@ -96,16 +96,16 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       !this.validRecommendedSemester(controls['recommended-semester'].value)
   }
 
-  private validPO = (value: any) =>
+  private validPO = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validInstanceOf = (value: any) =>
+  private validInstanceOf = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validPartOfCatalog = (value: any) =>
+  private validPartOfCatalog = (value: unknown) =>
     validMandatoryBoolean(value)
 
-  private validRecommendedSemester = (value: any) =>
+  private validRecommendedSemester = (value: unknown) =>
     validMandatoryCommaSeparatedNumber(value)
 
   private getRecommendedSemesterValue = (controls: { [p: string]: FormControl }) =>

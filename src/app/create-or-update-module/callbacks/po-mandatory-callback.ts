@@ -84,13 +84,13 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
       !this.validRecommendedSemesterPartTime(controls['recommended-semester-part-time'].value)
   }
 
-  private validPO = (value: any) =>
+  private validPO = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validRecommendedSemester = (value: any) =>
+  private validRecommendedSemester = (value: unknown) =>
     validMandatoryCommaSeparatedNumber(value)
 
-  private validRecommendedSemesterPartTime = (value: any) =>
+  private validRecommendedSemesterPartTime = (value: unknown) =>
     validOptionalCommaSeparatedNumber(value)
 
   private getRecommendedSemesterValue = (controls: { [p: string]: FormControl }) =>

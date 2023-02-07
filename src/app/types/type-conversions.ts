@@ -1,5 +1,5 @@
 export function toString(any: unknown): string {
-  return any === undefined || any === null ? '' : String(any)
+  return typeof any === 'string' ? any : ''
 }
 
 export function toNumber(any: unknown): number {
