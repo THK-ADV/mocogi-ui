@@ -44,7 +44,7 @@ import { ModuleRelationComponent } from './form/module-relation/module-relation.
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
-import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe';
+import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { AlertComponent } from './alert/alert.component'
 
 @NgModule({

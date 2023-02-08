@@ -50,7 +50,7 @@ export function inputs(
   competences: Competence[],
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
-  fromControlValueForAttr: (attr: string) => any,
+  fromControlValueForAttr: (attr: string) => unknown,
   moduleCompendium?: ModuleCompendiumLike,
   metadataId?: string
 ): { header: string, value: FormInput<unknown, unknown>[] }[] {

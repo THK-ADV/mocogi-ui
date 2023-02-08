@@ -358,7 +358,7 @@ export class AppStateService implements OnDestroy {
   }
 
   alreadyReviewed = () =>
-    this.userBranch?.value?.commitId != undefined && this.userBranch?.value?.mergeRequestId != undefined
+    this.userBranch?.value?.commitId != null && this.userBranch?.value?.mergeRequestId != null
 
   canReview = () =>
     this.moduleDrafts.value.length > 0

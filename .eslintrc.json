@@ -15,7 +15,8 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "eqeqeq": [ // https://eslint.org/docs/latest/rules/eqeqeq#smart
+        "eqeqeq": [
+          // https://eslint.org/docs/latest/rules/eqeqeq#smart
           "error",
           "smart"
         ],
