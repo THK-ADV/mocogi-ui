@@ -164,15 +164,4 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   validationErrors = (res: ValidationResult): ReadonlyArray<PipelineError> | null =>
     res.data
-
-  showPipelineError = (e: PipelineError): string => {
-    switch (e.tag) {
-      case 'parsing-error':
-        return JSON.stringify(e.error)
-      case 'printing-error':
-        return JSON.stringify(e.error)
-      case 'validation-error':
-        return JSON.stringify(e.error)
-    }
-  }
 }

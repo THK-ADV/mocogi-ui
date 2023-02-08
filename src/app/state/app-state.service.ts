@@ -163,6 +163,9 @@ export class AppStateService implements OnDestroy {
 
   // Module Drafts
 
+  moduleDraftForId = (id: string): ModuleDraft | undefined =>
+    this.moduleDrafts.value.find(d => d.module === id)
+
   getModuleDrafts = () => {
     const branch = this.userBranch?.value?.branch
     if (!branch) {

@@ -45,7 +45,8 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
-import { AlertComponent } from './alert/alert.component'
+import { AlertComponent } from './alert/alert.component';
+import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AlertComponent } from './alert/alert.component'
     ModuleCompendiumHtmlComponent,
     UnsafeHtmlPipe,
     AlertComponent,
+    PipelineErrorPipe,
   ],
   imports: [
     BrowserModule,
