@@ -1,46 +1,25 @@
 import { Participants } from './participants'
-import { Child, ModuleRelation, Parent } from './module-relation'
-import { AssessmentMethods } from './assessment-methods'
-import { POs } from './pos'
+import { ModuleRelation } from './module-relation'
+import { AssessmentMethodEntry, AssessmentMethods } from './assessment-methods'
+import { POMandatory, POOptional, POs } from './pos'
 import { WorkloadProtocol } from './workload'
 import { MetadataProtocol } from './metadata'
 import { ModuleCompendiumProtocol } from './module-compendium'
 import { Content } from './content'
-import { toNumber, toString } from './type-conversions'
+import { toBoolean, toNumber, toString } from './type-conversions'
 import { throwError as throwError_ } from './error'
-
-// export interface LearningOutcome {
-//   what: string
-//   whereby: string
-//   wherefore: string
-// }
-
-// function learningOutCome(): { de: LearningOutcome, en: LearningOutcome } {
-//   return {
-//     de: {
-//       what: toString(any['learning-outcome-content-what-de']),
-//       whereby: toString(any['learning-outcome-content-whereby-de']),
-//       wherefore: toString(any['learning-outcome-content-wherefore-de']),
-//     },
-//     en: {
-//       what: toString(any['learning-outcome-content-what-en']),
-//       whereby: toString(any['learning-outcome-content-whereby-en']),
-//       wherefore: toString(any['learning-outcome-content-wherefore-en']),
-//     }
-//   }
-// }
+import { PrerequisiteEntry, PrerequisitesOutput } from './prerequisites'
 
 function throwError(key: string, record: Record<string, unknown>): never {
-  throwError_(`expected key '${key}', but found ${record}`)
+  throwError_(`expected key '${key}', but found ${JSON.stringify(record)}`)
 }
 
-function fromArray(any: any, key?: string) {
-  return (any as Array<{ value: any }>).map(a => key ? a.value[key] : a.value)
-}
-
-function singleValue(any: any, property: string): unknown | undefined {
-  const res = (any[property] as Array<{ value: any }>).map(a => a.value)
-  return res.length === 0 ? undefined : res[0]
+export function asRecord(value: unknown): Record<string, unknown> {
+  if (typeof value === 'object' && value !== null && value !== undefined) {
+    return value as Record<string, unknown>
+  } else {
+    throwError_(`expected value ${value} to be convertable to a record`)
+  }
 }
 
 function parse<A>(key: string, record: Record<string, unknown>, f: (u: unknown) => A): A {
@@ -55,6 +34,10 @@ export function parseNumber(key: string, record: Record<string, unknown>): numbe
   return parse(key, record, u => toNumber(u))
 }
 
+export function parseBoolean(key: string, record: Record<string, unknown>): boolean {
+  return parse(key, record, u => toBoolean(u) ?? throwError_(`expected boolean, but was ${u}`))
+}
+
 export function parsePeekString(keys: ReadonlyArray<string>, record: Record<string, unknown>): string {
   const key = keys[0]
   return keys.length === 1
@@ -62,7 +45,19 @@ export function parsePeekString(keys: ReadonlyArray<string>, record: Record<stri
     : parse(key, record, v => parsePeekString(keys.slice(1), asRecord(v)))
 }
 
-export function parseArray(keys: ReadonlyArray<string>, record: Record<string, unknown>): string[] {
+export function parseOptional<A>(key: string, record: Record<string, unknown>, f: (v: unknown) => A): A | undefined {
+  if (!(key in record)) {
+    return undefined
+  }
+  const value = record[key]
+  return value === null || value === undefined ? undefined : f(value)
+}
+
+export function parseArray<A>(key: string, record: Record<string, unknown>, f: (v: unknown) => A): A[] {
+  return parse(key, record, p => Array.isArray(p) ? p.map(v => f(v)) : [])
+}
+
+export function parsePeekArray(keys: ReadonlyArray<string>, record: Record<string, unknown>): string[] {
   if (keys.length === 0) {
     return []
   }
@@ -127,38 +122,40 @@ export function parseLocation(record: Record<string, unknown>): string {
 }
 
 export function parseParticipants(record: Record<string, unknown>): Participants | undefined {
-  return parse('participants', record, value => {
-    if (Array.isArray(value) && value.length === 0) {
-      return undefined
-    }
-    return parse('value', asRecord(value), participants => {
-      const participantsRecord = asRecord(participants)
+  const participants = parseArray('participants', record, x => {
+    return parse('value', asRecord(x), p => {
+      const participantsRecord = asRecord(p)
       return {
         min: parseNumber('min', participantsRecord),
         max: parseNumber('max', participantsRecord)
       }
     })
   })
+  return participants.shift()
 }
 
 export function parseModuleRelation(record: Record<string, unknown>): ModuleRelation | undefined {
-  return parse('module-relation', record, value => {
-    if (Array.isArray(value) && value.length === 0) {
-      return undefined
-    }
-    return parse<ModuleRelation | undefined>('value', asRecord(value), moduleRelation => {
+  const relations = parseArray('module-relation', record, x => {
+    return parse<ModuleRelation>('value', asRecord(x), moduleRelation => {
       const moduleRelationRecord = asRecord(moduleRelation)
       const kind = parseString('kind', moduleRelationRecord)
       switch (kind) {
         case 'child':
-          return moduleRelation as Child
+          return {
+            kind: 'child',
+            parent: parseString('parent', moduleRelationRecord)
+          }
         case 'parent':
-          return moduleRelation as Parent
+          return {
+            kind: 'parent',
+            children: parseArray('children', moduleRelationRecord, c => toString(c))
+          }
         default:
-          return undefined
+          return throwError_(`expected 'kind' to be 'child' or 'parent', but was ${kind}`)
       }
     })
   })
+  return relations.shift()
 }
 
 export function parseModuleManagement(record: Record<string, unknown>): string[] {
@@ -167,92 +164,132 @@ export function parseModuleManagement(record: Record<string, unknown>): string[]
 }
 
 export function parseLecturers(record: Record<string, unknown>): string[] {
-  return parseArray(['lecturer', 'value', 'id'], record)
+  return parsePeekArray(['lecturer', 'value', 'id'], record)
 }
 
 export function parseAssessmentMethods(record: Record<string, unknown>): AssessmentMethods {
+  function go(key: string): AssessmentMethodEntry[] {
+    return parse(key, record, xs => {
+      if (Array.isArray(xs)) {
+        return xs.map(x => parse('value', asRecord(x), x => {
+          const xRecord = asRecord(x)
+          return {
+            method: parseString('method', xRecord),
+            percentage: parseOptional('percentage', xRecord, p => toNumber(p)),
+            precondition: parseArray('precondition', xRecord, s => toString(s))
+          }
+        }))
+      }
+      return []
+    })
+  }
+
   return {
-    mandatory: fromArray(any['assessment-methods-mandatory']),
-    optional: fromArray(any['assessment-methods-optional'])
+    mandatory: go('assessment-methods-mandatory'),
+    optional: go('assessment-methods-optional')
   }
 }
 
-export function parseDeContent(any: any): Content {
+export function parseDeContent(record: Record<string, unknown>): Content {
   return {
-    learningOutcome: toString(any['learning-outcome-content-de']),
-    content: toString(any['module-content-de']),
-    teachingAndLearningMethods: toString(any['learning-methods-content-de']),
-    recommendedReading: toString(any['literature-content-de']),
-    particularities: toString(any['particularities-content-de']),
+    learningOutcome: parseString('learning-outcome-content-de', record),
+    content: parseString('module-content-de', record),
+    teachingAndLearningMethods: parseString('learning-methods-content-de', record),
+    recommendedReading: parseString('literature-content-de', record),
+    particularities: parseString('particularities-content-de', record),
   }
 }
 
-export function parseEnContent(any: any): Content {
+export function parseEnContent(record: Record<string, unknown>): Content {
   return {
-    learningOutcome: toString(any['learning-outcome-content-en']),
-    content: toString(any['module-content-en']),
-    teachingAndLearningMethods: toString(any['learning-methods-content-en']),
-    recommendedReading: toString(any['literature-content-en']),
-    particularities: toString(any['particularities-content-en']),
+    learningOutcome: parseString('learning-outcome-content-en', record),
+    content: parseString('module-content-en', record),
+    teachingAndLearningMethods: parseString('learning-methods-content-en', record),
+    recommendedReading: parseString('literature-content-en', record),
+    particularities: parseString('particularities-content-en', record),
   }
 }
 
-export function parsePrerequisites(any: any) {
-  return {
-    recommended: {
-      text: toString(any['recommended-prerequisites-text']),
-      pos: fromArray(any['recommended-prerequisites-po'], 'id'),
-      modules: fromArray(any['recommended-prerequisites-modules'], 'id'),
-    },
-    required: {
-      text: toString(any['required-prerequisites-text']),
-      pos: fromArray(any['required-prerequisites-po'], 'id'),
-      modules: fromArray(any['required-prerequisites-modules'], 'id'),
+export function parsePrerequisites(record: Record<string, unknown>): PrerequisitesOutput {
+  function go(prefix: string): PrerequisiteEntry | undefined {
+    const text = parseOptional(`${prefix}-prerequisites-text`, record, v => toString(v)) ?? ''
+    const pos = parsePeekArray([`${prefix}-prerequisites-po`, 'value', 'id'], record)
+    const modules = parsePeekArray([`${prefix}-prerequisites-modules`, 'value', 'id'], record)
+    if (text === '' && pos.length === 0 && modules.length === 0) {
+      return undefined
     }
+    return {text, pos, modules}
   }
-}
 
-export function parsePo(any: any): POs {
   return {
-    mandatory: fromArray(any['po-mandatory']),
-    optional: fromArray(any['po-optional'])
+    recommended: go('recommended'),
+    required: go('required')
   }
 }
 
-export function parseMetadata(any: any): MetadataProtocol {
+export function parsePo(record: Record<string, unknown>): POs {
+  const mandatory: POMandatory[] = parseArray('po-mandatory', record, x => {
+    return parse('value', asRecord(x), po => {
+      const poRecord = asRecord(po)
+      return {
+        po: parseString('po', poRecord),
+        recommendedSemester: parseArray('recommendedSemester', poRecord, v => toNumber(v)),
+        recommendedSemesterPartTime: parseArray('recommendedSemesterPartTime', poRecord, v => toNumber(v)),
+      }
+    })
+  })
+  const optional: POOptional[] = parseArray('po-optional', record, x => {
+    return parse('value', asRecord(x), po => {
+      const poRecord = asRecord(po)
+      return {
+        po: parseString('po', poRecord),
+        instanceOf: parseString('instanceOf', poRecord),
+        partOfCatalog: parseBoolean('partOfCatalog', poRecord),
+        recommendedSemester: parseArray('recommendedSemester', poRecord, v => toNumber(v)),
+      }
+    })
+  })
+  return {mandatory, optional}
+}
+
+export function parseCompetences(record: Record<string, unknown>): string[] {
+  return parsePeekArray(['competences', 'value', 'abbrev'], record)
+}
+
+export function parseGlobalCriteria(record: Record<string, unknown>): string[] {
+  return parsePeekArray(['global-criteria', 'value', 'abbrev'], record)
+}
+
+export function parseTaughtWith(record: Record<string, unknown>): string[] {
+  return parsePeekArray(['taught-with', 'value', 'id'], record)
+}
+
+export function parseMetadata(record: Record<string, unknown>): MetadataProtocol {
   return {
-    title: parseTitle(any),
-    abbrev: parseAbbreviation(any),
-    moduleType: parseModuleType(any),
-    ects: parseECTS(any),
-    language: parseLanguage(any),
-    duration: parseDuration(any),
-    season: parseSeason(any),
-    workload: parseWorkload(any),
-    status: parseStatus(any),
-    location: parseLocation(any),
-    participants: parseParticipants(any),
-    moduleRelation: parseModuleRelation(any),
-    moduleManagement: parseModuleManagement(any),
-    lecturers: parseLecturers(any),
-    assessmentMethods: parseAssessmentMethods(any),
-    prerequisites: parsePrerequisites(any),
-    po: parsePo(any),
-    competences: fromArray(any['competences'], 'abbrev'),
-    globalCriteria: fromArray(any['global-criteria'], 'abbrev'),
-    taughtWith: fromArray(any['taught-with'], 'id')
+    title: parseTitle(record),
+    abbrev: parseAbbreviation(record),
+    moduleType: parseModuleType(record),
+    ects: parseECTS(record),
+    language: parseLanguage(record),
+    duration: parseDuration(record),
+    season: parseSeason(record),
+    workload: parseWorkload(record),
+    status: parseStatus(record),
+    location: parseLocation(record),
+    participants: parseParticipants(record),
+    moduleRelation: parseModuleRelation(record),
+    moduleManagement: parseModuleManagement(record),
+    lecturers: parseLecturers(record),
+    assessmentMethods: parseAssessmentMethods(record),
+    prerequisites: parsePrerequisites(record),
+    po: parsePo(record),
+    competences: parseCompetences(record),
+    globalCriteria: parseGlobalCriteria(record),
+    taughtWith: parseTaughtWith(record)
   }
 }
 
-export function asRecord(value: unknown): Record<string, unknown> {
-  if (typeof value === 'object' && value !== null && value !== undefined) {
-    return value as Record<string, unknown>
-  } else {
-    throwError_(`expected value ${value} to be convertable to a record`)
-  }
-}
-
-export function createMetadataProtocol(value: unknown): ModuleCompendiumProtocol {
+export function parseModuleCompendium(value: unknown): ModuleCompendiumProtocol {
   const record = asRecord(value)
   return {
     metadata: parseMetadata(record),

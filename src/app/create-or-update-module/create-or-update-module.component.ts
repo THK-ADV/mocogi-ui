@@ -7,7 +7,7 @@ import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
 import { showLabel } from '../ops/show-instances'
-import { createMetadataProtocol } from '../types/metadata-protocol-factory'
+import { parseModuleCompendium } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
 import { Grade } from '../types/core/grade'
@@ -131,9 +131,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     this.location.back()
 
   onSubmit = (value: unknown) => {
-    console.log(123)
-    console.log(JSON.stringify(value))
-    const mc = createMetadataProtocol(value)
+    const mc = parseModuleCompendium(value)
     this.appState.addModuleDraft(mc, this.id)
   }
 }
