@@ -225,4 +225,7 @@ export class ModuleRelationComponent implements OnDestroy {
 
   private moduleValue = () =>
     this.moduleControl().value as Module
+
+  deleteAll = () =>
+    this.dialogRef.close([])
 }
