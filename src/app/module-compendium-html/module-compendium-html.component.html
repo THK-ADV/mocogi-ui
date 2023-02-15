@@ -1,0 +1,3 @@
+<ng-container *ngIf="moduleCompendium | async as res">
+  <div [innerHtml]="res | unsafeHtml"></div>
+</ng-container>

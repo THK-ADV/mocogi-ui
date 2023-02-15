@@ -1,11 +1,11 @@
 <div class="own-modules">
   <h1>{{headerTitle}}</h1>
   <div class="abstractTableMainTitle">
-    <button *ngIf="onCreate"
+    <button *ngIf="editMode && !alreadyReviewed()"
             mat-flat-button
             [color]="'primary'"
             (click)="onCreate()"
-            [matTooltip]="tooltipTitle"
+            [matTooltip]="'Modul erstellen'"
             matTooltipPosition="below">
       <mat-icon>add</mat-icon>
     </button>
@@ -16,21 +16,86 @@
 
       <ng-container *ngFor="let column of columns" [matColumnDef]="column.attr">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.title}}</th>
-        <td mat-cell *matCellDef="let element ">{{tableContent(element, column.attr)}} </td>
+        <td mat-cell *matCellDef="let element " [style.color]="tableColor(element)">
+          {{tableContent(element, column.attr)}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-          <button mat-stroked-button color="primary" (click)="onEdit(element)"
-                  matTooltip="Bearbeiten" matTooltipPosition="left">
+          <button mat-stroked-button
+                  color="primary"
+                  (click)="show(element)"
+                  matTooltip="Anzeigen"
+                  matTooltipPosition="left">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button *ngIf="editMode && !alreadyReviewed()"
+                  mat-stroked-button
+                  color="primary"
+                  (click)="onEdit(element)"
+                  matTooltip="Bearbeiten"
+                  matTooltipPosition="left">
             <mat-icon>edit</mat-icon>
           </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="show(row)"></tr>
     </table>
   </div>
+
+  <ng-container *ngIf="branch">
+    <ng-container *ngIf="!editMode; else edit">
+      <button mat-flat-button
+              [color]="'accent'"
+              (click)="editBranch(branch)"
+              [matTooltip]="titleOfBranch(branch)"
+              matTooltipPosition="below">
+        {{titleOfBranch(branch)}}
+        <mat-icon>edit</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #edit>
+      <button *ngIf="!alreadyReviewed()"
+              mat-flat-button
+              [color]="'primary'"
+              (click)="validateAllChanges()"
+              [matTooltip]="validateChangesTitle"
+              matTooltipPosition="below">
+        {{validateChangesTitle}}
+      </button>
+      <ng-container *ngIf="validationResult">
+        <ng-container *ngIf="validationErrors(validationResult) as errs; else valid">
+          <h2>Fehler beim Validieren:</h2>
+          <div *ngFor="let e of errs" [innerHTML]="e | pipelineError"></div>
+        </ng-container>
+        <ng-template #valid>
+          <h2>Alles korrekt 🚀</h2>
+          <ng-container *ngIf="alreadyReviewed(); else review">
+            <h2>Zum Review freigegeben 🚀</h2>
+            <button mat-flat-button
+                    [color]="'warn'"
+                    (click)="revertReview()"
+                    [matTooltip]="revertReviewTitle"
+                    matTooltipPosition="below">
+              {{revertReviewTitle}}
+            </button>
+          </ng-container>
+          <ng-template #review>
+            <button *ngIf="canReview()"
+                    mat-flat-button
+                    [color]="'accent'"
+                    (click)="reviewAllChanges()"
+                    [matTooltip]="reviewTitle"
+                    matTooltipPosition="below">
+              {{reviewTitle}}
+            </button>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </ng-container>
 </div>

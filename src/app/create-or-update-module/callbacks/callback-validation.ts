@@ -1,19 +1,19 @@
 // Mandatory
 
-export function validMandatoryObject(value: any): boolean {
+export function validMandatoryObject(value: unknown): boolean {
   return value !== undefined &&
     value !== '' &&
     value !== null
 }
 
-export function validMandatoryBoolean(value: any): boolean {
+export function validMandatoryBoolean(value: unknown): boolean {
   return value !== undefined &&
     value !== '' &&
     value !== null &&
     typeof value == 'boolean'
 }
 
-export function validMandatoryCommaSeparatedNumber(value: any): boolean {
+export function validMandatoryCommaSeparatedNumber(value: unknown): boolean {
   function go(value: string): boolean {
     const res = value.match('^[1-8](,[1-8])*$')
     return res !== null && Array.isArray(res)
@@ -22,10 +22,11 @@ export function validMandatoryCommaSeparatedNumber(value: any): boolean {
   return value !== undefined &&
     value !== '' &&
     value !== null &&
+    typeof value === 'string' &&
     go(value)
 }
 
-export function validMandatoryNumber(value: any): boolean {
+export function validMandatoryNumber(value: unknown): boolean {
   return value !== undefined &&
     value !== '' &&
     value !== null &&
@@ -34,18 +35,18 @@ export function validMandatoryNumber(value: any): boolean {
 
 // Optional
 
-export function validOptionalObject(value: any): boolean {
+export function validOptionalObject(value: unknown): boolean {
   return value === undefined ||
     typeof value === 'object' ||
     value === ''
 }
 
-export function validOptionalNumber(value: any): boolean {
+export function validOptionalNumber(value: unknown): boolean {
   return value === undefined ||
     (typeof value === 'string' && !isNaN(Number(value)))
 }
 
-export function validOptionalCommaSeparatedNumber(value: any): boolean {
+export function validOptionalCommaSeparatedNumber(value: unknown): boolean {
   return value === undefined ||
     value === '' ||
     (typeof value === 'string' && validMandatoryCommaSeparatedNumber(value))

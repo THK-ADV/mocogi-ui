@@ -9,7 +9,7 @@ import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
 
-export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry> {
+export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry, AssessmentMethod> {
   readonly all: { [id: string]: AssessmentMethod } = {}
   readonly selected: { [id: string]: AssessmentMethodEntry } = {}
 
@@ -18,8 +18,11 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     this.selected = arrayToObject(selected, a => a.method)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
-    const data = optionsInput.data as AssessmentMethod[]
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<AssessmentMethod>): AssessmentMethod[] {
+    const data = optionsInput.data
+    if (!Array.isArray(data)) {
+      return []
+    }
     if (optionsInput.attr === 'method') {
       return data.filter(d => !this.selected[d.abbrev])
     } else {
@@ -27,14 +30,14 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     }
   }
 
-  addOptionToOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<any>>): void {
+  addOptionToOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<unknown>>): void {
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.addOption(method)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<any>>): void {
+  removeOptionFromOptionsInputComponent(option: AssessmentMethodEntry, components: QueryList<OptionsInputComponent<unknown>>): void {
     const method = this.lookup(option.method)
     const component = components.find(a => a.input.attr === 'method')
     method && component && component.removeOption(method)
@@ -83,13 +86,13 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
       !this.validPrecondition(controls['precondition'].value)
   }
 
-  private validAssessmentMethod = (value: any) =>
+  private validAssessmentMethod = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validPercentage = (value: any) =>
+  private validPercentage = (value: unknown) =>
     validOptionalNumber(value)
 
-  private validPrecondition = (value: any) =>
+  private validPrecondition = (value: unknown) =>
     validOptionalObject(value)
 
   private getPreconditionValue = (controls: { [p: string]: FormControl }) =>

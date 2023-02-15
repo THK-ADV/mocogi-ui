@@ -14,7 +14,7 @@ import { particularitiesContent } from './particularities-content-input'
 import { learningOutcomeContent } from './learning-outcome-content-input'
 import { Participants } from '../../types/participants'
 import { ModuleRelation } from '../../types/module-relation'
-import { Metadata } from '../../types/metadata'
+import { MetadataLike } from '../../types/metadata'
 import { Location } from '../../types/core/location'
 import { Language } from '../../types/core/language'
 import { Status } from '../../types/core/status'
@@ -26,6 +26,8 @@ import { POPreview } from '../../types/pos'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
+import { ModuleCompendiumLike } from '../../types/module-compendium'
+import { FormInput } from '../../form/form-input'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -48,9 +50,14 @@ export function inputs(
   competences: Competence[],
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
-  fromControlValueForAttr: (attr: string) => any,
-  metadata?: Metadata
-) {
+  fromControlValueForAttr: (attr: string) => unknown,
+  moduleCompendium?: ModuleCompendiumLike,
+  metadataId?: string
+): { header: string, value: FormInput<unknown, unknown>[] }[] {
+  const metadata = moduleCompendium?.metadata
+  const deContent = moduleCompendium?.deContent
+  const enContent = moduleCompendium?.enContent
+
   function generalInformationSection() {
     return {
       header: 'Allgemeine Informationen',
@@ -64,7 +71,8 @@ export function inputs(
         modules,
         currentParticipants,
         currentModuleRelation,
-        metadata
+        metadata,
+        metadataId
       )
     }
   }
@@ -72,7 +80,7 @@ export function inputs(
   function responsibilitySection() {
     return {
       header: 'Verantwortliche',
-      value: responsibilityInput(dialog, persons, currentLecturerSelection, metadata)
+      value: responsibilityInput(dialog, persons, currentLecturerSelection, metadata?.moduleManagement)
     }
   }
 
@@ -86,7 +94,7 @@ export function inputs(
   function workloadSection() {
     return {
       header: 'Workload',
-      value: workloadInput(metadata)
+      value: workloadInput(metadata?.workload)
     }
   }
 
@@ -99,7 +107,7 @@ export function inputs(
         currentPrerequisitesModulesSelection,
         pos,
         currentPrerequisitesPOsSelection,
-        metadata
+        metadata?.prerequisites
       )
     }
   }
@@ -132,44 +140,44 @@ export function inputs(
     }
   }
 
+  function learningOutcomeContentSection() {
+    return {
+      header: 'Angestrebte Lernergebnisse',
+      value: learningOutcomeContent(deContent, enContent)
+    }
+  }
+
   function moduleContentSection() {
     return {
       header: 'Modulinhalte',
-      value: moduleContent()
+      value: moduleContent(deContent, enContent)
     }
   }
 
   function learningMethodsContentSection() {
     return {
       header: 'Lehr- und Lernmethoden',
-      value: learningMethodsContent()
+      value: learningMethodsContent(deContent, enContent)
     }
   }
 
   function literatureContentSection() {
     return {
       header: 'Empfohlene Literatur',
-      value: literatureContent()
+      value: literatureContent(deContent, enContent)
     }
   }
 
   function particularitiesContentSection() {
     return {
       header: 'Besonderheiten',
-      value: particularitiesContent()
-    }
-  }
-
-  function learningOutcomeContentSection() {
-    return {
-      header: 'Angestrebte Lernergebnisse',
-      value: learningOutcomeContent()
+      value: particularitiesContent(deContent, enContent)
     }
   }
 
   function currentMultipleSelectionValue<A>(
     attr: string,
-    fallback: (metadata: Metadata) => A[]
+    fallback: (metadata: MetadataLike) => A[]
   ): A[] {
     const entries = fromControlValueForAttr(attr)
     return Array.isArray(entries) ? entries.map(e => e.value) : (metadata ? fallback(metadata) : [])
@@ -190,8 +198,10 @@ export function inputs(
     return currentMultipleSelectionValue(
       attr,
       m => modules.filter(x => {
-        const modules = kind === 'required' ? m.prerequisites.required?.modules : m.prerequisites.recommended?.modules
-        return modules?.some(y => y === x.abbrev)
+        const modules = kind === 'required'
+          ? m.prerequisites.required?.modules
+          : m.prerequisites.recommended?.modules
+        return modules?.some(y => y === x.id)
       })
     )
   }
@@ -200,8 +210,10 @@ export function inputs(
     return currentMultipleSelectionValue(
       attr,
       m => pos.filter(x => {
-        const pos = kind === 'required' ? m.prerequisites.required?.pos : m.prerequisites.recommended?.pos
-        pos?.some(y => y === x.id)
+        const pos = kind === 'required'
+          ? m.prerequisites.required?.pos
+          : m.prerequisites.recommended?.pos
+        return pos?.some(y => y === x.id)
       })
     )
   }

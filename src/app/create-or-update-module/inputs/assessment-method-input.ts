@@ -3,11 +3,12 @@ import { AssessmentMethodCallback } from '../callbacks/assessment-method.callbac
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
 import { optionalLabel, requiredLabel } from './inputs'
-import { FormInput } from '../../form/form-input'
 import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -15,7 +16,7 @@ export function assessmentMethodInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
   currentEntries: (attr: string, kind: AssessmentMethodKind) => AssessmentMethodEntry[],
-): FormInput[] {
+) {
   function assessmentMethodsMandatoryInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
     return go('mandatory')
   }
@@ -57,7 +58,7 @@ export function assessmentMethodInput(
       columns,
       'Prüfungsformen bearbeiten',
       [
-        {
+        <OptionsInput<AssessmentMethod>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -73,7 +74,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false
         },
-        {
+        <OptionsInput<AssessmentMethod>>{
           kind: 'options',
           label: optionalLabel(columns[2].title),
           attr: columns[2].attr,
@@ -101,7 +102,7 @@ export function assessmentMethodInput(
     }
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     assessmentMethodsMandatoryInput(),
     assessmentMethodsOptionalInput()
   ]

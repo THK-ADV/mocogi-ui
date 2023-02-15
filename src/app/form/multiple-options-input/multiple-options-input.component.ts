@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
-import { FormInput, FormInputLike, optionsError, requiredError } from '../form-input'
+import { FormInputLike, optionsError, requiredError } from '../form-input'
 import { EMPTY, map, Observable, startWith, Subscription } from 'rxjs'
 
 export interface MultipleOptionsInput<A> extends FormInputLike {
@@ -10,22 +10,16 @@ export interface MultipleOptionsInput<A> extends FormInputLike {
   initialValue?: (as: A[]) => A[]
 }
 
-export const formControlForMultipleOptionsInput = (i: FormInput): FormControl | undefined => {
-  switch (i.kind) {
-    case 'multiple-options':
-      const fc = new FormControl(
-        {value: [], disabled: i.disabled},
-        i.required ? Validators.required : undefined
-      )
-      // fixes ExpressionChangedAfterItHasBeenCheckedError bug
-      if (Array.isArray(i.data)) {
-        const data = i.initialValue?.(i.data) as any
-        fc.setValue(data)
-      }
-      return fc
-    default:
-      return undefined
+export const formControlForMultipleOptionsInput = <A>(i: MultipleOptionsInput<A>): FormControl => {
+  const fc = new FormControl<A[]>(
+    {value: [], disabled: i.disabled},
+    i.required ? Validators.required : undefined
+  )
+  // fixes ExpressionChangedAfterItHasBeenCheckedError bug
+  if (Array.isArray(i.data)) {
+    fc.setValue(i.initialValue?.(i.data) ?? [])
   }
+  return fc
 }
 
 @Component({

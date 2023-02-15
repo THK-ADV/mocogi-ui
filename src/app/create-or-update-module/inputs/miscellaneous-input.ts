@@ -1,4 +1,3 @@
-import { FormInput } from '../../form/form-input'
 import { optionalLabel, requiredLabel } from './inputs'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -10,6 +9,8 @@ import { showLabel, showModule } from '../../ops/show-instances'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
 
 export function miscellaneousInput(
   dialog: MatDialog,
@@ -19,7 +20,7 @@ export function miscellaneousInput(
   currentCompetences: (attr: string) => Competence[],
   currentGlobalCriteria: (attr: string) => GlobalCriteria[],
   currentTaughtWith: (attr: string) => Module[],
-): FormInput[] {
+) {
   function competenceInput(): ReadOnlyInput<Competence, Competence> {
     const attr = 'competences'
     const entries = currentCompetences(attr)
@@ -79,7 +80,7 @@ export function miscellaneousInput(
       columns,
       'Kompetenzen bearbeiten',
       [
-        {
+        <OptionsInput<Competence>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -104,7 +105,7 @@ export function miscellaneousInput(
       columns,
       'Globale Kriterien bearbeiten',
       [
-        {
+        <OptionsInput<GlobalCriteria>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -129,7 +130,7 @@ export function miscellaneousInput(
       columns,
       'Zusammen gelehrte Module bearbeiten',
       [
-        {
+        <OptionsInput<Module>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -143,7 +144,7 @@ export function miscellaneousInput(
     )
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     competenceInput(),
     globalCriteriaInput(),
     taughtWithInput()

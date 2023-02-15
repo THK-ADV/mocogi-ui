@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { formControlForPainInput, NumberInput } from '../plain-input/plain-input.component'
+import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { validMandatoryNumber } from '../../create-or-update-module/callbacks/callback-validation'
 import { Participants } from '../../types/participants'
@@ -15,6 +15,14 @@ export class ParticipantsComponent {
   readonly formGroup: FormGroup
   readonly minInput: NumberInput
   readonly maxInput: NumberInput
+
+  get minControl(): FormControl {
+    return this.formGroup.get('min') as FormControl
+  }
+
+  get maxControl(): FormControl {
+    return this.formGroup.get('max') as FormControl
+  }
 
   constructor(
     private dialogRef: MatDialogRef<ParticipantsComponent, Participants[]>,
@@ -40,8 +48,8 @@ export class ParticipantsComponent {
       min: 1
     }
     this.formGroup = new FormGroup({})
-    this.formGroup.addControl('min', formControlForPainInput(this.minInput))
-    this.formGroup.addControl('max', formControlForPainInput(this.maxInput))
+    this.formGroup.addControl('min', formControlForNumberInput(this.minInput))
+    this.formGroup.addControl('max', formControlForNumberInput(this.maxInput))
   }
 
   static instance = (
@@ -56,26 +64,24 @@ export class ParticipantsComponent {
       }
     )
 
-  minControl = () =>
-    this.formGroup.controls['min'] as FormControl
-
-  maxControl = () =>
-    this.formGroup.controls['max'] as FormControl
 
   cancel = () =>
     this.dialogRef.close()
 
   applyChanges = () =>
     this.dialogRef.close([{
-      min: Number(this.minControl().value),
-      max: Number(this.maxControl().value)
+      min: Number(this.minControl.value),
+      max: Number(this.maxControl.value)
     }])
 
   isValid = () => {
-    const max = this.maxControl().value
-    const min = this.minControl().value
+    const max = this.maxControl.value
+    const min = this.minControl.value
     return validMandatoryNumber(max) &&
       validMandatoryNumber(min) &&
       +min >= 0 && +min < +max
   }
+
+  delete = () =>
+    this.dialogRef.close([])
 }

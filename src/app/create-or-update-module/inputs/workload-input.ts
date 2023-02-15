@@ -1,30 +1,30 @@
 import { NumberInput } from '../../form/plain-input/plain-input.component'
 import { FormInput } from '../../form/form-input'
-import { Metadata } from '../../types/metadata'
+import { WorkloadLike } from '../../types/workload'
 
-export function workloadInput(metadata?: Metadata): FormInput[] {
+export function workloadInput(workload?: WorkloadLike) {
   function lectureInput(): NumberInput {
-    return go('Vorlesung', 'lecture', metadata?.workload.lecture)
+    return go('Vorlesung', 'lecture', workload?.lecture)
   }
 
   function seminarInput(): NumberInput {
-    return go('Seminar', 'seminar', metadata?.workload.seminar)
+    return go('Seminar', 'seminar', workload?.seminar)
   }
 
   function practicalInput(): NumberInput {
-    return go('Praktikum', 'practical', metadata?.workload.practical)
+    return go('Praktikum', 'practical', workload?.practical)
   }
 
   function exerciseInput(): NumberInput {
-    return go('Übung', 'exercise', metadata?.workload.exercise)
+    return go('Übung', 'exercise', workload?.exercise)
   }
 
   function projectWorkInput(): NumberInput {
-    return go('Projektarbeit', 'projectWork', metadata?.workload.projectWork)
+    return go('Projektarbeit', 'projectWork', workload?.projectWork)
   }
 
   function projectSupervisionInput(): NumberInput {
-    return go('Projektbetreuung', 'projectSupervision', metadata?.workload.projectSupervision)
+    return go('Projektbetreuung', 'projectSupervision', workload?.projectSupervision)
   }
 
   function go(label: string, attr: string, initialValue?: number): NumberInput {
@@ -39,7 +39,7 @@ export function workloadInput(metadata?: Metadata): FormInput[] {
     }
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     lectureInput(),
     seminarInput(),
     practicalInput(),

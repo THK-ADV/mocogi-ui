@@ -4,12 +4,13 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { ModuleCallback } from '../callbacks/module-callback'
-import { FormInput } from '../../form/form-input'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 import { showModule } from '../../ops/show-instances'
-import { Metadata } from '../../types/metadata'
 import { POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
+import { PrerequisitesOutput } from '../../types/prerequisites'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -19,14 +20,14 @@ export function prerequisitesInputs(
   currentModules: (attr: string, kind: PrerequisitesKind) => Module[],
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
-  metadata?: Metadata
-): FormInput[] {
+  prerequisites?: PrerequisitesOutput
+) {
   function requiredPrerequisitesText(): TextAreaInput {
-    return text('required', metadata?.prerequisites.required?.text)
+    return text('required', prerequisites?.required?.text)
   }
 
   function recommendedPrerequisitesText(): TextAreaInput {
-    return text('recommended', metadata?.prerequisites.recommended?.text)
+    return text('recommended', prerequisites?.recommended?.text)
   }
 
   function requiredPrerequisitesModules(): ReadOnlyInput<Module, Module> {
@@ -99,7 +100,7 @@ export function prerequisitesInputs(
       columns,
       'Module bearbeiten',
       [
-        {
+        <OptionsInput<Module>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -124,7 +125,7 @@ export function prerequisitesInputs(
       columns,
       'Studiengänge bearbeiten',
       [
-        {
+        <OptionsInput<POPreview>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
@@ -151,7 +152,7 @@ export function prerequisitesInputs(
     return po.label
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     requiredPrerequisitesText(),
     requiredPrerequisitesModules(),
     requiredPrerequisitesPOs(),

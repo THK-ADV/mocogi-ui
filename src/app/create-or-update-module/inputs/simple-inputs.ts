@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
 import { Participants } from '../../types/participants'
 import { ModuleRelation } from '../../types/module-relation'
-import { Metadata } from '../../types/metadata'
+import { MetadataLike } from '../../types/metadata'
 import { Location } from '../../types/core/location'
 import { Language } from '../../types/core/language'
 import { Status } from '../../types/core/status'
@@ -28,8 +28,9 @@ export function simpleInput(
   modules: Module[],
   currentParticipants: (attr: string) => Participants | undefined,
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
-  metadata?: Metadata
-): FormInput[] {
+  metadata?: MetadataLike,
+  metadataId?: string
+) {
   function titleInput(): TextInput {
     return {
       kind: 'text',
@@ -184,6 +185,7 @@ export function simpleInput(
   function showModuleRelation(m: ModuleRelation): string {
     switch (m.kind) {
       case 'parent':
+        // eslint-disable-next-line no-case-declarations
         let parent = `Hat Submodule: `
         m.children.forEach((id, index) => {
           const module = modules.find(m => m.id === id)
@@ -196,7 +198,9 @@ export function simpleInput(
         })
         return parent
       case 'child':
+        // eslint-disable-next-line no-case-declarations
         let child = 'Gehört zum Modul: '
+        // eslint-disable-next-line no-case-declarations
         const module = modules.find(m => m.id === m.id)
         if (module) {
           child += module.abbrev
@@ -206,10 +210,10 @@ export function simpleInput(
   }
 
   function moduleRelationDialogInstance(attr: string) {
-    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadata?.id)
+    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadataId)
   }
 
-  return [
+  return <FormInput<unknown, unknown>[]>[
     titleInput(),
     abbreviationInput(),
     moduleTypesInput(),

@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
 import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
-import { formControlForPainInput, NumberInput } from '../plain-input/plain-input.component'
+import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
 import { mapOpt } from '../../ops/undefined-ops'
 import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
@@ -31,6 +31,18 @@ export class AssessmentMethodDialogComponent implements OnInit {
   readonly preconditionInput: OptionsInput<AssessmentMethod>
   readonly dataSource: MatTableDataSource<TableContent>
   readonly headerTitle: string
+
+  get assessmentMethodFormControl() {
+    return this.formControl(this.assessmentMethodInput.attr)
+  }
+
+  get percentageFormControl() {
+    return this.formControl(this.percentageInput.attr)
+  }
+
+  get preconditionFormControl() {
+    return this.formControl(this.preconditionInput.attr)
+  }
 
   @ViewChild('assessmentMethodOptionsInputComponent') assessmentMethodOptionsInputComponent!: OptionsInputComponent<AssessmentMethod>
   @ViewChild('preconditionOptionsInputComponent') preconditionOptionsInputComponent!: OptionsInputComponent<AssessmentMethod>
@@ -79,7 +91,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
     )
     this.formGroup.addControl(
       this.percentageInput.attr,
-      formControlForPainInput(this.percentageInput)
+      formControlForNumberInput(this.percentageInput)
     )
     this.formGroup.addControl(
       this.preconditionInput.attr,
@@ -118,9 +130,9 @@ export class AssessmentMethodDialogComponent implements OnInit {
     this.dialogRef.close() // TODO return with data. dispatch them back
 
   add = () => {
-    const assessmentMethod = this.assessmentMethodFormControl().value as AssessmentMethod
-    const percentage = this.percentageFormControl().value as number | undefined
-    const precondition = this.preconditionFormControl().value as AssessmentMethod | undefined
+    const assessmentMethod = this.assessmentMethodFormControl.value as AssessmentMethod
+    const percentage = this.percentageFormControl.value as number | undefined
+    const precondition = this.preconditionFormControl.value as AssessmentMethod | undefined
 
     if (this.dataSource.data.some(a => a.entry.method === assessmentMethod.abbrev)) {
       return
@@ -146,39 +158,30 @@ export class AssessmentMethodDialogComponent implements OnInit {
   private resetControls = () => {
     this.assessmentMethodOptionsInputComponent.reset()
     this.preconditionOptionsInputComponent.reset()
-    this.percentageFormControl().setValue(undefined, {emitEvent: false})
+    this.percentageFormControl.setValue(undefined, {emitEvent: false})
   }
 
   formControl = (attr: string) =>
-    // @ts-ignore
-    this.formGroup.controls[attr] as FormControl
+    this.formGroup.get(attr) as FormControl
 
-  assessmentMethodFormControl = () =>
-    this.formControl(this.assessmentMethodInput.attr)
-
-  percentageFormControl = () =>
-    this.formControl(this.percentageInput.attr)
-
-  preconditionFormControl = () =>
-    this.formControl(this.preconditionInput.attr)
 
   nonEmpty = () => this.dataSource.data.length > 0
 
   validAssessmentMethod = () => {
-    const amFc = this.assessmentMethodFormControl()
+    const amFc = this.assessmentMethodFormControl
     return amFc.value !== undefined &&
       amFc.value !== '' &&
       amFc.value !== null
   }
 
   validPercentage = () => {
-    const pFc = this.percentageFormControl()
+    const pFc = this.percentageFormControl
     return pFc.value === undefined ||
       (typeof pFc.value === 'string' && !isNaN(Number(pFc.value)))
   }
 
   validPrecondition = () => {
-    const pFc = this.preconditionFormControl()
+    const pFc = this.preconditionFormControl
     return pFc.value === undefined || typeof pFc.value === 'object'
   }
 
@@ -187,9 +190,6 @@ export class AssessmentMethodDialogComponent implements OnInit {
 
   validate = () => {
     this.validPrecondition()
-    // console.log('valid am', this.validAssessmentMethod())
-    // console.log('valid p', this.validPercentage())
-    // console.log('valid fg', this.formGroup.valid)
   }
 
   // ???

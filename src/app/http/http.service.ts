@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable, zip } from 'rxjs'
-import { Metadata } from '../types/metadata'
+import { map, Observable } from 'rxjs'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -18,6 +17,18 @@ import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
+import { UserBranch } from '../types/user-branch'
+import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
+import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ValidationResult } from '../types/validation-result'
+
+interface ModuleDraftJson {
+  module: string
+  data: string
+  branch: string
+  status: ModuleDraftStatus,
+  lastModified: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +39,23 @@ export class HttpService {
   constructor(private readonly http: HttpClient) {
   }
 
+  // Modules
+
   allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules')
 
-  allModulesForUser = (user: String): Observable<Module[]> =>
+  allModulesForUser = (user: string): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
 
-  metadataById = (id: string): Observable<Metadata> =>
-    this.http.get<Metadata>(`metadata/${id}`)
+  // Module Compendium
+
+  moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
+
+  moduleCompendiumHtmlFile = (id: string) =>
+    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
+
+  // Core Data
 
   allLocations = (): Observable<Location[]> =>
     this.http.get<Location[]>('locations')
@@ -95,19 +115,52 @@ export class HttpService {
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
 
-  allCoreData = () =>
-    zip(
-      this.allLocations(),
-      this.allLanguages(),
-      this.allStatus(),
-      this.allAssessmentMethods(),
-      this.allModuleTypes(),
-      this.allSeasons(),
-      this.allPersons(),
-      this.allValidPOs(),
-      this.allGrades(),
-      this.allGlobalCriteria(),
-      this.allStudyPrograms(),
-      this.allCompetences(),
+  // Branch
+
+  branchForUser = (username: string): Observable<UserBranch | undefined> =>
+    this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
+      map(b => b ? b : undefined)
     )
+
+  createBranch = (username: string): Observable<UserBranch> =>
+    this.http.post<UserBranch>(`git/branch`, {'username': username})
+
+  // Module Draft
+
+  moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
+    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
+      map(xs => xs.map(this.convertModuleDraft))
+    )
+
+  addToDrafts = (
+    branch: string,
+    mc: ModuleCompendiumProtocol,
+    id: string | undefined
+  ): Observable<ModuleDraft> => {
+    const body = {
+      data: JSON.stringify(mc),
+      branch: branch,
+    }
+    const request = id
+      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${id}`, body)
+      : this.http.post<ModuleDraftJson>('moduleDrafts', body)
+
+    return request.pipe(map(this.convertModuleDraft))
+  }
+
+  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft =>
+    ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
+
+  // Validation
+
+  validate = (branch: string): Observable<ValidationResult> =>
+    this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
+
+  // Commit
+
+  commit = (branch: string, username: string): Observable<unknown> =>
+    this.http.put<unknown>(`moduleDrafts/${branch}/commit`, {username})
+
+  revertCommit = (branch: string): Observable<unknown> =>
+    this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
 }

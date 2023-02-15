@@ -1,15 +1,17 @@
 import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
+import { Content } from '../../types/content'
 
-export function moduleContent(): FormInput[] {
+export function moduleContent(deContent?: Content, enContent?: Content) {
   function go(lang: Lang): TextAreaInput {
     return {
       kind: 'text-area',
       label: label(lang),
       attr: `module-content-${lang}`,
       disabled: false,
-      required: false
+      required: false,
+      initialValue: body(lang)
     }
   }
 
@@ -22,5 +24,14 @@ export function moduleContent(): FormInput[] {
     }
   }
 
-  return [go('de'), go('en')]
+  function body(lang: Lang) {
+    switch (lang) {
+      case 'de':
+        return deContent?.content ?? ''
+      case 'en':
+        return enContent?.content ?? ''
+    }
+  }
+
+  return <FormInput<unknown, unknown>[]>[go('de'), go('en')]
 }

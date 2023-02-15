@@ -1,15 +1,17 @@
 import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
+import { Content } from '../../types/content'
 
-export function particularitiesContent(): FormInput[] {
+export function particularitiesContent(deContent?: Content, enContent?: Content) {
   function go(lang: Lang): TextAreaInput {
     return {
       kind: 'text-area',
       label: label(lang),
       attr: `particularities-content-${lang}`,
       disabled: false,
-      required: false
+      required: false,
+      initialValue: body(lang)
     }
   }
 
@@ -22,5 +24,14 @@ export function particularitiesContent(): FormInput[] {
     }
   }
 
-  return [go('de'), go('en')]
+  function body(lang: Lang) {
+    switch (lang) {
+      case 'de':
+        return deContent?.particularities ?? ''
+      case 'en':
+        return enContent?.particularities ?? ''
+    }
+  }
+
+  return <FormInput<unknown, unknown>[]>[go('de'), go('en')]
 }

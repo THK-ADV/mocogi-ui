@@ -3,11 +3,11 @@ import { arrayToObject } from '../../ops/array-to-object'
 import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { validMandatoryCommaSeparatedNumber, validMandatoryBoolean, validMandatoryObject } from './callback-validation'
+import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
 import { POOptional, POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
 
-export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional> {
+export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, POPreview> {
   readonly all: { [id: string]: POPreview } = {}
   readonly selected: { [id: string]: POOptional } = {}
   readonly genericModules: { [id: string]: Module } = {}
@@ -22,8 +22,11 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     this.genericModules = arrayToObject(genericModules, a => a.id)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<any>): any[] {
-    const data = optionsInput.data as POPreview[]
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<POPreview>): POPreview[] {
+    const data = optionsInput.data
+    if (!Array.isArray(data)) {
+      return []
+    }
     if (optionsInput.attr === 'po') {
       return data.filter(d => !this.selected[d.id])
     } else {
@@ -31,14 +34,14 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     }
   }
 
-  addOptionToOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<any>>): void {
+  addOptionToOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
     const po = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
     po && component && component.addOption(po)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<any>>): void {
+  removeOptionFromOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
     const po = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
     po && component && component.removeOption(po)
@@ -93,16 +96,16 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       !this.validRecommendedSemester(controls['recommended-semester'].value)
   }
 
-  private validPO = (value: any) =>
+  private validPO = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validInstanceOf = (value: any) =>
+  private validInstanceOf = (value: unknown) =>
     validMandatoryObject(value)
 
-  private validPartOfCatalog = (value: any) =>
+  private validPartOfCatalog = (value: unknown) =>
     validMandatoryBoolean(value)
 
-  private validRecommendedSemester = (value: any) =>
+  private validRecommendedSemester = (value: unknown) =>
     validMandatoryCommaSeparatedNumber(value)
 
   private getRecommendedSemesterValue = (controls: { [p: string]: FormControl }) =>

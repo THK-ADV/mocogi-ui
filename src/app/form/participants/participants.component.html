@@ -6,12 +6,12 @@
       <sched-plain-input
         ngDefaultControl
         [input]="minInput"
-        [formControl]="minControl()">
+        [formControl]="minControl">
       </sched-plain-input>
       <sched-plain-input
         ngDefaultControl
         [input]="maxInput"
-        [formControl]="maxControl()">
+        [formControl]="maxControl">
       </sched-plain-input>
     </mat-card-content>
   </mat-card>
@@ -23,6 +23,12 @@
             [disabled]="!isValid()"
             color="primary">
       Änderungen Übernehmen
+    </button>
+    <button type="button"
+            mat-flat-button
+            (click)="delete()"
+            color="warn">
+      Löschen
     </button>
     <button type="button"
             mat-flat-button

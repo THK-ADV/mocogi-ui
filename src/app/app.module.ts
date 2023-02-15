@@ -21,7 +21,7 @@ import { RouterOutlet } from '@angular/router'
 import { HeaderComponent } from './structure/header/header.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
-import { BackendUrlInterceptor } from './http/backend-url.interceptor'
+import { HttpInterceptorDecorator } from './http/http-interceptor-decorator.service'
 import { PlainInputComponent } from './form/plain-input/plain-input.component'
 import { EditModuleComponent } from './form/edit-module/edit-module.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -42,7 +42,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ParticipantsComponent } from './form/participants/participants.component'
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
+import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
+import { AlertComponent } from './alert/alert.component';
+import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
 
 @NgModule({
   declarations: [
@@ -63,7 +67,12 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
     BooleanInputComponent,
     ParticipantsComponent,
     ModuleRelationComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    PageNotFoundComponent,
+    ModuleCompendiumHtmlComponent,
+    UnsafeHtmlPipe,
+    AlertComponent,
+    PipelineErrorPipe,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +102,7 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: BackendUrlInterceptor,
+      useClass: HttpInterceptorDecorator,
       multi: true
     },
   ],
