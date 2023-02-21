@@ -1,7 +1,6 @@
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { showLabel } from '../../ops/show-instances'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { optionalLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
@@ -17,6 +16,7 @@ import { Status } from '../../types/core/status'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Module } from '../../types/module'
+import { Show } from '../../ops/show'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -61,7 +61,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: modulesTypes,
-      show: showLabel,
+      show: Show.label,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType))
     }
   }
@@ -86,7 +86,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: languages,
-      show: showLabel,
+      show: Show.label,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language))
     }
   }
@@ -111,7 +111,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: seasons,
-      show: showLabel,
+      show: Show.label,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season))
     }
   }
@@ -124,7 +124,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: locations,
-      show: showLabel,
+      show: Show.label,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location))
     }
   }
@@ -137,7 +137,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: status,
-      show: showLabel,
+      show: Show.label,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status))
     }
   }

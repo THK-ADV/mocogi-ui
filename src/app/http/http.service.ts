@@ -21,6 +21,7 @@ import { UserBranch } from '../types/user-branch'
 import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
+import { Metadata } from '../types/metadata'
 
 interface ModuleDraftJson {
   module: string
@@ -46,6 +47,11 @@ export class HttpService {
 
   allModulesForUser = (user: string): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
+
+  // Metadata
+
+  allModuleMetadata = (): Observable<Metadata[]> =>
+    this.http.get<Metadata[]>('metadata')
 
   // Module Compendium
 

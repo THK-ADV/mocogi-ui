@@ -6,6 +6,7 @@ import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { Person } from '../../types/core/person'
 import { FormInput } from '../../form/form-input'
+import { Show } from '../../ops/show'
 
 export function responsibilityInput(
   dialog: MatDialog,
@@ -21,7 +22,7 @@ export function responsibilityInput(
       disabled: false,
       required: true,
       data: persons,
-      show: showPerson,
+      show: Show.person,
       initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id)))
     }
   }
@@ -36,7 +37,7 @@ export function responsibilityInput(
       disabled: false,
       required: true,
       options: persons,
-      show: showPerson,
+      show: Show.person,
       initialValue: xs => entries.filter(p => xs.some(x => x.id === p.id)),
       dialogInstance: () => dialogInstance(attr)
     }
@@ -45,7 +46,7 @@ export function responsibilityInput(
   function dialogInstance(attr: string) {
     const columns = [{attr: 'person', title: 'Dozierende'}]
     const entries = currentLecturer(attr)
-    const callback = new LecturerCallback(persons, entries, columns[0].attr, showPerson)
+    const callback = new LecturerCallback(persons, entries, columns[0].attr, Show.person)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -60,22 +61,11 @@ export function responsibilityInput(
           disabled: false,
           required: false,
           data: persons,
-          show: showPerson,
+          show: Show.person,
         }
       ],
       entries
     )
-  }
-
-  function showPerson(p: Person): string {
-    switch (p.kind) {
-      case 'single':
-        return `${p.lastname}, ${p.firstname}`
-      case 'group':
-        return p.title
-      case 'unknown':
-        return p.title
-    }
   }
 
   return <FormInput<unknown, unknown>[]>[

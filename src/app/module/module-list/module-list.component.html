@@ -1,7 +1,39 @@
-<mat-nav-list>
-  <sched-module-list-entry
-    *ngFor="let module of modules"
-    [module]="module"
-    (selectModule)="selectModule.emit($event)">
-  </sched-module-list-entry>
-</mat-nav-list>
+<div>
+  <sched-module-list-search></sched-module-list-search>
+
+  <table mat-table
+         matSort
+         [dataSource]="dataSource"
+         [matSortActive]="(selectedSort$ | async)?.active ?? 'title'"
+         [matSortDirection]="(selectedSort$ | async)?.direction ?? 'asc'"
+         (matSortChange)="updateSort($event)"
+         class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Titel</th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="abbrev">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Abkürzung</th>
+      <td mat-cell *matCellDef="let element">{{element.abbrev}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="coordinator">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Modulverantwortlicher</th>
+      <td mat-cell *matCellDef="let element"> {{element.coordinator}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ects">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Credits</th>
+      <td mat-cell *matCellDef="let element"> {{element.ects}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="semester">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Semester</th>
+      <td mat-cell *matCellDef="let element"> {{element.semester}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="selectRow(row)"></tr>
+  </table>
+</div>

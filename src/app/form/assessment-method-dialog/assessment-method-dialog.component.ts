@@ -6,9 +6,9 @@ import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
 import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
 import { mapOpt } from '../../ops/undefined-ops'
-import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
+import { Show } from '../../ops/show'
 
 export interface TableContent {
   entry: AssessmentMethodEntry
@@ -66,7 +66,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       disabled: false,
       required: false,
       data: data[0].filter(d => !data[1].some(dd => dd.method === d.abbrev)),
-      show: showLabel,
+      show: Show.label,
     }
     this.percentageInput = {
       kind: 'number',
@@ -82,7 +82,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       disabled: false,
       required: false,
       data: data[0],
-      show: showLabel,
+      show: Show.label,
     }
     this.formGroup = new FormGroup({})
     this.formGroup.addControl(
@@ -203,5 +203,5 @@ export class AssessmentMethodDialogComponent implements OnInit {
     })
 
   lookup = (method: string) =>
-    mapOpt(this.data[0].find(d => d.abbrev === method), showLabel) ?? '???'
+    mapOpt(this.data[0].find(d => d.abbrev === method), Show.label) ?? '???'
 }

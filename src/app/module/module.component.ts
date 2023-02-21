@@ -1,31 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpService } from '../http/http.service'
-import { Subscription } from 'rxjs'
-import { Module } from '../types/module'
-import { Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { selectModuleTableRepresentation } from '../state/selectors/module.selectors'
+import { ModulePageActions } from '../state/actions/module.actions'
+import { ModuleTableRepresentation } from './module-list/module-table-representation'
 
 @Component({
   selector: 'sched-module',
   templateUrl: './module.component.html',
   styleUrls: ['./module.component.scss']
 })
-export class ModuleComponent implements OnInit, OnDestroy {
+export class ModuleComponent implements OnInit {
 
-  modules: Module[] = []
-  sub?: Subscription
+  modules$: Observable<ReadonlyArray<ModuleTableRepresentation>>
 
-  constructor(private readonly service: HttpService, private readonly router: Router) {
+  constructor(private readonly store: Store) {
+    this.modules$ = store.select(selectModuleTableRepresentation)
   }
 
   ngOnInit(): void {
-    this.sub = this.service.allModules()
-      .subscribe(xs => this.modules = xs)
+    this.store.dispatch(ModulePageActions.enter())
   }
-
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe()
-  }
-
-  onSelectModule = (m: Module) =>
-    this.router.navigate(['/show'], {state: {id: m.id}})
 }

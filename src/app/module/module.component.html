@@ -1,7 +1,7 @@
 <div class="all-modules">
-  <h1>Modulhandbücher</h1>
+  <h1>Modulbeschreibungen</h1>
+  <sched-module-filter></sched-module-filter>
   <sched-module-list
-    [modules]="modules"
-    (selectModule)="onSelectModule($event)"
-  ></sched-module-list>
+    [modules]="modules$ | async">
+  </sched-module-list>
 </div>

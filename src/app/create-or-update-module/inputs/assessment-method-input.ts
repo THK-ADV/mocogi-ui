@@ -4,11 +4,11 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { MatDialog } from '@angular/material/dialog'
 import { optionalLabel, requiredLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
-import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
+import { Show } from '../../ops/show'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -65,7 +65,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: showLabel,
+          show: Show.label,
         },
         {
           kind: 'number',
@@ -81,7 +81,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: showLabel,
+          show: Show.label,
         }
       ],
       entries
@@ -90,7 +90,7 @@ export function assessmentMethodInput(
 
   // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
-    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), showLabel) ?? '???'
+    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), Show.label) ?? '???'
   }
 
   function label(kind: AssessmentMethodKind): string {

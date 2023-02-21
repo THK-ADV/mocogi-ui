@@ -15,8 +15,8 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "@typescript-eslint/no-namespace": "off",
         "eqeqeq": [
-          // https://eslint.org/docs/latest/rules/eqeqeq#smart
           "error",
           "smart"
         ],
@@ -45,8 +45,15 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {
-      }
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended"
+      ]
     }
   ]
 }
