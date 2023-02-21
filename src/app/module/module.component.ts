@@ -2,18 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { HttpService } from '../http/http.service'
 import { Subscription } from 'rxjs'
 import { Module } from '../types/module'
+import { Router } from '@angular/router'
 
 @Component({
-  selector: 'sched-all-modules',
-  templateUrl: './all-modules.component.html',
-  styleUrls: ['./all-modules.component.scss']
+  selector: 'sched-module',
+  templateUrl: './module.component.html',
+  styleUrls: ['./module.component.scss']
 })
-export class AllModulesComponent implements OnInit, OnDestroy {
+export class ModuleComponent implements OnInit, OnDestroy {
 
   modules: Module[] = []
   sub?: Subscription
 
-  constructor(private readonly service: HttpService) {
+  constructor(private readonly service: HttpService, private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,6 +26,6 @@ export class AllModulesComponent implements OnInit, OnDestroy {
     this.sub?.unsubscribe()
   }
 
-  urlFor = (m: Module): string => '/public/' + m.id + '.html'
-
+  onSelectModule = (m: Module) =>
+    this.router.navigate(['/show'], {state: {id: m.id}})
 }

@@ -1,0 +1,7 @@
+<mat-nav-list>
+  <sched-module-list-entry
+    *ngFor="let module of modules"
+    [module]="module"
+    (selectModule)="selectModule.emit($event)">
+  </sched-module-list-entry>
+</mat-nav-list>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
-import { AllModulesComponent } from './all-modules/all-modules.component'
+import { ModuleComponent } from './module/module.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
@@ -45,13 +45,15 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './alert/alert.component'
 import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
+import { ModuleListComponent } from './module/module-list/module-list.component';
+import { ModuleListEntryComponent } from './module/module-list-entry/module-list-entry.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    AllModulesComponent,
+    ModuleComponent,
     OwnModulesComponent,
     NavComponent,
     HeaderComponent,
@@ -73,6 +75,8 @@ import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
     UnsafeHtmlPipe,
     AlertComponent,
     PipelineErrorPipe,
+    ModuleListComponent,
+    ModuleListEntryComponent,
   ],
   imports: [
     BrowserModule,
