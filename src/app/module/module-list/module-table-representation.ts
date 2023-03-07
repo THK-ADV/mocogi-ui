@@ -19,7 +19,7 @@ export function toTableRepresentation(metadataWithCoordinators: MetadataWithCoor
     coordinator: formatCoordinator(metadataWithCoordinators),
     ects: metadataWithCoordinators.ects.toLocaleString(),
     semester: formatSemester(metadataWithCoordinators, selectedPOId),
-    pos: selectedPOId ? formatPOs(metadataWithCoordinators) : []
+    pos: !selectedPOId ? formatPOs(metadataWithCoordinators) : []
   }
 }
 

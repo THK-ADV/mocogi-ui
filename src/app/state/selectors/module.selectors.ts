@@ -6,6 +6,8 @@ import { mapFilterUndefined } from '../../ops/array.ops'
 import { Person } from '../../types/core/person'
 import { toTableRepresentation } from '../../module/module-list/module-table-representation'
 
+export type MetadataWithCoordinators = Omit<Metadata, 'moduleManagement'> & { moduleManagement: Person[] }
+
 export const selectModuleState = createFeatureSelector<State>('module')
 
 export const selectModules = createSelector(
@@ -22,8 +24,6 @@ export const selectSelectedSort = createSelector(
   selectModuleState,
   (state) => state.selectedSort
 )
-
-export type MetadataWithCoordinators = Omit<Metadata, 'moduleManagement'> & { moduleManagement: Person[] }
 
 const selectModulesWithCoordinator = createSelector(
   selectModules,
