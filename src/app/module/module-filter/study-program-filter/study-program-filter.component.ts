@@ -5,6 +5,7 @@ import { Grade } from '../../../types/core/grade'
 import { Store } from '@ngrx/store'
 import { selectSelectedStudyProgramWithPO, selectStudyProgramWithPO } from '../../../state/selectors/module-filter.selectors'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
+import { showStudyProgramWithPo } from '../../../ops/show.instances'
 
 @Component({
   selector: 'sched-study-program-filter',
@@ -19,13 +20,7 @@ export class StudyProgramFilterComponent {
 
   selection$ = this.store.select(selectSelectedStudyProgramWithPO)
 
-  show = (a: [PO, StudyProgram, Grade]) => {
-    const [po, sp, g] = a
-    // TODO temporary fix for handling 'flex issue'. see: https://git.st.archi-lab.io/adobryni/modulhandbuecher_test/-/issues/3
-    return po.abbrev.endsWith('flex')
-      ? `${sp.deLabel}-Flex (${g.deLabel} - PO ${po.version})`
-      : `${sp.deLabel} (${g.deLabel} - PO ${po.version})`
-  }
+  show = showStudyProgramWithPo
 
   selectAction = ([po,]: [PO, StudyProgram, Grade]) => ModuleFilterPageActions.selectPo({poId: po.abbrev})
 

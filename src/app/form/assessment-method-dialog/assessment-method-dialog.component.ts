@@ -8,7 +8,7 @@ import { formControlForNumberInput, NumberInput } from '../plain-input/plain-inp
 import { mapOpt } from '../../ops/undefined-ops'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
-import { Show } from '../../ops/show'
+import { showLabel } from '../../ops/show.instances'
 
 export interface TableContent {
   entry: AssessmentMethodEntry
@@ -66,7 +66,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       disabled: false,
       required: false,
       data: data[0].filter(d => !data[1].some(dd => dd.method === d.abbrev)),
-      show: Show.label,
+      show: showLabel,
     }
     this.percentageInput = {
       kind: 'number',
@@ -82,7 +82,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       disabled: false,
       required: false,
       data: data[0],
-      show: Show.label,
+      show: showLabel,
     }
     this.formGroup = new FormGroup({})
     this.formGroup.addControl(
@@ -203,5 +203,5 @@ export class AssessmentMethodDialogComponent implements OnInit {
     })
 
   lookup = (method: string) =>
-    mapOpt(this.data[0].find(d => d.abbrev === method), Show.label) ?? '???'
+    mapOpt(this.data[0].find(d => d.abbrev === method), showLabel) ?? '???'
 }

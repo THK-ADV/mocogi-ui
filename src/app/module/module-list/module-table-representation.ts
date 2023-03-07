@@ -1,5 +1,6 @@
-import { MetadataWithCoordinators } from '../../state/selectors/module.selectors'
-import { Show } from '../../ops/show'
+import { MetadataAtomic } from '../../state/selectors/module.selectors'
+import { studyProgramWithPOOrd } from '../../ops/ordering.instances'
+import { showPerson, showStudyProgramWithPo } from '../../ops/show.instances'
 
 export type ModuleTableRepresentation = {
   id: string,
@@ -11,32 +12,32 @@ export type ModuleTableRepresentation = {
   pos: string[]
 }
 
-export function toTableRepresentation(metadataWithCoordinators: MetadataWithCoordinators, selectedPOId?: string): ModuleTableRepresentation {
+export function toTableRepresentation(metadata: MetadataAtomic, selectedPOId?: string): ModuleTableRepresentation {
   return {
-    id: metadataWithCoordinators.id,
-    title: metadataWithCoordinators.title,
-    abbrev: metadataWithCoordinators.abbrev,
-    coordinator: formatCoordinator(metadataWithCoordinators),
-    ects: metadataWithCoordinators.ects.toLocaleString(),
-    semester: formatSemester(metadataWithCoordinators, selectedPOId),
-    pos: !selectedPOId ? formatPOs(metadataWithCoordinators) : []
+    id: metadata.id,
+    title: metadata.title,
+    abbrev: metadata.abbrev,
+    coordinator: formatCoordinator(metadata),
+    ects: metadata.ects.toLocaleString(),
+    semester: formatSemester(metadata, selectedPOId),
+    pos: !selectedPOId ? formatPOs(metadata) : []
   }
 }
 
-function formatCoordinator(metadataWithCoordinators: MetadataWithCoordinators): string {
-  return metadataWithCoordinators.moduleManagement
-    .map(Show.person)
+function formatCoordinator(metadata: MetadataAtomic): string {
+  return metadata.moduleManagement
+    .map(showPerson)
     .join('; ')
 }
 
 
-function formatSemester(metadataWithCoordinators: MetadataWithCoordinators, selectedPO?: string): string {
+function formatSemester(metadata: MetadataAtomic, selectedPO?: string): string {
   let semester: string[] | number[]
   if (selectedPO) {
-    semester = metadataWithCoordinators.po.mandatory.find(po => po.po === selectedPO)?.recommendedSemester ?? []
+    semester = metadata.po.mandatory.find(po => po.po === selectedPO)?.recommendedSemester ?? []
   } else {
     const res: Record<number, undefined> = {}
-    metadataWithCoordinators.po.mandatory.forEach(po => {
+    metadata.po.mandatory.forEach(po => {
       po.recommendedSemester.forEach(n => res[n] = undefined)
     })
     semester = Object.keys(res)
@@ -44,8 +45,10 @@ function formatSemester(metadataWithCoordinators: MetadataWithCoordinators, sele
   return semester.sort().join(', ')
 }
 
-function formatPOs(metadataWithCoordinators: MetadataWithCoordinators): string[] {
-  return metadataWithCoordinators.po.mandatory.map(po => {
-    return `${po.po} (Semester ${po.recommendedSemester.sort().join(', ')})`
-  })
+function formatPOs(metadata: MetadataAtomic): string[] {
+  return metadata.poMandatoryAtomic
+    .sort((a, b) => studyProgramWithPOOrd(a.po, b.po))
+    .map(({po, recommendedSemester}) => {
+      return `${showStudyProgramWithPo(po)} (Semester ${recommendedSemester.sort().join(', ')})`
+    })
 }

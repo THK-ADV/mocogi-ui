@@ -25,11 +25,3 @@ export namespace Ordering {
     }
   }
 }
-
-export const numberOrd: Ordering<number> = (lhs, rhs) =>
-  lhs < rhs ? -1 : (lhs > rhs ? 1 : 0)
-
-export const stringOrd: Ordering<string> = (lhs, rhs) => {
-  const res = lhs.localeCompare(rhs)
-  return res === 0 ? 0 : (res > 0 ? 1 : -1)
-}

@@ -16,7 +16,7 @@ import { Status } from '../../types/core/status'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Module } from '../../types/module'
-import { Show } from '../../ops/show'
+import { showLabel } from '../../ops/show.instances'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -61,7 +61,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: modulesTypes,
-      show: Show.label,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType))
     }
   }
@@ -86,7 +86,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: languages,
-      show: Show.label,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language))
     }
   }
@@ -111,7 +111,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: seasons,
-      show: Show.label,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season))
     }
   }
@@ -124,7 +124,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: locations,
-      show: Show.label,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location))
     }
   }
@@ -137,7 +137,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       data: status,
-      show: Show.label,
+      show: showLabel,
       initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status))
     }
   }

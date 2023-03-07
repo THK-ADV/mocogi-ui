@@ -8,7 +8,7 @@ import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { Show } from '../../ops/show'
+import { showLabel } from '../../ops/show.instances'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -65,7 +65,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: Show.label,
+          show: showLabel,
         },
         {
           kind: 'number',
@@ -81,7 +81,7 @@ export function assessmentMethodInput(
           disabled: false,
           required: false,
           data: assessmentMethods,
-          show: Show.label,
+          show: showLabel,
         }
       ],
       entries
@@ -90,7 +90,7 @@ export function assessmentMethodInput(
 
   // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
-    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), Show.label) ?? '???'
+    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), showLabel) ?? '???'
   }
 
   function label(kind: AssessmentMethodKind): string {

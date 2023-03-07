@@ -7,7 +7,7 @@ import { validMandatoryObject, validOptionalNumber, validOptionalObject } from '
 import { mapOpt } from '../../ops/undefined-ops'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
-import { Show } from '../../ops/show'
+import { showLabel } from '../../ops/show.instances'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry, AssessmentMethod> {
   readonly all: { [id: string]: AssessmentMethod } = {}
@@ -108,5 +108,5 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     this.all[method]
 
   private lookupLabel = (method: string): string =>
-    mapOpt(this.lookup(method), Show.label) ?? '???'
+    mapOpt(this.lookup(method), showLabel) ?? '???'
 }

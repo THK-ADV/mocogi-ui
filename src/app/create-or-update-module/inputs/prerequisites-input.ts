@@ -10,7 +10,7 @@ import { Module } from '../../types/module'
 import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { Show } from '../../ops/show'
+import { showModule } from '../../ops/show.instances'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -67,7 +67,7 @@ export function prerequisitesInputs(
       disabled: false,
       required: false,
       options: allModules,
-      show: Show.module,
+      show: showModule,
       initialValue: xs => xs.filter(x => entries.some(e => e.id === x.id)),
       dialogInstance: () => moduleDialogInstance(attr, kind)
     }
@@ -92,7 +92,7 @@ export function prerequisitesInputs(
   function moduleDialogInstance(attr: string, kind: PrerequisitesKind) {
     const columns = [{attr: 'module', title: 'Modul'}]
     const entries = currentModules(attr, kind)
-    const callback = new ModuleCallback(allModules, entries, columns[0].attr, Show.module)
+    const callback = new ModuleCallback(allModules, entries, columns[0].attr, showModule)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -107,7 +107,7 @@ export function prerequisitesInputs(
           disabled: false,
           required: false,
           data: allModules,
-          show: Show.module,
+          show: showModule,
         }
       ],
       entries

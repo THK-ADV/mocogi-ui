@@ -6,7 +6,7 @@ import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { Person } from '../../types/core/person'
 import { FormInput } from '../../form/form-input'
-import { Show } from '../../ops/show'
+import { showPerson } from '../../ops/show.instances'
 
 export function responsibilityInput(
   dialog: MatDialog,
@@ -22,7 +22,7 @@ export function responsibilityInput(
       disabled: false,
       required: true,
       data: persons,
-      show: Show.person,
+      show: showPerson,
       initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id)))
     }
   }
@@ -37,7 +37,7 @@ export function responsibilityInput(
       disabled: false,
       required: true,
       options: persons,
-      show: Show.person,
+      show: showPerson,
       initialValue: xs => entries.filter(p => xs.some(x => x.id === p.id)),
       dialogInstance: () => dialogInstance(attr)
     }
@@ -46,7 +46,7 @@ export function responsibilityInput(
   function dialogInstance(attr: string) {
     const columns = [{attr: 'person', title: 'Dozierende'}]
     const entries = currentLecturer(attr)
-    const callback = new LecturerCallback(persons, entries, columns[0].attr, Show.person)
+    const callback = new LecturerCallback(persons, entries, columns[0].attr, showPerson)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -61,7 +61,7 @@ export function responsibilityInput(
           disabled: false,
           required: false,
           data: persons,
-          show: Show.person,
+          show: showPerson,
         }
       ],
       entries

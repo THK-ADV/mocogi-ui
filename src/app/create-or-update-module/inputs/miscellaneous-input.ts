@@ -10,7 +10,7 @@ import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { Show } from '../../ops/show'
+import { showLabel, showModule } from '../../ops/show.instances'
 
 export function miscellaneousInput(
   dialog: MatDialog,
@@ -31,7 +31,7 @@ export function miscellaneousInput(
       disabled: false,
       required: false,
       options: competences,
-      show: Show.label,
+      show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
       dialogInstance: () => competenceDialogInstance(attr)
     }
@@ -47,7 +47,7 @@ export function miscellaneousInput(
       disabled: false,
       required: false,
       options: globalCriteria,
-      show: Show.label,
+      show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
       dialogInstance: () => globalCriteriaDialogInstance(attr)
     }
@@ -63,7 +63,7 @@ export function miscellaneousInput(
       disabled: false,
       required: false,
       options: modules,
-      show: Show.module,
+      show: showModule,
       initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
       dialogInstance: () => taughtWithDialogInstance(attr)
     }
@@ -72,7 +72,7 @@ export function miscellaneousInput(
   function competenceDialogInstance(attr: string) {
     const columns = [{attr: 'competence', title: 'Kompetenzen'}]
     const entries = currentCompetences(attr)
-    const callback = new CompetenceCallback(competences, entries, columns[0].attr, Show.label)
+    const callback = new CompetenceCallback(competences, entries, columns[0].attr, showLabel)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -87,7 +87,7 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: competences,
-          show: Show.label,
+          show: showLabel,
         }
       ],
       entries
@@ -97,7 +97,7 @@ export function miscellaneousInput(
   function globalCriteriaDialogInstance(attr: string) {
     const columns = [{attr: 'global-criteria', title: 'Globale Kriterien'}]
     const entries = currentGlobalCriteria(attr)
-    const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, Show.label)
+    const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, showLabel)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -112,7 +112,7 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: globalCriteria,
-          show: Show.label,
+          show: showLabel,
         }
       ],
       entries
@@ -122,7 +122,7 @@ export function miscellaneousInput(
   function taughtWithDialogInstance(attr: string) {
     const columns = [{attr: 'module', title: 'Modul'}]
     const entries = currentTaughtWith(attr)
-    const callback = new ModuleCallback(modules, entries, columns[0].attr, Show.module)
+    const callback = new ModuleCallback(modules, entries, columns[0].attr, showModule)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -137,7 +137,7 @@ export function miscellaneousInput(
           disabled: false,
           required: false,
           data: modules,
-          show: Show.module,
+          show: showModule,
         }
       ],
       entries

@@ -1,12 +1,29 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module.reducer'
-import { selectPeople, selectSelectedCoordinatorId, selectSelectedPOId, selectSelectedSemester } from './module-filter.selectors'
+import {
+  selectGrades,
+  selectPeople,
+  selectPOs,
+  selectSelectedCoordinatorId,
+  selectSelectedPOId,
+  selectSelectedSemester,
+  selectStudyPrograms,
+  StudyProgramWithPO
+} from './module-filter.selectors'
 import { Metadata } from '../../types/metadata'
 import { mapFilterUndefined } from '../../ops/array.ops'
 import { Person } from '../../types/core/person'
 import { toTableRepresentation } from '../../module/module-list/module-table-representation'
 
-export type MetadataWithCoordinators = Omit<Metadata, 'moduleManagement'> & { moduleManagement: Person[] }
+export type MetadataAtomic =
+  Omit<Metadata, 'moduleManagement'> & {
+  moduleManagement: Person[],
+  poMandatoryAtomic: {
+    po: StudyProgramWithPO,
+    recommendedSemester: number[],
+    recommendedSemesterPartTime: number[]
+  }[]
+}
 
 export const selectModuleState = createFeatureSelector<State>('module')
 
@@ -25,19 +42,30 @@ export const selectSelectedSort = createSelector(
   (state) => state.selectedSort
 )
 
-const selectModulesWithCoordinator = createSelector(
+const selectMetadataAtomic = createSelector(
   selectModules,
   selectPeople,
-  (modules, people) =>
-    <MetadataWithCoordinators[]>modules.map(m => {
+  selectStudyPrograms,
+  selectPOs,
+  selectGrades,
+  (modules, people, studyPrograms, pos, grades) =>
+    <MetadataAtomic[]>modules.map(m => {
       const moduleManagement = mapFilterUndefined(m.moduleManagement, m => people.find(p => p.id === m))
-      return {...m, moduleManagement}
+      const poMandatoryAtomic = mapFilterUndefined(m.po.mandatory, poMandatory => {
+        const po = pos.find(po => po.abbrev === poMandatory.po)
+        const sp = studyPrograms.find(sp => sp.abbrev === po?.program)
+        const g = grades.find(g => g.abbrev === sp?.grade)
+        return po && sp && g
+          ? {...poMandatory, po: [po, sp, g]}
+          : undefined
+      })
+      return {...m, moduleManagement, poMandatoryAtomic}
     })
 )
 
 function titleFilter(filter: string) {
   filter = filter.trim().toLowerCase()
-  return (m: MetadataWithCoordinators) =>
+  return (m: MetadataAtomic) =>
     m.title.toLowerCase().includes(filter) ||
     m.abbrev.toLowerCase().includes(filter) ||
     m.moduleManagement.some(c => {
@@ -55,30 +83,30 @@ function titleFilter(filter: string) {
 }
 
 function coordinatorFilter(coordinatorId: string) {
-  return (m: MetadataWithCoordinators) =>
+  return (m: MetadataAtomic) =>
     m.moduleManagement.some(m => m.id === coordinatorId)
 }
 
 function poFilter(poId: string) {
-  return (m: MetadataWithCoordinators) =>
+  return (m: MetadataAtomic) =>
     m.po.mandatory.some(po => po.po === poId) ||
     m.po.optional.some(po => po.po === poId)
 }
 
 function semesterFilter(semester: number) {
-  return (m: MetadataWithCoordinators) =>
+  return (m: MetadataAtomic) =>
     m.po.mandatory.some(po => po.recommendedSemester.includes(semester)) ||
     m.po.optional.some(po => po.recommendedSemester.includes(semester))
 }
 
 function poSemesterFilter(poId: string, semester: number) {
-  return (m: MetadataWithCoordinators) =>
+  return (m: MetadataAtomic) =>
     m.po.mandatory.some(po => po.po === poId && po.recommendedSemester.includes(semester)) ||
     m.po.optional.some(po => po.po === poId && po.recommendedSemester.includes(semester))
 }
 
 export const selectModuleTableRepresentation = createSelector(
-  selectModulesWithCoordinator,
+  selectMetadataAtomic,
   selectModuleFilter,
   selectSelectedPOId,
   selectSelectedSemester,

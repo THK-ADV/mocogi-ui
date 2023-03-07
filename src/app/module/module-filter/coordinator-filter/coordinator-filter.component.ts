@@ -3,7 +3,7 @@ import { selectPeople, selectSelectedCoordinator } from '../../../state/selector
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { Store } from '@ngrx/store'
 import { Person } from '../../../types/core/person'
-import { Show } from '../../../ops/show'
+import { showPerson } from '../../../ops/show.instances'
 
 @Component({
   selector: 'sched-coordinator-filter',
@@ -19,7 +19,7 @@ export class CoordinatorFilterComponent {
 
   selection$ = this.store.select(selectSelectedCoordinator)
 
-  show = Show.person
+  show = showPerson
 
   selectAction = (person: Person) => ModuleFilterPageActions.selectCoordinator({coordinatorId: person.id})
 

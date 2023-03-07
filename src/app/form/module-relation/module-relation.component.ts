@@ -10,7 +10,7 @@ import { ConfirmationDialogComponent } from '../../generic-ui/confirmation-dialo
 import { Subscription } from 'rxjs'
 import { ModuleRelation } from '../../types/module-relation'
 import { Module } from '../../types/module'
-import { Show } from '../../ops/show'
+import { showModule } from '../../ops/show.instances'
 
 interface ModuleRelationType {
   label: 'parent' | 'child'
@@ -98,7 +98,7 @@ export class ModuleRelationComponent implements OnDestroy {
       data: this.dataSource.data.length === 0
         ? modules
         : modules.filter(m => !this.dataSource.data.some(x => x.id === m.id)),
-      show: Show.module
+      show: showModule
     }
     this.formGroup.addControl('module', formControlForOptionsInput(this.moduleInputType))
   }

@@ -15,7 +15,7 @@ import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
 import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { throwError } from '../types/error'
-import { Show } from '../ops/show'
+import { showLabel } from '../ops/show.instances'
 
 function toPOPreview(
   pos: ReadonlyArray<PO>,
@@ -34,8 +34,8 @@ function toPOPreview(
     }
     return {
       id: po.abbrev,
-      label: `${Show.label(sp)} PO ${po.version} (${Show.label(grade)})`,
-      abbrev: `${sp.abbrev} PO ${po.version} (${Show.label(grade)})`
+      label: `${showLabel(sp)} PO ${po.version} (${showLabel(grade)})`,
+      abbrev: `${sp.abbrev} PO ${po.version} (${showLabel(grade)})`
     }
   })
 }
