@@ -8,13 +8,17 @@ import { ModuleTableRepresentation } from './module-table-representation'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { selectSelectedPOId } from '../../state/selectors/module-filter.selectors'
 
-type DisplayedColumns = keyof Omit<ModuleTableRepresentation, 'id'>
-
-const displayedColumns: DisplayedColumns[] = ['title', 'abbrev', 'coordinator', 'ects', 'semester']
+type DisplayedColumns = keyof (Omit<ModuleTableRepresentation, 'id'> & { expand: string, actions: string })
 
 const selectDisplayedColumns = createSelector(
   selectSelectedPOId,
-  (podId) => podId ? displayedColumns : [...displayedColumns, 'expand']
+  (podId) => {
+    const cols: DisplayedColumns[] = ['title', 'abbrev', 'coordinator', 'ects', 'semester', 'actions']
+    if (!podId) {
+      cols.push('expand')
+    }
+    return cols
+  }
 )
 
 @Component({
