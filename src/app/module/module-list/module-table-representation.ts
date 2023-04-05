@@ -1,6 +1,6 @@
 import { MetadataAtomic } from '../../state/selectors/module.selectors'
 import { studyProgramWithPOOrd } from '../../ops/ordering.instances'
-import { showPerson, showStudyProgramWithPo } from '../../ops/show.instances'
+import { showPerson, showRecommendedSemester, showStudyProgramWithPo } from '../../ops/show.instances'
 
 export type ModuleTableRepresentation = {
   id: string,
@@ -32,7 +32,7 @@ function formatCoordinator(metadata: MetadataAtomic): string {
 
 
 function formatSemester(metadata: MetadataAtomic, selectedPO?: string): string {
-  let semester: string[] | number[]
+  let semester: number[]
   if (selectedPO) {
     semester = metadata.po.mandatory.find(po => po.po === selectedPO)?.recommendedSemester ?? []
   } else {
@@ -40,15 +40,17 @@ function formatSemester(metadata: MetadataAtomic, selectedPO?: string): string {
     metadata.po.mandatory.forEach(po => {
       po.recommendedSemester.forEach(n => res[n] = undefined)
     })
-    semester = Object.keys(res)
+    semester = Object.keys(res).map(s => +s)
   }
-  return semester.sort().join(', ')
+  return showRecommendedSemester(semester)
 }
 
 function formatPOs(metadata: MetadataAtomic): string[] {
-  return metadata.poMandatoryAtomic
+  return [...metadata.poMandatoryAtomic]
     .sort((a, b) => studyProgramWithPOOrd(a.po, b.po))
     .map(({po, recommendedSemester}) => {
-      return `${showStudyProgramWithPo(po)} (Semester ${recommendedSemester.sort().join(', ')})`
+      return recommendedSemester.length === 0
+        ? showStudyProgramWithPo(po)
+        : `${showStudyProgramWithPo(po)} (Semester ${showRecommendedSemester([...recommendedSemester])})`
     })
 }

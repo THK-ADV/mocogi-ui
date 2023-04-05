@@ -67,4 +67,6 @@ export class ModuleListComponent {
     this.store.dispatch(ModulePageActions.selectModule({moduleId: element.id}))
     event.stopPropagation()
   }
+
+  visibleModules = (): number => this.dataSource.data.length
 }

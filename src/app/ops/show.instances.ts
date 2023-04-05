@@ -26,3 +26,6 @@ export const showLabel: Show<Label> = label =>
 
 export const showModule: Show<Module> = module =>
   module.title
+
+export const showRecommendedSemester: Show<number[]> = semesters =>
+  semesters.length === 0 ? '-' : semesters.sort().join(', ')

@@ -15,14 +15,16 @@ import { mapFilterUndefined } from '../../ops/array.ops'
 import { Person } from '../../types/core/person'
 import { toTableRepresentation } from '../../module/module-list/module-table-representation'
 
+export type POMandatoryAtomic = {
+  po: StudyProgramWithPO,
+  recommendedSemester: ReadonlyArray<number>,
+  recommendedSemesterPartTime: ReadonlyArray<number>
+}
+
 export type MetadataAtomic =
   Omit<Metadata, 'moduleManagement'> & {
-  moduleManagement: Person[],
-  poMandatoryAtomic: {
-    po: StudyProgramWithPO,
-    recommendedSemester: number[],
-    recommendedSemesterPartTime: number[]
-  }[]
+  moduleManagement: ReadonlyArray<Person>,
+  poMandatoryAtomic: ReadonlyArray<POMandatoryAtomic>
 }
 
 export const selectModuleState = createFeatureSelector<State>('module')
@@ -51,7 +53,7 @@ const selectMetadataAtomic = createSelector(
   (modules, people, studyPrograms, pos, grades) =>
     <MetadataAtomic[]>modules.map(m => {
       const moduleManagement = mapFilterUndefined(m.moduleManagement, m => people.find(p => p.id === m))
-      const poMandatoryAtomic = mapFilterUndefined(m.po.mandatory, poMandatory => {
+      const poMandatoryAtomic: POMandatoryAtomic[] = mapFilterUndefined(m.po.mandatory, poMandatory => {
         const po = pos.find(po => po.abbrev === poMandatory.po)
         const sp = studyPrograms.find(sp => sp.abbrev === po?.program)
         const g = grades.find(g => g.abbrev === sp?.grade)

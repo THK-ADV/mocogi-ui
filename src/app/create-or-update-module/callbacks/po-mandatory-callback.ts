@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms'
 import { validMandatoryCommaSeparatedNumber, validMandatoryObject, validOptionalCommaSeparatedNumber } from './callback-validation'
 import { foldOpt } from '../../ops/undefined-ops'
 import { POMandatory, POPreview } from '../../types/pos'
+import { showRecommendedSemester } from '../../ops/show.instances'
 
 export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<POMandatory, POPreview> {
   readonly all: { [id: string]: POPreview } = {}
@@ -47,9 +48,9 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
       case 'po':
         return this.lookupLabel(tableEntry.po)
       case 'recommended-semester':
-        return tableEntry.recommendedSemester.join(', ')
+        return showRecommendedSemester(tableEntry.recommendedSemester)
       case 'recommended-semester-part-time':
-        return tableEntry.recommendedSemesterPartTime.join(', ')
+        return showRecommendedSemester(tableEntry.recommendedSemesterPartTime)
       default:
         return '???'
     }

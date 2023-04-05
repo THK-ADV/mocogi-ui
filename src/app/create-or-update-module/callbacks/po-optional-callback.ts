@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms'
 import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
 import { POOptional, POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
+import { showRecommendedSemester } from '../../ops/show.instances'
 
 export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, POPreview> {
   readonly all: { [id: string]: POPreview } = {}
@@ -57,7 +58,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       case 'part-of-catalog':
         return tableEntry.partOfCatalog ? 'Ja' : 'Nein'
       case 'recommended-semester':
-        return tableEntry.recommendedSemester.join(', ')
+        return showRecommendedSemester(tableEntry.recommendedSemester)
       default:
         return '???'
     }
