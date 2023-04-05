@@ -1,3 +1,10 @@
-<ng-container *ngIf="moduleCompendium | async as res">
-  <div [innerHtml]="res | unsafeHtml"></div>
-</ng-container>
+<mat-tab-group>
+  <mat-tab *ngIf="moduleCompendiumHtml | async as html">
+    <ng-template mat-tab-label>Modulbeschreibung</ng-template>
+    <div [innerHtml]="html | unsafeHtml"></div>
+  </mat-tab>
+  <mat-tab *ngIf="moduleCompendium | async as moduleCompendium">
+    <ng-template mat-tab-label>Json</ng-template>
+    <pre><p>{{moduleCompendium | json}}</p></pre>
+  </mat-tab>
+</mat-tab-group>

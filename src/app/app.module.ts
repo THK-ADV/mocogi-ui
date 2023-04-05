@@ -62,6 +62,7 @@ import { AbstractModuleFilterComponent } from './module/module-filter/abstract-m
 import { SemesterFilterComponent } from './module/module-filter/semester-filter/semester-filter.component'
 import { CoordinatorFilterComponent } from './module/module-filter/coordinator-filter/coordinator-filter.component';
 import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
+import { MatTabsModule } from '@angular/material/tabs'
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { ModuleListSearchComponent } from './module/module-list-search/module-li
     }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
     FormsModule,
+    MatTabsModule,
   ],
   providers: [
     {
