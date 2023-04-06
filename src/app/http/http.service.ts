@@ -7,12 +7,9 @@ import { Status } from '../types/core/status'
 import { AssessmentMethod } from '../types/core/assessment-method'
 import { ModuleType } from '../types/core/module-type'
 import { Season } from '../types/core/season'
-import { Faculty } from '../types/core/faculty'
 import { Person } from '../types/core/person'
-import { StudyFormType } from '../types/core/study-form-type'
 import { PO } from '../types/core/po'
 import { Grade } from '../types/core/grade'
-import { FocusArea } from '../types/core/focus-area'
 import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
@@ -22,6 +19,7 @@ import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
+import { Specialization } from '../types/specialization'
 
 interface ModuleDraftJson {
   module: string
@@ -84,9 +82,6 @@ export class HttpService {
   allPersons = (): Observable<Person[]> =>
     this.http.get<Person[]>('persons')
 
-  allStudyFormTypes = (): Observable<StudyFormType[]> =>
-    this.http.get<StudyFormType[]>('studyFormTypes')
-
   allValidPOs = (): Observable<PO[]> =>
     this.http.get<PO[]>('pos?valid=true').pipe(
       map(pos => pos.map(po => ({
@@ -101,12 +96,6 @@ export class HttpService {
   allGrades = (): Observable<Grade[]> =>
     this.http.get<Grade[]>('grades')
 
-  allFocusArea = (): Observable<FocusArea[]> =>
-    this.http.get<FocusArea[]>('focusAreas')
-
-  allFaculties = (): Observable<Faculty[]> =>
-    this.http.get<Faculty[]>('faculties')
-
   allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
     this.http.get<GlobalCriteria[]>('globalCriteria')
 
@@ -120,6 +109,9 @@ export class HttpService {
 
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
+
+  allSpecializations = (): Observable<Specialization[]> =>
+    this.http.get<Specialization[]>('specializations')
 
   // Branch
 

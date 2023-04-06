@@ -1,22 +1,24 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module.reducer'
 import {
+  FullStudyProgram,
   selectGrades,
   selectPeople,
   selectPOs,
   selectSelectedCoordinatorId,
-  selectSelectedPOId,
   selectSelectedSemester,
-  selectStudyPrograms,
-  StudyProgramWithPO
+  selectSelectedStudyProgramId,
+  selectStudyPrograms
 } from './module-filter.selectors'
 import { Metadata } from '../../types/metadata'
 import { mapFilterUndefined } from '../../ops/array.ops'
 import { Person } from '../../types/core/person'
 import { toTableRepresentation } from '../../module/module-list/module-table-representation'
+import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
+import { POMandatory, POOptional } from '../../types/pos'
 
 export type POMandatoryAtomic = {
-  po: StudyProgramWithPO,
+  po: FullStudyProgram,
   recommendedSemester: ReadonlyArray<number>,
   recommendedSemesterPartTime: ReadonlyArray<number>
 }
@@ -55,11 +57,9 @@ const selectMetadataAtomic = createSelector(
       const moduleManagement = mapFilterUndefined(m.moduleManagement, m => people.find(p => p.id === m))
       const poMandatoryAtomic: POMandatoryAtomic[] = mapFilterUndefined(m.po.mandatory, poMandatory => {
         const po = pos.find(po => po.abbrev === poMandatory.po)
-        const sp = studyPrograms.find(sp => sp.abbrev === po?.program)
-        const g = grades.find(g => g.abbrev === sp?.grade)
-        return po && sp && g
-          ? {...poMandatory, po: [po, sp, g]}
-          : undefined
+        const studyProgram = studyPrograms.find(sp => sp.abbrev === po?.program)
+        const grade = grades.find(g => g.abbrev === studyProgram?.grade)
+        return po && studyProgram && grade && {...poMandatory, po: {studyProgram, po, grade, specialization: undefined}}
       })
       return {...m, moduleManagement, poMandatoryAtomic}
     })
@@ -89,47 +89,59 @@ function coordinatorFilter(coordinatorId: string) {
     m.moduleManagement.some(m => m.id === coordinatorId)
 }
 
-function poFilter(poId: string) {
+function checkPO({poId, specializationId}: SelectedStudyProgramId, po: POMandatory | POOptional): boolean {
+  if (specializationId) {
+    return po.specialization === specializationId // take modules from the specialization
+      || (po.po === poId && !po.specialization) // plus all mandatory modules from the po without the specialization
+  }
+  return !po.specialization && po.po === poId
+}
+
+function checkSemester(semester: number, po: POMandatory | POOptional): boolean {
+  return po.recommendedSemester.includes(semester)
+}
+
+function poFilter(selectedStudyProgramId: SelectedStudyProgramId) {
   return (m: MetadataAtomic) =>
-    m.po.mandatory.some(po => po.po === poId) ||
-    m.po.optional.some(po => po.po === poId)
+    m.po.mandatory.some(po => checkPO(selectedStudyProgramId, po)) ||
+    m.po.optional.some(po => checkPO(selectedStudyProgramId, po))
 }
 
 function semesterFilter(semester: number) {
   return (m: MetadataAtomic) =>
-    m.po.mandatory.some(po => po.recommendedSemester.includes(semester)) ||
-    m.po.optional.some(po => po.recommendedSemester.includes(semester))
+    m.po.mandatory.some(po => checkSemester(semester, po)) ||
+    m.po.optional.some(po => checkSemester(semester, po))
 }
 
-function poSemesterFilter(poId: string, semester: number) {
+function poSemesterFilter(selectedStudyProgramId: SelectedStudyProgramId, semester: number) {
   return (m: MetadataAtomic) =>
-    m.po.mandatory.some(po => po.po === poId && po.recommendedSemester.includes(semester)) ||
-    m.po.optional.some(po => po.po === poId && po.recommendedSemester.includes(semester))
+    m.po.mandatory.some(po => checkPO(selectedStudyProgramId, po) && checkSemester(semester, po)) ||
+    m.po.optional.some(po => checkPO(selectedStudyProgramId, po) && checkSemester(semester, po))
 }
 
 export const selectModuleTableRepresentation = createSelector(
   selectMetadataAtomic,
   selectModuleFilter,
-  selectSelectedPOId,
+  selectSelectedStudyProgramId,
   selectSelectedSemester,
   selectSelectedCoordinatorId,
   (
     modules,
     filter,
-    poId,
+    studyProgramId,
     semester,
     coordinatorId
   ) => {
     const filters = [
-      ...(poId && semester ? [poSemesterFilter(poId, semester)] : []),
-      ...(poId && !semester ? [poFilter(poId)] : []),
-      ...(!poId && semester ? [semesterFilter(semester)] : []),
+      ...(studyProgramId && semester ? [poSemesterFilter(studyProgramId, semester)] : []),
+      ...(studyProgramId && !semester ? [poFilter(studyProgramId)] : []),
+      ...(!studyProgramId && semester ? [semesterFilter(semester)] : []),
       ...(coordinatorId ? [coordinatorFilter(coordinatorId)] : []),
       ...(filter ? [titleFilter(filter)] : []),
     ]
 
     return filters
       .reduce((xs, f) => xs.filter(f), modules)
-      .map(m => toTableRepresentation(m, poId))
+      .map(m => toTableRepresentation(m, studyProgramId))
   }
 )

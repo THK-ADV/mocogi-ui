@@ -2,7 +2,7 @@ import { Ordering } from './ordering'
 import { PO } from '../types/core/po'
 import { StudyProgram } from '../types/core/study-program'
 import { Grade } from '../types/core/grade'
-import { StudyProgramWithPO } from '../state/selectors/module-filter.selectors'
+import { FullStudyProgram } from '../state/selectors/module-filter.selectors'
 
 export const numberOrd: Ordering<number> = (lhs, rhs) =>
   lhs < rhs ? -1 : (lhs > rhs ? 1 : 0)
@@ -18,8 +18,8 @@ export const studyProgramOrd: Ordering<StudyProgram> = Ordering.contraMap(string
 
 export const gradeOrd: Ordering<Grade> = Ordering.contraMap(stringOrd, g => g.abbrev)
 
-export const studyProgramWithPOOrd = Ordering.many<StudyProgramWithPO>([
-  Ordering.contraMap(studyProgramOrd, ([, sp,]) => sp),
-  Ordering.contraMap(poOrd, ([po, ,]) => po),
-  Ordering.contraMap(gradeOrd, ([, , g]) => g)
+export const fullStudyProgramOrd = Ordering.many<FullStudyProgram>([
+  Ordering.contraMap(studyProgramOrd, ({studyProgram}) => studyProgram),
+  Ordering.contraMap(poOrd, ({po}) => po),
+  Ordering.contraMap(gradeOrd, ({grade}) => grade)
 ])

@@ -4,6 +4,12 @@ import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/modu
 import { PO } from '../../types/core/po'
 import { Grade } from '../../types/core/grade'
 import { Person } from '../../types/core/person'
+import { Specialization } from '../../types/specialization'
+
+export interface SelectedStudyProgramId {
+  poId: string
+  specializationId: string | undefined
+}
 
 export interface State {
   studyPrograms: ReadonlyArray<StudyProgram>
@@ -11,7 +17,8 @@ export interface State {
   grades: ReadonlyArray<Grade>
   semester: number[]
   people: Person[]
-  selectedPOId?: string
+  specializations: ReadonlyArray<Specialization>
+  selectedStudyProgramId?: SelectedStudyProgramId
   selectedSemester?: number
   selectedCoordinatorId?: string
 }
@@ -21,8 +28,9 @@ const initialState: State = {
   pos: [],
   grades: [],
   people: [],
+  specializations: [],
   semester: [1, 2, 3, 4, 5, 6],
-  selectedPOId: undefined,
+  selectedStudyProgramId: undefined,
   selectedSemester: undefined,
   selectedCoordinatorId: undefined
 }
@@ -32,10 +40,10 @@ export const moduleFilterReducer = createReducer(
   on(ModuleFilterPageActions.enter, (state): State => {
     return state
   }),
-  on(ModuleFilterPageActions.selectPo, (state, {poId}): State => {
+  on(ModuleFilterPageActions.selectStudyprogram, (state, {selectedStudyProgramId}): State => {
     return {
       ...state,
-      selectedPOId: poId
+      selectedStudyProgramId
     }
   }),
   on(ModuleFilterPageActions.selectSemester, (state, {semester}): State => {
@@ -53,15 +61,15 @@ export const moduleFilterReducer = createReducer(
   on(ModuleFilterPageActions.resetFilter, (state): State => {
     return {
       ...state,
-      selectedPOId: undefined,
+      selectedStudyProgramId: undefined,
       selectedSemester: undefined,
       selectedCoordinatorId: undefined
     }
   }),
-  on(ModuleFilterPageActions.deselectPo, (state): State => {
+  on(ModuleFilterPageActions.deselectStudyprogram, (state): State => {
     return {
       ...state,
-      selectedPOId: undefined,
+      selectedStudyProgramId: undefined,
     }
   }),
   on(ModuleFilterPageActions.deselectSemester, (state): State => {
@@ -98,6 +106,12 @@ export const moduleFilterReducer = createReducer(
     return {
       ...state,
       people
+    }
+  }),
+  on(ModuleFilterAPIActions.retrievedSpecializationsSuccess, (state, {specializations}): State => {
+    return {
+      ...state,
+      specializations
     }
   })
 )

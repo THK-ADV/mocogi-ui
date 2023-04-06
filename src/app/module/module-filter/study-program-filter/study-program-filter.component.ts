@@ -1,11 +1,8 @@
 import { Component } from '@angular/core'
-import { PO } from '../../../types/core/po'
-import { StudyProgram } from '../../../types/core/study-program'
-import { Grade } from '../../../types/core/grade'
 import { Store } from '@ngrx/store'
-import { selectSelectedStudyProgramWithPO, selectStudyProgramWithPO } from '../../../state/selectors/module-filter.selectors'
+import { FullStudyProgram, selectFullStudyProgram, selectSelectedStudyProgram } from '../../../state/selectors/module-filter.selectors'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
-import { showStudyProgramWithPo } from '../../../ops/show.instances'
+import { showFullStudyProgram } from '../../../ops/show.instances'
 
 @Component({
   selector: 'sched-study-program-filter',
@@ -16,15 +13,17 @@ export class StudyProgramFilterComponent {
 
   label = 'Studiengang'
 
-  options$ = this.store.select(selectStudyProgramWithPO)
+  options$ = this.store.select(selectFullStudyProgram)
 
-  selection$ = this.store.select(selectSelectedStudyProgramWithPO)
+  selection$ = this.store.select(selectSelectedStudyProgram)
 
-  show = showStudyProgramWithPo
+  show = showFullStudyProgram
 
-  selectAction = ([po,]: [PO, StudyProgram, Grade]) => ModuleFilterPageActions.selectPo({poId: po.abbrev})
+  selectAction = ({po, specialization}: FullStudyProgram) => ModuleFilterPageActions.selectStudyprogram({
+    selectedStudyProgramId: {poId: po.abbrev, specializationId: specialization?.abbrev}
+  })
 
-  deselectAction = ModuleFilterPageActions.deselectPo
+  deselectAction = ModuleFilterPageActions.deselectStudyprogram
 
   constructor(private readonly store: Store) {
   }

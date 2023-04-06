@@ -3,10 +3,15 @@ import { State } from '../reducer/module-filter.reducer'
 import { PO } from '../../types/core/po'
 import { StudyProgram } from '../../types/core/study-program'
 import { Grade } from '../../types/core/grade'
-import { mapFilterUndefined } from '../../ops/array.ops'
-import { studyProgramWithPOOrd } from '../../ops/ordering.instances'
+import { fullStudyProgramOrd } from '../../ops/ordering.instances'
+import { Specialization } from '../../types/specialization'
 
-export type StudyProgramWithPO = [PO, StudyProgram, Grade]
+export interface FullStudyProgram {
+  po: PO
+  studyProgram: StudyProgram
+  grade: Grade
+  specialization?: Specialization
+}
 
 export const selectModuleFilterState = createFeatureSelector<State>('moduleFilter')
 
@@ -35,9 +40,14 @@ export const selectPeople = createSelector(
   (state) => state.people
 )
 
-export const selectSelectedPOId = createSelector(
+export const selectSpecializations = createSelector(
   selectModuleFilterState,
-  (state) => state.selectedPOId
+  (state) => state.specializations
+)
+
+export const selectSelectedStudyProgramId = createSelector(
+  selectModuleFilterState,
+  (state) => state.selectedStudyProgramId
 )
 
 export const selectSelectedSemester = createSelector(
@@ -61,30 +71,45 @@ export const selectSelectedCoordinator = createSelector(
   }
 )
 
-export const selectStudyProgramWithPO = createSelector(
+export const selectFullStudyProgram = createSelector(
   selectStudyPrograms,
   selectPOs,
   selectGrades,
-  (sps, pos, grades) => {
+  selectSpecializations,
+  (sps, pos, grades, specializations) => {
     if (sps.length === 0 || pos.length === 0) {
       return []
     }
-    const result: StudyProgramWithPO[] = mapFilterUndefined(pos, po => {
-      const sp = sps.find(sp => sp.abbrev === po?.program)
-      const g = grades.find(g => g.abbrev === sp?.grade)
-      return sp && g ? [po, sp, g] : undefined
-    })
-    return result.sort(studyProgramWithPOOrd)
+    const fullStudyPrograms: FullStudyProgram[] = []
+    for (const po of pos) {
+      const studyProgram = sps.find(sp => sp.abbrev === po?.program)
+      const grade = grades.find(g => g.abbrev === studyProgram?.grade)
+      if (studyProgram && grade) {
+        const poSpecializations = specializations.filter(s => s.po === po.abbrev)
+        if (poSpecializations.length === 0) {
+          fullStudyPrograms.push({studyProgram, grade, po})
+        } else {
+          poSpecializations.forEach(specialization => fullStudyPrograms.push({studyProgram, grade, po, specialization}))
+        }
+      }
+    }
+    return fullStudyPrograms.sort(fullStudyProgramOrd)
   }
 )
 
-export const selectSelectedStudyProgramWithPO = createSelector(
-  selectStudyProgramWithPO,
-  selectSelectedPOId,
-  (spWithPos, poId) => {
-    if (!poId) {
+export const selectSelectedStudyProgram = createSelector(
+  selectFullStudyProgram,
+  selectSelectedStudyProgramId,
+  (studyPrograms, studyProgramId) => {
+    if (!studyProgramId) {
       return undefined
     }
-    return spWithPos.find(([po]) => po.abbrev === poId)
+    const {poId, specializationId} = studyProgramId
+    return studyPrograms.find(({po, specialization}) => {
+      const selectedPo = po.abbrev === poId
+      return specializationId
+        ? selectedPo && specializationId === specialization?.abbrev
+        : selectedPo
+    })
   }
 )

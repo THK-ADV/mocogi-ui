@@ -6,12 +6,12 @@ import { selectSelectedSort } from '../../state/selectors/module.selectors'
 import { MatSort, Sort } from '@angular/material/sort'
 import { ModuleTableRepresentation } from './module-table-representation'
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { selectSelectedPOId } from '../../state/selectors/module-filter.selectors'
+import { selectSelectedStudyProgramId } from '../../state/selectors/module-filter.selectors'
 
 type DisplayedColumns = keyof (Omit<ModuleTableRepresentation, 'id'> & { expand: string, actions: string })
 
 const selectDisplayedColumns = createSelector(
-  selectSelectedPOId,
+  selectSelectedStudyProgramId,
   (podId) => {
     const cols: DisplayedColumns[] = ['title', 'abbrev', 'coordinator', 'ects', 'semester', 'actions']
     if (!podId) {

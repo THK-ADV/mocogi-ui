@@ -63,6 +63,20 @@ export class ModuleFilterEffects {
     }
   )
 
+  fetchSpecialization$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(ModuleFilterPageActions.enter),
+        exhaustMap(() =>
+          this.service.allSpecializations().pipe(
+            map((specializations) =>
+              ModuleFilterAPIActions.retrievedSpecializationsSuccess({specializations})
+            )
+          )
+        )
+      )
+    }
+  )
+
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions
