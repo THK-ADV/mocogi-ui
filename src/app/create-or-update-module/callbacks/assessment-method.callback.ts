@@ -5,9 +5,9 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryObject, validOptionalNumber, validOptionalObject } from './callback-validation'
 import { mapOpt } from '../../ops/undefined-ops'
-import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
+import { showLabel } from '../../ops/show.instances'
 
 export class AssessmentMethodCallback implements MultipleEditDialogComponentCallback<AssessmentMethodEntry, AssessmentMethod> {
   readonly all: { [id: string]: AssessmentMethod } = {}

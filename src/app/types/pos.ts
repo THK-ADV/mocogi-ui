@@ -5,12 +5,14 @@ export interface POs {
 
 export interface POMandatory {
   po: string,
+  specialization?: string,
   recommendedSemester: number[],
   recommendedSemesterPartTime: number[]
 }
 
 export interface POOptional {
   po: string,
+  specialization?: string,
   instanceOf: string,
   partOfCatalog: boolean,
   recommendedSemester: number[]

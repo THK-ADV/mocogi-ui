@@ -5,12 +5,12 @@ import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { ModuleCallback } from '../callbacks/module-callback'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
-import { showModule } from '../../ops/show-instances'
 import { POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
 import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
+import { showModule } from '../../ops/show.instances'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 

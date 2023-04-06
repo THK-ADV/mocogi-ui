@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core'
+import { isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
-import { AllModulesComponent } from './all-modules/all-modules.component'
+import { ModuleComponent } from './module/module.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
@@ -24,7 +24,7 @@ import { LineComponent } from './structure/line/line.component'
 import { HttpInterceptorDecorator } from './http/http-interceptor-decorator.service'
 import { PlainInputComponent } from './form/plain-input/plain-input.component'
 import { EditModuleComponent } from './form/edit-module/edit-module.component'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module'
 import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -45,13 +45,30 @@ import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/co
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './alert/alert.component'
 import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
+import { ModuleListComponent } from './module/module-list/module-list.component'
+import { StoreModule } from '@ngrx/store'
+import { moduleReducer } from './state/reducer/module.reducer'
+import { EffectsModule } from '@ngrx/effects'
+import { ModuleEffects } from './state/effects/module.effects.service'
+import { ModuleFilterComponent } from './module/module-filter/module-filter.component'
+import { moduleFilterReducer } from './state/reducer/module-filter.reducer'
+import { NavigationEffects } from './state/effects/navigation.effects'
+import { ModuleFilterEffects } from './state/effects/module-filter.effects.service'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { StudyProgramFilterComponent } from './module/module-filter/study-program-filter/study-program-filter.component'
+import { AbstractModuleFilterComponent } from './module/module-filter/abstract-module-filter/abstract-module-filter.component'
+import { SemesterFilterComponent } from './module/module-filter/semester-filter/semester-filter.component'
+import { CoordinatorFilterComponent } from './module/module-filter/coordinator-filter/coordinator-filter.component'
+import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatChipsModule } from '@angular/material/chips'
 
 @NgModule({
   declarations: [
     AppComponent,
-    AllModulesComponent,
+    ModuleComponent,
     OwnModulesComponent,
     NavComponent,
     HeaderComponent,
@@ -73,6 +90,14 @@ import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
     UnsafeHtmlPipe,
     AlertComponent,
     PipelineErrorPipe,
+    ModuleListComponent,
+    ModuleFilterComponent,
+    StudyProgramFilterComponent,
+    AbstractModuleFilterComponent,
+    ModuleFilterComponent,
+    SemesterFilterComponent,
+    CoordinatorFilterComponent,
+    ModuleListSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +122,16 @@ import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
     MatSelectModule,
     MatCheckboxModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    StoreModule.forRoot({module: moduleReducer, moduleFilter: moduleFilterReducer}, {}),
+    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 15,
+    }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    FormsModule,
+    MatTabsModule,
+    MatChipsModule,
   ],
   providers: [
     {

@@ -2,7 +2,6 @@ import { Component, Inject, OnDestroy, ViewChild } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
-import { showModule } from '../../ops/show-instances'
 import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
 import { validMandatoryObject } from '../../create-or-update-module/callbacks/callback-validation'
@@ -11,6 +10,7 @@ import { ConfirmationDialogComponent } from '../../generic-ui/confirmation-dialo
 import { Subscription } from 'rxjs'
 import { ModuleRelation } from '../../types/module-relation'
 import { Module } from '../../types/module'
+import { showModule } from '../../ops/show.instances'
 
 interface ModuleRelationType {
   label: 'parent' | 'child'

@@ -1,7 +1,6 @@
 import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { showLabel } from '../../ops/show-instances'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { optionalLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
@@ -17,6 +16,7 @@ import { Status } from '../../types/core/status'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Module } from '../../types/module'
+import { showLabel } from '../../ops/show.instances'
 
 export function simpleInput(
   dialog: MatDialog,

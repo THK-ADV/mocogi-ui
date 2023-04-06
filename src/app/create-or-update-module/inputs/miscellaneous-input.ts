@@ -5,12 +5,12 @@ import { CompetenceCallback } from '../callbacks/competence-callback'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { GlobalCriteriaCallback } from '../callbacks/global-criteria-callback'
 import { ModuleCallback } from '../callbacks/module-callback'
-import { showLabel, showModule } from '../../ops/show-instances'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
+import { showLabel, showModule } from '../../ops/show.instances'
 
 export function miscellaneousInput(
   dialog: MatDialog,

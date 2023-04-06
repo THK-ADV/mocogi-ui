@@ -6,6 +6,7 @@ import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { Person } from '../../types/core/person'
 import { FormInput } from '../../form/form-input'
+import { showPerson } from '../../ops/show.instances'
 
 export function responsibilityInput(
   dialog: MatDialog,
@@ -65,17 +66,6 @@ export function responsibilityInput(
       ],
       entries
     )
-  }
-
-  function showPerson(p: Person): string {
-    switch (p.kind) {
-      case 'single':
-        return `${p.lastname}, ${p.firstname}`
-      case 'group':
-        return p.title
-      case 'unknown':
-        return p.title
-    }
   }
 
   return <FormInput<unknown, unknown>[]>[

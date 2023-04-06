@@ -6,9 +6,9 @@ import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
 import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
 import { mapOpt } from '../../ops/undefined-ops'
-import { showLabel } from '../../ops/show-instances'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'
 import { AssessmentMethod } from '../../types/core/assessment-method'
+import { showLabel } from '../../ops/show.instances'
 
 export interface TableContent {
   entry: AssessmentMethodEntry

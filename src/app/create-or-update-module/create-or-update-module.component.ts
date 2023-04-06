@@ -6,7 +6,6 @@ import { Observable, of, Subscription, zip } from 'rxjs'
 import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
-import { showLabel } from '../ops/show-instances'
 import { parseModuleCompendium } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
@@ -16,6 +15,7 @@ import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
 import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { throwError } from '../types/error'
+import { showLabel } from '../ops/show.instances'
 
 function toPOPreview(
   pos: ReadonlyArray<PO>,
