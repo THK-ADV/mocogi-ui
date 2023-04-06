@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { HttpService } from '../http/http.service'
-import { Observable, tap } from 'rxjs'
+import { Observable } from 'rxjs'
 import { Location as AngularLocation } from '@angular/common'
 import { ModuleCompendium } from '../types/module-compendium'
 
