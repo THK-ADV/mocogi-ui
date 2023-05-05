@@ -136,7 +136,7 @@ export class HttpService {
     id: string | undefined
   ): Observable<ModuleDraft> => {
     const body = {
-      data: JSON.stringify(mc),
+      data: mc,
       branch: branch,
     }
     const request = id
