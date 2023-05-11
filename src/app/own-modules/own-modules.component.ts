@@ -9,6 +9,7 @@ import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
 import { AppStateService } from '../state/app-state.service'
 import { PipelineError, ValidationResult } from '../types/validation-result'
+import { KeycloakService } from '../keycloak/keycloak.service'
 
 // TODO add proper State Management
 
@@ -28,14 +29,15 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   revertReviewTitle = 'Review zurückziehen'
   branch?: Either<undefined, UserBranch>
   editMode = false
-  username = 'kohls'
+  username?: string
   validationResult?: ValidationResult
 
   private subs: Subscription[] = []
 
   constructor(
     private readonly router: Router,
-    private readonly appState: AppStateService
+    private readonly appState: AppStateService,
+    private readonly keycloakService: KeycloakService
   ) {
     this.dataSource = new MatTableDataSource()
     this.columns = [{title: 'Name', attr: 'name'}]
@@ -51,12 +53,18 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       .subscribe(x => this.editMode = x)
     const s4 = appState.validationResult$()
       .subscribe(x => this.validationResult = x)
-    this.subs.push(s0, s1, s2, s3, s4)
+    const s5 = keycloakService.personAbbrev$()
+      .subscribe(abbrev => {
+        this.username = abbrev
+        if (abbrev) {
+          this.appState.getModulesForUser(abbrev)
+          this.appState.getBranchForUser(abbrev)
+        }
+      })
+    this.subs.push(s0, s1, s2, s3, s4, s5)
   }
 
   ngOnInit() {
-    this.appState.getModulesForUser('cko')
-    this.appState.getBranchForUser(this.username)
     this.appState.getEditMode()
     this.editMode && this.appState.getModuleDrafts()
     this.editMode && this.appState.getValidationResult()
@@ -77,7 +85,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
         this.appState.getValidationResult()
       },
       () => {
-        this.appState.createBranchForUser(
+        this.username && this.appState.createBranchForUser(
           this.username,
           branch => {
             if (branch.value) {
@@ -124,7 +132,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   // Review
 
   reviewAllChanges = () => {
-    this.appState.forceReview(this.username)
+    this.username && this.appState.forceReview(this.username)
   }
 
   alreadyReviewed = () =>
@@ -134,7 +142,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     this.appState.canReview() && !this.alreadyReviewed()
 
   revertReview = () => {
-    this.appState.forceRevertReview(this.username)
+    this.username && this.appState.forceRevertReview(this.username)
   }
 
   // Table

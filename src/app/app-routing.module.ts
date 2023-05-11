@@ -5,6 +5,7 @@ import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
 import { ModuleComponent } from './module/module.component'
+import { requireRoles } from './keycloak/auth.guard'
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'modules',
-    component: OwnModulesComponent
+    component: OwnModulesComponent,
+    ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
     path: 'edit',
