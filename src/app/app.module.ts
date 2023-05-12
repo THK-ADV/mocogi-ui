@@ -1,4 +1,4 @@
-import { isDevMode, NgModule } from '@angular/core'
+import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
@@ -64,6 +64,8 @@ import { CoordinatorFilterComponent } from './module/module-filter/coordinator-f
 import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
+import { initializeKeycloak } from './keycloak/keycloak-init'
 
 @NgModule({
   declarations: [
@@ -132,8 +134,15 @@ import { MatChipsModule } from '@angular/material/chips'
     FormsModule,
     MatTabsModule,
     MatChipsModule,
+    KeycloakAngularModule
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorDecorator,

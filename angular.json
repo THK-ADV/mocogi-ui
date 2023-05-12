@@ -13,6 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [ // TODO bailout issue from keycloak-js. fix this properly
+              "base64-js",
+              "js-sha256"
+            ],
             "outputPath": "dist/mocogi-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
