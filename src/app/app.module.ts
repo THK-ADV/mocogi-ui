@@ -65,7 +65,9 @@ import { ModuleListSearchComponent } from './module/module-list-search/module-li
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
-import { initializeKeycloak } from './keycloak/keycloak-init'
+import { initializeKeycloak } from './keycloak/keycloak-init';
+import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
+import { MatSidenavModule } from '@angular/material/sidenav'
 
 @NgModule({
   declarations: [
@@ -134,7 +136,9 @@ import { initializeKeycloak } from './keycloak/keycloak-init'
     FormsModule,
     MatTabsModule,
     MatChipsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    ThKoelnBarComponent,
+    MatSidenavModule
   ],
   providers: [
     {
