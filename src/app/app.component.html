@@ -1,11 +1,56 @@
-<sched-nav></sched-nav>
+<div class="layout">
+  <div class="th-koeln-bar">
+    <div class="red"></div>
+    <div class="orange"></div>
+    <div class="purple"></div>
+  </div>
+  <div class="containers">
+    <aside class="app-rail">
+      <ul>
+        <li><a href="#"><mat-icon>apps</mat-icon>Modules</a></li>
+        <li disabled><a href="#"><mat-icon aria-hidden="false" aria-label="Example home icon">apps</mat-icon>Schedule</a></li>
+        <li disabled><a href="#"><mat-icon>apps</mat-icon>Rooms</a></li>
+        <li disabled><a href="#"><mat-icon>apps</mat-icon>Exams</a></li>
+        <hr>
+        <li><a href="#"><mat-icon>apps</mat-icon>ILU</a></li>
+        <li><a href="#"><mat-icon>apps</mat-icon>Ilias</a></li>
+        <li><a href="#"><mat-icon>apps</mat-icon>PSSO</a></li>
+        <li><a href="#"><mat-icon>apps</mat-icon>Cams</a></li>
+      </ul>
+    </aside>
+    <mat-sidenav-container>
+      <mat-sidenav opened mode="side">
+        <nav>
+          <ul>
+            <li class="divider"><h1>Übersicht</h1></li>
+            <li class="item"><a><mat-icon>description</mat-icon>Module</a></li>
+            <li class="item"><a><mat-icon>apps</mat-icon>Modulhandbücher</a></li>
+            <li class="item"><a><mat-icon>apps</mat-icon>Wahlpflichtfmodule</a></li>
+            <li class="divider"><h1>Verwaltung</h1></li>
+            <li class="item"><a><mat-icon>apps</mat-icon>Änderungen</a></li>
+            <li class="item"><a><mat-icon>apps</mat-icon>Änderungsfreigaben</a></li>
+          </ul>
+        </nav>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="content">
+          <main>
+            <router-outlet></router-outlet>
+          </main>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>
 
-<div class="container-fluid main-content">
+<!-- <sched-nav></sched-nav> -->
+
+<!-- <div class="container-fluid main-content">
   <div class="row">
     <div class="col-12">
       <sched-alert></sched-alert>
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+</div> -->
 
