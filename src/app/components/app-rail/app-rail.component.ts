@@ -11,7 +11,11 @@ export type CopsAppRailDivider = {
   type: "DIVIDER",
 };
 
-export type CopsAppRailItem = CopsAppRailLink | CopsAppRailDivider;
+export type CopsAppRailSpacer = {
+  type: "SPACER",
+};
+
+export type CopsAppRailItem = CopsAppRailLink | CopsAppRailDivider | CopsAppRailSpacer;
 
 @Component({
   selector: 'cops-app-rail',
