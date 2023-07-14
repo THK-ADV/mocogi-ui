@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav'
 
 @Component({
-  selector: 'sched-th-koeln-bar',
+  selector: 'cops-th-koeln-bar',
   templateUrl: './th-koeln-bar.component.html',
-  styleUrls: ['./th-koeln-bar.component.css'],
+  styleUrls: ['./th-koeln-bar.component.scss'],
   standalone: true,
   imports: [
     MatSidenavModule,
