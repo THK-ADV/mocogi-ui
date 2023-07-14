@@ -8,7 +8,7 @@ import { ModuleTableRepresentation } from './module-list/module-table-representa
 @Component({
   selector: 'sched-module',
   templateUrl: './module.component.html',
-  styleUrls: ['./module.component.scss']
+  styleUrls: ['./module.component.scss'],
 })
 export class ModuleComponent implements OnInit {
 

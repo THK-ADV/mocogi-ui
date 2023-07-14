@@ -1,6 +1,7 @@
 .layout {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   mat-toolbar {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -14,6 +15,10 @@
 
   .containers {
     display: flex;
+    flex-grow: 1;
+    mat-sidenav-container {
+      width: 100%;
+    }
   }
   .content {
     display: flex;
@@ -22,6 +27,7 @@
     main {
       display: flex;
       flex-direction: row;
+      width: 100%;
     }
   }
 }
@@ -29,11 +35,3 @@
 router-outlet {
   padding: 1em;
 }
-
-// sched-nav {
-//   margin-bottom: 80px;
-// }
-
-// .main-content {
-//   margin-top: 80px;
-// }

@@ -1,7 +1,7 @@
-<div class="all-modules">
-  <h1>Modulbeschreibungen</h1>
+<main>
+  <h2>Modulbeschreibungen</h2>
+  <sched-module-list [modules]="modules$ | async"></sched-module-list>
+</main>
+<aside>
   <sched-module-filter></sched-module-filter>
-  <sched-module-list
-    [modules]="modules$ | async">
-  </sched-module-list>
-</div>
+</aside>
