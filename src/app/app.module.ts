@@ -67,7 +67,9 @@ import { MatChipsModule } from '@angular/material/chips'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { initializeKeycloak } from './keycloak/keycloak-init';
 import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
-import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { AppRailComponent } from './components/app-rail/app-rail.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { MatSidenavModule } from '@angular/material/sidenav'
     SemesterFilterComponent,
     CoordinatorFilterComponent,
     ModuleListSearchComponent,
+    AppRailComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
