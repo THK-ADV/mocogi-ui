@@ -1,0 +1,8 @@
+<div class="app-rail">
+  <ul>
+    <ng-container *ngFor="let item of railItems">
+      <hr *ngIf="item.type === 'DIVIDER'">
+      <li *ngIf="item.type === 'LINK'"><a href="#"><mat-icon>{{item.icon}}</mat-icon>{{item.text}}</a></li>
+    </ng-container>
+  </ul>
+</div>
