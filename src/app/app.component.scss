@@ -1,37 +1,47 @@
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
-  mat-toolbar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    code {
-      margin-left: 1em;
-      background-color: rgba(0, 0, 0, 0.05);
-      border-radius: 4px;
-      padding: 0.1em 0.5em;
-    }
-  }
-
-  .containers {
-    display: flex;
-    flex-grow: 1;
-    mat-sidenav-container {
-      width: 100%;
-    }
-  }
-  .content {
-    display: flex;
-    flex-direction: row;
-  
-    main {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-    }
+mat-toolbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  min-height: 60px;
+  height: 60px;
+  code {
+    margin-left: 1em;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
   }
 }
 
-router-outlet {
-  padding: 1em;
+:host {
+  display: block;
+  height: 100%;
+}
+
+.layout {
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  flex-grow: 1;
+  overflow: scroll;
+}
+
+aside {
+  min-width: 500px;
+  background-color: #efefef;
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - 64px);
+}
+
+mat-sidenav-container {
+  width: 100%;
 }

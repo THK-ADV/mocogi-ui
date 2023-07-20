@@ -2,6 +2,7 @@
   <ul>
     <ng-container *ngFor="let item of railItems">
       <hr *ngIf="item.type === 'DIVIDER'">
+      <div class="spacer" *ngIf="item.type === 'SPACER'"></div>
       <li *ngIf="item.type === 'LINK'"><a href="#"><mat-icon>{{item.icon}}</mat-icon>{{item.text}}</a></li>
     </ng-container>
   </ul>
