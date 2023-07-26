@@ -15,8 +15,8 @@ export class AppComponent {
     { type: 'LINK', text: 'Modulhandbücher', icon: 'apps', url: '#' },
     { type: 'LINK', text: 'Wahlpflichtfmodule', icon: 'apps', url: '#' },
     { type: 'HEADER', text: 'Verwaltung' },
-    { type: 'LINK', text: 'Module', icon: 'apps', details: 'Änderungen', url: '#' },
-    { type: 'LINK', text: 'Module', icon: 'apps', url: '#' },
+    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'modules' },
+    { type: 'LINK', text: 'Freigaben', icon: 'apps', url: '#' },
   ];
   railItems: Array<CopsAppRailItem> = [
     { type: 'LINK', text: 'Modules', icon: 'description', url: '#' },
