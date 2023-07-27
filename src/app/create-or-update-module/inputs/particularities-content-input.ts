@@ -11,7 +11,7 @@ export function particularitiesContent(deContent?: Content, enContent?: Content)
       attr: `particularities-content-${lang}`,
       disabled: false,
       required: false,
-      initialValue: body(lang)
+      initialValue: body(lang),
     }
   }
 

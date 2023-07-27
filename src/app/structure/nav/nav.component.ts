@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'sched-nav',
+  selector: 'cops-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
 

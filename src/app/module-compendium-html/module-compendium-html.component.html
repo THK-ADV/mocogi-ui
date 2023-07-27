@@ -1,7 +1,7 @@
 <mat-tab-group>
-  <mat-tab *ngIf="moduleCompendiumHtml | async as html">
+  <mat-tab>
     <ng-template mat-tab-label>Modulbeschreibung</ng-template>
-    <div [innerHtml]="html | unsafeHtml"></div>
+    <div #shadowRootContainer></div>
   </mat-tab>
   <mat-tab *ngIf="moduleCompendium | async as moduleCompendium">
     <ng-template mat-tab-label>Json</ng-template>

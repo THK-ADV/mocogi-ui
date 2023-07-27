@@ -15,13 +15,13 @@ export interface ReadOnlyInput<Option, Output> extends FormInputLike {
 export const formControlForReadOnlyInput = <A, B>(i: ReadOnlyInput<A, B>): FormControl =>
   new FormControl(
     {value: i.initialValue, disabled: i.disabled},
-    i.required ? Validators.required : undefined
+    i.required ? Validators.required : undefined,
   )
 
 @Component({
-  selector: 'sched-read-only-input',
+  selector: 'cops-read-only-input',
   templateUrl: './read-only-input.component.html',
-  styleUrls: ['./read-only-input.component.css']
+  styleUrls: ['./read-only-input.component.css'],
 })
 export class ReadOnlyInputComponent<A, DialogEntry> implements OnInit, OnDestroy {
   @Input() formControl!: FormControl

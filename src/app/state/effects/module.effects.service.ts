@@ -12,16 +12,16 @@ export class ModuleEffects {
         ofType(ModulePageActions.enter),
         exhaustMap(() =>
           this.service.allModuleMetadata().pipe(
-            map((modules) => ModuleApiActions.retrievedModulesSuccess({modules}))
-          )
-        )
+            map((modules) => ModuleApiActions.retrievedModulesSuccess({modules})),
+          ),
+        ),
       )
-    }
+    },
   )
 
   constructor(
     private readonly service: HttpService,
-    private readonly actions$: Actions
+    private readonly actions$: Actions,
   ) {
   }
 }

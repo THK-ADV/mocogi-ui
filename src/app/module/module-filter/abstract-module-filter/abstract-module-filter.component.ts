@@ -5,9 +5,9 @@ import { FormControl } from '@angular/forms'
 import { Store } from '@ngrx/store'
 
 @Component({
-  selector: 'sched-abstract-module-filter',
+  selector: 'cops-abstract-module-filter',
   templateUrl: './abstract-module-filter.component.html',
-  styleUrls: ['./abstract-module-filter.component.css']
+  styleUrls: ['./abstract-module-filter.component.css'],
 })
 export class AbstractModuleFilterComponent<A> {
 
@@ -36,7 +36,7 @@ export class AbstractModuleFilterComponent<A> {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
       map(value => typeof value === 'string' ? value : this.show(value)),
-      map(value => value ? this.filter(value) : this.options_.slice())
+      map(value => value ? this.filter(value) : this.options_.slice()),
     )
   }
 

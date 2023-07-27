@@ -32,7 +32,7 @@ export function poInput(
       options: allPOs,
       show: showPOMandatory,
       initialValue: xs => entries.filter(e => xs.some(x => x.id === e.po)),
-      dialogInstance: () => mandatoryDialogInstance(attr)
+      dialogInstance: () => mandatoryDialogInstance(attr),
     }
   }
 
@@ -48,7 +48,7 @@ export function poInput(
       options: allPOs,
       show: showPOOptional,
       initialValue: xs => entries.filter(e => xs.some(x => x.id === e.po)),
-      dialogInstance: () => optionalDialogInstance(attr)
+      dialogInstance: () => optionalDialogInstance(attr),
     }
   }
 
@@ -84,17 +84,17 @@ export function poInput(
           label: requiredLabel(columns[1].title),
           attr: columns[1].attr,
           disabled: false,
-          required: false
+          required: false,
         },
         {
           kind: 'text',
           label: optionalLabel(columns[2].title),
           attr: columns[2].attr,
           disabled: false,
-          required: false
+          required: false,
         },
       ],
-      entries
+      entries,
     )
   }
 
@@ -135,10 +135,10 @@ export function poInput(
           label: optionalLabel(columns[3].title),
           attr: columns[3].attr,
           disabled: false,
-          required: false
+          required: false,
         },
       ],
-      entries
+      entries,
     )
   }
 
@@ -152,6 +152,6 @@ export function poInput(
 
   return <FormInput<unknown, unknown>[]>[
     mandatory(),
-    optional()
+    optional(),
   ]
 }

@@ -14,9 +14,9 @@ import { KeycloakService } from '../keycloak/keycloak.service'
 // TODO add proper State Management
 
 @Component({
-  selector: 'sched-own-modules',
+  selector: 'cops-own-modules',
   templateUrl: './own-modules.component.html',
-  styleUrls: ['./own-modules.component.scss']
+  styleUrls: ['./own-modules.component.scss'],
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 
@@ -37,7 +37,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly appState: AppStateService,
-    private readonly keycloakService: KeycloakService
+    private readonly keycloakService: KeycloakService,
   ) {
     this.dataSource = new MatTableDataSource()
     this.columns = [{title: 'Name', attr: 'name'}]
@@ -94,7 +94,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
               this.appState.getValidationResult()
             }
           })
-      }
+      },
     )
   }
 
@@ -109,15 +109,15 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       {
         state: {
           id: module.id,
-          moduleCompendium: draft?.data
+          moduleCompendium: draft?.data,
         },
         queryParams: {
-          action: 'update'
-        }
-      }
+          action: 'update',
+        },
+      },
     )
 
-  show = ([m,]: [Module, ModuleDraft | undefined]) =>
+  show = ([m]: [Module, ModuleDraft | undefined]) =>
     this.router.navigate(['/show'], {state: {id: m.id}})
 
   onCreate = () =>

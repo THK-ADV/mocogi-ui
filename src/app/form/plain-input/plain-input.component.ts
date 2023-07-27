@@ -22,7 +22,7 @@ export interface NumberInput extends FormInputLike {
 export const formControlForTextInput = (i: TextInput | TextAreaInput): FormControl =>
   new FormControl(
     {value: i.initialValue, disabled: i.disabled},
-    i.required ? Validators.required : undefined
+    i.required ? Validators.required : undefined,
   )
 
 export const formControlForNumberInput = (i: NumberInput): FormControl<number | undefined | null> => {
@@ -50,9 +50,9 @@ export const maxError = (formControl: FormControl): string | undefined =>
     : undefined
 
 @Component({
-  selector: 'sched-plain-input',
+  selector: 'cops-plain-input',
   templateUrl: './plain-input.component.html',
-  styleUrls: ['./plain-input.component.css']
+  styleUrls: ['./plain-input.component.css'],
 })
 export class PlainInputComponent {
   @Input() formControl!: FormControl

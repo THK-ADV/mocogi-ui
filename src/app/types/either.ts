@@ -23,7 +23,7 @@ export const fold = <A, B, C>(e: Either<A, B>, right: (b: B) => C, left: (a: A) 
   }
 }
 
-export const either = <A, B>(test: boolean, right: () => B, left: () => A,): Either<A, B> =>
+export const either = <A, B>(test: boolean, right: () => B, left: () => A): Either<A, B> =>
   test ? {tag: 'right', value: right()} : {tag: 'left', value: left()}
 
 export const rightValue = <A, B>(e: Either<A, B>): B =>

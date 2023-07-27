@@ -70,7 +70,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     return {
       method: assessmentMethod.abbrev,
       percentage: percentage,
-      precondition: precondition ? [precondition.abbrev] : []
+      precondition: precondition ? [precondition.abbrev] : [],
     }
   }
 

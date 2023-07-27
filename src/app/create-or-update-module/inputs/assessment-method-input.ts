@@ -26,7 +26,7 @@ export function assessmentMethodInput(
   }
 
   function go(
-    kind: AssessmentMethodKind
+    kind: AssessmentMethodKind,
   ): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
     const attr = `assessment-methods-${kind}`
     const entries = currentEntries(attr, kind)
@@ -39,7 +39,7 @@ export function assessmentMethodInput(
       options: assessmentMethods,
       show: showAssessmentMethodEntry,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
-      dialogInstance: () => dialogInstance(attr, kind)
+      dialogInstance: () => dialogInstance(attr, kind),
     }
   }
 
@@ -72,7 +72,7 @@ export function assessmentMethodInput(
           label: optionalLabel(columns[1].title),
           attr: columns[1].attr,
           disabled: false,
-          required: false
+          required: false,
         },
         <OptionsInput<AssessmentMethod>>{
           kind: 'options',
@@ -82,9 +82,9 @@ export function assessmentMethodInput(
           required: false,
           data: assessmentMethods,
           show: showLabel,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
@@ -104,6 +104,6 @@ export function assessmentMethodInput(
 
   return <FormInput<unknown, unknown>[]>[
     assessmentMethodsMandatoryInput(),
-    assessmentMethodsOptionalInput()
+    assessmentMethodsOptionalInput(),
   ]
 }

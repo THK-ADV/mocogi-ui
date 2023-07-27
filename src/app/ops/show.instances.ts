@@ -21,8 +21,8 @@ export const showFullStudyProgram: Show<FullStudyProgram> = (
     studyProgram,
     po,
     grade,
-    specialization
-  }
+    specialization,
+  },
 ) => {
   if (specialization) { // TODO refactor
     return po.abbrev.endsWith('flex')

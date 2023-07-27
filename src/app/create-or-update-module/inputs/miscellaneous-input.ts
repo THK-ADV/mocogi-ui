@@ -33,7 +33,7 @@ export function miscellaneousInput(
       options: competences,
       show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
-      dialogInstance: () => competenceDialogInstance(attr)
+      dialogInstance: () => competenceDialogInstance(attr),
     }
   }
 
@@ -49,7 +49,7 @@ export function miscellaneousInput(
       options: globalCriteria,
       show: showLabel,
       initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
-      dialogInstance: () => globalCriteriaDialogInstance(attr)
+      dialogInstance: () => globalCriteriaDialogInstance(attr),
     }
   }
 
@@ -65,7 +65,7 @@ export function miscellaneousInput(
       options: modules,
       show: showModule,
       initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
-      dialogInstance: () => taughtWithDialogInstance(attr)
+      dialogInstance: () => taughtWithDialogInstance(attr),
     }
   }
 
@@ -88,9 +88,9 @@ export function miscellaneousInput(
           required: false,
           data: competences,
           show: showLabel,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
@@ -113,9 +113,9 @@ export function miscellaneousInput(
           required: false,
           data: globalCriteria,
           show: showLabel,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
@@ -138,15 +138,15 @@ export function miscellaneousInput(
           required: false,
           data: modules,
           show: showModule,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
   return <FormInput<unknown, unknown>[]>[
     competenceInput(),
     globalCriteriaInput(),
-    taughtWithInput()
+    taughtWithInput(),
   ]
 }

@@ -13,7 +13,7 @@ export interface OptionsInput<A> extends FormInputLike {
 export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl => {
   const fc = new FormControl<A | undefined>(
     {value: undefined, disabled: i.disabled},
-    i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator()
+    i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator(),
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
   if (Array.isArray(i.data)) {
@@ -24,9 +24,9 @@ export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl =
 }
 
 @Component({
-  selector: 'sched-options-input',
+  selector: 'cops-options-input',
   templateUrl: './options-input.component.html',
-  styleUrls: ['./options-input.component.css']
+  styleUrls: ['./options-input.component.css'],
 })
 export class OptionsInputComponent<A> implements OnInit, OnDestroy {
 
@@ -71,7 +71,7 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
       map(value => typeof value === 'string' ? value : this.input.show(value)),
-      map(value => value ? this.filter(value) : this.options.slice())
+      map(value => value ? this.filter(value) : this.options.slice()),
     )
   }
 

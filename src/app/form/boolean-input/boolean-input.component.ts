@@ -10,13 +10,13 @@ export interface BooleanInput extends FormInputLike {
 export const formControlForBooleanInput = (i: BooleanInput): FormControl =>
   new FormControl(
     {value: i.initialValue ?? false, disabled: i.disabled},
-    i.required ? Validators.required : undefined
+    i.required ? Validators.required : undefined,
   )
 
 @Component({
-  selector: 'sched-boolean-input',
+  selector: 'cops-boolean-input',
   templateUrl: './boolean-input.component.html',
-  styleUrls: ['./boolean-input.component.css']
+  styleUrls: ['./boolean-input.component.css'],
 })
 export class BooleanInputComponent implements OnInit {
   value = false

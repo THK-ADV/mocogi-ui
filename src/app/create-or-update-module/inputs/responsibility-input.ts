@@ -12,7 +12,7 @@ export function responsibilityInput(
   dialog: MatDialog,
   persons: Person[],
   currentLecturer: (attr: string) => Person[],
-  moduleManagement?: string[]
+  moduleManagement?: string[],
 ) {
   function moduleCoordinatorInput(): OptionsInput<Person> {
     return {
@@ -23,7 +23,7 @@ export function responsibilityInput(
       required: true,
       data: persons,
       show: showPerson,
-      initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id)))
+      initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id))),
     }
   }
 
@@ -39,7 +39,7 @@ export function responsibilityInput(
       options: persons,
       show: showPerson,
       initialValue: xs => entries.filter(p => xs.some(x => x.id === p.id)),
-      dialogInstance: () => dialogInstance(attr)
+      dialogInstance: () => dialogInstance(attr),
     }
   }
 
@@ -62,15 +62,15 @@ export function responsibilityInput(
           required: false,
           data: persons,
           show: showPerson,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
   return <FormInput<unknown, unknown>[]>[
     moduleCoordinatorInput(),
-    lecturerInput()
+    lecturerInput(),
   ]
 }
 

@@ -3,7 +3,7 @@ import { PipelineError } from '../types/validation-result'
 import { AppStateService } from '../state/app-state.service'
 
 @Pipe({
-  name: 'pipelineError'
+  name: 'pipelineError',
 })
 export class PipelineErrorPipe implements PipeTransform {
 

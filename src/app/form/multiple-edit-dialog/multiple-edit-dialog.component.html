@@ -5,25 +5,25 @@
     <mat-card-content>
       <ng-container *ngFor="let input of inputs | keyvalue: originalOrder">
         <ng-container [ngSwitch]="getInputKind(input.value)">
-          <sched-options-input
+          <cops-options-input
             #options
             *ngSwitchCase="'options'"
             ngDefaultControl
             [input]="asOptions(input.value)"
             [formControl]="getInputFormControl(input.value)">
-          </sched-options-input>
-          <sched-boolean-input
+          </cops-options-input>
+          <cops-boolean-input
             *ngSwitchCase="'boolean'"
             ngDefaultControl
             [input]="asBoolean(input.value)"
             [formControl]="getInputFormControl(input.value)">
-          </sched-boolean-input>
-          <sched-plain-input
+          </cops-boolean-input>
+          <cops-plain-input
             *ngSwitchDefault
             ngDefaultControl
             [input]="asTextInput(input.value)"
             [formControl]="getInputFormControl(input.value)">
-          </sched-plain-input>
+          </cops-plain-input>
         </ng-container>
       </ng-container>
     </mat-card-content>

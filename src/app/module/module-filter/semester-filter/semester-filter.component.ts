@@ -4,9 +4,9 @@ import { ModuleFilterPageActions } from '../../../state/actions/module-filter.ac
 import { Store } from '@ngrx/store'
 
 @Component({
-  selector: 'sched-semester-filter',
+  selector: 'cops-semester-filter',
   templateUrl: './semester-filter.component.html',
-  styleUrls: ['./semester-filter.component.css']
+  styleUrls: ['./semester-filter.component.css'],
 })
 export class SemesterFilterComponent {
   attr = 'semester'

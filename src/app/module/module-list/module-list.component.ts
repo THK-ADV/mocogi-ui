@@ -18,11 +18,11 @@ const selectDisplayedColumns = createSelector(
       cols.push('expand')
     }
     return cols
-  }
+  },
 )
 
 @Component({
-  selector: 'sched-module-list',
+  selector: 'cops-module-list',
   templateUrl: './module-list.component.html',
   styleUrls: ['./module-list.component.css'],
   animations: [ // https://github.com/angular/components/issues/13431#issuecomment-574589827
@@ -30,8 +30,8 @@ const selectDisplayedColumns = createSelector(
       state('collapsed, void', style({height: '0px'})),
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-    ])
+      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
   ],
 })
 export class ModuleListComponent {

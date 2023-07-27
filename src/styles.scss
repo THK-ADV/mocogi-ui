@@ -3,22 +3,12 @@
 @import 'bootstrap/scss/bootstrap';
 @import "theme";
 
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
-
 html, body {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
+  overflow: hidden;
   margin: 0;
   font-family: "Roboto", sans-serif;
 }

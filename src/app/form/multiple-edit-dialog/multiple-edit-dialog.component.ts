@@ -22,9 +22,9 @@ export interface MultipleEditDialogComponentCallback<TableEntry, Option> {
 }
 
 @Component({
-  selector: 'sched-multiple-edit-dialog',
+  selector: 'cops-multiple-edit-dialog',
   templateUrl: './multiple-edit-dialog.component.html',
-  styleUrls: ['./multiple-edit-dialog.component.css']
+  styleUrls: ['./multiple-edit-dialog.component.css'],
 })
 export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy {
   readonly columns: TableHeaderColumn[]
@@ -46,7 +46,7 @@ export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy 
       columns,
       title,
       formInputs,
-      tableEntries
+      tableEntries,
     ]: [
       MultipleEditDialogComponentCallback<TableEntry, A>,
       TableHeaderColumn[],
@@ -80,14 +80,14 @@ export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy 
     columns: TableHeaderColumn[],
     title: string,
     formInputs: NonEmptyArray<FormInputLike>,
-    tableEntries: TableEntry[]
+    tableEntries: TableEntry[],
   ): MatDialogRef<MultipleEditDialogComponent<TableEntry, A, B>, TableEntry[]> =>
     dialog.open<MultipleEditDialogComponent<TableEntry, A, B>>(
       MultipleEditDialogComponent,
       {
         data: [callback, columns, title, formInputs, tableEntries],
-        minWidth: window.innerWidth * 0.5
-      }
+        minWidth: window.innerWidth * 0.5,
+      },
     )
 
   ngOnDestroy() {
@@ -143,7 +143,7 @@ export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy 
   asTextInput = (i: [FormInput<A, B>, FormControl]): TextInput | NumberInput =>
     i[0] as TextInput || i[0] as NumberInput
 
-  asOptions = ([i,]: [FormInput<A, B>, FormControl]) =>
+  asOptions = ([i]: [FormInput<A, B>, FormControl]) =>
     asOptionsInput(i) ?? throwError(`expected form input to be options input, but was ${i.kind}`)
 
   asBoolean = (i: [FormInput<A, B>, FormControl]) =>

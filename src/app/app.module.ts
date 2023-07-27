@@ -66,6 +66,11 @@ import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { initializeKeycloak } from './keycloak/keycloak-init'
+import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { AppRailComponent } from './components/app-rail/app-rail.component'
+import { NavBarComponent } from './components/nav-bar/nav-bar.component'
+import { LoaderComponent } from './components/loader/loader.component'
 
 @NgModule({
   declarations: [
@@ -100,6 +105,9 @@ import { initializeKeycloak } from './keycloak/keycloak-init'
     SemesterFilterComponent,
     CoordinatorFilterComponent,
     ModuleListSearchComponent,
+    AppRailComponent,
+    NavBarComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,22 +142,24 @@ import { initializeKeycloak } from './keycloak/keycloak-init'
     FormsModule,
     MatTabsModule,
     MatChipsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    ThKoelnBarComponent,
+    MatSidenavModule,
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService],
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorDecorator,
-      multi: true
+      multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

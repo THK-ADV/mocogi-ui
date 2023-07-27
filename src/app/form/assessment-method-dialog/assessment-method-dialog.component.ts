@@ -18,9 +18,9 @@ export interface TableContent {
 }
 
 @Component({
-  selector: 'sched-assessment-method-dialog',
+  selector: 'cops-assessment-method-dialog',
   templateUrl: './assessment-method-dialog.component.html',
-  styleUrls: ['./assessment-method-dialog.component.css']
+  styleUrls: ['./assessment-method-dialog.component.css'],
 })
 export class AssessmentMethodDialogComponent implements OnInit {
   readonly displayedColumns: string[]
@@ -73,7 +73,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       label: this.columns[1].title + ' (Optional)',
       attr: this.columns[1].attr,
       disabled: false,
-      required: false
+      required: false,
     }
     this.preconditionInput = {
       kind: 'options',
@@ -87,26 +87,26 @@ export class AssessmentMethodDialogComponent implements OnInit {
     this.formGroup = new FormGroup({})
     this.formGroup.addControl(
       this.assessmentMethodInput.attr,
-      formControlForOptionsInput(this.assessmentMethodInput)
+      formControlForOptionsInput(this.assessmentMethodInput),
     )
     this.formGroup.addControl(
       this.percentageInput.attr,
-      formControlForNumberInput(this.percentageInput)
+      formControlForNumberInput(this.percentageInput),
     )
     this.formGroup.addControl(
       this.preconditionInput.attr,
-      formControlForOptionsInput(this.preconditionInput)
+      formControlForOptionsInput(this.preconditionInput),
     )
   }
 
   static instance(
     dialog: MatDialog,
     options: AssessmentMethod[],
-    entries: AssessmentMethodEntry[]
+    entries: AssessmentMethodEntry[],
   ): MatDialogRef<AssessmentMethodDialogComponent> {
     return dialog.open(AssessmentMethodDialogComponent, {
       data: [options, entries],
-      minWidth: window.innerWidth * 0.5
+      minWidth: window.innerWidth * 0.5,
     })
   }
 
@@ -199,7 +199,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       entry: e,
       method: this.lookup(e.method),
       percentage: e.percentage ? `${e.percentage} %` : '',
-      precondition: e.precondition.map(this.lookup).join(', ')
+      precondition: e.precondition.map(this.lookup).join(', '),
     })
 
   lookup = (method: string) =>

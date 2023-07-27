@@ -8,7 +8,7 @@
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefix": "sched",
+      "prefix": "cops",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

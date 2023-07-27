@@ -17,9 +17,9 @@ export interface EditModulePayload<A, B> {
 type EditType = 'create' | 'update'
 
 @Component({
-  selector: 'sched-edit-module',
+  selector: 'cops-edit-module',
   templateUrl: './edit-module.component.html',
-  styleUrls: ['./edit-module.component.css']
+  styleUrls: ['./edit-module.component.css'],
 })
 export class EditModuleComponent<A, B> implements OnInit {
 

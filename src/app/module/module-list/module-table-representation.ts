@@ -23,7 +23,7 @@ export function toTableRepresentation(metadata: MetadataAtomic, selectedStudyPro
     ects: metadata.ects.toLocaleString(),
     semester: formatSemester(metadata, selectedStudyProgramId),
     pos: !selectedStudyProgramId ? formatPOs(metadata) : [],
-    isSpecialization: metadata.po.mandatory.some(a => a.specialization)
+    isSpecialization: metadata.po.mandatory.some(a => a.specialization),
   }
 }
 

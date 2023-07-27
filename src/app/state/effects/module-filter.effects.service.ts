@@ -13,12 +13,12 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allStudyPrograms().pipe(
             map((studyPrograms) =>
-              ModuleFilterAPIActions.retrievedStudyprogramsSuccess({studyPrograms})
-            )
-          )
-        )
+              ModuleFilterAPIActions.retrievedStudyprogramsSuccess({studyPrograms}),
+            ),
+          ),
+        ),
       )
-    }
+    },
   )
 
   fetchPOs$ = createEffect(() => {
@@ -27,12 +27,12 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allValidPOs().pipe(
             map((pos) =>
-              ModuleFilterAPIActions.retrievedPosSuccess({pos})
-            )
-          )
-        )
+              ModuleFilterAPIActions.retrievedPosSuccess({pos}),
+            ),
+          ),
+        ),
       )
-    }
+    },
   )
 
   fetchGrades$ = createEffect(() => {
@@ -41,12 +41,12 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allGrades().pipe(
             map((grades) =>
-              ModuleFilterAPIActions.retrievedGradesSuccess({grades})
-            )
-          )
-        )
+              ModuleFilterAPIActions.retrievedGradesSuccess({grades}),
+            ),
+          ),
+        ),
       )
-    }
+    },
   )
 
   fetchPeople$ = createEffect(() => {
@@ -55,12 +55,12 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allPersons().pipe(
             map((people) =>
-              ModuleFilterAPIActions.retrievedPeopleSuccess({people})
-            )
-          )
-        )
+              ModuleFilterAPIActions.retrievedPeopleSuccess({people}),
+            ),
+          ),
+        ),
       )
-    }
+    },
   )
 
   fetchSpecialization$ = createEffect(() => {
@@ -69,17 +69,17 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allSpecializations().pipe(
             map((specializations) =>
-              ModuleFilterAPIActions.retrievedSpecializationsSuccess({specializations})
-            )
-          )
-        )
+              ModuleFilterAPIActions.retrievedSpecializationsSuccess({specializations}),
+            ),
+          ),
+        ),
       )
-    }
+    },
   )
 
   constructor(
     private readonly service: HttpService,
-    private readonly actions$: Actions
+    private readonly actions$: Actions,
   ) {
   }
 }

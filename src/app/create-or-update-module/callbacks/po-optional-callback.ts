@@ -16,7 +16,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   constructor(
     all: Readonly<POPreview[]>,
     selected: Readonly<POOptional[]>,
-    genericModules: Readonly<Module>[]
+    genericModules: Readonly<Module>[],
   ) {
     this.all = arrayToObject(all, a => a.id)
     this.selected = arrayToObject(selected, a => a.po)

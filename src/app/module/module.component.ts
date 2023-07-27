@@ -6,9 +6,9 @@ import { ModulePageActions } from '../state/actions/module.actions'
 import { ModuleTableRepresentation } from './module-list/module-table-representation'
 
 @Component({
-  selector: 'sched-module',
+  selector: 'cops-module',
   templateUrl: './module.component.html',
-  styleUrls: ['./module.component.scss']
+  styleUrls: ['./module.component.scss'],
 })
 export class ModuleComponent implements OnInit {
 

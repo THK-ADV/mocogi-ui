@@ -11,7 +11,7 @@ export function literatureContent(deContent?: Content, enContent?: Content) {
       attr: `literature-content-${lang}`,
       disabled: false,
       required: false,
-      initialValue: body(lang)
+      initialValue: body(lang),
     }
   }
 

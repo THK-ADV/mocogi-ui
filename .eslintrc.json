@@ -24,7 +24,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "sched",
+            "prefix": "cops",
             "style": "camelCase"
           }
         ],
@@ -32,10 +32,19 @@
           "error",
           {
             "type": "element",
-            "prefix": "sched",
+            "prefix": "cops",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
+        "comma-dangle": ["error", {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "always-multiline"
+      }]
       }
     },
     {

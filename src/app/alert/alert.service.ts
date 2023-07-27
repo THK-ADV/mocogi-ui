@@ -3,7 +3,7 @@ import { Subject } from 'rxjs'
 import { Alert } from './alert'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertService {
 

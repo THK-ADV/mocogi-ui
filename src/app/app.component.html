@@ -1,11 +1,22 @@
-<sched-nav></sched-nav>
-
-<div class="container-fluid main-content">
-  <div class="row">
-    <div class="col-12">
-      <sched-alert></sched-alert>
-      <router-outlet></router-outlet>
-    </div>
+<div class="layout">
+  <cops-th-koeln-bar></cops-th-koeln-bar>
+  <mat-toolbar>
+    <span>COPS<code>Modules</code></span>
+  </mat-toolbar>
+  <div class="horizontal-container">
+    <cops-app-rail [railItems]="railItems"></cops-app-rail>
+    <mat-sidenav-container>
+      <mat-sidenav opened mode="side">
+        <cops-nav-bar [navItems]="navItems"></cops-nav-bar>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="content">
+          <main>
+            <cops-alert></cops-alert>
+            <router-outlet style="margin: 0; padding: 0;"></router-outlet>
+          </main>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
 </div>
-

@@ -6,9 +6,9 @@ import { Person } from '../../../types/core/person'
 import { showPerson } from '../../../ops/show.instances'
 
 @Component({
-  selector: 'sched-coordinator-filter',
+  selector: 'cops-coordinator-filter',
   templateUrl: './coordinator-filter.component.html',
-  styleUrls: ['./coordinator-filter.component.css']
+  styleUrls: ['./coordinator-filter.component.css'],
 })
 export class CoordinatorFilterComponent {
   attr = 'coordinator'

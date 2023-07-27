@@ -3,19 +3,19 @@
 <div class="modalContainer">
   <mat-card [formGroup]="formGroup">
     <mat-card-content>
-      <sched-options-input
+      <cops-options-input
         #typeComponent
         ngDefaultControl
         [input]="relationTypeInput"
         (optionSelected)="relationTypeSelected($event)"
         [formControl]="typeControl()">
-      </sched-options-input>
-      <sched-options-input
+      </cops-options-input>
+      <cops-options-input
         #moduleComponent
         ngDefaultControl
         [input]="moduleInputType"
         [formControl]="moduleControl()">
-      </sched-options-input>
+      </cops-options-input>
     </mat-card-content>
     <mat-card-actions>
       <button type="button"

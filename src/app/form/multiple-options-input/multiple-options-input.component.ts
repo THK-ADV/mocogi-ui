@@ -13,7 +13,7 @@ export interface MultipleOptionsInput<A> extends FormInputLike {
 export const formControlForMultipleOptionsInput = <A>(i: MultipleOptionsInput<A>): FormControl => {
   const fc = new FormControl<A[]>(
     {value: [], disabled: i.disabled},
-    i.required ? Validators.required : undefined
+    i.required ? Validators.required : undefined,
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
   if (Array.isArray(i.data)) {
@@ -23,9 +23,9 @@ export const formControlForMultipleOptionsInput = <A>(i: MultipleOptionsInput<A>
 }
 
 @Component({
-  selector: 'sched-multiple-options-input',
+  selector: 'cops-multiple-options-input',
   templateUrl: './multiple-options-input.component.html',
-  styleUrls: ['./multiple-options-input.component.css']
+  styleUrls: ['./multiple-options-input.component.css'],
 })
 export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   @Input() input!: MultipleOptionsInput<A>
@@ -71,7 +71,7 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
       map(value => typeof value === 'string' ? value : this.lastFilter),
-      map(value => this.filter(value))
+      map(value => this.filter(value)),
     )
   }
 
