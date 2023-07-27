@@ -65,11 +65,11 @@ import { ModuleListSearchComponent } from './module/module-list-search/module-li
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
-import { initializeKeycloak } from './keycloak/keycloak-init';
+import { initializeKeycloak } from './keycloak/keycloak-init'
 import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { AppRailComponent } from './components/app-rail/app-rail.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { AppRailComponent } from './components/app-rail/app-rail.component'
+import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 import { LoaderComponent } from './components/loader/loader.component'
 
 @NgModule({
@@ -144,22 +144,22 @@ import { LoaderComponent } from './components/loader/loader.component'
     MatChipsModule,
     KeycloakAngularModule,
     ThKoelnBarComponent,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService],
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorDecorator,
-      multi: true
+      multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

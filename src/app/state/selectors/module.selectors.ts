@@ -8,7 +8,7 @@ import {
   selectSelectedCoordinatorId,
   selectSelectedSemester,
   selectSelectedStudyProgramId,
-  selectStudyPrograms
+  selectStudyPrograms,
 } from './module-filter.selectors'
 import { Metadata } from '../../types/metadata'
 import { mapFilterUndefined } from '../../ops/array.ops'
@@ -33,17 +33,17 @@ export const selectModuleState = createFeatureSelector<State>('module')
 
 export const selectModules = createSelector(
   selectModuleState,
-  (state) => state.modules
+  (state) => state.modules,
 )
 
 export const selectModuleFilter = createSelector(
   selectModuleState,
-  (state) => state.moduleFilter
+  (state) => state.moduleFilter,
 )
 
 export const selectSelectedSort = createSelector(
   selectModuleState,
-  (state) => state.selectedSort
+  (state) => state.selectedSort,
 )
 
 const selectMetadataAtomic = createSelector(
@@ -62,7 +62,7 @@ const selectMetadataAtomic = createSelector(
         return po && studyProgram && grade && {...poMandatory, po: {studyProgram, po, grade, specialization: undefined}}
       })
       return {...m, moduleManagement, poMandatoryAtomic}
-    })
+    }),
 )
 
 function titleFilter(filter: string) {
@@ -80,7 +80,7 @@ function titleFilter(filter: string) {
               c.lastname.toLowerCase().includes(filter) ||
               c.firstname.toLowerCase().includes(filter)
         }
-      }
+      },
     )
 }
 
@@ -130,7 +130,7 @@ export const selectModuleTableRepresentation = createSelector(
     filter,
     studyProgramId,
     semester,
-    coordinatorId
+    coordinatorId,
   ) => {
     const filters = [
       ...(studyProgramId && semester ? [poSemesterFilter(studyProgramId, semester)] : []),
@@ -143,5 +143,5 @@ export const selectModuleTableRepresentation = createSelector(
     return filters
       .reduce((xs, f) => xs.filter(f), modules)
       .map(m => toTableRepresentation(m, studyProgramId))
-  }
+  },
 )

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store'
 @Component({
   selector: 'cops-semester-filter',
   templateUrl: './semester-filter.component.html',
-  styleUrls: ['./semester-filter.component.css']
+  styleUrls: ['./semester-filter.component.css'],
 })
 export class SemesterFilterComponent {
   attr = 'semester'

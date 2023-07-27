@@ -45,7 +45,7 @@ function initialModules(moduleRelation: ModuleRelation | undefined, modules: Mod
 @Component({
   selector: 'cops-module-relation',
   templateUrl: './module-relation.component.html',
-  styleUrls: ['./module-relation.component.css']
+  styleUrls: ['./module-relation.component.css'],
 })
 export class ModuleRelationComponent implements OnDestroy {
   readonly headerTitle: string
@@ -65,7 +65,7 @@ export class ModuleRelationComponent implements OnDestroy {
   constructor(
     private readonly dialog: MatDialog,
     private dialogRef: MatDialogRef<ModuleRelationComponent, ModuleRelation[]>,
-    @Inject(MAT_DIALOG_DATA) private payload: [ModuleRelation | undefined, Module[]]
+    @Inject(MAT_DIALOG_DATA) private payload: [ModuleRelation | undefined, Module[]],
   ) {
     const moduleRelation = payload[0]
     const modules = payload[1]
@@ -73,7 +73,7 @@ export class ModuleRelationComponent implements OnDestroy {
     this.formGroup = new FormGroup({})
     this.columns = [
       {title: 'Art der Beziehung', attr: 'module-relation-type'},
-      {title: 'Modul', attr: 'module-relation-module'}
+      {title: 'Modul', attr: 'module-relation-module'},
     ]
     this.displayedColumns = [...this.columns.map(a => a.attr), 'action']
     this.dataSource = new MatTableDataSource<Module>(initialModules(moduleRelation, modules))
@@ -86,7 +86,7 @@ export class ModuleRelationComponent implements OnDestroy {
       required: true,
       data: [{label: 'parent'}, {label: 'child'}],
       show: showModuleRelationType,
-      initialValue: moduleRelation && ((xs) => xs.find(x => x.label === moduleRelation.kind))
+      initialValue: moduleRelation && ((xs) => xs.find(x => x.label === moduleRelation.kind)),
     }
     this.formGroup.addControl('type', formControlForOptionsInput(this.relationTypeInput))
     this.moduleInputType = {
@@ -98,7 +98,7 @@ export class ModuleRelationComponent implements OnDestroy {
       data: this.dataSource.data.length === 0
         ? modules
         : modules.filter(m => !this.dataSource.data.some(x => x.id === m.id)),
-      show: showModule
+      show: showModule,
     }
     this.formGroup.addControl('module', formControlForOptionsInput(this.moduleInputType))
   }
@@ -113,8 +113,8 @@ export class ModuleRelationComponent implements OnDestroy {
       ModuleRelationComponent,
       {
         data: [moduleRelation, self ? modules.filter(m => m.id !== self) : modules],
-        minWidth: window.innerWidth * 0.5
-      }
+        minWidth: window.innerWidth * 0.5,
+      },
     )
   }
 
@@ -202,8 +202,8 @@ export class ModuleRelationComponent implements OnDestroy {
         this.dialog,
         {
           title: 'Auswahl verwerfen',
-          value: 'Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?'
-        }
+          value: 'Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?',
+        },
       )
         .afterClosed()
         .subscribe(res => {

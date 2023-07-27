@@ -7,7 +7,7 @@ import { map, Observable, of, switchMap } from 'rxjs'
 import { KeycloakProfile } from 'keycloak-js'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeycloakService {
 
@@ -17,14 +17,14 @@ export class KeycloakService {
 
   personAbbrev$ = (): Observable<string | undefined> =>
     this.userProfile$().pipe(
-      map(p => p && this.parsePersonAbbrev(p))
+      map(p => p && this.parsePersonAbbrev(p)),
     )
 
   private userProfile$ = (): Observable<KeycloakProfile | undefined> =>
     fromPromise(this.service.isLoggedIn()).pipe(
       switchMap(isLoggedIn =>
-        isLoggedIn ? fromPromise(this.service.loadUserProfile()) : of(undefined)
-      )
+        isLoggedIn ? fromPromise(this.service.loadUserProfile()) : of(undefined),
+      ),
     )
 
   private parsePersonAbbrev = (p: KeycloakProfile): string | undefined => {

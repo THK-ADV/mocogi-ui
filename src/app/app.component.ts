@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CopsNavigationItem } from './components/nav-bar/nav-bar.component';
-import { CopsAppRailItem } from './components/app-rail/app-rail.component';
+import { Component } from '@angular/core'
+import { CopsNavigationItem } from './components/nav-bar/nav-bar.component'
+import { CopsAppRailItem } from './components/app-rail/app-rail.component'
 
 @Component({
   selector: 'cops-root',
@@ -16,7 +16,7 @@ export class AppComponent {
     { type: 'HEADER', text: 'Verwaltung' },
     { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'modules' },
     // { type: 'LINK', text: 'Freigaben', icon: 'apps', url: '#' },
-  ];
+  ]
   railItems: Array<CopsAppRailItem> = [
     { type: 'LINK', text: 'Modules', icon: 'description', url: '#', disabled: false },
     { type: 'LINK', text: 'Schedule', icon: 'apps', url: '#', disabled: true },
@@ -26,5 +26,5 @@ export class AppComponent {
     { type: 'SPACER' },
     { type: 'LINK', text: 'Feedback', icon: 'feedback', url: '#', disabled: true },
     { type: 'LINK', text: 'Impressum', icon: 'info', url: 'https://www.th-koeln.de/hochschule/impressum_8159.php', disabled: false },
-  ];
+  ]
 }

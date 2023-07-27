@@ -66,7 +66,7 @@ export function learningOutcomeContent(deContent?: Content, enContent?: Content)
       attr: `learning-outcome-content-${lang}`,
       disabled: false,
       required: false,
-      initialValue: body(lang)
+      initialValue: body(lang),
     }
   }
 

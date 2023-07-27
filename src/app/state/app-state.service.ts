@@ -75,7 +75,7 @@ function updateMaybeState<A>(state: MaybeState<A>, force: boolean, update: () =>
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppStateService implements OnDestroy {
   private subs: Subscription[] = []
@@ -117,7 +117,7 @@ export class AppStateService implements OnDestroy {
 
   getModulesForUser = (user: string) => {
     this.addSubscription(
-      updateArrayState(this.usersModules, () => this.http.allModulesForUser(user))
+      updateArrayState(this.usersModules, () => this.http.allModulesForUser(user)),
     )
   }
 
@@ -129,7 +129,7 @@ export class AppStateService implements OnDestroy {
   private forceUpdateBranchForUser = (username: string) => {
     this.subs.push(
       this.http.branchForUser(username)
-        .subscribe(this.updateUsersBranch)
+        .subscribe(this.updateUsersBranch),
     )
   }
 
@@ -147,7 +147,7 @@ export class AppStateService implements OnDestroy {
         .subscribe(branch => {
           const res = this.updateUsersBranch(branch)
           completion?.(res)
-        })
+        }),
     )
   }
 
@@ -172,7 +172,7 @@ export class AppStateService implements OnDestroy {
       return
     }
     this.addSubscription(
-      updateArrayState(this.moduleDrafts, () => this.http.moduleDrafts(branch))
+      updateArrayState(this.moduleDrafts, () => this.http.moduleDrafts(branch)),
     )
   }
 
@@ -194,7 +194,7 @@ export class AppStateService implements OnDestroy {
           }
           emitCurrentValue(this.moduleDrafts)
           this.resetValidationState()
-        })
+        }),
     )
   }
 
@@ -213,13 +213,13 @@ export class AppStateService implements OnDestroy {
             const module: Module = {
               id: draft.module,
               title: draft.data.metadata.title,
-              abbrev: draft.data.metadata.abbrev
+              abbrev: draft.data.metadata.abbrev,
             }
             res.push([module, draft])
           }
         })
         return res
-      })
+      }),
     )
 
   // Edit mode
@@ -240,7 +240,7 @@ export class AppStateService implements OnDestroy {
 
   getAllModules = () => {
     this.addSubscription(
-      updateArrayState(this.allModules, () => this.http.allModules())
+      updateArrayState(this.allModules, () => this.http.allModules()),
     )
   }
 
@@ -292,7 +292,7 @@ export class AppStateService implements OnDestroy {
       this.grades.subject.asObservable(),
       this.globalCriteria.subject.asObservable(),
       this.studyPrograms.subject.asObservable(),
-      this.competences.subject.asObservable()
+      this.competences.subject.asObservable(),
     )
 
   // Validation
@@ -308,7 +308,7 @@ export class AppStateService implements OnDestroy {
       return
     }
     this.addSubscription(
-      updateMaybeState(this.validationResult, force, () => this.http.validate(branch))
+      updateMaybeState(this.validationResult, force, () => this.http.validate(branch)),
     )
   }
 
@@ -338,7 +338,7 @@ export class AppStateService implements OnDestroy {
         .subscribe(() => {
           // update branch because commit id state might be changed
           this.forceUpdateBranchForUser(username)
-        })
+        }),
     )
   }
 
@@ -356,7 +356,7 @@ export class AppStateService implements OnDestroy {
           // update branch because commit id state might be changed
           this.forceUpdateBranchForUser(username)
           this.resetValidationState()
-        })
+        }),
     )
   }
 

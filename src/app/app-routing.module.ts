@@ -10,7 +10,7 @@ import { requireRoles } from './keycloak/auth.guard'
 const routes: Routes = [
   {
     path: '',
-    component: ModuleComponent
+    component: ModuleComponent,
   },
   {
     path: 'modules',
@@ -19,21 +19,21 @@ const routes: Routes = [
   },
   {
     path: 'edit',
-    component: CreateOrUpdateModuleComponent
+    component: CreateOrUpdateModuleComponent,
   },
   {
     path: 'show',
-    component: ModuleCompendiumHtmlComponent
+    component: ModuleCompendiumHtmlComponent,
   },
   {
     path: '**',
-    component: PageNotFoundComponent
-  }
+    component: PageNotFoundComponent,
+  },
 ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

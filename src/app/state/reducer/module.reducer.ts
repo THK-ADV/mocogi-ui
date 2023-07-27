@@ -16,7 +16,7 @@ const initialState: State = {
   selectedModuleId: undefined,
   moduleFilter: undefined,
   error: undefined,
-  selectedSort: undefined
+  selectedSort: undefined,
 }
 
 export const moduleReducer = createReducer(
@@ -25,43 +25,43 @@ export const moduleReducer = createReducer(
     return {
       ...state,
       error: undefined,
-      selectedModuleId: undefined
+      selectedModuleId: undefined,
     }
   }),
   on(ModulePageActions.selectModule, (state, {moduleId}): State => {
     return {
       ...state,
-      selectedModuleId: moduleId
+      selectedModuleId: moduleId,
     }
   }),
   on(ModulePageActions.filterModule, (state, {filter}): State => {
     return {
       ...state,
-      moduleFilter: filter
+      moduleFilter: filter,
     }
   }),
   on(ModulePageActions.resetFilter, (state): State => {
     return {
       ...state,
-      moduleFilter: undefined
+      moduleFilter: undefined,
     }
   }),
   on(ModulePageActions.selectSort, (state, {sort}): State => {
     return {
       ...state,
-      selectedSort: sort
+      selectedSort: sort,
     }
   }),
   on(ModuleApiActions.retrievedModulesSuccess, (state, {modules}): State => {
     return {
       ...state,
-      modules
+      modules,
     }
   }),
   on(ModuleApiActions.retrievedModulesFailure, (state, {error}): State => {
     return {
       ...state,
-      error
+      error,
     }
-  })
+  }),
 )

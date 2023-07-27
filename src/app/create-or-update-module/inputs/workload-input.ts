@@ -35,7 +35,7 @@ export function workloadInput(workload?: WorkloadLike) {
       disabled: false,
       required: true,
       initialValue: initialValue ?? 0,
-      min: 0
+      min: 0,
     }
   }
 
@@ -45,6 +45,6 @@ export function workloadInput(workload?: WorkloadLike) {
     practicalInput(),
     exerciseInput(),
     projectWorkInput(),
-    projectSupervisionInput()
+    projectSupervisionInput(),
   ]
 }

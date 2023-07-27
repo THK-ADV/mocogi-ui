@@ -29,7 +29,7 @@ export function simpleInput(
   currentParticipants: (attr: string) => Participants | undefined,
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: MetadataLike,
-  metadataId?: string
+  metadataId?: string,
 ) {
   function titleInput(): TextInput {
     return {
@@ -38,7 +38,7 @@ export function simpleInput(
       attr: 'title',
       disabled: false,
       required: true,
-      initialValue: metadata?.title
+      initialValue: metadata?.title,
     }
   }
 
@@ -49,7 +49,7 @@ export function simpleInput(
       attr: 'abbreviation',
       disabled: false,
       required: true,
-      initialValue: metadata?.abbrev
+      initialValue: metadata?.abbrev,
     }
   }
 
@@ -62,7 +62,7 @@ export function simpleInput(
       required: true,
       data: modulesTypes,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType)),
     }
   }
 
@@ -74,7 +74,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       initialValue: metadata?.ects,
-      min: 1
+      min: 1,
     }
   }
 
@@ -87,7 +87,7 @@ export function simpleInput(
       required: true,
       data: languages,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language)),
     }
   }
 
@@ -99,7 +99,7 @@ export function simpleInput(
       disabled: false,
       required: true,
       initialValue: metadata?.duration,
-      min: 1
+      min: 1,
     }
   }
 
@@ -112,7 +112,7 @@ export function simpleInput(
       required: true,
       data: seasons,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season)),
     }
   }
 
@@ -125,7 +125,7 @@ export function simpleInput(
       required: true,
       data: locations,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location)),
     }
   }
 
@@ -138,7 +138,7 @@ export function simpleInput(
       required: true,
       data: status,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status))
+      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status)),
     }
   }
 
@@ -154,7 +154,7 @@ export function simpleInput(
       options: [],
       show: showParticipants,
       initialValue: () => mapOpt(entries, a => [a]) ?? [],
-      dialogInstance: () => participantsDialogInstance(attr)
+      dialogInstance: () => participantsDialogInstance(attr),
     }
   }
 
@@ -178,7 +178,7 @@ export function simpleInput(
       options: [],
       show: showModuleRelation,
       initialValue: () => mapOpt(entries, a => [a]) ?? [],
-      dialogInstance: () => moduleRelationDialogInstance(attr)
+      dialogInstance: () => moduleRelationDialogInstance(attr),
     }
   }
 
@@ -224,6 +224,6 @@ export function simpleInput(
     locationsInput(),
     statusInput(),
     participantsInput(),
-    moduleRelationInput()
+    moduleRelationInput(),
   ]
 }

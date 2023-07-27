@@ -4,7 +4,7 @@ import {
   formControlForTextInput,
   NumberInput,
   TextAreaInput,
-  TextInput
+  TextInput,
 } from './plain-input/plain-input.component'
 import { formControlForOptionsInput, OptionsInput } from './options-input/options-input.component'
 import { formControlForMultipleOptionsInput, MultipleOptionsInput } from './multiple-options-input/multiple-options-input.component'

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 export type CopsNavigationLink = {
   type: 'LINK',
@@ -18,8 +18,8 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
 @Component({
   selector: 'cops-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
-  @Input() navItems: Array<CopsNavigationItem> = [];
+  @Input() navItems: Array<CopsNavigationItem> = []
 }

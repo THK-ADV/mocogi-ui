@@ -17,47 +17,47 @@ export const selectModuleFilterState = createFeatureSelector<State>('moduleFilte
 
 export const selectStudyPrograms = createSelector(
   selectModuleFilterState,
-  (state) => state.studyPrograms
+  (state) => state.studyPrograms,
 )
 
 export const selectSemester = createSelector(
   selectModuleFilterState,
-  (state) => state.semester
+  (state) => state.semester,
 )
 
 export const selectPOs = createSelector(
   selectModuleFilterState,
-  (state) => state.pos
+  (state) => state.pos,
 )
 
 export const selectGrades = createSelector(
   selectModuleFilterState,
-  (state) => state.grades
+  (state) => state.grades,
 )
 
 export const selectPeople = createSelector(
   selectModuleFilterState,
-  (state) => state.people
+  (state) => state.people,
 )
 
 export const selectSpecializations = createSelector(
   selectModuleFilterState,
-  (state) => state.specializations
+  (state) => state.specializations,
 )
 
 export const selectSelectedStudyProgramId = createSelector(
   selectModuleFilterState,
-  (state) => state.selectedStudyProgramId
+  (state) => state.selectedStudyProgramId,
 )
 
 export const selectSelectedSemester = createSelector(
   selectModuleFilterState,
-  (state) => state.selectedSemester
+  (state) => state.selectedSemester,
 )
 
 export const selectSelectedCoordinatorId = createSelector(
   selectModuleFilterState,
-  (state) => state.selectedCoordinatorId
+  (state) => state.selectedCoordinatorId,
 )
 
 export const selectSelectedCoordinator = createSelector(
@@ -68,7 +68,7 @@ export const selectSelectedCoordinator = createSelector(
       return undefined
     }
     return people.find(p => p.id === coordinatorId)
-  }
+  },
 )
 
 export const selectFullStudyProgram = createSelector(
@@ -94,7 +94,7 @@ export const selectFullStudyProgram = createSelector(
       }
     }
     return fullStudyPrograms.sort(fullStudyProgramOrd)
-  }
+  },
 )
 
 export const selectSelectedStudyProgram = createSelector(
@@ -111,5 +111,5 @@ export const selectSelectedStudyProgram = createSelector(
         ? selectedPo && specializationId === specialization?.abbrev
         : selectedPo
     })
-  }
+  },
 )

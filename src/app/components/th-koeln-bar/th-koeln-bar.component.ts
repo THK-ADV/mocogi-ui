@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import { MatSidenavModule } from '@angular/material/sidenav'
 
 @Component({
@@ -8,7 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'
   standalone: true,
   imports: [
     MatSidenavModule,
-  ]
+  ],
 })
 export class ThKoelnBarComponent {
 

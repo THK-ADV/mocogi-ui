@@ -21,5 +21,5 @@ export const gradeOrd: Ordering<Grade> = Ordering.contraMap(stringOrd, g => g.ab
 export const fullStudyProgramOrd = Ordering.many<FullStudyProgram>([
   Ordering.contraMap(studyProgramOrd, ({studyProgram}) => studyProgram),
   Ordering.contraMap(poOrd, ({po}) => po),
-  Ordering.contraMap(gradeOrd, ({grade}) => grade)
+  Ordering.contraMap(gradeOrd, ({grade}) => grade),
 ])

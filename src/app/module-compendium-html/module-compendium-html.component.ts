@@ -8,10 +8,10 @@ import { ModuleCompendium } from '../types/module-compendium'
 @Component({
   selector: 'cops-module-compendium-html',
   templateUrl: './module-compendium-html.component.html',
-  styleUrls: ['./module-compendium-html.component.css']
+  styleUrls: ['./module-compendium-html.component.css'],
 })
 export class ModuleCompendiumHtmlComponent {
-  @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef; 
+  @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef 
   moduleCompendiumHtml?: Observable<string>
   moduleCompendium?: Observable<ModuleCompendium>
 
@@ -24,8 +24,8 @@ export class ModuleCompendiumHtmlComponent {
     if (id) {
       http.moduleCompendiumHtmlFile(id).subscribe((value) => {
         console.log(this.shadowRootDiv?.nativeElement);
-        (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML= value;
-      });
+        (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML= value
+      })
       // this.moduleCompendiumHtml = http.moduleCompendiumHtmlFile(id)
       this.moduleCompendium = http.moduleCompendiumById(id)
     } else {

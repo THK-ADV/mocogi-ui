@@ -20,7 +20,7 @@ import { showLabel } from '../ops/show.instances'
 function toPOPreview(
   pos: ReadonlyArray<PO>,
   studyPrograms: ReadonlyArray<StudyProgram>,
-  grades: ReadonlyArray<Grade>
+  grades: ReadonlyArray<Grade>,
 ): ReadonlyArray<POPreview> {
   const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`, abbrev: '???'})
   return pos.map(po => {
@@ -35,7 +35,7 @@ function toPOPreview(
     return {
       id: po.abbrev,
       label: `${showLabel(sp)} PO ${po.version} (${showLabel(grade)})`,
-      abbrev: `${sp.abbrev} PO ${po.version} (${showLabel(grade)})`
+      abbrev: `${sp.abbrev} PO ${po.version} (${showLabel(grade)})`,
     }
   })
 }
@@ -43,7 +43,7 @@ function toPOPreview(
 @Component({
   selector: 'cops-create-or-update-module',
   templateUrl: './create-or-update-module.component.html',
-  styleUrls: ['./create-or-update-module.component.css']
+  styleUrls: ['./create-or-update-module.component.css'],
 })
 export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
 
@@ -61,7 +61,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     private location: AngularLocation,
     private http: HttpService,
     private dialog: MatDialog,
-    private appState: AppStateService
+    private appState: AppStateService,
   ) {
     this.action = route.snapshot.queryParamMap.get('action') ?? throwError('expected action parameter')
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
@@ -73,7 +73,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     this.sub = zip([
       this.appState.allModules$(),
       this.appState.coreData$(),
-      moduleCompendium$
+      moduleCompendium$,
     ]).subscribe(([modules, coreData, moduleCompendium]) => {
       const [
         locations,
@@ -87,7 +87,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         grades,
         globalCriteria,
         studyPrograms,
-        competences
+        competences,
       ] = coreData
       const poPreviews = toPOPreview(pos, studyPrograms, grades)
       this.payload = {
@@ -108,8 +108,8 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
           this.dialog,
           attr => this.editModuleComponent?.formControl(attr).value,
           moduleCompendium,
-          this.id
-        )
+          this.id,
+        ),
       }
     })
   }

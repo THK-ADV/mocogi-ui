@@ -18,7 +18,7 @@ import {
   parseOptional,
   parsePeekArray,
   parsePeekString,
-  parseString
+  parseString,
 } from '../parser/record-parser'
 
 export function parseNestedAbbrev(key: string, record: Record<string, unknown>): string {
@@ -60,7 +60,7 @@ export function parseWorkload(record: Record<string, unknown>): WorkloadProtocol
     practical: parseNumber('workload-practical', record),
     exercise: parseNumber('workload-exercise', record),
     projectSupervision: parseNumber('workload-projectSupervision', record),
-    projectWork: parseNumber('workload-projectWork', record)
+    projectWork: parseNumber('workload-projectWork', record),
   }
 }
 
@@ -78,7 +78,7 @@ export function parseParticipants(record: Record<string, unknown>): Participants
       const participantsRecord = asRecord(p)
       return {
         min: parseNumber('min', participantsRecord),
-        max: parseNumber('max', participantsRecord)
+        max: parseNumber('max', participantsRecord),
       }
     })
   })
@@ -94,12 +94,12 @@ export function parseModuleRelation(record: Record<string, unknown>): ModuleRela
         case 'child':
           return {
             kind: 'child',
-            parent: parseString('parent', moduleRelationRecord)
+            parent: parseString('parent', moduleRelationRecord),
           }
         case 'parent':
           return {
             kind: 'parent',
-            children: parseArray('children', moduleRelationRecord, c => toString(c))
+            children: parseArray('children', moduleRelationRecord, c => toString(c)),
           }
         default:
           return throwError_(`expected 'kind' to be 'child' or 'parent', but was ${kind}`)
@@ -127,7 +127,7 @@ export function parseAssessmentMethods(record: Record<string, unknown>): Assessm
           return {
             method: parseString('method', xRecord),
             percentage: parseOptional('percentage', xRecord, p => toNumber(p)),
-            precondition: parseArray('precondition', xRecord, s => toString(s))
+            precondition: parseArray('precondition', xRecord, s => toString(s)),
           }
         }))
       }
@@ -137,7 +137,7 @@ export function parseAssessmentMethods(record: Record<string, unknown>): Assessm
 
   return {
     mandatory: go('assessment-methods-mandatory'),
-    optional: go('assessment-methods-optional')
+    optional: go('assessment-methods-optional'),
   }
 }
 
@@ -174,7 +174,7 @@ export function parsePrerequisites(record: Record<string, unknown>): Prerequisit
 
   return {
     recommended: go('recommended'),
-    required: go('required')
+    required: go('required'),
   }
 }
 
@@ -236,7 +236,7 @@ export function parseMetadata(record: Record<string, unknown>): MetadataProtocol
     po: parsePo(record),
     competences: parseCompetences(record),
     globalCriteria: parseGlobalCriteria(record),
-    taughtWith: parseTaughtWith(record)
+    taughtWith: parseTaughtWith(record),
   }
 }
 
@@ -245,6 +245,6 @@ export function parseModuleCompendium(value: unknown): ModuleCompendiumProtocol 
   return {
     metadata: parseMetadata(record),
     deContent: parseDeContent(record),
-    enContent: parseEnContent(record)
+    enContent: parseEnContent(record),
   }
 }

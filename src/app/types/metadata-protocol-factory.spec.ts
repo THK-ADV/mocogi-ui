@@ -24,7 +24,7 @@ import {
   parseString,
   parseTaughtWith,
   parseTitle,
-  parseWorkload
+  parseWorkload,
 } from './metadata-protocol-factory'
 import { WorkloadProtocol } from './workload'
 import { Participants } from './participants'
@@ -116,7 +116,7 @@ describe('metadata protocol factory', () => {
       practical: 3,
       exercise: 4,
       projectSupervision: 5,
-      projectWork: 6
+      projectWork: 6,
     }
     expect(parseWorkload(workload))
       .toEqual(result)
@@ -143,14 +143,14 @@ describe('metadata protocol factory', () => {
     const parent: { 'value': ModuleRelation } = {
       'value': {
         'kind': 'parent',
-        'children': ['dca56fa6-1952-4b47-bf60-3dcb32e86ada', 'c45bc346-61ae-446c-a98d-55abaef5729f']
-      }
+        'children': ['dca56fa6-1952-4b47-bf60-3dcb32e86ada', 'c45bc346-61ae-446c-a98d-55abaef5729f'],
+      },
     }
     const child: { 'value': ModuleRelation } = {
       'value': {
         'kind': 'child',
-        'parent': 'dca56fa6-1952-4b47-bf60-3dcb32e86ada'
-      }
+        'parent': 'dca56fa6-1952-4b47-bf60-3dcb32e86ada',
+      },
     }
     expect(parseModuleRelation({'module-relation': [parent]}))
       .toEqual(parent.value)
@@ -169,11 +169,11 @@ describe('metadata protocol factory', () => {
       'faculties': [{
         'abbrev': 'f10',
         'deLabel': 'Fakultät für Informatik und Ingenieurwissenschaften',
-        'enLabel': 'Faculty of Computer Science and Engineering Science'
+        'enLabel': 'Faculty of Computer Science and Engineering Science',
       }],
       'abbreviation': 'CK',
       'status': 'active',
-      'kind': 'single'
+      'kind': 'single',
     }
     expect(parseModuleManagement({'moduleCoordinator': moduleCoordinator}))
       .toEqual(['cko'])
@@ -190,12 +190,12 @@ describe('metadata protocol factory', () => {
           'faculties': [{
             'abbrev': 'f10',
             'deLabel': 'Fakultät für Informatik und Ingenieurwissenschaften',
-            'enLabel': 'Faculty of Computer Science and Engineering Science'
+            'enLabel': 'Faculty of Computer Science and Engineering Science',
           }],
           'abbreviation': 'AD',
           'status': 'active',
-          'kind': 'single'
-        }
+          'kind': 'single',
+        },
       },
       {
         'value': {
@@ -206,13 +206,13 @@ describe('metadata protocol factory', () => {
           'faculties': [{
             'abbrev': 'f10',
             'deLabel': 'Fakultät für Informatik und Ingenieurwissenschaften',
-            'enLabel': 'Faculty of Computer Science and Engineering Science'
+            'enLabel': 'Faculty of Computer Science and Engineering Science',
           }],
           'abbreviation': 'CK',
           'status': 'active',
-          'kind': 'single'
-        }
-      }
+          'kind': 'single',
+        },
+      },
     ]
     expect(parseLecturers({'lecturer': lecturer}))
       .toEqual(['ado', 'cko'])
@@ -225,19 +225,19 @@ describe('metadata protocol factory', () => {
     const optional: Record<string, unknown>[] = [{'value': {'method': 'written-exam', 'percentage': undefined, 'precondition': []}}]
     const res1: AssessmentMethods = {
       mandatory: [{'method': 'written-exam', 'percentage': undefined, 'precondition': ['practical']}],
-      optional: [{'method': 'written-exam', 'percentage': undefined, 'precondition': []}]
+      optional: [{'method': 'written-exam', 'percentage': undefined, 'precondition': []}],
     }
     const res2: AssessmentMethods = {
       mandatory: [],
-      optional: []
+      optional: [],
     }
     expect(parseAssessmentMethods({
       'assessment-methods-mandatory': mandatory,
-      'assessment-methods-optional': optional
+      'assessment-methods-optional': optional,
     })).toEqual(res1)
     expect(parseAssessmentMethods({
       'assessment-methods-mandatory': [],
-      'assessment-methods-optional': []
+      'assessment-methods-optional': [],
     })).toEqual(res2)
   })
 
@@ -252,7 +252,7 @@ describe('metadata protocol factory', () => {
       'literature-content-de': '\ng\n',
       'literature-content-en': '\nh\n',
       'particularities-content-de': '\ni\n',
-      'particularities-content-en': 'j'
+      'particularities-content-en': 'j',
     }
     const deContent: Content = {
       learningOutcome: '\na\n',
@@ -266,7 +266,7 @@ describe('metadata protocol factory', () => {
       content: '\nd\n',
       teachingAndLearningMethods: '\nf\n',
       recommendedReading: '\nh\n',
-      particularities: 'j'
+      particularities: 'j',
     }
     expect(parseDeContent(content)).toEqual(deContent)
     expect(parseEnContent(content)).toEqual(enContent)
@@ -280,7 +280,7 @@ describe('metadata protocol factory', () => {
       'recommended-prerequisites-text': 'Coden können, Spaß haben',
       'recommended-prerequisites-modules': [
         {'value': {'id': 'dca56fa6-1952-4b47-bf60-3dcb32e86ada', 'title': 'Algorithmen und Programmierung 1', 'abbrev': 'AP1'}},
-        {'value': {'id': 'f1fd21a9-ab5c-40b0-ab09-3dff35e86a72', 'title': 'Algorithmen und Programmierung 2', 'abbrev': 'AP2'}}
+        {'value': {'id': 'f1fd21a9-ab5c-40b0-ab09-3dff35e86a72', 'title': 'Algorithmen und Programmierung 2', 'abbrev': 'AP2'}},
       ],
       'recommended-prerequisites-po': [],
     }
@@ -289,8 +289,8 @@ describe('metadata protocol factory', () => {
       recommended: {
         text: 'Coden können, Spaß haben',
         modules: ['dca56fa6-1952-4b47-bf60-3dcb32e86ada', 'f1fd21a9-ab5c-40b0-ab09-3dff35e86a72'],
-        pos: []
-      }
+        pos: [],
+      },
     }
     expect(parsePrerequisites(input)).toEqual(result)
   })
@@ -302,17 +302,17 @@ describe('metadata protocol factory', () => {
           {
             'po': 'inf_mi4',
             'recommendedSemester': [3],
-            'recommendedSemesterPartTime': []
-          }
+            'recommendedSemesterPartTime': [],
+          },
       },
       {
         'value':
           {
             'po': 'inf_inf2',
             'recommendedSemester': [4],
-            'recommendedSemesterPartTime': []
-          }
-      }
+            'recommendedSemesterPartTime': [],
+          },
+      },
     ]
     const optional: Record<string, unknown>[] = [
       {
@@ -321,8 +321,8 @@ describe('metadata protocol factory', () => {
             'po': 'inf_wi4',
             'instanceOf': 'aacd9661-dba7-40e5-b98d-4e7019e18365',
             'partOfCatalog': false,
-            'recommendedSemester': [3]
-          }
+            'recommendedSemester': [3],
+          },
       },
       {
         'value':
@@ -330,37 +330,37 @@ describe('metadata protocol factory', () => {
             'po': 'inf_itm2',
             'instanceOf': 'aacd9661-dba7-40e5-b98d-4e7019e18365',
             'partOfCatalog': false,
-            'recommendedSemester': [3, 4]
-          }
-      }
+            'recommendedSemester': [3, 4],
+          },
+      },
     ]
     const result: POs = {
       mandatory: [
         {
           'po': 'inf_mi4',
           'recommendedSemester': [3],
-          'recommendedSemesterPartTime': []
+          'recommendedSemesterPartTime': [],
         },
         {
           'po': 'inf_inf2',
           'recommendedSemester': [4],
-          'recommendedSemesterPartTime': []
-        }
+          'recommendedSemesterPartTime': [],
+        },
       ],
       optional: [
         {
           'po': 'inf_wi4',
           'instanceOf': 'aacd9661-dba7-40e5-b98d-4e7019e18365',
           'partOfCatalog': false,
-          'recommendedSemester': [3]
+          'recommendedSemester': [3],
         },
         {
           'po': 'inf_itm2',
           'instanceOf': 'aacd9661-dba7-40e5-b98d-4e7019e18365',
           'partOfCatalog': false,
-          'recommendedSemester': [3, 4]
-        }
-      ]
+          'recommendedSemester': [3, 4],
+        },
+      ],
     }
     const input = {'po-mandatory': mandatory, 'po-optional': optional}
     expect(parsePo(input)).toEqual(result)
@@ -375,9 +375,9 @@ describe('metadata protocol factory', () => {
             'deLabel': 'Analyze Domains',
             'deDesc': 'Die Absolvent*innen sind in der Lage, Fachdomänen zu analysieren und Beziehungen von Entitäten und Konzepten sowohl innerhalb der Domäne wie auch zwischen Domänen aufzudecken. Dies ist eine wesentliche Voraussetzung für die Konzeption und Umsetzung digitaler Artefakte für ganz unterschiedliche gesellschaftliche und wirtschaftliche Bereiche.\nHierfür sind die Absolvent*innen in der Lage, sich selbstständig neue Methoden und neues Wissen anzueignen. Sie erkennen, welches Wissen in einer bestimmten Domäne für sie relevant ist, indem sie wissenschaftlich, analytisch und reflektiert arbeiten. Sie beherrschen Methoden zur Analyse von Domänen und ihren Fachsprachen, und können die Erkenntnisse formal präzise und gleichzeitig verständlich dokumentieren und kommunizieren.\n',
             'enLabel': 'Analyze Domains',
-            'enDesc': 'Graduates are able to analyze subject domains and uncover relationships of entities and concepts both within and between domains. This is an essential prerequisite for the conception and implementation of digital artifacts for very different social and economic areas.\nFor this purpose, graduates are able to independently acquire new methods and new knowledge. They recognize what knowledge is relevant to them in a particular domain by working scientifically, analytically and reflectively. They are proficient in methods for analyzing domains and their specialized languages, and can document and communicate the findings in a formally precise and at the same time comprehensible manner.\n'
-          }
-      }
+            'enDesc': 'Graduates are able to analyze subject domains and uncover relationships of entities and concepts both within and between domains. This is an essential prerequisite for the conception and implementation of digital artifacts for very different social and economic areas.\nFor this purpose, graduates are able to independently acquire new methods and new knowledge. They recognize what knowledge is relevant to them in a particular domain by working scientifically, analytically and reflectively. They are proficient in methods for analyzing domains and their specialized languages, and can document and communicate the findings in a formally precise and at the same time comprehensible manner.\n',
+          },
+      },
     ]
     expect(parseCompetences({'competences': competences}))
       .toEqual(['analyze_domains'])
@@ -392,9 +392,9 @@ describe('metadata protocol factory', () => {
             'deLabel': 'Employability',
             'deDesc': 'In unseren Studiengängen qualifizieren wir unsere Studierenden für komplexe Tätigkeiten in einer sich wandelnden,  arbeitsteiligen, zunehmend digitalisierten und internationalen Berufswelt und befähigen sie zur verantwortlichen Mitgestaltung ihrer Arbeits- und Lebenswelt. Employability und Global Citizenship bedingen sich in unserem Verständnis gegenseitig. Daher beinhaltet Employability nicht nur eine Ausbildungsfunktion, sondern fordert immer auch die Bildungsfunktion im Medium der Wissenschaft.\n',
             'enLabel': 'Employability',
-            'enDesc': ''
-          }
-      }
+            'enDesc': '',
+          },
+      },
     ]
     expect(parseGlobalCriteria({'global-criteria': globalCriteria}))
       .toEqual(['employability'])
@@ -407,9 +407,9 @@ describe('metadata protocol factory', () => {
           {
             'id': 'dca56fa6-1952-4b47-bf60-3dcb32e86ada',
             'title': 'Algorithmen und Programmierung 1',
-            'abbrev': 'AP1'
-          }
-      }
+            'abbrev': 'AP1',
+          },
+      },
     ]
     expect(parseTaughtWith({'taught-with': taughtWith}))
       .toEqual(['dca56fa6-1952-4b47-bf60-3dcb32e86ada'])
@@ -423,33 +423,33 @@ describe('metadata protocol factory', () => {
         {
           'abbrev': 'module',
           'deLabel': 'Modul',
-          'enLabel': 'Module'
+          'enLabel': 'Module',
         },
       'ects': 5,
       'language':
         {
           'abbrev': 'de',
           'deLabel': 'Deutsch',
-          'enLabel': 'german'
+          'enLabel': 'german',
         },
       'duration': 1,
       'season':
         {
           'abbrev': 'ss',
           'deLabel': 'Sommersemester',
-          'enLabel': 'summer term'
+          'enLabel': 'summer term',
         },
       'location':
         {
           'abbrev': 'gm',
           'deLabel': 'Gummersbach',
-          'enLabel': 'Gummersbach'
+          'enLabel': 'Gummersbach',
         },
       'status':
         {
           'abbrev': 'active',
           'deLabel': 'Aktiv',
-          'enLabel': 'active'
+          'enLabel': 'active',
         },
       'participants':
         [
@@ -457,9 +457,9 @@ describe('metadata protocol factory', () => {
             'value':
               {
                 'min': 0,
-                'max': 10
-              }
-          }
+                'max': 10,
+              },
+          },
         ],
       'module-relation':
         [
@@ -469,10 +469,10 @@ describe('metadata protocol factory', () => {
                 'kind': 'parent',
                 'children':
                   [
-                    'dca56fa6-1952-4b47-bf60-3dcb32e86ada'
-                  ]
-              }
-          }
+                    'dca56fa6-1952-4b47-bf60-3dcb32e86ada',
+                  ],
+              },
+          },
         ],
       'moduleCoordinator':
         {
@@ -485,12 +485,12 @@ describe('metadata protocol factory', () => {
               {
                 'abbrev': 'f10',
                 'deLabel': 'Fakultät für Informatik und Ingenieurwissenschaften',
-                'enLabel': 'Faculty of Computer Science and Engineering Science'
-              }
+                'enLabel': 'Faculty of Computer Science and Engineering Science',
+              },
             ],
           'abbreviation': 'CK',
           'status': 'active',
-          'kind': 'single'
+          'kind': 'single',
         },
       'lecturer':
         [
@@ -506,14 +506,14 @@ describe('metadata protocol factory', () => {
                     {
                       'abbrev': 'f10',
                       'deLabel': 'Fakultät für Informatik und Ingenieurwissenschaften',
-                      'enLabel': 'Faculty of Computer Science and Engineering Science'
-                    }
+                      'enLabel': 'Faculty of Computer Science and Engineering Science',
+                    },
                   ],
                 'abbreviation': 'AD',
                 'status': 'active',
-                'kind': 'single'
-              }
-          }
+                'kind': 'single',
+              },
+          },
         ],
       'assessment-methods-mandatory':
         [
@@ -523,9 +523,9 @@ describe('metadata protocol factory', () => {
                 'method': 'written-exam',
                 'precondition':
                   [
-                    'practical'
-                  ]
-              }
+                    'practical',
+                  ],
+              },
           },
           {
             'value':
@@ -534,10 +534,10 @@ describe('metadata protocol factory', () => {
                 'percentage': '50',
                 'precondition':
                   [
-                    'written-exam'
-                  ]
-              }
-          }
+                    'written-exam',
+                  ],
+              },
+          },
         ],
       'assessment-methods-optional':
         [
@@ -546,9 +546,9 @@ describe('metadata protocol factory', () => {
               {
                 'method': 'written-exam',
                 'precondition':
-                  []
-              }
-          }
+                  [],
+              },
+          },
         ],
       'workload-lecture': 36,
       'workload-seminar': 0,
@@ -568,17 +568,17 @@ describe('metadata protocol factory', () => {
               {
                 'id': 'dca56fa6-1952-4b47-bf60-3dcb32e86ada',
                 'title': 'Algorithmen und Programmierung 1',
-                'abbrev': 'AP1'
-              }
+                'abbrev': 'AP1',
+              },
           },
           {
             'value':
               {
                 'id': 'f1fd21a9-ab5c-40b0-ab09-3dff35e86a72',
                 'title': 'Algorithmen und Programmierung 2',
-                'abbrev': 'AP2'
-              }
-          }
+                'abbrev': 'AP2',
+              },
+          },
         ],
       'recommended-prerequisites-po':
         [
@@ -587,9 +587,9 @@ describe('metadata protocol factory', () => {
               {
                 'id': 'inf_wsc1',
                 'label': 'Web Science PO 1 (M.Sc.)',
-                'abbrev': 'inf_wsc PO 1 (M.Sc.)'
-              }
-          }
+                'abbrev': 'inf_wsc PO 1 (M.Sc.)',
+              },
+          },
         ],
       'po-mandatory':
         [
@@ -599,11 +599,11 @@ describe('metadata protocol factory', () => {
                 'po': 'inf_mi4',
                 'recommendedSemester':
                   [
-                    3
+                    3,
                   ],
                 'recommendedSemesterPartTime':
-                  []
-              }
+                  [],
+              },
           },
           {
             'value':
@@ -611,11 +611,11 @@ describe('metadata protocol factory', () => {
                 'po': 'inf_inf2',
                 'recommendedSemester':
                   [
-                    4
+                    4,
                   ],
                 'recommendedSemesterPartTime':
-                  []
-              }
+                  [],
+              },
           },
           {
             'value':
@@ -623,11 +623,11 @@ describe('metadata protocol factory', () => {
                 'po': 'inf_inf1',
                 'recommendedSemester':
                   [
-                    3
+                    3,
                   ],
                 'recommendedSemesterPartTime':
-                  []
-              }
+                  [],
+              },
           },
           {
             'value':
@@ -635,12 +635,12 @@ describe('metadata protocol factory', () => {
                 'po': 'inf_inf1_flex',
                 'recommendedSemester':
                   [
-                    3
+                    3,
                   ],
                 'recommendedSemesterPartTime':
-                  []
-              }
-          }
+                  [],
+              },
+          },
         ],
       'po-optional':
         [
@@ -653,9 +653,9 @@ describe('metadata protocol factory', () => {
                 'recommendedSemester':
                   [
                     3,
-                    4
-                  ]
-              }
+                    4,
+                  ],
+              },
           },
           {
             'value':
@@ -666,9 +666,9 @@ describe('metadata protocol factory', () => {
                 'recommendedSemester':
                   [
                     3,
-                    4
-                  ]
-              }
+                    4,
+                  ],
+              },
           },
           {
             'value':
@@ -679,9 +679,9 @@ describe('metadata protocol factory', () => {
                 'recommendedSemester':
                   [
                     3,
-                    4
-                  ]
-              }
+                    4,
+                  ],
+              },
           },
           {
             'value':
@@ -692,10 +692,10 @@ describe('metadata protocol factory', () => {
                 'recommendedSemester':
                   [
                     3,
-                    4
-                  ]
-              }
-          }
+                    4,
+                  ],
+              },
+          },
         ],
       'competences':
         [
@@ -706,9 +706,9 @@ describe('metadata protocol factory', () => {
                 'deLabel': 'Analyze Domains',
                 'deDesc': 'Die Absolvent*innen sind in der Lage, Fachdomänen zu analysieren und Beziehungen von Entitäten und Konzepten sowohl innerhalb der Domäne wie auch zwischen Domänen aufzudecken. Dies ist eine wesentliche Voraussetzung für die Konzeption und Umsetzung digitaler Artefakte für ganz unterschiedliche gesellschaftliche und wirtschaftliche Bereiche.\nHierfür sind die Absolvent*innen in der Lage, sich selbstständig neue Methoden und neues Wissen anzueignen. Sie erkennen, welches Wissen in einer bestimmten Domäne für sie relevant ist, indem sie wissenschaftlich, analytisch und reflektiert arbeiten. Sie beherrschen Methoden zur Analyse von Domänen und ihren Fachsprachen, und können die Erkenntnisse formal präzise und gleichzeitig verständlich dokumentieren und kommunizieren.\n',
                 'enLabel': 'Analyze Domains',
-                'enDesc': 'Graduates are able to analyze subject domains and uncover relationships of entities and concepts both within and between domains. This is an essential prerequisite for the conception and implementation of digital artifacts for very different social and economic areas.\nFor this purpose, graduates are able to independently acquire new methods and new knowledge. They recognize what knowledge is relevant to them in a particular domain by working scientifically, analytically and reflectively. They are proficient in methods for analyzing domains and their specialized languages, and can document and communicate the findings in a formally precise and at the same time comprehensible manner.\n'
-              }
-          }
+                'enDesc': 'Graduates are able to analyze subject domains and uncover relationships of entities and concepts both within and between domains. This is an essential prerequisite for the conception and implementation of digital artifacts for very different social and economic areas.\nFor this purpose, graduates are able to independently acquire new methods and new knowledge. They recognize what knowledge is relevant to them in a particular domain by working scientifically, analytically and reflectively. They are proficient in methods for analyzing domains and their specialized languages, and can document and communicate the findings in a formally precise and at the same time comprehensible manner.\n',
+              },
+          },
         ],
       'global-criteria':
         [],
@@ -719,9 +719,9 @@ describe('metadata protocol factory', () => {
               {
                 'id': 'c45bc346-61ae-446c-a98d-55abaef5729f',
                 'title': 'Social Computing Projekt',
-                'abbrev': 'SCP'
-              }
-          }
+                'abbrev': 'SCP',
+              },
+          },
         ],
       'learning-outcome-content-de': 'a',
       'learning-outcome-content-en': 'b',
@@ -732,7 +732,7 @@ describe('metadata protocol factory', () => {
       'literature-content-de': 'g',
       'literature-content-en': 'h',
       'particularities-content-de': 'i',
-      'particularities-content-en': 'j'
+      'particularities-content-en': 'j',
     }
     expect(parseModuleCompendium(input))
   })

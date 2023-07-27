@@ -11,7 +11,7 @@ export function moduleContent(deContent?: Content, enContent?: Content) {
       attr: `module-content-${lang}`,
       disabled: false,
       required: false,
-      initialValue: body(lang)
+      initialValue: body(lang),
     }
   }
 

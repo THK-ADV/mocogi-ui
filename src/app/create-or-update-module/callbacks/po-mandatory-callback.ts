@@ -69,7 +69,7 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     return {
       po: po.id,
       recommendedSemester: recommendedSemester,
-      recommendedSemesterPartTime: recommendedSemesterPartTime
+      recommendedSemesterPartTime: recommendedSemesterPartTime,
     }
   }
 
@@ -103,7 +103,7 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     foldOpt(
       controls['recommended-semester-part-time'].value,
       value => (value as string).split(',').map(a => Number(a)),
-      () => []
+      () => [],
     )
 
   private getPOValue = (controls: { [p: string]: FormControl }) =>

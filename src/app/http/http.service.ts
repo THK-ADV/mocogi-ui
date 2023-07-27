@@ -30,7 +30,7 @@ interface ModuleDraftJson {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
 
@@ -89,8 +89,8 @@ export class HttpService {
         date: new Date(po.date),
         dateFrom: new Date(po.dateFrom),
         dateTo: po.dateTo && new Date(po.dateTo),
-        modificationDates: po.modificationDates.map(d => new Date(d))
-      })))
+        modificationDates: po.modificationDates.map(d => new Date(d)),
+      }))),
     )
 
   allGrades = (): Observable<Grade[]> =>
@@ -104,7 +104,7 @@ export class HttpService {
       map(sps => sps.map(sp => ({
         ...sp,
         accreditationUntil: new Date(sp.accreditationUntil),
-      })))
+      }))),
     )
 
   allCompetences = (): Observable<Competence[]> =>
@@ -117,7 +117,7 @@ export class HttpService {
 
   branchForUser = (username: string): Observable<UserBranch | undefined> =>
     this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
-      map(b => b ? b : undefined)
+      map(b => b ? b : undefined),
     )
 
   createBranch = (username: string): Observable<UserBranch> =>
@@ -127,13 +127,13 @@ export class HttpService {
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
     this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
-      map(xs => xs.map(this.convertModuleDraft))
+      map(xs => xs.map(this.convertModuleDraft)),
     )
 
   addToDrafts = (
     branch: string,
     mc: ModuleCompendiumProtocol,
-    id: string | undefined
+    id: string | undefined,
   ): Observable<ModuleDraft> => {
     const body = {
       data: mc,

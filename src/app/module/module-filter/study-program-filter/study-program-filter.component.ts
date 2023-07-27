@@ -7,7 +7,7 @@ import { showFullStudyProgram } from '../../../ops/show.instances'
 @Component({
   selector: 'cops-study-program-filter',
   templateUrl: './study-program-filter.component.html',
-  styleUrls: ['./study-program-filter.component.css']
+  styleUrls: ['./study-program-filter.component.css'],
 })
 export class StudyProgramFilterComponent {
 
@@ -20,7 +20,7 @@ export class StudyProgramFilterComponent {
   show = showFullStudyProgram
 
   selectAction = ({po, specialization}: FullStudyProgram) => ModuleFilterPageActions.selectStudyprogram({
-    selectedStudyProgramId: {poId: po.abbrev, specializationId: specialization?.abbrev}
+    selectedStudyProgramId: {poId: po.abbrev, specializationId: specialization?.abbrev},
   })
 
   deselectAction = ModuleFilterPageActions.deselectStudyprogram

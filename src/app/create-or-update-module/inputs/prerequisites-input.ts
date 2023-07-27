@@ -20,7 +20,7 @@ export function prerequisitesInputs(
   currentModules: (attr: string, kind: PrerequisitesKind) => Module[],
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
-  prerequisites?: PrerequisitesOutput
+  prerequisites?: PrerequisitesOutput,
 ) {
   function requiredPrerequisitesText(): TextAreaInput {
     return text('required', prerequisites?.required?.text)
@@ -53,11 +53,11 @@ export function prerequisitesInputs(
       attr: `${kind}-prerequisites-text`,
       disabled: false,
       required: false,
-      initialValue: initialValue
+      initialValue: initialValue,
     }
   }
 
-  function modules(kind: PrerequisitesKind,): ReadOnlyInput<Module, Module> {
+  function modules(kind: PrerequisitesKind): ReadOnlyInput<Module, Module> {
     const attr = `${kind}-prerequisites-modules`
     const entries = currentModules(attr, kind)
     return {
@@ -69,7 +69,7 @@ export function prerequisitesInputs(
       options: allModules,
       show: showModule,
       initialValue: xs => xs.filter(x => entries.some(e => e.id === x.id)),
-      dialogInstance: () => moduleDialogInstance(attr, kind)
+      dialogInstance: () => moduleDialogInstance(attr, kind),
     }
   }
 
@@ -85,7 +85,7 @@ export function prerequisitesInputs(
       options: allPOs,
       show: showPO,
       initialValue: xs => xs.filter(x => entries.some(e => e.id === x.id)),
-      dialogInstance: () => poDialogInstance(attr, kind)
+      dialogInstance: () => poDialogInstance(attr, kind),
     }
   }
 
@@ -108,9 +108,9 @@ export function prerequisitesInputs(
           required: false,
           data: allModules,
           show: showModule,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
@@ -133,9 +133,9 @@ export function prerequisitesInputs(
           required: false,
           data: allPOs,
           show: showPO,
-        }
+        },
       ],
-      entries
+      entries,
     )
   }
 
@@ -158,6 +158,6 @@ export function prerequisitesInputs(
     requiredPrerequisitesPOs(),
     recommendedPrerequisitesText(),
     recommendedPrerequisitesModules(),
-    recommendedPrerequisitesPOs()
+    recommendedPrerequisitesPOs(),
   ]
 }

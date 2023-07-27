@@ -22,7 +22,7 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
 
   private prefixBackendUrl = (request: HttpRequest<unknown>): HttpRequest<unknown> =>
     request.clone({
-      url: `${environment.backendUrl}/${request.url}`
+      url: `${environment.backendUrl}/${request.url}`,
     })
 
   private handleError = (request: Observable<HttpEvent<unknown>>): Observable<HttpEvent<unknown>> =>
@@ -42,9 +42,9 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
           body: {
             kind: 'html',
             value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${error.error.request}</p>\
-                  <p><strong>Fehlernachricht:</strong><br>${error.error.message}</p>`
+                  <p><strong>Fehlernachricht:</strong><br>${error.error.message}</p>`,
           },
-          autoDismiss: false
+          autoDismiss: false,
         }
         this.alertService.report(alert)
       } else {

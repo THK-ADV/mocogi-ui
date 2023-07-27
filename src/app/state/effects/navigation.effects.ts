@@ -13,16 +13,16 @@ export class NavigationEffects {
       return this.actions$.pipe(
         ofType(ModulePageActions.selectModule),
         tap(({moduleId}) => this.router.navigate(['/show'], {state: {id: moduleId}})),
-        map(() => NavigationActions.empty()
-        )
+        map(() => NavigationActions.empty(),
+        ),
       )
-    }
+    },
   )
 
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions,
-    private readonly router: Router
+    private readonly router: Router,
   ) {
   }
 }

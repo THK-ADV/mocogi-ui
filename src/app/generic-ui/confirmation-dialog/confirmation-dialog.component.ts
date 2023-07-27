@@ -11,23 +11,23 @@ export type ConfirmationResult = 'ok' | 'ko'
 @Component({
   selector: 'cops-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+  styleUrls: ['./confirmation-dialog.component.css'],
 })
 export class ConfirmationDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<ConfirmationDialogComponent, ConfirmationResult>,
-    @Inject(MAT_DIALOG_DATA) readonly payload: ConfirmationPayload
+    @Inject(MAT_DIALOG_DATA) readonly payload: ConfirmationPayload,
   ) {
   }
 
   static instance = (
     dialog: MatDialog,
-    payload: ConfirmationPayload
+    payload: ConfirmationPayload,
   ): MatDialogRef<ConfirmationDialogComponent, ConfirmationResult> =>
     dialog.open<ConfirmationDialogComponent, ConfirmationPayload, ConfirmationResult>(
       ConfirmationDialogComponent, {
-        data: payload
-      }
+        data: payload,
+      },
     )
 
   cancel = () =>

@@ -17,7 +17,7 @@ export const ModuleFilterPageActions = createActionGroup({
     'Deselect Semester': emptyProps(),
     'Deselect Coordinator': emptyProps(),
     'Reset Filter': emptyProps(),
-  }
+  },
 })
 
 export const ModuleFilterAPIActions = createActionGroup({
@@ -28,5 +28,5 @@ export const ModuleFilterAPIActions = createActionGroup({
     'Retrieved Grades Success': props<{ grades: Grade[] }>(),
     'Retrieved People Success': props<{ people: Person[] }>(),
     'Retrieved Specializations Success': props<{ specializations: Specialization[] }>(),
-  }
+  },
 })

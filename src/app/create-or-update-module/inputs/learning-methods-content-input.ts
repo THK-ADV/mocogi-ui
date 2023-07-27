@@ -11,7 +11,7 @@ export function learningMethodsContent(deContent?: Content, enContent?: Content)
       attr: `learning-methods-content-${lang}`,
       disabled: false,
       required: false,
-      initialValue: body(lang)
+      initialValue: body(lang),
     }
   }
 

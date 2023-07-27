@@ -7,7 +7,7 @@ import { NavigationStart, Router } from '@angular/router'
 @Component({
   selector: 'cops-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  styleUrls: ['./alert.component.css'],
 })
 export class AlertComponent implements OnDestroy {
   private subs: Subscription[]

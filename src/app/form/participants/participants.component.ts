@@ -8,7 +8,7 @@ import { Participants } from '../../types/participants'
 @Component({
   selector: 'cops-participants',
   templateUrl: './participants.component.html',
-  styleUrls: ['./participants.component.css']
+  styleUrls: ['./participants.component.css'],
 })
 export class ParticipantsComponent {
   readonly headerTitle: string
@@ -26,7 +26,7 @@ export class ParticipantsComponent {
 
   constructor(
     private dialogRef: MatDialogRef<ParticipantsComponent, Participants[]>,
-    @Inject(MAT_DIALOG_DATA) participants: Participants | undefined
+    @Inject(MAT_DIALOG_DATA) participants: Participants | undefined,
   ) {
     this.headerTitle = 'Teilnehmerbegrenzung bearbeiten'
     this.minInput = {
@@ -36,7 +36,7 @@ export class ParticipantsComponent {
       disabled: false,
       required: true,
       initialValue: participants?.min,
-      min: 0
+      min: 0,
     }
     this.maxInput = {
       kind: 'number',
@@ -45,7 +45,7 @@ export class ParticipantsComponent {
       disabled: false,
       required: true,
       initialValue: participants?.max,
-      min: 1
+      min: 1,
     }
     this.formGroup = new FormGroup({})
     this.formGroup.addControl('min', formControlForNumberInput(this.minInput))
@@ -54,14 +54,14 @@ export class ParticipantsComponent {
 
   static instance = (
     dialog: MatDialog,
-    participants: Participants | undefined
+    participants: Participants | undefined,
   ): MatDialogRef<ParticipantsComponent> =>
     dialog.open<ParticipantsComponent>(
       ParticipantsComponent,
       {
         data: participants,
-        minWidth: window.innerWidth * 0.5
-      }
+        minWidth: window.innerWidth * 0.5,
+      },
     )
 
 
@@ -71,7 +71,7 @@ export class ParticipantsComponent {
   applyChanges = () =>
     this.dialogRef.close([{
       min: Number(this.minControl.value),
-      max: Number(this.maxControl.value)
+      max: Number(this.maxControl.value),
     }])
 
   isValid = () => {

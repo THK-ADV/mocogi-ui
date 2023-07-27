@@ -8,7 +8,7 @@ import { showPerson } from '../../../ops/show.instances'
 @Component({
   selector: 'cops-coordinator-filter',
   templateUrl: './coordinator-filter.component.html',
-  styleUrls: ['./coordinator-filter.component.css']
+  styleUrls: ['./coordinator-filter.component.css'],
 })
 export class CoordinatorFilterComponent {
   attr = 'coordinator'

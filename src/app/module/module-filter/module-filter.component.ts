@@ -5,7 +5,7 @@ import { ModuleFilterPageActions } from '../../state/actions/module-filter.actio
 @Component({
   selector: 'cops-module-filter',
   templateUrl: './module-filter.component.html',
-  styleUrls: ['./module-filter.component.css']
+  styleUrls: ['./module-filter.component.css'],
 })
 export class ModuleFilterComponent implements OnInit {
 
