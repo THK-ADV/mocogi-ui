@@ -36,15 +36,24 @@
             "style": "kebab-case"
           }
         ],
-        "quotes": ["error", "single"],
-        "semi": ["error", "never"],
-        "comma-dangle": ["error", {
-          "arrays": "always-multiline",
-          "objects": "always-multiline",
-          "imports": "always-multiline",
-          "exports": "always-multiline",
-          "functions": "always-multiline"
-      }]
+        "quotes": [
+          "error",
+          "single"
+        ],
+        "semi": [
+          "error",
+          "never"
+        ],
+        "comma-dangle": [
+          "error",
+          {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "always-multiline"
+          }
+        ]
       }
     },
     {
