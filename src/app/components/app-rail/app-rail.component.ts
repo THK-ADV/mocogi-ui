@@ -5,6 +5,7 @@ export type CopsAppRailLink = {
   text: string,
   icon: string,
   url: string,
+  disabled: boolean
 };
 
 export type CopsAppRailDivider = {
