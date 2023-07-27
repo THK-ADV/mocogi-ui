@@ -5,7 +5,7 @@ import { AlertService } from './alert.service'
 import { NavigationStart, Router } from '@angular/router'
 
 @Component({
-  selector: 'sched-alert',
+  selector: 'cops-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })

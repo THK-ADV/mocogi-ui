@@ -50,7 +50,7 @@ export const maxError = (formControl: FormControl): string | undefined =>
     : undefined
 
 @Component({
-  selector: 'sched-plain-input',
+  selector: 'cops-plain-input',
   templateUrl: './plain-input.component.html',
   styleUrls: ['./plain-input.component.css']
 })

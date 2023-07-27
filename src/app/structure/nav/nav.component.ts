@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'sched-nav',
+  selector: 'cops-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })

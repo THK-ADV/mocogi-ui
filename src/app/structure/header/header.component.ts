@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'sched-header',
+  selector: 'cops-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

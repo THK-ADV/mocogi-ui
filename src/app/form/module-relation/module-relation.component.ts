@@ -43,7 +43,7 @@ function initialModules(moduleRelation: ModuleRelation | undefined, modules: Mod
 }
 
 @Component({
-  selector: 'sched-module-relation',
+  selector: 'cops-module-relation',
   templateUrl: './module-relation.component.html',
   styleUrls: ['./module-relation.component.css']
 })

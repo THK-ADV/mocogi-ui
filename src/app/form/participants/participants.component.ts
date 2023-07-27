@@ -6,7 +6,7 @@ import { validMandatoryNumber } from '../../create-or-update-module/callbacks/ca
 import { Participants } from '../../types/participants'
 
 @Component({
-  selector: 'sched-participants',
+  selector: 'cops-participants',
   templateUrl: './participants.component.html',
   styleUrls: ['./participants.component.css']
 })

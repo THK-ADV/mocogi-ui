@@ -22,7 +22,7 @@ export interface MultipleEditDialogComponentCallback<TableEntry, Option> {
 }
 
 @Component({
-  selector: 'sched-multiple-edit-dialog',
+  selector: 'cops-multiple-edit-dialog',
   templateUrl: './multiple-edit-dialog.component.html',
   styleUrls: ['./multiple-edit-dialog.component.css']
 })

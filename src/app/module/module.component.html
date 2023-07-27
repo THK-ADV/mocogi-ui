@@ -1,7 +1,8 @@
 <main>
   <h2>Modulbeschreibungen</h2>
-  <sched-module-list [modules]="modules$ | async"></sched-module-list>
+  <cops-loader></cops-loader>
+  <cops-module-list [modules]="modules$ | async"></cops-module-list>
 </main>
 <aside>
-  <sched-module-filter></sched-module-filter>
+  <cops-module-filter></cops-module-filter>
 </aside>

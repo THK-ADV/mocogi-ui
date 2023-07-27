@@ -14,7 +14,7 @@ import { KeycloakService } from '../keycloak/keycloak.service'
 // TODO add proper State Management
 
 @Component({
-  selector: 'sched-own-modules',
+  selector: 'cops-own-modules',
   templateUrl: './own-modules.component.html',
   styleUrls: ['./own-modules.component.scss']
 })

@@ -19,7 +19,7 @@ export const formControlForReadOnlyInput = <A, B>(i: ReadOnlyInput<A, B>): FormC
   )
 
 @Component({
-  selector: 'sched-read-only-input',
+  selector: 'cops-read-only-input',
   templateUrl: './read-only-input.component.html',
   styleUrls: ['./read-only-input.component.css']
 })

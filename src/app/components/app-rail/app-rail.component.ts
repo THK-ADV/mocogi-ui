@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 export type CopsAppRailLink = {
-  type: "LINK",
+  type: 'LINK',
   text: string,
   icon: string,
   url: string,
@@ -9,11 +9,11 @@ export type CopsAppRailLink = {
 };
 
 export type CopsAppRailDivider = {
-  type: "DIVIDER",
+  type: 'DIVIDER',
 };
 
 export type CopsAppRailSpacer = {
-  type: "SPACER",
+  type: 'SPACER',
 };
 
 export type CopsAppRailItem = CopsAppRailLink | CopsAppRailDivider | CopsAppRailSpacer;

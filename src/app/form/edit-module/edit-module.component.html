@@ -5,36 +5,36 @@
     <ng-container *ngFor="let entry of payload.inputs">
       <h2>{{entry.header}}</h2>
       <ng-container *ngFor="let i of entry.value" [ngSwitch]="i.kind">
-        <sched-options-input
+        <cops-options-input
           *ngSwitchCase="'options'"
           ngDefaultControl
           [input]="asOptions(i)"
           [formControl]="formControl(i.attr)">
-        </sched-options-input>
-        <sched-multiple-options-input
+        </cops-options-input>
+        <cops-multiple-options-input
           *ngSwitchCase="'multiple-options'"
           ngDefaultControl
           [input]="asMultipleOptions(i)"
           [formControl]="formControl(i.attr)">
-        </sched-multiple-options-input>
-        <sched-read-only-input
+        </cops-multiple-options-input>
+        <cops-read-only-input
           *ngSwitchCase="'read-only'"
           ngDefaultControl
           [input]="asReadOnly(i)"
           [formControl]="formControl(i.attr)">
-        </sched-read-only-input>
-        <sched-boolean-input
+        </cops-read-only-input>
+        <cops-boolean-input
           *ngSwitchCase="'boolean'"
           ngDefaultControl
           [input]="asBoolean(i)"
           [formControl]="formControl(i.attr)">
-        </sched-boolean-input>
-        <sched-plain-input
+        </cops-boolean-input>
+        <cops-plain-input
           *ngSwitchDefault
           ngDefaultControl
           [input]="asTextInput(i)"
           [formControl]="formControl(i.attr)">
-        </sched-plain-input>
+        </cops-plain-input>
       </ng-container>
     </ng-container>
   </div>

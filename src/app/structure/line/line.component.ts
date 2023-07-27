@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'sched-line',
+  selector: 'cops-line',
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.scss']
 })

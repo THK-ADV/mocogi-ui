@@ -14,7 +14,7 @@ export const formControlForBooleanInput = (i: BooleanInput): FormControl =>
   )
 
 @Component({
-  selector: 'sched-boolean-input',
+  selector: 'cops-boolean-input',
   templateUrl: './boolean-input.component.html',
   styleUrls: ['./boolean-input.component.css']
 })

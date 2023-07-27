@@ -35,7 +35,8 @@
             "prefix": "cops",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "quotes": ["error", "single"]
       }
     },
     {

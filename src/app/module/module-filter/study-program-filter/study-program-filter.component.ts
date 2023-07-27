@@ -5,7 +5,7 @@ import { ModuleFilterPageActions } from '../../../state/actions/module-filter.ac
 import { showFullStudyProgram } from '../../../ops/show.instances'
 
 @Component({
-  selector: 'sched-study-program-filter',
+  selector: 'cops-study-program-filter',
   templateUrl: './study-program-filter.component.html',
   styleUrls: ['./study-program-filter.component.css']
 })

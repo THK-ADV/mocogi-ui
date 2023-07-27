@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 export type CopsNavigationLink = {
-  type: "LINK",
+  type: 'LINK',
   text: string
   icon: string,
   details?: string,
@@ -9,7 +9,7 @@ export type CopsNavigationLink = {
 };
 
 export type CopsNavigationHeader = {
-  type: "HEADER",
+  type: 'HEADER',
   text: string,
 };
 

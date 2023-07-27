@@ -22,7 +22,7 @@ const selectDisplayedColumns = createSelector(
 )
 
 @Component({
-  selector: 'sched-module-list',
+  selector: 'cops-module-list',
   templateUrl: './module-list.component.html',
   styleUrls: ['./module-list.component.css'],
   animations: [ // https://github.com/angular/components/issues/13431#issuecomment-574589827

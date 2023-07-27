@@ -41,7 +41,7 @@ function toPOPreview(
 }
 
 @Component({
-  selector: 'sched-create-or-update-module',
+  selector: 'cops-create-or-update-module',
   templateUrl: './create-or-update-module.component.html',
   styleUrls: ['./create-or-update-module.component.css']
 })

@@ -24,7 +24,7 @@ export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl =
 }
 
 @Component({
-  selector: 'sched-options-input',
+  selector: 'cops-options-input',
   templateUrl: './options-input.component.html',
   styleUrls: ['./options-input.component.css']
 })

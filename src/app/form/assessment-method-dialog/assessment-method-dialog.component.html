@@ -3,23 +3,23 @@
 <div class="modalContainer">
   <mat-card [formGroup]="formGroup">
     <mat-card-content>
-      <sched-options-input
+      <cops-options-input
         #assessmentMethodOptionsInputComponent
         ngDefaultControl
         [input]="assessmentMethodInput"
         [formControl]="assessmentMethodFormControl">
-      </sched-options-input>
-      <sched-plain-input
+      </cops-options-input>
+      <cops-plain-input
         ngDefaultControl
         [input]="percentageInput"
         [formControl]="percentageFormControl">
-      </sched-plain-input>
-      <sched-options-input
+      </cops-plain-input>
+      <cops-options-input
         #preconditionOptionsInputComponent
         ngDefaultControl
         [input]="preconditionInput"
         [formControl]="preconditionFormControl">
-      </sched-options-input>
+      </cops-options-input>
     </mat-card-content>
     <mat-card-actions>
       <button type="button"

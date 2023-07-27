@@ -186,7 +186,7 @@ export function simpleInput(
     switch (m.kind) {
       case 'parent':
         // eslint-disable-next-line no-case-declarations
-        let parent = `Hat Submodule: `
+        let parent = 'Hat Submodule: '
         m.children.forEach((id, index) => {
           const module = modules.find(m => m.id === id)
           if (module) {

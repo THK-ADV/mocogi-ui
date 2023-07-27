@@ -18,7 +18,7 @@ export interface TableContent {
 }
 
 @Component({
-  selector: 'sched-assessment-method-dialog',
+  selector: 'cops-assessment-method-dialog',
   templateUrl: './assessment-method-dialog.component.html',
   styleUrls: ['./assessment-method-dialog.component.css']
 })

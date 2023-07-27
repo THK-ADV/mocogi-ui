@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms'
 import { Store } from '@ngrx/store'
 
 @Component({
-  selector: 'sched-abstract-module-filter',
+  selector: 'cops-abstract-module-filter',
   templateUrl: './abstract-module-filter.component.html',
   styleUrls: ['./abstract-module-filter.component.css']
 })

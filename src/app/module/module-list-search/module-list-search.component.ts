@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { ModulePageActions } from '../../state/actions/module.actions'
 
 @Component({
-  selector: 'sched-module-list-search',
+  selector: 'cops-module-list-search',
   templateUrl: './module-list-search.component.html',
   styleUrls: ['./module-list-search.component.css']
 })

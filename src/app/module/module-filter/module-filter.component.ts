@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { ModuleFilterPageActions } from '../../state/actions/module-filter.actions'
 
 @Component({
-  selector: 'sched-module-filter',
+  selector: 'cops-module-filter',
   templateUrl: './module-filter.component.html',
   styleUrls: ['./module-filter.component.css']
 })

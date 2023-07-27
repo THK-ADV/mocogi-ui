@@ -9,7 +9,7 @@ interface ConfirmationPayload {
 export type ConfirmationResult = 'ok' | 'ko'
 
 @Component({
-  selector: 'sched-confirmation-dialog',
+  selector: 'cops-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.css']
 })

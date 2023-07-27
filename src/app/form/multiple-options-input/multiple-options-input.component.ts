@@ -23,7 +23,7 @@ export const formControlForMultipleOptionsInput = <A>(i: MultipleOptionsInput<A>
 }
 
 @Component({
-  selector: 'sched-multiple-options-input',
+  selector: 'cops-multiple-options-input',
   templateUrl: './multiple-options-input.component.html',
   styleUrls: ['./multiple-options-input.component.css']
 })

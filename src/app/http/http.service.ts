@@ -121,7 +121,7 @@ export class HttpService {
     )
 
   createBranch = (username: string): Observable<UserBranch> =>
-    this.http.post<UserBranch>(`git/branch`, {'username': username})
+    this.http.post<UserBranch>('git/branch', {'username': username})
 
   // Module Draft
 
