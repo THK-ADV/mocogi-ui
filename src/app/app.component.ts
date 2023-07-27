@@ -25,7 +25,7 @@ export class AppComponent {
     { type: 'LINK', text: 'Exams', icon: 'apps', url: '#' },
     { type: 'DIVIDER' },
     { type: 'SPACER' },
-    { type: 'LINK', text: 'HOPS', icon: 'apps', url: '#' },
-    { type: 'LINK', text: 'CAMS', icon: 'apps', url: '#' },
+    { type: 'LINK', text: 'Feedback', icon: 'feedback', url: '#' },
+    { type: 'LINK', text: 'Impressum', icon: 'info', url: '#' },
   ];
 }
