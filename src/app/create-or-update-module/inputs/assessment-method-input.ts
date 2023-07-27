@@ -1,7 +1,7 @@
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { AssessmentMethodCallback } from '../callbacks/assessment-method.callback'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { optionalLabel, requiredLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
 import { AssessmentMethodEntry } from '../../types/assessment-methods'

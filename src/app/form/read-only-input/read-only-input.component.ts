@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { FormInputLike, requiredError } from '../form-input'
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
 import { Subscription } from 'rxjs'
 
 export interface ReadOnlyInput<Option, Output> extends FormInputLike {

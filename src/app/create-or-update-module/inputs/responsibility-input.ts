@@ -1,5 +1,5 @@
 import { OptionsInput } from '../../form/options-input/options-input.component'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { LecturerCallback } from '../callbacks/lecturer-callback'

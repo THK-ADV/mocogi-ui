@@ -5,7 +5,7 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { optionalLabel } from './inputs'
 import { mapOpt } from '../../ops/undefined-ops'
 import { ParticipantsComponent } from '../../form/participants/participants.component'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
 import { Participants } from '../../types/participants'
 import { ModuleRelation } from '../../types/module-relation'

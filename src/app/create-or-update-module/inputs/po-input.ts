@@ -1,5 +1,5 @@
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { optionalLabel, requiredLabel } from './inputs'
 import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
