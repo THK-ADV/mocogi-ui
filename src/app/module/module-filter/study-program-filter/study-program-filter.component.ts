@@ -19,11 +19,11 @@ export class StudyProgramFilterComponent {
 
   show = showFullStudyProgram
 
-  selectAction = ({po, specialization}: FullStudyProgram) => ModuleFilterPageActions.selectStudyprogram({
+  selectAction = ({po, specialization}: FullStudyProgram) => ModuleFilterPageActions.selectStudyProgram({
     selectedStudyProgramId: {poId: po.abbrev, specializationId: specialization?.abbrev},
   })
 
-  deselectAction = ModuleFilterPageActions.deselectStudyprogram
+  deselectAction = ModuleFilterPageActions.deselectStudyProgram
 
   constructor(private readonly store: Store) {
   }

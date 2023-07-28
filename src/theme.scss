@@ -144,8 +144,7 @@ $mat-dark-theme-background: (
   disabled-list-option:     $dark-bg-lighter-10,
 );
 
-// Compute font config
-@include mat-core($fontConfig);
+@include mat-core();
 
 // Theme Config
 
@@ -169,7 +168,6 @@ $mat-primary: (
   )
 );
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
-
 
 body {
   --accent-color: #ea5a00;
@@ -215,15 +213,32 @@ $mat-warn: (
 $theme-warn: mat.define-palette($mat-warn, main, lighter, darker);
 ;
 
-$theme: mat.define-light-theme($theme-primary, $theme-accent, $theme-warn);
-$altTheme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
+$altTheme: mat.define-light-theme((
+ color: (
+   primary: $theme-primary,
+   accent: $theme-accent,
+   warn: $theme-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+$theme: mat.define-light-theme((
+ color: (
+   primary: $theme-primary,
+   accent: $theme-accent,
+   warn: $theme-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
 
 // Theme Init
 @include angular-material-theme($theme);
 
-.theme-alternate {
-  @include angular-material-theme($altTheme);
-}
+// .theme-alternate {
+//   @include angular-material-theme($altTheme);
+// }
 
 // Specific component overrides, pieces that are not in line with the general theming
 

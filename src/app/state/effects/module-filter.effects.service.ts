@@ -13,7 +13,7 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allStudyPrograms().pipe(
             map((studyPrograms) =>
-              ModuleFilterAPIActions.retrievedStudyprogramsSuccess({studyPrograms}),
+              ModuleFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}),
             ),
           ),
         ),
@@ -27,7 +27,7 @@ export class ModuleFilterEffects {
         exhaustMap(() =>
           this.service.allValidPOs().pipe(
             map((pos) =>
-              ModuleFilterAPIActions.retrievedPosSuccess({pos}),
+              ModuleFilterAPIActions.retrievedPOsSuccess({pos}),
             ),
           ),
         ),
