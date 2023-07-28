@@ -1,6 +1,6 @@
 import { optionalLabel, requiredLabel } from './inputs'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { CompetenceCallback } from '../callbacks/competence-callback'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { GlobalCriteriaCallback } from '../callbacks/global-criteria-callback'

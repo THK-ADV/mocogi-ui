@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core'
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatTableDataSource } from '@angular/material/table'
 import { createSelector, Store } from '@ngrx/store'
 import { ModulePageActions } from '../../state/actions/module.actions'
 import { selectSelectedSort } from '../../state/selectors/module.selectors'

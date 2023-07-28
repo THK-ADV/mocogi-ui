@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { validMandatoryNumber } from '../../create-or-update-module/callbacks/callback-validation'
 import { Participants } from '../../types/participants'
 

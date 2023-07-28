@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { TableHeaderColumn } from '../generic-ui/table-header-column'
 import { Module } from '../types/module'
