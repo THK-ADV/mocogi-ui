@@ -1,9 +1,9 @@
 <mat-nav-list>
   <ng-container *ngFor="let item of navItems">
-    <h3 matSubheader *ngIf="item.type === 'HEADER'">{{item.text}}</h3>
+    <div mat-subheader *ngIf="item.type === 'HEADER'">{{item.text}}</div>
     <mat-list-item *ngIf="item.type === 'LINK'">
-      <a matListItemTitle [href]="item.url">{{ item.text }}</a>
-      <mat-icon matListIcon>{{item.icon}}</mat-icon>
+      <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+      <div matListItemTitle>{{item.text}}</div>
    </mat-list-item>
   </ng-container>
 </mat-nav-list>
