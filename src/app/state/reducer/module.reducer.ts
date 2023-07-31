@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleApiActions, ModulePageActions } from '../actions/module.actions'
-import { Metadata } from '../../types/metadata'
 import { Sort } from '@angular/material/sort'
+import { ModuleAtomic } from '../../types/module-atomic'
 
 export interface State {
-  modules: ReadonlyArray<Metadata>
+  modules: ModuleAtomic[]
   selectedModuleId?: string
   moduleFilter?: string
   error?: Error

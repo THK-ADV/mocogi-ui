@@ -11,7 +11,7 @@ export class ModuleEffects {
       return this.actions$.pipe(
         ofType(ModulePageActions.enter),
         exhaustMap(() =>
-          this.service.allModuleMetadata().pipe(
+          this.service.allModuleAtomic().pipe(
             map((modules) => ModuleApiActions.retrievedModulesSuccess({modules})),
           ),
         ),
