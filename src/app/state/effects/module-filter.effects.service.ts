@@ -13,7 +13,7 @@ export class ModuleFilterEffects {
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
           this.service.allStudyProgramAtomic().pipe(
-            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyprogramsSuccess({studyPrograms}))
+            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}))
           )
         )
       )

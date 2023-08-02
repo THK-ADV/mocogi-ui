@@ -8,10 +8,10 @@ export const ModuleFilterPageActions = createActionGroup({
   source: 'Module Filter Page',
   events: {
     'Enter': emptyProps(),
-    'Select StudyProgram': props<{ selectedStudyProgramId: SelectedStudyProgramId }>(),
+    'Select Study Program': props<{ selectedStudyProgramId: SelectedStudyProgramId }>(),
     'Select Semester': props<{ semester: number }>(),
     'Select Coordinator': props<{ coordinatorId: string }>(),
-    'Deselect StudyProgram': emptyProps(),
+    'Deselect Study Program': emptyProps(),
     'Deselect Semester': emptyProps(),
     'Deselect Coordinator': emptyProps(),
     'Reset Filter': emptyProps(),
@@ -21,7 +21,7 @@ export const ModuleFilterPageActions = createActionGroup({
 export const ModuleFilterAPIActions = createActionGroup({
   source: 'Module Filter API',
   events: {
-    'Retrieved StudyPrograms Success': props<{ studyPrograms: StudyProgramAtomic[] }>(),
+    'Retrieved Study Programs Success': props<{ studyPrograms: StudyProgramAtomic[] }>(),
     'Retrieved People Success': props<{ people: Person[] }>(),
   },
 })

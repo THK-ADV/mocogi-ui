@@ -20,11 +20,11 @@ export class StudyProgramFilterComponent {
 
   show = showStudyProgramAtomic
 
-  selectAction = ({poAbbrev, specialization}: StudyProgramAtomic) => ModuleFilterPageActions.selectStudyprogram({
+  selectAction = ({poAbbrev, specialization}: StudyProgramAtomic) => ModuleFilterPageActions.selectStudyProgram({
     selectedStudyProgramId: {poId: poAbbrev, specializationId: specialization?.abbrev},
   })
 
-  deselectAction = ModuleFilterPageActions.deselectStudyprogram
+  deselectAction = ModuleFilterPageActions.deselectStudyProgram
 
   constructor(private readonly store: Store) {
   }

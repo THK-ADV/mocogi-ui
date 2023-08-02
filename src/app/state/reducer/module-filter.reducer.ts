@@ -32,7 +32,7 @@ export const moduleFilterReducer = createReducer(
   on(ModuleFilterPageActions.enter, (state): State => {
     return state
   }),
-  on(ModuleFilterPageActions.selectStudyprogram, (state, {selectedStudyProgramId}): State => {
+  on(ModuleFilterPageActions.selectStudyProgram, (state, {selectedStudyProgramId}): State => {
     return {
       ...state,
       selectedStudyProgramId,
@@ -58,7 +58,7 @@ export const moduleFilterReducer = createReducer(
       selectedCoordinatorId: undefined,
     }
   }),
-  on(ModuleFilterPageActions.deselectStudyprogram, (state): State => {
+  on(ModuleFilterPageActions.deselectStudyProgram, (state): State => {
     return {
       ...state,
       selectedStudyProgramId: undefined,
@@ -76,7 +76,7 @@ export const moduleFilterReducer = createReducer(
       selectedCoordinatorId: undefined,
     }
   }),
-  on(ModuleFilterAPIActions.retrievedStudyprogramsSuccess, (state, {studyPrograms}): State => {
+  on(ModuleFilterAPIActions.retrievedStudyProgramsSuccess, (state, {studyPrograms}): State => {
     return {
       ...state,
       studyPrograms,
