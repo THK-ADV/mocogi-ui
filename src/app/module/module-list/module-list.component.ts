@@ -4,16 +4,16 @@ import { createSelector, Store } from '@ngrx/store'
 import { ModulePageActions } from '../../state/actions/module.actions'
 import { selectSelectedSort } from '../../state/selectors/module.selectors'
 import { MatSort, Sort } from '@angular/material/sort'
-import { ModuleTableRepresentation } from './module-table-representation'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { selectSelectedStudyProgramId } from '../../state/selectors/module-filter.selectors'
+import { ModuleTableEntry } from './module-table-entry'
 
-type DisplayedColumns = keyof (Omit<ModuleTableRepresentation, 'id'> & { expand: string, actions: string })
+type DisplayedColumns = keyof (ModuleTableEntry & { expand: string, actions: string })
 
 const selectDisplayedColumns = createSelector(
   selectSelectedStudyProgramId,
   (podId) => {
-    const cols: DisplayedColumns[] = ['title', 'abbrev', 'coordinator', 'ects', 'semester', 'actions']
+    const cols: DisplayedColumns[] = ['title', 'abbrev', 'moduleManagementStr', 'ects', 'recommendedSemesterStr', 'actions']
     if (!podId) {
       cols.push('expand')
     }
@@ -36,16 +36,16 @@ const selectDisplayedColumns = createSelector(
 })
 export class ModuleListComponent {
 
-  protected dataSource = new MatTableDataSource<ModuleTableRepresentation>()
+  protected dataSource = new MatTableDataSource<ModuleTableEntry>()
   protected selectedSort$ = this.store.select(selectSelectedSort)
   protected displayedColumns$ = this.store.select(selectDisplayedColumns)
-  protected expandedElement?: ModuleTableRepresentation
+  protected expandedElement?: ModuleTableEntry
 
   @ViewChild(MatSort) sort!: MatSort
 
-  @Input() set modules(xs: ReadonlyArray<ModuleTableRepresentation> | null) {
+  @Input() set modules(xs: ModuleTableEntry[] | null) {
     if (xs) {
-      this.dataSource.data = [...xs]
+      this.dataSource.data = xs
       this.dataSource.sort = this.sort
     }
   }
@@ -58,15 +58,16 @@ export class ModuleListComponent {
     this.store.dispatch(ModulePageActions.selectSort({sort}))
   }
 
-  expandRow = (element: ModuleTableRepresentation, event: MouseEvent) => {
-    this.expandedElement = this.expandedElement === element ? undefined : element
+  expandRow = (module: ModuleTableEntry, event: MouseEvent) => {
+    this.expandedElement = this.expandedElement === module ? undefined : module
     event.stopPropagation()
   }
 
-  selectRow = (element: ModuleTableRepresentation, event: MouseEvent) => {
-    this.store.dispatch(ModulePageActions.selectModule({moduleId: element.id}))
+  selectRow = (module: ModuleTableEntry, event: MouseEvent) => {
+    this.store.dispatch(ModulePageActions.selectModule({moduleId: module.id}))
     event.stopPropagation()
   }
 
-  visibleModules = (): number => this.dataSource.data.length
+  visibleModules = (): number =>
+    this.dataSource.data.length
 }

@@ -1,10 +1,8 @@
-import { StudyProgram } from '../../types/core/study-program'
 import { createReducer, on } from '@ngrx/store'
 import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
-import { PO } from '../../types/core/po'
-import { Grade } from '../../types/core/grade'
 import { Person } from '../../types/core/person'
-import { Specialization } from '../../types/specialization'
+
+import { StudyProgramAtomic } from '../../types/study-program-atomic'
 
 export interface SelectedStudyProgramId {
   poId: string
@@ -12,12 +10,9 @@ export interface SelectedStudyProgramId {
 }
 
 export interface State {
-  studyPrograms: ReadonlyArray<StudyProgram>
-  pos: ReadonlyArray<PO>
-  grades: ReadonlyArray<Grade>
-  semester: number[]
+  studyPrograms: ReadonlyArray<StudyProgramAtomic>
+  semester: ReadonlyArray<number>
   people: Person[]
-  specializations: ReadonlyArray<Specialization>
   selectedStudyProgramId?: SelectedStudyProgramId
   selectedSemester?: number
   selectedCoordinatorId?: string
@@ -25,10 +20,7 @@ export interface State {
 
 const initialState: State = {
   studyPrograms: [],
-  pos: [],
-  grades: [],
   people: [],
-  specializations: [],
   semester: [1, 2, 3, 4, 5, 6],
   selectedStudyProgramId: undefined,
   selectedSemester: undefined,
@@ -90,28 +82,10 @@ export const moduleFilterReducer = createReducer(
       studyPrograms,
     }
   }),
-  on(ModuleFilterAPIActions.retrievedPOsSuccess, (state, {pos}): State => {
-    return {
-      ...state,
-      pos,
-    }
-  }),
-  on(ModuleFilterAPIActions.retrievedGradesSuccess, (state, {grades}): State => {
-    return {
-      ...state,
-      grades,
-    }
-  }),
   on(ModuleFilterAPIActions.retrievedPeopleSuccess, (state, {people}): State => {
     return {
       ...state,
       people,
     }
-  }),
-  on(ModuleFilterAPIActions.retrievedSpecializationsSuccess, (state, {specializations}): State => {
-    return {
-      ...state,
-      specializations,
-    }
-  }),
+  })
 )

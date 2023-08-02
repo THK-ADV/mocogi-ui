@@ -20,12 +20,12 @@ export class AbstractModuleFilterComponent<A> {
     a ? this.formControl.setValue(a) : this.reset()
   }
 
-  @Input() set options(as: A[] | null) {
+  @Input() set options(as: ReadonlyArray<A> | null) {
     this.options_ = as ?? []
     this.initFilterOptions()
   }
 
-  protected options_!: A[]
+  protected options_!: ReadonlyArray<A>
   protected filteredOptions: Observable<A[]> = EMPTY
   protected formControl = new FormControl()
 

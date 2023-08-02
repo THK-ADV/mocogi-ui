@@ -1,8 +1,10 @@
 import { Person } from '../types/core/person'
-import { FullStudyProgram } from '../state/selectors/module-filter.selectors'
 import { Label } from '../types/core/label'
 import { Module } from '../types/module'
 import { Show } from './show'
+
+import { StudyProgramAtomic } from '../types/study-program-atomic'
+import { PersonShort } from '../types/module-atomic'
 
 export const showPerson: Show<Person> = p => {
   switch (p.kind) {
@@ -14,24 +16,27 @@ export const showPerson: Show<Person> = p => {
       return p.title
   }
 }
+export const showPersonShort: Show<PersonShort> = p =>
+  p.kind === 'single' ? `${p.lastname}, ${p.firstname}` : p.title
 
 // TODO temporary fix for handling 'flex issue'. see: https://git.st.archi-lab.io/adobryni/modulhandbuecher_test/-/issues/3
-export const showFullStudyProgram: Show<FullStudyProgram> = (
+export const showStudyProgramAtomic: Show<StudyProgramAtomic> = (
   {
-    studyProgram,
-    po,
+    studyProgramLabel,
+    poAbbrev,
     grade,
+    version,
     specialization,
   },
 ) => {
   if (specialization) { // TODO refactor
-    return po.abbrev.endsWith('flex')
-      ? `${studyProgram.deLabel}-Flex ${specialization.label} (${grade.deLabel} - PO ${po.version})`
-      : `${studyProgram.deLabel} ${specialization.label} (${grade.deLabel} - PO ${po.version})`
+    return poAbbrev.endsWith('flex')
+      ? `${studyProgramLabel}-Flex ${specialization.label} (${grade} - PO ${version})`
+      : `${studyProgramLabel} ${specialization.label} (${grade} - PO ${version})`
   } else {
-    return po.abbrev.endsWith('flex')
-      ? `${studyProgram.deLabel}-Flex (${grade.deLabel} - PO ${po.version})`
-      : `${studyProgram.deLabel} (${grade.deLabel} - PO ${po.version})`
+    return poAbbrev.endsWith('flex')
+      ? `${studyProgramLabel}-Flex (${grade} - PO ${version})`
+      : `${studyProgramLabel} (${grade} - PO ${version})`
   }
 }
 

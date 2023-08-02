@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { selectModuleTableRepresentation } from '../state/selectors/module.selectors'
+import { selectModules } from '../state/selectors/module.selectors'
 import { ModulePageActions } from '../state/actions/module.actions'
-import { ModuleTableRepresentation } from './module-list/module-table-representation'
+import { ModuleTableEntry } from './module-list/module-table-entry'
 
 @Component({
   selector: 'cops-module',
@@ -12,10 +12,10 @@ import { ModuleTableRepresentation } from './module-list/module-table-representa
 })
 export class ModuleComponent implements OnInit {
 
-  modules$: Observable<ReadonlyArray<ModuleTableRepresentation>>
+  modules$: Observable<ModuleTableEntry[]>
 
   constructor(private readonly store: Store) {
-    this.modules$ = store.select(selectModuleTableRepresentation)
+    this.modules$ = store.select(selectModules)
   }
 
   ngOnInit(): void {

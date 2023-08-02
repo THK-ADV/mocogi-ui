@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Metadata } from '../../types/metadata'
 import { Sort } from '@angular/material/sort'
+import { ModuleAtomic } from '../../types/module-atomic'
 
 export const ModulePageActions = createActionGroup({
   source: 'Module Page',
@@ -16,7 +16,7 @@ export const ModulePageActions = createActionGroup({
 export const ModuleApiActions = createActionGroup({
   source: 'Module API',
   events: {
-    'Retrieved Modules Success': props<{ modules: Metadata[] }>(),
+    'Retrieved Modules Success': props<{ modules: ModuleAtomic[] }>(),
     'Retrieved Modules Failure': props<{ error: Error }>(),
   },
 })

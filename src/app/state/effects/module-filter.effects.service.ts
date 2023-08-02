@@ -3,50 +3,21 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
 import { HttpService } from '../../http/http.service'
 import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
+import { peopleOrd } from '../../ops/ordering.instances'
 
 @Injectable()
 export class ModuleFilterEffects {
 
-  fetchStudyPrograms$ = createEffect(() => {
+  fetchStudyProgramAtomic$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
-          this.service.allStudyPrograms().pipe(
-            map((studyPrograms) =>
-              ModuleFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}),
-            ),
-          ),
-        ),
+          this.service.allStudyProgramAtomic().pipe(
+            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}))
+          )
+        )
       )
-    },
-  )
-
-  fetchPOs$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModuleFilterPageActions.enter),
-        exhaustMap(() =>
-          this.service.allValidPOs().pipe(
-            map((pos) =>
-              ModuleFilterAPIActions.retrievedPOsSuccess({pos}),
-            ),
-          ),
-        ),
-      )
-    },
-  )
-
-  fetchGrades$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModuleFilterPageActions.enter),
-        exhaustMap(() =>
-          this.service.allGrades().pipe(
-            map((grades) =>
-              ModuleFilterAPIActions.retrievedGradesSuccess({grades}),
-            ),
-          ),
-        ),
-      )
-    },
+    }
   )
 
   fetchPeople$ = createEffect(() => {
@@ -54,27 +25,14 @@ export class ModuleFilterEffects {
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
           this.service.allPersons().pipe(
-            map((people) =>
-              ModuleFilterAPIActions.retrievedPeopleSuccess({people}),
-            ),
-          ),
-        ),
+            map((ps) => {
+              const people = ps.sort(peopleOrd)
+              return ModuleFilterAPIActions.retrievedPeopleSuccess({people})
+            })
+          )
+        )
       )
-    },
-  )
-
-  fetchSpecialization$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModuleFilterPageActions.enter),
-        exhaustMap(() =>
-          this.service.allSpecializations().pipe(
-            map((specializations) =>
-              ModuleFilterAPIActions.retrievedSpecializationsSuccess({specializations}),
-            ),
-          ),
-        ),
-      )
-    },
+    }
   )
 
   constructor(

@@ -20,6 +20,8 @@ import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-comp
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
 import { Specialization } from '../types/specialization'
+import { StudyProgramAtomic } from '../types/study-program-atomic'
+import { ModuleAtomic } from '../types/module-atomic'
 
 interface ModuleDraftJson {
   module: string
@@ -161,4 +163,12 @@ export class HttpService {
 
   revertCommit = (branch: string): Observable<unknown> =>
     this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
+
+  // View
+
+  allStudyProgramAtomic = (): Observable<StudyProgramAtomic[]> =>
+    this.http.get<StudyProgramAtomic[]>('studyPrograms/view')
+
+  allModuleAtomic = (): Observable<ModuleAtomic[]> =>
+    this.http.get<ModuleAtomic[]>('modules/view')
 }
