@@ -17,7 +17,7 @@ export function toModuleTableEntry(module: ModuleAtomic, selectedStudyProgramId?
     isSpecialization: module.studyProgram.some(s => s.specialization),
     moduleManagementStr: module.moduleManagement.map(showPersonShort).join('; '),
     recommendedSemesterStr: formatSemester(module, selectedStudyProgramId),
-    studyProgramsStr: () => !selectedStudyProgramId ? formatStudyPrograms([...module.studyProgram]) : []
+    studyProgramsStr: () => !selectedStudyProgramId ? formatStudyPrograms([...module.studyProgram]) : [],
   }
 }
 
