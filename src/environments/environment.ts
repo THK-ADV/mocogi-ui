@@ -5,5 +5,5 @@ export const environment = {
     url: 'https://auth.gm.fh-koeln.de:8444/auth',
     realm: 'schedule',
     clientId: 'frontend-dev',
-  }
+  },
 }
