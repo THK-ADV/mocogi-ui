@@ -8,16 +8,16 @@ import { PersonShort } from '../types/module-atomic'
 
 export const showPerson: Show<Person> = p => {
   switch (p.kind) {
-    case 'single':
+    case 'default':
       return `${p.lastname}, ${p.firstname}`
     case 'group':
-      return p.title
+      return p.label
     case 'unknown':
-      return p.title
+      return p.label
   }
 }
 export const showPersonShort: Show<PersonShort> = p =>
-  p.kind === 'single' ? `${p.lastname}, ${p.firstname}` : p.title
+  p.kind === 'default' ? `${p.lastname}, ${p.firstname}` : p.title
 
 // TODO temporary fix for handling 'flex issue'. see: https://git.st.archi-lab.io/adobryni/modulhandbuecher_test/-/issues/3
 export const showStudyProgramAtomic: Show<StudyProgramAtomic> = (
