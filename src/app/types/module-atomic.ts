@@ -1,9 +1,11 @@
 import { SpecializationShort } from './study-program-atomic'
 
+export type PersonShortKind = 'default' | 'group' | 'unknown'
+
 export interface PersonShort {
   id: string,
   abbrev: string,
-  kind: string,
+  kind: PersonShortKind,
   title: string,
   firstname: string,
   lastname: string

@@ -29,7 +29,7 @@ function titleFilter(filter: string) {
     m.abbrev.toLowerCase().includes(filter) ||
     m.moduleManagement.some(p => {
         switch (p.kind) {
-          case 'single':
+          case 'default':
             return p.abbrev.toLowerCase().includes(filter) ||
               p.lastname.toLowerCase().includes(filter) ||
               p.firstname.toLowerCase().includes(filter)

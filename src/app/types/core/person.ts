@@ -1,27 +1,28 @@
 import { Faculty } from './faculty'
 
-export type Person = SinglePerson | UnknownPerson | GroupPerson
+export type Person = DefaultPerson | UnknownPerson | GroupPerson
 
-export interface SinglePerson {
+export interface DefaultPerson {
   id: string
   lastname: string
   firstname: string
   title: string
   faculties: Faculty[]
   abbreviation: string
+  campusId: string
   status: PersonStatus
-  kind: 'single'
+  kind: 'default'
 }
 
 export interface UnknownPerson {
   id: string
-  title: string
+  label: string
   kind: 'unknown'
 }
 
 export interface GroupPerson {
   id: string
-  title: string
+  label: string
   kind: 'group'
 }
 

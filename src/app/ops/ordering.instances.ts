@@ -12,7 +12,7 @@ export const stringOrd: Ordering<string> = (lhs, rhs) => {
 export const peopleOrd = Ordering.many<Person>([
   Ordering.contraMap(numberOrd, ({kind}) => {
     switch (kind) {
-      case 'single':
+      case 'default':
         return 0
       case 'group':
         return 1
@@ -22,12 +22,12 @@ export const peopleOrd = Ordering.many<Person>([
   }),
   Ordering.contraMap(stringOrd, (p) => {
     switch (p.kind) {
-      case 'single':
+      case 'default':
         return p.lastname
       case 'unknown':
-        return p.title
+        return p.label
       case 'group':
-        return p.title
+        return p.label
     }
   }),
 ])
