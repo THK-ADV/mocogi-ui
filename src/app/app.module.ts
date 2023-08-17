@@ -64,13 +64,15 @@ import { CoordinatorFilterComponent } from './module/module-filter/coordinator-f
 import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { initializeKeycloak } from './keycloak/keycloak-init'
 import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { AppRailComponent } from './components/app-rail/app-rail.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'
-import { LoaderComponent } from './components/loader/loader.component'
+import { LoaderComponent } from './components/loader/loader.component';
+import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
 
 @NgModule({
   declarations: [
@@ -108,6 +110,7 @@ import { LoaderComponent } from './components/loader/loader.component'
     AppRailComponent,
     NavBarComponent,
     LoaderComponent,
+    MyModulesPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,6 +125,7 @@ import { LoaderComponent } from './components/loader/loader.component'
     MatTooltipModule,
     MatIconModule,
     MatPaginatorModule,
+    MatProgressBarModule,
     NgbModule,
     RouterOutlet,
     MatToolbarModule,

@@ -15,6 +15,7 @@ export class AppComponent {
     // { type: 'LINK', text: 'Modulhandbücher', icon: 'apps', url: '#' },
     { type: 'HEADER', text: 'Verwaltung' },
     { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'modules' },
+    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'my-modules' },
     // { type: 'LINK', text: 'Freigaben', icon: 'apps', url: '#' },
   ]
   railItems: Array<CopsAppRailItem> = [
