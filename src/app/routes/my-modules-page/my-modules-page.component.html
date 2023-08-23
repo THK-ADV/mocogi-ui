@@ -1,26 +1,6 @@
 <div class="layout">
   <h1>Änderungen</h1>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z1" matSort>
-    <!-- Select -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          (change)="$event ? toggleAllRows() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()"
-          [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
-          [checked]="selection.isSelected(row)"
-          [aria-label]="checkboxLabel(row)"
-        >
-        </mat-checkbox>
-      </td>
-    </ng-container>
     <!-- Name -->
     <ng-container matColumnDef="module">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -38,7 +18,7 @@
         Status
       </th>
       <td mat-cell *matCellDef="let element">
-        <mat-chip [color]="element.status.color">{{element.status.label}}</mat-chip>
+        <mat-chip disabled [color]="element.status.color">{{element.status.label}}</mat-chip>
       </td>
     </ng-container>
     <!-- Actions -->
@@ -48,26 +28,31 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <div class="inline">
-          <button mat-stroked-button *ngIf="element.status.label==='Waiting for Approval'||element.status.label==='Will be published on 12.12.2023'">
-            <mat-icon>pause</mat-icon>
-            Back to Draft
-          </button>
-          <button mat-stroked-button *ngIf="element.status.label==='Valid draft'">
-            <mat-icon>publish</mat-icon>
-            Publish
-          </button>
-          <button mat-stroked-button *ngIf="element.status.label==='Valid draft'">
-            <mat-icon>approval</mat-icon>
-            Request review
-          </button>
-          <button mat-stroked-button color="red" *ngIf="element.status.label==='Valid draft' || element.status.label==='Invalid draft' || element.status.label==='Published'">
+          <button mat-stroked-button *ngIf="element.status.label==='Valid for review' || element.status.label==='Valid for publication' || element.status.label==='Invalid draft' || element.status.label==='Published'">
             <mat-icon>edit</mat-icon>
             Edit
           </button>
-          <button mat-stroked-button color="red" *ngIf="element.status.label!=='Published'">
-            <mat-icon>undo</mat-icon>
-            Discard
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="element.status.label==='Valid for publication'">
+              <mat-icon>publish</mat-icon>
+              Publish
+            </button>
+            <button mat-menu-item *ngIf="element.status.label==='Valid for review'">
+              <mat-icon>approval</mat-icon>
+              Request review
+            </button>
+            <button mat-menu-item *ngIf="element.status.label==='Waiting for approval'||element.status.label==='Will be published on 12.12.2023'">
+              <mat-icon>pause</mat-icon>
+              Stop publication
+            </button>
+            <button mat-menu-item color="warn" *ngIf="element.status.label!=='Published'">
+              <mat-icon>undo</mat-icon>
+              Discard changes
+            </button>
+          </mat-menu>
         </div>
       </td>
     </ng-container>

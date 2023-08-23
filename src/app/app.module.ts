@@ -71,8 +71,9 @@ import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.comp
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { AppRailComponent } from './components/app-rail/app-rail.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'
-import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderComponent } from './components/loader/loader.component'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
+import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page
     KeycloakAngularModule,
     ThKoelnBarComponent,
     MatSidenavModule,
+    MatMenuModule,
   ],
   providers: [
     {

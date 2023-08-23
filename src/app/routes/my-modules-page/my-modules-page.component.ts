@@ -14,16 +14,18 @@ type Status = {
 }
 
 const ModuleUpdateStatus = {
-  'waitingForApproval': { label: 'Waiting for Approval', color: 'secondary'},
+  'waitingForApproval': { label: 'Waiting for approval', color: 'secondary'},
   'waitingForPublication': { label: 'Will be published on 12.12.2023', color: 'primary'},
   'invalid': { label: 'Invalid draft', color: 'primary'},
-  'valid': { label: 'Valid draft', color: 'primary'},
+  'validForReview': { label: 'Valid for publication', color: 'primary'},
+  'validForPublication': { label: 'Valid for review', color: 'primary'},
   'published': { label: 'Published', color: 'primary'},
 }
 
 const rawData: Update[] = [
   { module: 'Beautiful Code', status: ModuleUpdateStatus.waitingForApproval },
-  { module: 'Projektanteil Projekt 1', status: ModuleUpdateStatus.valid },
+  { module: 'Projektanteil Projekt 1', status: ModuleUpdateStatus.validForPublication },
+  { module: 'Projektanteil Projekt 2', status: ModuleUpdateStatus.validForReview },
   { module: 'Computer Supported Collaborative Learning', status: ModuleUpdateStatus.invalid },
   { module: 'Projektarbeit - Forschung, Evaluation/Assessment, Verwertung im Kontext des Studienschwerpunkts', status: ModuleUpdateStatus.waitingForPublication },
   { module: 'Paradigmen der Programmierung', status: ModuleUpdateStatus.waitingForPublication },
@@ -40,34 +42,12 @@ const rawData: Update[] = [
 
 export class MyModulesPageComponent {
   
-  displayedColumns: string[] = ['select', 'module',  'status', 'actions']
+  displayedColumns: string[] = ['module',  'status', 'actions']
   dataSource: MatTableDataSource<Update> 
   selection = new SelectionModel<Update>(true, [])
   sort: MatSort = new MatSort()
 
   constructor() {
     this.dataSource = new MatTableDataSource<Update>(rawData)
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length
-    const numRows = this.dataSource.data.length
-    return numSelected === numRows
-  }
-
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear()
-      return
-    }
-
-    this.selection.select(...this.dataSource.data)
-  }
-
-  checkboxLabel(row?: Update): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`
   }
 }
