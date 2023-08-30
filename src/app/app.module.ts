@@ -73,7 +73,8 @@ import { AppRailComponent } from './components/app-rail/app-rail.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 import { LoaderComponent } from './components/loader/loader.component'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
-import { MatMenuModule } from '@angular/material/menu'
+import { MatMenuModule } from '@angular/material/menu';
+import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { MatMenuModule } from '@angular/material/menu'
     NavBarComponent,
     LoaderComponent,
     MyModulesPageComponent,
+    UpdateModulePageComponent,
   ],
   imports: [
     BrowserModule,
