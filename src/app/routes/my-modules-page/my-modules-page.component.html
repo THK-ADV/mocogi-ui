@@ -7,7 +7,7 @@
         Modul
       </th>
       <td mat-cell *matCellDef="let element">
-        <a href="#">
+        <a [routerLink]="['/modules', element.id]">
           {{element.module}}
         </a>
       </td>
@@ -28,7 +28,11 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <div class="inline">
-          <button mat-stroked-button *ngIf="element.status.label==='Valid for review' || element.status.label==='Valid for publication' || element.status.label==='Invalid draft' || element.status.label==='Published'">
+          <button
+            mat-stroked-button
+            *ngIf="element.status.label==='Valid for review' || element.status.label==='Valid for publication' || element.status.label==='Invalid draft' || element.status.label==='Published'"
+            [routerLink]="['/modules', element.id, 'edit']"
+          >
             <mat-icon>edit</mat-icon>
             Edit
           </button>

@@ -117,7 +117,7 @@ export class AppStateService implements OnDestroy {
 
   getModulesForUser = (user: string) => {
     this.addSubscription(
-      updateArrayState(this.usersModules, () => this.http.allModulesForUser(user)),
+      updateArrayState(this.usersModules, () => this.http.allModules()),
     )
   }
 

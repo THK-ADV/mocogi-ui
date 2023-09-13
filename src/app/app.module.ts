@@ -73,8 +73,10 @@ import { AppRailComponent } from './components/app-rail/app-rail.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 import { LoaderComponent } from './components/loader/loader.component'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu'
 import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
+import { MatStepperModule } from '@angular/material/stepper'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 @NgModule({
   declarations: [
@@ -116,6 +118,7 @@ import { UpdateModulePageComponent } from './routes/update-module-page/update-mo
     UpdateModulePageComponent,
   ],
   imports: [
+    MatStepperModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -153,6 +156,7 @@ import { UpdateModulePageComponent } from './routes/update-module-page/update-mo
     ThKoelnBarComponent,
     MatSidenavModule,
     MatMenuModule,
+    MatExpansionModule,
   ],
   providers: [
     {

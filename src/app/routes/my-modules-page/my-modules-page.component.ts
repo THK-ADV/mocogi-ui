@@ -3,7 +3,8 @@ import { SelectionModel } from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatSort } from '@angular/material/sort'
 
-type Update = {
+type Module = {
+  id: string,
   module: string,
   status: Status,
 }
@@ -22,16 +23,16 @@ const ModuleUpdateStatus = {
   'published': { label: 'Published', color: 'primary'},
 }
 
-const rawData: Update[] = [
-  { module: 'Beautiful Code', status: ModuleUpdateStatus.waitingForApproval },
-  { module: 'Projektanteil Projekt 1', status: ModuleUpdateStatus.validForPublication },
-  { module: 'Projektanteil Projekt 2', status: ModuleUpdateStatus.validForReview },
-  { module: 'Computer Supported Collaborative Learning', status: ModuleUpdateStatus.invalid },
-  { module: 'Projektarbeit - Forschung, Evaluation/Assessment, Verwertung im Kontext des Studienschwerpunkts', status: ModuleUpdateStatus.waitingForPublication },
-  { module: 'Paradigmen der Programmierung', status: ModuleUpdateStatus.waitingForPublication },
-  { module: 'Soziotechnische Systeme', status: ModuleUpdateStatus.waitingForApproval },
-  { module: 'Coding Excellence', status: ModuleUpdateStatus.published },
-  { module: 'Soziotechnische Entwurfsmuster', status: ModuleUpdateStatus.published },
+const rawData: Module[] = [
+  { id: '10dd7848-4710-11ee-be56-0242ac120002', module: 'Beautiful Code', status: ModuleUpdateStatus.waitingForApproval },
+  { id: '10dd7bd6-4710-11ee-be56-0242ac120002', module: 'Projektanteil Projekt 1', status: ModuleUpdateStatus.validForPublication },
+  { id: '10dd7fb4-4710-11ee-be56-0242ac120002', module: 'Projektanteil Projekt 2', status: ModuleUpdateStatus.validForReview },
+  { id: '10dd80e0-4710-11ee-be56-0242ac120002', module: 'Computer Supported Collaborative Learning', status: ModuleUpdateStatus.invalid },
+  { id: '10dd81da-4710-11ee-be56-0242ac120002', module: 'Projektarbeit - Forschung, Evaluation/Assessment, Verwertung im Kontext des Studienschwerpunkts', status: ModuleUpdateStatus.waitingForPublication },
+  { id: '10dd82de-4710-11ee-be56-0242ac120002', module: 'Paradigmen der Programmierung', status: ModuleUpdateStatus.waitingForPublication },
+  { id: '10dd8446-4710-11ee-be56-0242ac120002', module: 'Soziotechnische Systeme', status: ModuleUpdateStatus.waitingForApproval },
+  { id: '10dd8540-4710-11ee-be56-0242ac120002', module: 'Coding Excellence', status: ModuleUpdateStatus.published },
+  { id: '10dd8630-4710-11ee-be56-0242ac120002', module: 'Soziotechnische Entwurfsmuster', status: ModuleUpdateStatus.published },
 ]
 
 @Component({
@@ -43,11 +44,11 @@ const rawData: Update[] = [
 export class MyModulesPageComponent {
   
   displayedColumns: string[] = ['module',  'status', 'actions']
-  dataSource: MatTableDataSource<Update> 
-  selection = new SelectionModel<Update>(true, [])
+  dataSource: MatTableDataSource<Module> 
+  selection = new SelectionModel<Module>(true, [])
   sort: MatSort = new MatSort()
 
   constructor() {
-    this.dataSource = new MatTableDataSource<Update>(rawData)
+    this.dataSource = new MatTableDataSource<Module>(rawData)
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable } from 'rxjs'
+import { map, Observable, of } from 'rxjs'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -117,10 +117,13 @@ export class HttpService {
 
   // Branch
 
-  branchForUser = (username: string): Observable<UserBranch | undefined> =>
-    this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
-      map(b => b ? b : undefined),
-    )
+  branchForUser = (username: string): Observable<UserBranch | undefined> => {
+    const branch: UserBranch = {user: 'yannic', branch: 'test'}
+    return of(branch)
+  }
+    //this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
+    //  map(b => b ? b : undefined),
+    //)
 
   createBranch = (username: string): Observable<UserBranch> =>
     this.http.post<UserBranch>('git/branch', {'username': username})
