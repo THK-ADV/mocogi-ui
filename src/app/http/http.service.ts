@@ -45,6 +45,9 @@ export class HttpService {
   allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules')
 
+  ownModules = (): Observable<Module[]> =>
+    this.http.get<Module[]>('modules/own')
+
   allModulesForUser = (user: string): Observable<Module[]> =>
     this.http.get<Module[]>(`modules?user=${user}`)
 
@@ -132,6 +135,11 @@ export class HttpService {
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
     this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
+      map(xs => xs.map(this.convertModuleDraft)),
+    )
+
+  ownModuleDrafts = (): Observable<ModuleDraft[]> =>
+    this.http.get<ModuleDraftJson[]>('moduleDrafts/own').pipe(
       map(xs => xs.map(this.convertModuleDraft)),
     )
 

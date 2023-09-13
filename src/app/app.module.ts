@@ -77,6 +77,8 @@ import { MatMenuModule } from '@angular/material/menu'
 import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
 import { MatStepperModule } from '@angular/material/stepper'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { myModulesReducer } from './state/reducer/my-modules.reducer'
+import { MyModuleEffects } from './state/effects/my-modules-effects.service'
 
 @NgModule({
   declarations: [
@@ -143,8 +145,12 @@ import { MatExpansionModule } from '@angular/material/expansion'
     MatCheckboxModule,
     MatCardModule,
     MatSlideToggleModule,
-    StoreModule.forRoot({module: moduleReducer, moduleFilter: moduleFilterReducer}, {}),
-    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects]),
+    StoreModule.forRoot({
+      module: moduleReducer,
+      moduleFilter: moduleFilterReducer,
+      myModules: myModulesReducer,
+    }, {}),
+    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects, MyModuleEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,
     }),
