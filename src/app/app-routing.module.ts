@@ -25,6 +25,10 @@ const routes: Routes = [
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
+    path: 'modules/:id',
+    component: ModuleCompendiumHtmlComponent,
+  },
+  {
     path: 'modules/:id/edit',
     component: UpdateModulePageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),

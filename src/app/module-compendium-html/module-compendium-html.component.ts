@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { HttpService } from '../http/http.service'
 import { Observable } from 'rxjs'
 import { Location as AngularLocation } from '@angular/common'
@@ -16,11 +16,11 @@ export class ModuleCompendiumHtmlComponent {
   moduleCompendium?: Observable<ModuleCompendium>
 
   constructor(
-    private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly http: HttpService,
     private readonly location: AngularLocation,
   ) {
-    const id: string | null | undefined = this.router.getCurrentNavigation()?.extras?.state?.['id']
+    const id: string | null | undefined = this.route.snapshot.paramMap.get('id')
     if (id) {
       http.moduleCompendiumHtmlFile(id).subscribe((value) => {
         console.log(this.shadowRootDiv?.nativeElement);
