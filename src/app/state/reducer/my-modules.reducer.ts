@@ -22,6 +22,11 @@ export const myModulesReducer = createReducer(
       ...state,
     }
   }),
+  on(MyModulesPageActions.showModule, (state): State => {
+    return {
+      ...state,
+    }
+  }),
   on(MyModulesApiActions.retrievedModulesSuccess, (state, {modules}): State => {
     return {
       ...state,
@@ -32,6 +37,12 @@ export const myModulesReducer = createReducer(
     return {
       ...state,
       moduleDrafts,
+    }
+  }),
+  on(MyModulesApiActions.retrievedError, (state, {error}): State => {
+    return {
+      ...state,
+      error,
     }
   }),
   on(MyModulesApiActions.retrievedError, (state, {error}): State => {

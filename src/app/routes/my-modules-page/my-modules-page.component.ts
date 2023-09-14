@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatSort } from '@angular/material/sort'
 import { Store } from '@ngrx/store'
 import { MyModulesPageActions } from 'src/app/state/actions/my-modules.action'
-import { selectModulesWithModuleDrafts } from 'src/app/state/selectors/my-modules.selectors'
+import { ModeratedModule, selectModulesWithModuleDrafts } from 'src/app/state/selectors/my-modules.selectors'
 import { ModuleDraft } from 'src/app/types/module-draft'
 import { Observable } from 'rxjs'
 import { Module } from 'src/app/types/module'
@@ -50,10 +50,10 @@ import { Module } from 'src/app/types/module'
 export class MyModulesPageComponent implements OnInit {
   
   displayedColumns: string[] = ['module',  'status', 'actions']
-  dataSource: MatTableDataSource<[Module, ModuleDraft | undefined]> = new MatTableDataSource()
+  dataSource: MatTableDataSource<ModeratedModule> = new MatTableDataSource()
   selection = new SelectionModel<Module>(true, [])
   sort: MatSort = new MatSort()
-  modules$: Observable<[Module, ModuleDraft | undefined][]>
+  modules$: Observable<ModeratedModule[]>
 
   constructor(private readonly store: Store) {
     this.modules$ = store.select(selectModulesWithModuleDrafts)
@@ -63,9 +63,17 @@ export class MyModulesPageComponent implements OnInit {
     this.store.dispatch(MyModulesPageActions.enter())
   }
 
-  getDataSource = (data: [Module, ModuleDraft | undefined][]  | null)  => {
+  getDataSource = (data: ModeratedModule[]  | null)  => {
     console.log(data)
     this.dataSource.data = data ?? []
     return this.dataSource
+  }
+
+  showModule(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.showModule({ moduleId }))
+  }
+
+  editModule(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.editModule({ moduleId }))
   }
 }

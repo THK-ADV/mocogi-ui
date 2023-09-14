@@ -6,10 +6,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         Modul
       </th>
-      <td mat-cell *matCellDef="let element">
-        <a [routerLink]="['/modules', element.id]">
-          {{element[0].title}} ({{element[0].abbrev}})
-        </a>
+      <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)">
+        <span (click)="showModule(element.module.id)" class="clickable">{{element.module.title}} ({{element.module.abbrev}})</span>
       </td>
     </ng-container>
     <!-- Status -->
@@ -18,7 +16,7 @@
         Status
       </th>
       <td mat-cell *matCellDef="let element">
-        <mat-chip disabled [color]="element.status.color">{{element.status.label}}</mat-chip>
+        <mat-chip disabled>Sample</mat-chip>
       </td>
     </ng-container>
     <!-- Actions -->
@@ -30,29 +28,29 @@
         <div class="inline">
           <button
             mat-stroked-button
-            *ngIf="element.status.label==='Valid for review' || element.status.label==='Valid for publication' || element.status.label==='Invalid draft' || element.status.label==='Published'"
-            [routerLink]="['/modules', element.id, 'edit']"
+            *ngIf="element[1] === undefined"
+            (click)="editModule(element.module.id)"
           >
             <mat-icon>edit</mat-icon>
             Edit
           </button>
-          <button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="element.status.label==='Published'">
+          <button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="true">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="element.status.label==='Valid for publication'">
+            <button mat-menu-item *ngIf="true">
               <mat-icon>publish</mat-icon>
               Publish
             </button>
-            <button mat-menu-item *ngIf="element.status.label==='Valid for review'">
+            <button mat-menu-item *ngIf="true">
               <mat-icon>approval</mat-icon>
               Request review
             </button>
-            <button mat-menu-item *ngIf="element.status.label==='Waiting for approval'||element.status.label==='Will be published on 12.12.2023'">
+            <button mat-menu-item *ngIf="true">
               <mat-icon>pause</mat-icon>
               Stop publication
             </button>
-            <button mat-menu-item color="warn" *ngIf="element.status.label!=='Published'">
+            <button mat-menu-item color="warn" *ngIf="true">
               <mat-icon>undo</mat-icon>
               Discard changes
             </button>
