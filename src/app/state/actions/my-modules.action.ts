@@ -1,6 +1,4 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Sort } from '@angular/material/sort'
-import { ModuleAtomic } from '../../types/module-atomic'
 import { Module } from 'src/app/types/module'
 import { ModuleDraft } from 'src/app/types/module-draft'
 
