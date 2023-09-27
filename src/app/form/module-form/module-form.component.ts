@@ -5,16 +5,25 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
+import { KeyValue } from '@angular/common'
 
-type Language = 'de' | 'en'
-type LocalizedInput<A, B> = { input: FormInput<A, B>, language?: Language}
+export type Language = 'de' | 'en'
+
+export type LocalizedInput<A, B> = { input: FormInput<A, B>, language?: Language}
+
+export type Section<A,B> = {
+  header: string,
+  rows: Rows<A, B>
+}
+
+export type Rows<A, B> = { 
+  [key: string]: NonEmptyArray<LocalizedInput<A, B>> 
+}
+
 export interface ModuleForm<A, B> {
   objectName: string
   editType: EditType
-  sections: {
-    header: string,
-    rows: { [key: string]: NonEmptyArray<LocalizedInput<A, B>> }
-  }[]
+  sections: Section<A, B>[]
 }
 
 type EditType = 'create' | 'update'
@@ -89,4 +98,8 @@ export class ModuleFormComponent<A, B> implements OnInit {
 
   formControl = (attr: string) =>
     this.formGroup.get(attr) as FormControl
+
+  originalOrder = (): number => {
+    return 0
+  }
 }

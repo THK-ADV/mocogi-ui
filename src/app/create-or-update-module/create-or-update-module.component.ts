@@ -17,7 +17,7 @@ import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
 
-function toPOPreview(
+export function toPOPreview(
   pos: ReadonlyArray<PO>,
   studyPrograms: ReadonlyArray<StudyProgram>,
   grades: ReadonlyArray<Grade>,

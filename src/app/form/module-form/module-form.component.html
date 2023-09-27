@@ -4,7 +4,7 @@
   <div mat-dialog-content>
     <ng-container *ngFor="let section of moduleForm.sections">
       <h2>{{section.header}}</h2>
-      <div class="container-row"  *ngFor="let row of section.rows | keyvalue">
+      <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
         <ng-container *ngFor="let input of row.value" ngSwitch="input.input.kind">
           <cops-options-input
             *ngSwitchCase="'options'"

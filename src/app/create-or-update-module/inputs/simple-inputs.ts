@@ -17,6 +17,8 @@ import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Module } from '../../types/module'
 import { showLabel } from '../../ops/show.instances'
+import { NonEmptyArray } from 'src/app/types/non-empty-array'
+import { LocalizedInput, Rows } from 'src/app/form/module-form/module-form.component'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -30,7 +32,7 @@ export function simpleInput(
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: MetadataLike,
   metadataId?: string,
-) {
+):  Rows<unknown, unknown> {
   function titleInput(): TextInput {
     return {
       kind: 'text',
@@ -213,17 +215,23 @@ export function simpleInput(
     return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadataId)
   }
 
-  return <FormInput<unknown, unknown>[]>[
-    titleInput(),
-    abbreviationInput(),
-    moduleTypesInput(),
-    creditsInput(),
-    languagesInput(),
-    durationInput(),
-    frequencyInput(),
-    locationsInput(),
-    statusInput(),
-    participantsInput(),
-    moduleRelationInput(),
-  ]
+  return {
+    'title': [{input: titleInput()}],
+    'abbrev': [{input: abbreviationInput()}],
+
+  }
+
+  // return <FormInput<unknown, unknown>[]>[
+  //   titleInput(),
+  //   abbreviationInput(),
+  //   moduleTypesInput(),
+  //   creditsInput(),
+  //   languagesInput(),
+  //   durationInput(),
+  //   frequencyInput(),
+  //   locationsInput(),
+  //   statusInput(),
+  //   participantsInput(),
+  //   moduleRelationInput(),
+  // ]
 }

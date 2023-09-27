@@ -28,6 +28,8 @@ import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
 import { ModuleCompendiumLike } from '../../types/module-compendium'
 import { FormInput } from '../../form/form-input'
+import { NonEmptyArray } from 'src/app/types/non-empty-array'
+import { LocalizedInput, Section } from 'src/app/form/module-form/module-form.component'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -53,15 +55,15 @@ export function inputs(
   fromControlValueForAttr: (attr: string) => unknown,
   moduleCompendium?: ModuleCompendiumLike,
   metadataId?: string,
-): { header: string, value: FormInput<unknown, unknown>[] }[] {
+): Section<unknown, unknown>[] {
   const metadata = moduleCompendium?.metadata
   const deContent = moduleCompendium?.deContent
   const enContent = moduleCompendium?.enContent
 
-  function generalInformationSection() {
+  function generalInformationSection(): Section<unknown, unknown> {
     return {
       header: 'Allgemeine Informationen',
-      value: simpleInput(
+      rows: simpleInput(
         dialog,
         moduleTypes,
         languages,
@@ -251,16 +253,16 @@ export function inputs(
 
   return [
     generalInformationSection(),
-    responsibilitySection(),
-    assessmentMethodsSection(),
-    workloadSection(),
-    prerequisitesSection(),
-    poSection(),
-    miscellaneousSection(),
-    learningOutcomeContentSection(),
-    moduleContentSection(),
-    learningMethodsContentSection(),
-    literatureContentSection(),
-    particularitiesContentSection(),
+    // responsibilitySection(),
+    // assessmentMethodsSection(),
+    // workloadSection(),
+    // prerequisitesSection(),
+    // poSection(),
+    // miscellaneousSection(),
+    // learningOutcomeContentSection(),
+    // moduleContentSection(),
+    // learningMethodsContentSection(),
+    // literatureContentSection(),
+    // particularitiesContentSection(),
   ]
 }
