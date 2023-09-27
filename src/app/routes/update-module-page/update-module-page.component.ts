@@ -19,8 +19,6 @@ export class UpdateModulePageComponent {
     {title: '03.03.2021', index: 1, status: 'past'},
   ]
 
-  test = ['1', '2', '3']
-
   constructor(private route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id')
   }
