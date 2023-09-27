@@ -1,17 +1,14 @@
 import { createReducer, on } from '@ngrx/store'
-import { Module } from 'src/app/types/module'
-import { ModuleDraft } from 'src/app/types/module-draft'
 import { MyModulesApiActions, MyModulesPageActions } from '../actions/my-modules.action'
+import { ModeratedModule } from '../../types/moderated.module'
 
 export interface State {
-  modules: ReadonlyArray<Module>
-  moduleDrafts: ReadonlyArray<ModuleDraft>
+  moderatedModules: ReadonlyArray<ModeratedModule>
   error?: Error
 }
 
 const initialState: State = {
-  modules: [],
-  moduleDrafts: [],
+  moderatedModules: [],
   error: undefined,
 }
 
@@ -27,16 +24,10 @@ export const myModulesReducer = createReducer(
       ...state,
     }
   }),
-  on(MyModulesApiActions.retrievedModulesSuccess, (state, {modules}): State => {
+  on(MyModulesApiActions.retrievedModeratedModulesSuccess, (state, {moderatedModules}): State => {
     return {
       ...state,
-      modules,
-    }
-  }),
-  on(MyModulesApiActions.retrievedModuleDraftsSuccess, (state, {moduleDrafts}): State => {
-    return {
-      ...state,
-      moduleDrafts,
+      moderatedModules,
     }
   }),
   on(MyModulesApiActions.retrievedError, (state, {error}): State => {

@@ -78,7 +78,8 @@ import { UpdateModulePageComponent } from './routes/update-module-page/update-mo
 import { MatStepperModule } from '@angular/material/stepper'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { myModulesReducer } from './state/reducer/my-modules.reducer'
-import { MyModuleEffects } from './state/effects/my-modules-effects.service'
+import { MyModuleEffects } from './state/effects/my-modules-effects.service';
+import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list/my-modules-list.component'
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { MyModuleEffects } from './state/effects/my-modules-effects.service'
     LoaderComponent,
     MyModulesPageComponent,
     UpdateModulePageComponent,
+    MyModulesListComponent,
   ],
   imports: [
     MatStepperModule,

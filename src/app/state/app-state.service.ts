@@ -127,10 +127,10 @@ export class AppStateService implements OnDestroy {
   // Users Branch
 
   private forceUpdateBranchForUser = (username: string) => {
-    this.subs.push(
-      this.http.branchForUser(username)
-        .subscribe(this.updateUsersBranch),
-    )
+    // this.subs.push(
+    //   this.http.branchForUser(username)
+    //     .subscribe(this.updateUsersBranch),
+    // )
   }
 
   getBranchForUser = (username: string) => {

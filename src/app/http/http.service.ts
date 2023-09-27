@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable, of } from 'rxjs'
+import { map, Observable } from 'rxjs'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -19,23 +19,34 @@ import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
-import { Specialization } from '../types/specialization'
 import { StudyProgramAtomic } from '../types/study-program-atomic'
 import { ModuleAtomic } from '../types/module-atomic'
+import { asRecord } from '../parser/record-parser'
+import { Content } from '../types/content'
+
+import { ModeratedModule, ModuleStatus } from '../types/moderated.module'
 
 interface ModuleDraftJson {
   module: string
-  data: string
+  user: string
   branch: string
-  status: ModuleDraftStatus,
+  status: ModuleDraftStatus
+  data: string
+  keysToBeReviewed: ReadonlyArray<string>
+  modifiedKeys: ReadonlyArray<string>
   lastModified: string
+}
+
+interface ModeratedModuleJson {
+  module: Module
+  moduleDraft: ModuleDraftJson | undefined
+  status: ModuleStatus
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-
 
   constructor(private readonly http: HttpClient) {
   }
@@ -47,14 +58,6 @@ export class HttpService {
 
   ownModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules/own')
-
-  allModulesForUser = (user: string): Observable<Module[]> =>
-    this.http.get<Module[]>(`modules?user=${user}`)
-
-  // Metadata
-
-  allModuleMetadata = (): Observable<Metadata[]> =>
-    this.http.get<Metadata[]>('metadata')
 
   // Module Compendium
 
@@ -115,18 +118,7 @@ export class HttpService {
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
 
-  allSpecializations = (): Observable<Specialization[]> =>
-    this.http.get<Specialization[]>('specializations')
-
   // Branch
-
-  branchForUser = (username: string): Observable<UserBranch | undefined> => {
-    const branch: UserBranch = {user: 'yannic', branch: 'test'}
-    return of(branch)
-  }
-    //this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
-    //  map(b => b ? b : undefined),
-    //)
 
   createBranch = (username: string): Observable<UserBranch> =>
     this.http.post<UserBranch>('git/branch', {'username': username})
@@ -138,9 +130,14 @@ export class HttpService {
       map(xs => xs.map(this.convertModuleDraft)),
     )
 
-  ownModuleDrafts = (): Observable<ModuleDraft[]> =>
-    this.http.get<ModuleDraftJson[]>('moduleDrafts/own').pipe(
-      map(xs => xs.map(this.convertModuleDraft)),
+  moderatedModules = (): Observable<ModeratedModule[]> =>
+    this.http.get<ModeratedModuleJson[]>('moduleDrafts/own').pipe(
+      map(xs => xs.map(x => {
+        return {
+          ...x,
+          moduleDraft: x.moduleDraft != null ? this.convertModuleDraft(x.moduleDraft) : undefined,
+        }
+      })),
     )
 
   addToDrafts = (
@@ -159,8 +156,14 @@ export class HttpService {
     return request.pipe(map(this.convertModuleDraft))
   }
 
-  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft =>
-    ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
+  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
+    const mc: ModuleCompendiumProtocol = { // TODO improve
+      deContent: asRecord(draft.data)['deContent'] as Content,
+      enContent: asRecord(draft.data)['enContent'] as Content,
+      metadata: asRecord(draft.data)['metadata'] as Metadata,
+    }
+    return ({...draft, lastModified: new Date(draft.lastModified), data: mc})
+  }
 
   // Validation
 

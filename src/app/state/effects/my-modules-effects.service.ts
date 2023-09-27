@@ -10,47 +10,29 @@ export class MyModuleEffects {
 
   showModule$ = createEffect(() => {
       return this.actions$.pipe(
-      ofType(MyModulesPageActions.showModule),
-      tap(({ moduleId }) => {
-        console.log(moduleId)
-        this.router.navigate(['/modules', moduleId])
-      })
-    )},
-    { dispatch: false }
+        ofType(MyModulesPageActions.showModule),
+        tap(({moduleId}) => this.router.navigate(['/modules', moduleId]))
+      )
+    },
+    {dispatch: false}
   )
 
   editModule$ = createEffect(() => {
       return this.actions$.pipe(
-      ofType(MyModulesPageActions.editModule),
-      tap(({ moduleId }) => {
-        console.log(moduleId)
-        this.router.navigate(['/modules', moduleId, 'edit'])
-      })
-    )},
-    { dispatch: false }
-  )
-
-  fetchModules$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(MyModulesPageActions.enter),
-        exhaustMap(() =>
-          this.service.ownModules().pipe(
-            map((modules) => {
-              console.log(modules)
-              return MyModulesApiActions.retrievedModulesSuccess({ modules })
-            }),
-          ),
-        ),
+        ofType(MyModulesPageActions.editModule),
+        tap(({moduleId}) => this.router.navigate(['/modules', moduleId, 'edit']))
       )
     },
+    {dispatch: false}
   )
 
-  fetchModuleDrafts$ = createEffect(() => {
+  fetchModeratedModules$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(MyModulesPageActions.enter),
         exhaustMap(() =>
-          this.service.ownModuleDrafts().pipe(
-            map((moduleDrafts) => MyModulesApiActions.retrievedModuleDraftsSuccess({ moduleDrafts })),
+          this.service.moderatedModules().pipe(
+            map((moderatedModules) =>
+              MyModulesApiActions.retrievedModeratedModulesSuccess({moderatedModules}))
           ),
         ),
       )

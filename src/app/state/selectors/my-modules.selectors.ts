@@ -1,44 +1,28 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/my-modules.reducer'
-import { Module } from 'src/app/types/module'
-import { ModuleDraft } from 'src/app/types/module-draft'
 
-enum ModuleStatus {
-  UNKNOWN,
-  PUBLISHED
-}
+// const ModuleUpdateStatus = {
+//   'waitingForApproval': { label: 'Waiting for approval', color: 'secondary'},
+//   'waitingForPublication': { label: 'Will be published on 12.12.2023', color: 'primary'},
+//   'invalid': { label: 'Invalid draft', color: 'primary'},
+//   'validForReview': { label: 'Valid for publication', color: 'primary'},
+//   'validForPublication': { label: 'Valid for review', color: 'primary'},
+//   'published': { label: 'Published', color: 'primary'},
+// }
 
-export type ModeratedModule = { module: Module, moduleDraft:ModuleDraft | undefined, status: ModuleStatus }
+// canDiscard = ([, d]: [Module, ModuleDraft | undefined]) =>
+//   d && d.mergeRequestId == null
+//
+// canSubmitReview = ([, d]: [Module, ModuleDraft | undefined]) =>
+//   d && d.mergeRequestId == null
+//
+// canEdit = ([, d]: [Module, ModuleDraft | undefined]) =>
+//   d?.mergeRequestId == null
+
 
 const selectMyModulesState = createFeatureSelector<State>('myModules')
 
-const selectModules = createSelector(
+export const selectModeratedModules = createSelector(
   selectMyModulesState,
-  (state) => state.modules,
-)
-
-const selectModuleDrafts = createSelector(
-  selectMyModulesState,
-  (state) => state.moduleDrafts,
-)
-
-const defineModuleStatus = (module: Module, moduleDraft: ModuleDraft | undefined): ModuleStatus => {
-  if (moduleDraft === undefined) return ModuleStatus.PUBLISHED
-  return ModuleStatus.UNKNOWN
-}
-
-export const selectModulesWithModuleDrafts = createSelector(
-  selectModules,
-  selectModuleDrafts,
-  (modules, moduleDrafts) => {
-    const res: ModeratedModule[] = modules.map((module) => {
-      const moduleDraft = moduleDrafts.find((moduleDraft) => module.id === moduleDraft.module)
-      return {
-        module: module,
-        moduleDraft: moduleDraft,
-        status: defineModuleStatus(module, moduleDraft),
-      }
-    })
-    return res
-  } 
+  (state) => state.moderatedModules,
 )

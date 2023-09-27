@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
 
@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router'
   templateUrl: './update-module-page.component.html',
   styleUrls: ['./update-module-page.component.css'],
 })
-export class UpdateModulePageComponent implements OnInit {
+export class UpdateModulePageComponent {
   id: string | null = null
 
   versions = [
@@ -21,8 +21,7 @@ export class UpdateModulePageComponent implements OnInit {
 
   test = ['1', '2', '3']
 
-  constructor(private route: ActivatedRoute){}
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id')
   }
 }
