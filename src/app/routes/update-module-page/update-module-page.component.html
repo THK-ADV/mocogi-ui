@@ -1,7 +1,13 @@
 <main>
   <h1>Modulaktualisierung</h1>
   <small>{{id}}</small>
-  <mat-accordion>
+  <cops-module-form
+    *ngIf="moduleForm"
+    [moduleForm]="moduleForm"
+    [onCancel]="cancel"
+    [onSubmit]="submit"
+  ></cops-module-form>
+  <!-- <mat-accordion>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -151,10 +157,10 @@
   <form>
 
 
-  </form>
+  </form> -->
 
 </main>
-<aside>
+<!-- <aside>
   <div>
     <h1>Info</h1>
     <mat-card>
@@ -179,4 +185,4 @@
     <button mat-button>Cancel</button>
     <button mat-flat-button cdkFocusInitial color="primary">Save</button>
   </div>
-</aside>
+</aside> -->

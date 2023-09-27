@@ -1,0 +1,8 @@
+.container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.container-row > * {
+  flex-grow: 1;
+}

@@ -23,7 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
 import { HttpInterceptorDecorator } from './http/http-interceptor-decorator.service'
 import { PlainInputComponent } from './form/plain-input/plain-input.component'
-import { EditModuleComponent } from './form/edit-module/edit-module.component'
+import { ModuleFormComponent } from './form/module-form/module-form.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module'
 import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
@@ -90,7 +90,7 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
     HeaderComponent,
     LineComponent,
     PlainInputComponent,
-    EditModuleComponent,
+    ModuleFormComponent,
     CreateOrUpdateModuleComponent,
     OptionsInputComponent,
     MultipleOptionsInputComponent,
