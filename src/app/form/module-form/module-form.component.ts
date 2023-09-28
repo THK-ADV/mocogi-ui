@@ -5,7 +5,6 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import { KeyValue } from '@angular/common'
 
 export type Language = 'de' | 'en'
 
@@ -16,8 +15,8 @@ export type Section<A,B> = {
   rows: Rows<A, B>
 }
 
-export type Rows<A, B> = { 
-  [key: string]: NonEmptyArray<LocalizedInput<A, B>> 
+export type Rows<A, B> = {
+  [key: string]: NonEmptyArray<LocalizedInput<A, B>>
 }
 
 export interface ModuleForm<A, B> {
@@ -52,8 +51,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
           const fc = formControlForInput(input)
           if (input.disabled) fc.disable()
           this.formGroup.addControl(input.attr, fc)
-          }
-        )
+        })
       )
     )
   }

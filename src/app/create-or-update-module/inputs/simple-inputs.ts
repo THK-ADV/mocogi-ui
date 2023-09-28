@@ -1,24 +1,23 @@
-import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
-import { OptionsInput } from '../../form/options-input/options-input.component'
-import { FormInput } from '../../form/form-input'
-import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
-import { optionalLabel } from './inputs'
-import { mapOpt } from '../../ops/undefined-ops'
-import { ParticipantsComponent } from '../../form/participants/participants.component'
-import { MatDialog } from '@angular/material/dialog'
-import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
-import { Participants } from '../../types/participants'
-import { ModuleRelation } from '../../types/module-relation'
-import { MetadataLike } from '../../types/metadata'
-import { Location } from '../../types/core/location'
-import { Language } from '../../types/core/language'
-import { Status } from '../../types/core/status'
-import { ModuleType } from '../../types/core/module-type'
-import { Season } from '../../types/core/season'
-import { Module } from '../../types/module'
-import { showLabel } from '../../ops/show.instances'
-import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import { LocalizedInput, Rows } from 'src/app/form/module-form/module-form.component'
+import {NumberInput, TextInput} from '../../form/plain-input/plain-input.component'
+import {OptionsInput} from '../../form/options-input/options-input.component'
+import {FormInput} from '../../form/form-input'
+import {ReadOnlyInput} from '../../form/read-only-input/read-only-input.component'
+import {optionalLabel} from './inputs'
+import {mapOpt} from '../../ops/undefined-ops'
+import {ParticipantsComponent} from '../../form/participants/participants.component'
+import {MatDialog} from '@angular/material/dialog'
+import {ModuleRelationComponent} from '../../form/module-relation/module-relation.component'
+import {Participants} from '../../types/participants'
+import {ModuleRelation} from '../../types/module-relation'
+import {MetadataLike} from '../../types/metadata'
+import {Location} from '../../types/core/location'
+import {Language} from '../../types/core/language'
+import {Status} from '../../types/core/status'
+import {ModuleType} from '../../types/core/module-type'
+import {Season} from '../../types/core/season'
+import {Module} from '../../types/module'
+import {showLabel} from '../../ops/show.instances'
+import {Rows} from 'src/app/form/module-form/module-form.component'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -32,7 +31,7 @@ export function simpleInput(
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: MetadataLike,
   metadataId?: string,
-):  Rows<unknown, unknown> {
+): Rows<unknown, unknown> {
   function titleInput(): TextInput {
     return {
       kind: 'text',
@@ -218,20 +217,14 @@ export function simpleInput(
   return {
     'title': [{input: titleInput()}],
     'abbrev': [{input: abbreviationInput()}],
-
+    'module-types': [{input: moduleTypesInput() as FormInput<unknown, unknown>}],
+    'credits': [{input: creditsInput()}],
+    'languages': [{input: languagesInput() as FormInput<unknown, unknown>}],
+    'duration': [{input: durationInput() as FormInput<unknown, unknown>}],
+    'frequency': [{input: frequencyInput() as FormInput<unknown, unknown>}],
+    'locations': [{input: locationsInput() as FormInput<unknown, unknown>}],
+    'status': [{input: statusInput() as FormInput<unknown, unknown>}],
+    'participants': [{ input: participantsInput() as FormInput<unknown, unknown> }],
+    'module-relation': [{ input: moduleRelationInput() as FormInput<unknown, unknown> }],
   }
-
-  // return <FormInput<unknown, unknown>[]>[
-  //   titleInput(),
-  //   abbreviationInput(),
-  //   moduleTypesInput(),
-  //   creditsInput(),
-  //   languagesInput(),
-  //   durationInput(),
-  //   frequencyInput(),
-  //   locationsInput(),
-  //   statusInput(),
-  //   participantsInput(),
-  //   moduleRelationInput(),
-  // ]
 }

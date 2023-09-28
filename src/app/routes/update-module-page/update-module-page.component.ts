@@ -6,6 +6,7 @@ import { inputs } from 'src/app/create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module-form.component'
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
+import { zip } from 'rxjs'
 
 
 @Component({
@@ -17,12 +18,11 @@ export class UpdateModulePageComponent {
   id: string | null = null
   moduleForm?: ModuleForm<unknown, unknown>
 
-  @ViewChild('moduleFormComponent') moduleFormComponent!: ModuleFormComponent<unknown, unknown>
-
+  @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
 
   // versions = [
   //   {title: 'Current changes', index: 6, status: 'draft'},
-  //   {title: '22.06.2023', index: 5, status: 'currently published'},
+  //   { title: '22.06.2023', index: 5, status: 'currently published' },
   //   {title: '01.03.2023', index: 4, status: 'past'},
   //   {title: '11.02.2022', index: 3, status: 'past'},
   //   {title: '10.02.2021', index: 2, status: 'past'},
@@ -78,8 +78,8 @@ export class UpdateModulePageComponent {
         sections: inputs(
           modules,
           moduleTypes,
-          seasons,
           languages,
+          seasons,
           locations,
           status,
           persons,
@@ -88,7 +88,7 @@ export class UpdateModulePageComponent {
           competencies,
           globalCriteria,
           dialog,
-          (attr) => this.moduleFormComponent.formControl(attr).value,
+          (attr) => this.moduleFormComponent?.formControl(attr).value,
           moduleCompendium,
           moduleCompendium.metadata.id,
         ),
