@@ -11,7 +11,7 @@ import { Module } from '../../types/module'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel, showModule } from '../../ops/show.instances'
-import { Rows } from '../../form/module-form/module-form.component';
+import { Rows } from '../../form/module-form/module-form.component'
 
 export function miscellaneousInput(
   dialog: MatDialog,

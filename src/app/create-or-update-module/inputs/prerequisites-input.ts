@@ -11,7 +11,7 @@ import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showModule } from '../../ops/show.instances'
-import {Rows} from "../../form/module-form/module-form.component";
+import {Rows} from '../../form/module-form/module-form.component'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 

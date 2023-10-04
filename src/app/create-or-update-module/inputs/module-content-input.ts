@@ -2,7 +2,7 @@ import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
 import { Content } from '../../types/content'
-import {Rows} from "../../form/module-form/module-form.component";
+import {Rows} from '../../form/module-form/module-form.component'
 
 export function moduleContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
   function go(lang: Lang): TextAreaInput {
