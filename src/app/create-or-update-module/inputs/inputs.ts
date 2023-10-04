@@ -27,9 +27,7 @@ import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
 import { ModuleCompendiumLike } from '../../types/module-compendium'
-import { FormInput } from '../../form/form-input'
-import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import { LocalizedInput, Section } from 'src/app/form/module-form/module-form.component'
+import { Section } from 'src/app/form/module-form/module-form.component'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -82,28 +80,28 @@ export function inputs(
   function responsibilitySection() {
     return {
       header: 'Verantwortliche',
-      value: responsibilityInput(dialog, persons, currentLecturerSelection, metadata?.moduleManagement),
+      rows: responsibilityInput(dialog, persons, currentLecturerSelection, metadata?.moduleManagement),
     }
   }
 
-  function assessmentMethodsSection() {
+  function assessmentMethodsSection(): Section<unknown, unknown> {
     return {
       header: 'Prüfungsformen',
-      value: assessmentMethodInput(dialog, assessmentMethods, currentAssessmentMethodEntrySelection),
+      rows: assessmentMethodInput(dialog, assessmentMethods, currentAssessmentMethodEntrySelection),
     }
   }
 
   function workloadSection() {
     return {
       header: 'Workload',
-      value: workloadInput(metadata?.workload),
+      rows: workloadInput(metadata?.workload),
     }
   }
 
   function prerequisitesSection() {
     return {
       header: 'Voraussetzungen',
-      value: prerequisitesInputs(
+      rows: prerequisitesInputs(
         dialog,
         modules,
         currentPrerequisitesModulesSelection,
@@ -117,7 +115,7 @@ export function inputs(
   function poSection() {
     return {
       header: 'Verwendung des Moduls in weiteren Studiengängen',
-      value: poInput(
+      rows: poInput(
         dialog,
         pos,
         modules, // TODO generic modules only
@@ -130,7 +128,7 @@ export function inputs(
   function miscellaneousSection() {
     return {
       header: 'Sonstige Informationen',
-      value: miscellaneousInput(
+      rows: miscellaneousInput(
         dialog,
         competences,
         modules,
@@ -145,35 +143,35 @@ export function inputs(
   function learningOutcomeContentSection() {
     return {
       header: 'Angestrebte Lernergebnisse',
-      value: learningOutcomeContent(deContent, enContent),
+      rows: learningOutcomeContent(deContent, enContent),
     }
   }
 
   function moduleContentSection() {
     return {
       header: 'Modulinhalte',
-      value: moduleContent(deContent, enContent),
+      rows: moduleContent(deContent, enContent),
     }
   }
 
   function learningMethodsContentSection() {
     return {
       header: 'Lehr- und Lernmethoden',
-      value: learningMethodsContent(deContent, enContent),
+      rows: learningMethodsContent(deContent, enContent),
     }
   }
 
   function literatureContentSection() {
     return {
       header: 'Empfohlene Literatur',
-      value: literatureContent(deContent, enContent),
+      rows: literatureContent(deContent, enContent),
     }
   }
 
   function particularitiesContentSection() {
     return {
       header: 'Besonderheiten',
-      value: particularitiesContent(deContent, enContent),
+      rows: particularitiesContent(deContent, enContent),
     }
   }
 
@@ -253,16 +251,16 @@ export function inputs(
 
   return [
     generalInformationSection(),
-    // responsibilitySection(),
-    // assessmentMethodsSection(),
-    // workloadSection(),
-    // prerequisitesSection(),
-    // poSection(),
-    // miscellaneousSection(),
-    // learningOutcomeContentSection(),
-    // moduleContentSection(),
-    // learningMethodsContentSection(),
-    // literatureContentSection(),
-    // particularitiesContentSection(),
+    responsibilitySection(),
+    assessmentMethodsSection(),
+    workloadSection(),
+    prerequisitesSection(),
+    poSection(),
+    miscellaneousSection(),
+    learningOutcomeContentSection(),
+    moduleContentSection(),
+    learningMethodsContentSection(),
+    literatureContentSection(),
+    particularitiesContentSection(),
   ]
 }

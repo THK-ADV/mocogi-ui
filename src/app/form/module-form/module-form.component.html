@@ -1,7 +1,7 @@
 <h1>{{title}}</h1>
 
 <form [formGroup]="formGroup" (ngSubmit)="submit()">
-  <div>
+  <mat-accordion>
     <ng-container *ngFor="let section of moduleForm.sections">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -45,7 +45,7 @@
         </div>
       </mat-expansion-panel>
     </ng-container>
-  </div>
+  </mat-accordion>
 
   <div>
     <button type="button" mat-flat-button (click)="cancel()">Abbrechen</button>

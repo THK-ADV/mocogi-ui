@@ -11,6 +11,7 @@ import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showModule } from '../../ops/show.instances'
+import {Rows} from "../../form/module-form/module-form.component";
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -21,7 +22,7 @@ export function prerequisitesInputs(
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
   prerequisites?: PrerequisitesOutput,
-) {
+): Rows<unknown, unknown> {
   function requiredPrerequisitesText(): TextAreaInput {
     return text('required', prerequisites?.required?.text)
   }
@@ -152,12 +153,12 @@ export function prerequisitesInputs(
     return po.label
   }
 
-  return <FormInput<unknown, unknown>[]>[
-    requiredPrerequisitesText(),
-    requiredPrerequisitesModules(),
-    requiredPrerequisitesPOs(),
-    recommendedPrerequisitesText(),
-    recommendedPrerequisitesModules(),
-    recommendedPrerequisitesPOs(),
-  ]
+  return {
+    'required-prerequisites-text': [{ input: requiredPrerequisitesText() as FormInput<unknown, unknown> }],
+    'required-prerequisites-modules': [{ input: requiredPrerequisitesModules() as FormInput<unknown, unknown> }],
+    'required-prerequisites-pos': [{ input: requiredPrerequisitesPOs() as FormInput<unknown, unknown> }],
+    'recommended-prerequisites-text': [{ input: recommendedPrerequisitesText() as FormInput<unknown, unknown> }],
+    'recommended-prerequisites-modules': [{ input: recommendedPrerequisitesModules() as FormInput<unknown, unknown> }],
+    'recommended-prerequisites-pos': [{ input: recommendedPrerequisitesPOs() as FormInput<unknown, unknown> }],
+  }
 }

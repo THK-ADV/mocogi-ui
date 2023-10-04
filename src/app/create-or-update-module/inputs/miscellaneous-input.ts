@@ -11,6 +11,7 @@ import { Module } from '../../types/module'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel, showModule } from '../../ops/show.instances'
+import { Rows } from '../../form/module-form/module-form.component';
 
 export function miscellaneousInput(
   dialog: MatDialog,
@@ -20,7 +21,7 @@ export function miscellaneousInput(
   currentCompetences: (attr: string) => Competence[],
   currentGlobalCriteria: (attr: string) => GlobalCriteria[],
   currentTaughtWith: (attr: string) => Module[],
-) {
+): Rows<unknown, unknown> {
   function competenceInput(): ReadOnlyInput<Competence, Competence> {
     const attr = 'competences'
     const entries = currentCompetences(attr)
@@ -144,9 +145,9 @@ export function miscellaneousInput(
     )
   }
 
-  return <FormInput<unknown, unknown>[]>[
-    competenceInput(),
-    globalCriteriaInput(),
-    taughtWithInput(),
-  ]
+  return {
+    'competenceInput': [{ input: competenceInput() as FormInput<unknown, unknown> }],
+    'globalCriteriaInput': [{ input: globalCriteriaInput() as FormInput<unknown, unknown> }],
+    'taughtWithInput': [{ input: taughtWithInput() as FormInput<unknown, unknown> }],
+  }
 }
