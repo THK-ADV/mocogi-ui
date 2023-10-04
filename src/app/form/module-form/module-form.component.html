@@ -1,55 +1,78 @@
-<h1>{{title}}</h1>
-
 <form [formGroup]="formGroup" (ngSubmit)="submit()">
-  <mat-accordion>
-    <ng-container *ngFor="let section of moduleForm.sections">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{section.header}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
-          <ng-container *ngFor="let input of row.value" [ngSwitch]="input.input.kind">
-            <cops-options-input
-              *ngSwitchCase="'options'"
-              ngDefaultControl
-              [input]="asOptions(input.input)"
-              [formControl]="formControl(input.input.attr)">
-            </cops-options-input>
-            <cops-multiple-options-input
-              *ngSwitchCase="'multiple-options'"
-              ngDefaultControl
-              [input]="asMultipleOptions(input.input)"
-              [formControl]="formControl(input.input.attr)">
-            </cops-multiple-options-input>
-            <cops-read-only-input
-              *ngSwitchCase="'read-only'"
-              ngDefaultControl
-              [input]="asReadOnly(input.input)"
-              [formControl]="formControl(input.input.attr)">
-            </cops-read-only-input>
-            <cops-boolean-input
-              *ngSwitchCase="'boolean'"
-              ngDefaultControl
-              [input]="asBoolean(input.input)"
-              [formControl]="formControl(input.input.attr)">
-            </cops-boolean-input>
-            <cops-plain-input
-              *ngSwitchDefault
-              ngDefaultControl
-              [input]="asTextInput(input.input)"
-              [formControl]="formControl(input.input.attr)">
-            </cops-plain-input>
-          </ng-container>
-        </div>
-      </mat-expansion-panel>
-    </ng-container>
-  </mat-accordion>
+  <main>
+    <h1>{{title}}</h1>
+    <mat-accordion>
+      <ng-container *ngFor="let section of moduleForm.sections; let indexOfElement = index;">
+        <mat-expansion-panel [expanded]="indexOfElement === 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{section.header}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
+            <ng-container *ngFor="let input of row.value" [ngSwitch]="input.input.kind">
+              <cops-options-input
+                *ngSwitchCase="'options'"
+                ngDefaultControl
+                [input]="asOptions(input.input)"
+                [formControl]="formControl(input.input.attr)">
+              </cops-options-input>
+              <cops-multiple-options-input
+                *ngSwitchCase="'multiple-options'"
+                ngDefaultControl
+                [input]="asMultipleOptions(input.input)"
+                [formControl]="formControl(input.input.attr)">
+              </cops-multiple-options-input>
+              <cops-read-only-input
+                *ngSwitchCase="'read-only'"
+                ngDefaultControl
+                [input]="asReadOnly(input.input)"
+                [formControl]="formControl(input.input.attr)">
+              </cops-read-only-input>
+              <cops-boolean-input
+                *ngSwitchCase="'boolean'"
+                ngDefaultControl
+                [input]="asBoolean(input.input)"
+                [formControl]="formControl(input.input.attr)">
+              </cops-boolean-input>
+              <cops-plain-input
+                *ngSwitchDefault
+                ngDefaultControl
+                [input]="asTextInput(input.input)"
+                [formControl]="formControl(input.input.attr)">
+              </cops-plain-input>
+            </ng-container>
+          </div>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-accordion>
+  </main>
+  <aside>
+    <div>
+      <h1>Info</h1>
+      <mat-card>
+        <mat-card-content>Your change Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, facilis eligendi
+          natus sapiente deserunt quisquam quaerat quia deleniti hic, commodi, earum velit saepe sunt sint? Asperiores
+          placeat tenetur quae excepturi.
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div>
+      <h1>Versionierung</h1>
+      <mat-selection-list #versionOverview [multiple]="false">
 
-  <div>
-    <button type="button" mat-flat-button (click)="cancel()">Abbrechen</button>
-    <button mat-flat-button color="primary" [disabled]="!formGroup.valid">{{buttonTitle}}</button>
-    <button type="button" mat-flat-button (click)="validate()">Validieren</button>
-  </div>
+      </mat-selection-list>
+    </div>
+    <div class="spacer"></div>
+    <div class="actions">
+      <button type="button" mat-button (click)="cancel()">Cancel</button>
+      <button mat-flat-button [disabled]="!formGroup.valid" color="primary">Save</button>
+    </div>
+  </aside>
 </form>
+
+<!--  <div>-->
+<!--    <button type="button" mat-flat-button (click)="cancel()">Abbrechen</button>-->
+<!--    <button mat-flat-button color="primary" [disabled]="!formGroup.valid"></button>-->
+<!--    <button type="button" mat-flat-button (click)="validate()">Validieren</button>-->
+<!--  </div>-->
