@@ -1,3 +1,57 @@
+form {
+  display: flex;
+  padding: 1em;
+  gap: 1em;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1em;
+}
+
+aside {
+  width: 400px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.spacer {
+  display: block;
+  flex-grow: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: end;
+}
+
+.expansion-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.language-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mat-stepper-vertical {
+  background-color: transparent;
+}
+
 .container-row {
   display: flex;
   flex-direction: row;
