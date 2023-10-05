@@ -5,6 +5,8 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
+import {ModuleCompendiumProtocol} from '../../types/module-compendium'
+import {parseModuleCompendium} from '../../types/metadata-protocol-factory'
 
 export type Language = 'de' | 'en'
 
@@ -35,8 +37,9 @@ type EditType = 'create' | 'update'
 export class ModuleFormComponent<A, B> implements OnInit {
 
   @Input() moduleForm!: ModuleForm<A, B>
+  @Input() moduleId!: string
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (value: unknown, dirtyKeys: string[]) => void
+  @Input() onSubmit?: (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => void
 
   title = ''
   buttonTitle = ''
@@ -57,15 +60,19 @@ export class ModuleFormComponent<A, B> implements OnInit {
   }
 
   submit = () => {
+
     if (!this.formGroup.valid) {
       return
     }
+    // TODO: Properly identify dirty keys
     const dirtyKeys: string[] = []
     for (const attr in this.formGroup.controls) {
       const ctrl = this.formGroup.get(attr)
       ctrl?.dirty && dirtyKeys.push(attr)
     }
-    this.onSubmit?.(this.formGroup.value, dirtyKeys)
+
+    const mc = parseModuleCompendium(this.formGroup.value)
+    this.onSubmit?.(this.moduleId, mc, dirtyKeys)
   }
 
   cancel = () =>

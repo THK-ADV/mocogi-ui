@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleStatus } from '../types/moderated.module'
 
-interface ModuleDraftJson {
+export interface ModuleDraftJson {
   module: string
   user: string
   branch: string
@@ -117,6 +117,34 @@ export class HttpService {
 
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
+
+  // Draft
+
+  createNewDraft = (
+    mc: ModuleCompendiumProtocol
+  ): Observable<ModuleDraft> =>
+    this.http
+      .post<ModuleDraftJson>(
+        'moduleDrafts',
+        mc,
+        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
+      )
+      .pipe(map(this.convertModuleDraft))
+
+  updateModuleDraft = (
+    moduleId: string,
+    mc: ModuleCompendiumProtocol,
+    dirtyKeys: string[]
+  ): Observable<unknown> =>
+    this.http
+      .put(
+        `moduleDrafts/${moduleId}`,
+        {protocol: mc, modifiedKeys: dirtyKeys},
+        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
+      )
+
+  deleteDraft = (moduleId: string) =>
+    this.http.delete(`moduleDrafts/${moduleId}`)
 
   // Branch
 

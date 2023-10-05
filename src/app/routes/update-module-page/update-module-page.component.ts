@@ -7,7 +7,9 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-
+import { ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { Store } from '@ngrx/store'
+import {UpdateModulePageActions} from '../../state/actions/update-module-page.actions'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -15,33 +17,24 @@ import { zip } from 'rxjs'
   styleUrls: ['./update-module-page.component.css'],
 })
 export class UpdateModulePageComponent {
-  id: string | null = null
+  moduleId: string
   moduleForm?: ModuleForm<unknown, unknown>
 
   @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
-
-  // versions = [
-  //   {title: 'Current changes', index: 6, status: 'draft'},
-  //   { title: '22.06.2023', index: 5, status: 'currently published' },
-  //   {title: '01.03.2023', index: 4, status: 'past'},
-  //   {title: '11.02.2022', index: 3, status: 'past'},
-  //   {title: '10.02.2021', index: 2, status: 'past'},
-  //   {title: '03.03.2021', index: 1, status: 'past'},
-  // ]
 
   cancel() {
     return
   }
 
-  submit(value: unknown, dirtyKeys: string[]) {
-    console.log(value, dirtyKeys)
-    return
+  submit = (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => {
+    console.log(moduleCompendiumProtocol, dirtyKeys, moduleId)
+   this.store.dispatch(UpdateModulePageActions.save({ moduleId, moduleCompendiumProtocol, dirtyKeys }))
   }
 
-  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog) {
-    this.id = this.route.snapshot.paramMap.get('id') ?? throwError('ID should be in route parameters.')
+  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
+    this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     zip([
-      http.moduleCompendiumById(this.id),
+      http.moduleCompendiumById(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
