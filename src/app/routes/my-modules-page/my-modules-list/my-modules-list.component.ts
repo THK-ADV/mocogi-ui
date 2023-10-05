@@ -28,11 +28,27 @@ export class MyModulesListComponent {
   }
 
   showModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.showModule({moduleId}))
+    this.store.dispatch(MyModulesPageActions.showModule({ moduleId }))
   }
 
   editModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.editModule({moduleId}))
+    this.store.dispatch(MyModulesPageActions.editModule({ moduleId }))
+  }
+
+  publishModule(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.publishModule({ moduleId }))
+  }
+
+  requestReview(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.requestReview({ moduleId }))
+  }
+
+  cancelReview(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.cancelReview({ moduleId }))
+  }
+
+  discardChanges(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.discardChanges({ moduleId }))
   }
 
   title = ({module, moduleDraft}: ModeratedModule): string => {

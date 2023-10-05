@@ -11,19 +11,44 @@ export class MyModuleEffects {
   showModule$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(MyModulesPageActions.showModule),
-        tap(({moduleId}) => this.router.navigate(['/modules', moduleId]))
+        tap(({moduleId}) => this.router.navigate([ '/modules', moduleId ]))
       )
     },
     {dispatch: false}
   )
 
   editModule$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(MyModulesPageActions.editModule),
-        tap(({moduleId}) => this.router.navigate(['/modules', moduleId, 'edit']))
+    return this.actions$.pipe(
+      ofType(MyModulesPageActions.editModule),
+      tap(({moduleId}) => this.router.navigate([ '/modules', moduleId, 'edit' ]))
+    )
+  },{ dispatch: false })
+
+  requestReview = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MyModulesPageActions.requestReview, MyModulesPageActions.publishModule),
+      exhaustMap(({ moduleId }) => this.service.createReview(moduleId).pipe(
+        map(() => MyModulesPageActions.enter()))
       )
-    },
-    {dispatch: false}
+    )
+  })
+
+  cancelReview = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MyModulesPageActions.cancelReview),
+      exhaustMap(({ moduleId }) => this.service.deleteReview(moduleId).pipe(
+        map(() => MyModulesPageActions.enter()))
+      )
+    )
+  })
+
+  discardChanges = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MyModulesPageActions.discardChanges),
+      exhaustMap(({ moduleId }) => this.service.deleteDraft(moduleId).pipe(
+        map(() => MyModulesPageActions.enter()))
+      ))
+    }
   )
 
   fetchModeratedModules$ = createEffect(() => {

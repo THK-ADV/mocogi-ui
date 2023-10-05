@@ -35,26 +35,30 @@
         </button>
         <button
           mat-stroked-button
-          *ngIf="canPublish(element.status)">
+          *ngIf="canPublish(element.status)"
+          (click)="publishModule(element.module.id)">
           <mat-icon>publish</mat-icon>
           Publish
         </button>
         <button
           mat-stroked-button
-          *ngIf="canRequestReview(element.status)">
+          *ngIf="canRequestReview(element.status)"
+          (click)="requestReview(element.module.id)">
           <mat-icon>approval</mat-icon>
           Request review
         </button>
         <button
           mat-stroked-button
-          *ngIf="canStopPublication(element.status)">
+          *ngIf="canStopPublication(element.status)"
+          (click)="cancelReview(element.module.id)">
           <mat-icon>pause</mat-icon>
-          Stop publication
+          Cancel review
         </button>
         <button
           mat-stroked-button
           color="warn"
-          *ngIf="canDiscardChanges(element)">
+          *ngIf="canDiscardChanges(element)"
+          (click)="discardChanges(element.module.id)">
           <mat-icon>undo</mat-icon>
           Discard changes
         </button>

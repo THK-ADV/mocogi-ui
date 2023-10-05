@@ -24,10 +24,20 @@ export const myModulesReducer = createReducer(
       ...state,
     }
   }),
+  on(MyModulesApiActions.discardedChangesSuccessfully, (state): State => {
+    return {
+      ...state,
+    }
+  }),
   on(MyModulesApiActions.retrievedModeratedModulesSuccess, (state, {moderatedModules}): State => {
     return {
       ...state,
       moderatedModules,
+    }
+  }),
+  on(MyModulesApiActions.requestedReviewSuccessfully, (state): State => {
+    return {
+      ...state,
     }
   }),
   on(MyModulesApiActions.retrievedError, (state, {error}): State => {

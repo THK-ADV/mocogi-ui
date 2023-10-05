@@ -34,7 +34,7 @@ export class UpdateModulePageComponent {
   constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     zip([
-      http.moduleCompendiumById(this.moduleId),
+      http.latestModuleCompendiumById(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
