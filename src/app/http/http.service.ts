@@ -136,12 +136,12 @@ export class HttpService {
 
   updateModuleDraft = (
     moduleId: string,
-    mc: ModuleCompendiumProtocol,
+    moduleCompendiumProtocol: ModuleCompendiumProtocol,
   ): Observable<unknown> =>
     this.http
       .put(
         `moduleDrafts/${ moduleId }/a`,
-        { protocol: mc },
+        moduleCompendiumProtocol,
         { headers: { 'Mocogi-Version-Scheme': 'v1.0s' } }
       )
 
