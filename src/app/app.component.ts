@@ -11,18 +11,17 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
 export class AppComponent {
   navItems: Array<CopsNavigationItem> = [
     { type: 'HEADER', text: 'Übersicht' },
-    { type: 'LINK', text: 'Module', icon: 'description', url: '#' },
+    { type: 'LINK', text: 'Module', icon: 'description', url: ['/'] },
     // { type: 'LINK', text: 'Modulhandbücher', icon: 'apps', url: '#' },
     { type: 'HEADER', text: 'Verwaltung' },
-    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'modules' },
-    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: 'my-modules' },
+    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: ['my-modules'] },
     // { type: 'LINK', text: 'Freigaben', icon: 'apps', url: '#' },
   ]
   railItems: Array<CopsAppRailItem> = [
-    { type: 'LINK', text: 'Modules', icon: 'description', url: '#', disabled: false },
-    { type: 'LINK', text: 'Schedule', icon: 'apps', url: '#', disabled: true },
-    { type: 'LINK', text: 'Rooms', icon: 'apps', url: '#', disabled: true },
-    { type: 'LINK', text: 'Exams', icon: 'apps', url: '#', disabled: true },
+    { type: 'LINK', text: 'Modules', icon: 'description', url: '', disabled: false },
+    { type: 'LINK', text: 'Schedule', icon: 'apps', url: '', disabled: true },
+    { type: 'LINK', text: 'Rooms', icon: 'apps', url: '', disabled: true },
+    { type: 'LINK', text: 'Exams', icon: 'apps', url: '', disabled: true },
     { type: 'DIVIDER' },
     { type: 'SPACER' },
     { type: 'LINK', text: 'Feedback', icon: 'feedback', url: '#', disabled: true },
