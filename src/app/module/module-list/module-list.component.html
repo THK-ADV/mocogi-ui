@@ -14,15 +14,10 @@
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Titel</th>
       <td mat-cell *matCellDef="let element">
         <mat-chip-listbox>
-          <span>{{element.title}}</span>
+          <span>{{element.title}} ({{element.abbrev}})</span>
           <mat-chip *ngIf="element.isSpecialization" class="specialization-chip">Vertiefung</mat-chip>
         </mat-chip-listbox>
       </td>
-    </ng-container>
-
-    <ng-container matColumnDef="abbrev">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Abkürzung</th>
-      <td mat-cell *matCellDef="let element">{{element.abbrev}} </td>
     </ng-container>
 
     <ng-container matColumnDef="moduleManagementStr">
@@ -38,15 +33,6 @@
     <ng-container matColumnDef="recommendedSemesterStr">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Semester</th>
       <td mat-cell *matCellDef="let element"> {{element.recommendedSemesterStr}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef aria-label="actions column">&nbsp;</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="open in row" (click)="selectRow(element, $event)">
-          <mat-icon>open_in_new</mat-icon>
-        </button>
-      </td>
     </ng-container>
 
     <ng-container matColumnDef="expand">
@@ -73,8 +59,9 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row
+        (click)="selectRow(element, $event)"
         *matRowDef="let element; columns: displayedColumns;"
-        class="example-element-row"
+        class="example-element-row clickable"
         [class.example-expanded-row]="expandedElement === element">
     </tr>
     <tr mat-row
