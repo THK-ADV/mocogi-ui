@@ -80,8 +80,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { myModulesReducer } from './state/reducer/my-modules.reducer'
 import { MyModuleEffects } from './state/effects/my-modules-effects.service'
 import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list/my-modules-list.component'
-import {UpdateModuleEffects} from './state/effects/update-module.effects'
-import {updateModuleReducer} from './state/reducer/update-module.reducer'
+import { UpdateModuleEffects } from './state/effects/update-module.effects'
+import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
+import { NewModuleEffects } from './state/effects/new-module-page.effects'
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     MyModulesPageComponent,
     UpdateModulePageComponent,
     MyModulesListComponent,
+    NewModulePageComponent,
   ],
   imports: [
     MatStepperModule,
@@ -153,9 +155,15 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
       module: moduleReducer,
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
-      updateModule: updateModuleReducer,
     }, {}),
-    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects, MyModuleEffects, UpdateModuleEffects]),
+    EffectsModule.forRoot([
+      ModuleEffects,
+      NavigationEffects,
+      ModuleFilterEffects,
+      MyModuleEffects,
+      UpdateModuleEffects,
+      NewModuleEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,
     }),

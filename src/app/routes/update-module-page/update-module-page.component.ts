@@ -9,7 +9,7 @@ import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
 import { ModuleCompendiumProtocol } from '../../types/module-compendium'
 import { Store } from '@ngrx/store'
-import {UpdateModulePageActions} from '../../state/actions/update-module-page.actions'
+import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -26,9 +26,9 @@ export class UpdateModulePageComponent {
     return
   }
 
-  submit = (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => {
-    console.log(moduleCompendiumProtocol, dirtyKeys, moduleId)
-   this.store.dispatch(UpdateModulePageActions.save({ moduleId, moduleCompendiumProtocol, dirtyKeys }))
+  submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => {
+    console.log(moduleCompendiumProtocol, dirtyKeys, this.moduleId)
+   this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol, dirtyKeys }))
   }
 
   constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
