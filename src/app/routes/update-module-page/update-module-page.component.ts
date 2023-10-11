@@ -26,9 +26,8 @@ export class UpdateModulePageComponent {
     return
   }
 
-  submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => {
-    console.log(moduleCompendiumProtocol, dirtyKeys, this.moduleId)
-   this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol, dirtyKeys }))
+  submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
+   this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
   }
 
   constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {

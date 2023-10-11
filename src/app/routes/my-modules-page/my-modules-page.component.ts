@@ -17,7 +17,6 @@ export class MyModulesPageComponent implements OnInit {
 
   constructor(private readonly store: Store) {
     this.modules$ = store.select(selectModeratedModules)
-    this.modules$.subscribe(console.log)
   }
 
   ngOnInit(): void {

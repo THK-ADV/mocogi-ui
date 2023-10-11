@@ -23,10 +23,8 @@ export class ModuleCompendiumHtmlComponent {
     const moduleId: string | null | undefined = this.route.snapshot.paramMap.get('moduleId')
     if (moduleId) {
       http.moduleCompendiumHtmlFile(moduleId).subscribe((value) => {
-        console.log(this.shadowRootDiv?.nativeElement);
         (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML= value
       })
-      // this.moduleCompendiumHtml = http.moduleCompendiumHtmlFile(id)
       this.moduleCompendium = http.moduleCompendiumById(moduleId)
     } else {
       location.back()
