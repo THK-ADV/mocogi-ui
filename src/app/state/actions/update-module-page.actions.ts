@@ -5,7 +5,7 @@ export const UpdateModulePageActions = createActionGroup({
     source: 'Update Module Page',
     events: {
         'Enter': emptyProps(),
-        'Save': props<{ moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]}>(),
+        'Save': props<{ moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol }>(),
         'Cancel': emptyProps(),
     },
 })

@@ -137,13 +137,12 @@ export class HttpService {
   updateModuleDraft = (
     moduleId: string,
     mc: ModuleCompendiumProtocol,
-    dirtyKeys: string[]
   ): Observable<unknown> =>
     this.http
       .put(
         `moduleDrafts/${ moduleId }/a`,
-        {protocol: mc, modifiedKeys: dirtyKeys},
-        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
+        { protocol: mc },
+        { headers: { 'Mocogi-Version-Scheme': 'v1.0s' } }
       )
 
   deleteDraft = (moduleId: string) =>

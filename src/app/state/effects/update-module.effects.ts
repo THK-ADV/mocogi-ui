@@ -10,8 +10,8 @@ export class UpdateModuleEffects {
   updateModuleDraft$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(UpdateModulePageActions.save),
-        exhaustMap(({moduleId, moduleCompendiumProtocol, dirtyKeys}) => {
-          return this.service.updateModuleDraft(moduleId, moduleCompendiumProtocol, dirtyKeys).pipe(
+        exhaustMap(({moduleId, moduleCompendiumProtocol}) => {
+          return this.service.updateModuleDraft(moduleId, moduleCompendiumProtocol).pipe(
             map(() => {
               return UpdateModuleApiActions.savedChangesSuccess()
             }),

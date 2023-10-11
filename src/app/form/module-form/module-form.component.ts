@@ -39,7 +39,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
   @Input() moduleForm!: ModuleForm<A, B>
   @Input() moduleId!: string
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol, dirtyKeys: string[]) => void
+  @Input() onSubmit?: (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
 
   title = ''
   buttonTitle = ''
@@ -60,19 +60,9 @@ export class ModuleFormComponent<A, B> implements OnInit {
   }
 
   submit = () => {
-
-    if (!this.formGroup.valid) {
-      return
-    }
-    // TODO: Properly identify dirty keys
-    const dirtyKeys: string[] = []
-    for (const attr in this.formGroup.controls) {
-      const ctrl = this.formGroup.get(attr)
-      ctrl?.dirty && dirtyKeys.push(attr)
-    }
-
+    if (!this.formGroup.valid) return
     const mc = parseModuleCompendium(this.formGroup.value)
-    this.onSubmit?.(this.moduleId, mc, dirtyKeys)
+    this.onSubmit?.(this.moduleId, mc)
   }
 
   cancel = () =>
