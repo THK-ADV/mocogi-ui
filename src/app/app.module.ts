@@ -83,6 +83,9 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
 import { UpdateModuleEffects } from './state/effects/update-module.effects'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
+import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
+import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
+import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
 
 @NgModule({
   declarations: [
@@ -124,6 +127,9 @@ import { NewModuleEffects } from './state/effects/new-module-page.effects'
     UpdateModulePageComponent,
     MyModulesListComponent,
     NewModulePageComponent,
+    ApprovalsPageComponent,
+    ElectiveModulesListsPageComponent,
+    ModuleCompendiumListsPageComponent,
   ],
   imports: [
     MatStepperModule,

@@ -9,11 +9,30 @@ import { requireRoles } from './keycloak/auth.guard'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
 import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
+import {
+  ElectiveModulesListsPageComponent,
+} from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
+import {
+  ModuleCompendiumListsPageComponent,
+} from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
 
 const routes: Routes = [
   {
     path: '',
     component: ModuleComponent,
+  },
+  {
+    path: 'elective-modules-lists',
+    component: ElectiveModulesListsPageComponent,
+  },
+  {
+    path: 'module-compendium-lists',
+    component: ModuleCompendiumListsPageComponent,
+  },
+  {
+    path: 'approvals',
+    component: ApprovalsPageComponent,
   },
   {
     path: 'modules',
