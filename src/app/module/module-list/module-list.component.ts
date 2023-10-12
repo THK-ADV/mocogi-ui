@@ -13,7 +13,7 @@ type DisplayedColumns = keyof (ModuleTableEntry & { expand: string, actions: str
 const selectDisplayedColumns = createSelector(
   selectSelectedStudyProgramId,
   (podId) => {
-    const cols: DisplayedColumns[] = ['title', 'abbrev', 'moduleManagementStr', 'ects', 'recommendedSemesterStr', 'actions']
+    const cols: DisplayedColumns[] = ['title', 'moduleManagementStr', 'ects', 'recommendedSemesterStr']
     if (!podId) {
       cols.push('expand')
     }
