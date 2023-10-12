@@ -4,6 +4,7 @@ import { MyModulesPageActions } from 'src/app/state/actions/my-modules.action'
 import { selectModeratedModules } from 'src/app/state/selectors/my-modules.selectors'
 import { Observable } from 'rxjs'
 import { ModeratedModule } from '../../types/moderated.module'
+import { NavigationActions } from '../../state/actions/navigation.actions'
 
 @Component({
   selector: 'cops-my-modules-page',
@@ -20,5 +21,9 @@ export class MyModulesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(MyModulesPageActions.enter())
+  }
+
+  navigateTo(path: Array<string>) {
+    this.store.dispatch(NavigationActions.navigate({ path }))
   }
 }

@@ -8,6 +8,7 @@ import { ModuleComponent } from './module/module.component'
 import { requireRoles } from './keycloak/auth.guard'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
 import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
+import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'my-modules',
     component: MyModulesPageComponent,
+    ...requireRoles(['professor', 'employee'], 'any'),
+  },
+  {
+    path: 'modules/new',
+    component: NewModulePageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {

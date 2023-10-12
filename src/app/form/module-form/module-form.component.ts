@@ -37,9 +37,8 @@ type EditType = 'create' | 'update'
 export class ModuleFormComponent<A, B> implements OnInit {
 
   @Input() moduleForm!: ModuleForm<A, B>
-  @Input() moduleId!: string
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
+  @Input() onSubmit?: (moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
 
   title = ''
   buttonTitle = ''
@@ -62,7 +61,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
   submit = () => {
     if (!this.formGroup.valid) return
     const mc = parseModuleCompendium(this.formGroup.value)
-    this.onSubmit?.(this.moduleId, mc)
+    this.onSubmit?.(mc)
   }
 
   cancel = () =>
