@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core'
 export type CopsAppRailLink = {
   type: 'LINK',
   text: string,
-  icon: string,
+  icon?: string,
+  image?: string,
   url: string,
   disabled: boolean
 };
