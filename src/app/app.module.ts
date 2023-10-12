@@ -83,6 +83,7 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
 import { UpdateModuleEffects } from './state/effects/update-module.effects'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
+import { updateModuleReducer } from './state/reducer/update-module.reducer'
 
 @NgModule({
   declarations: [
@@ -155,6 +156,7 @@ import { NewModuleEffects } from './state/effects/new-module-page.effects'
       module: moduleReducer,
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
+      updateModule: updateModuleReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
