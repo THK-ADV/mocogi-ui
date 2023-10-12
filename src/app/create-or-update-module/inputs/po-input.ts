@@ -8,7 +8,6 @@ import { POMandatory, POOptional, POPreview } from '../../types/pos'
 import { Module } from '../../types/module'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { Rows } from '../../form/module-form/module-form.component'
 
 export function poInput(
   dialog: MatDialog,
@@ -16,7 +15,7 @@ export function poInput(
   genericModules: Module[],
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
-): Rows<unknown, unknown> {
+) {
 
   const dialogTitle = 'Zugehörigkeit zu Studiengängen bearbeiten'
   const poColumn = {attr: 'po', title: 'Studiengang'}
@@ -151,8 +150,8 @@ export function poInput(
     return allPOs.find(p => p.id === po.po)?.abbrev ?? '???'
   }
 
-  return {
-    'mandatory-po': [{ input: mandatory() as FormInput<unknown, unknown> }],
-    'optional-po': [{ input: optional() as FormInput<unknown, unknown> }],
-  }
+  return <FormInput<unknown, unknown>[]>[
+    mandatory(),
+    optional(),
+  ]
 }

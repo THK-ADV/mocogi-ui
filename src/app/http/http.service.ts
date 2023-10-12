@@ -19,34 +19,23 @@ import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
+import { Specialization } from '../types/specialization'
 import { StudyProgramAtomic } from '../types/study-program-atomic'
 import { ModuleAtomic } from '../types/module-atomic'
-import { asRecord } from '../parser/record-parser'
-import { Content } from '../types/content'
 
-import { ModeratedModule, ModuleStatus } from '../types/moderated.module'
-
-export interface ModuleDraftJson {
+interface ModuleDraftJson {
   module: string
-  user: string
-  branch: string
-  status: ModuleDraftStatus
   data: string
-  keysToBeReviewed: ReadonlyArray<string>
-  modifiedKeys: ReadonlyArray<string>
+  branch: string
+  status: ModuleDraftStatus,
   lastModified: string
-}
-
-interface ModeratedModuleJson {
-  module: Module
-  moduleDraft: ModuleDraftJson | undefined
-  status: ModuleStatus
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
+
 
   constructor(private readonly http: HttpClient) {
   }
@@ -56,19 +45,21 @@ export class HttpService {
   allModules = (): Observable<Module[]> =>
     this.http.get<Module[]>('modules')
 
-  ownModules = (): Observable<Module[]> =>
-    this.http.get<Module[]>('modules/own')
+  allModulesForUser = (user: string): Observable<Module[]> =>
+    this.http.get<Module[]>(`modules?user=${user}`)
+
+  // Metadata
+
+  allModuleMetadata = (): Observable<Metadata[]> =>
+    this.http.get<Metadata[]>('metadata')
 
   // Module Compendium
 
   moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }`)
-
-  latestModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }/latest`)
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
 
   moduleCompendiumHtmlFile = (id: string) =>
-    this.http.request('GET', `moduleCompendium/${ id }/file`, {responseType: 'text'})
+    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
 
   // Core Data
 
@@ -121,34 +112,15 @@ export class HttpService {
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
 
-  // Draft
-
-  createNewDraft = (
-    mc: ModuleCompendiumProtocol
-  ): Observable<ModuleDraft> =>
-    this.http
-      .post<ModuleDraftJson>(
-        'moduleDrafts',
-        mc,
-        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
-      )
-      .pipe(map(this.convertModuleDraft))
-
-  updateModuleDraft = (
-    moduleId: string,
-    moduleCompendiumProtocol: ModuleCompendiumProtocol,
-  ): Observable<unknown> =>
-    this.http
-      .put(
-        `moduleDrafts/${ moduleId }/a`,
-        moduleCompendiumProtocol,
-        { headers: { 'Mocogi-Version-Scheme': 'v1.0s' } }
-      )
-
-  deleteDraft = (moduleId: string) =>
-    this.http.delete(`moduleDrafts/${ moduleId }`)
+  allSpecializations = (): Observable<Specialization[]> =>
+    this.http.get<Specialization[]>('specializations')
 
   // Branch
+
+  branchForUser = (username: string): Observable<UserBranch | undefined> =>
+    this.http.get<UserBranch | undefined>(`git/branch/${username}`).pipe(
+      map(b => b ? b : undefined),
+    )
 
   createBranch = (username: string): Observable<UserBranch> =>
     this.http.post<UserBranch>('git/branch', {'username': username})
@@ -156,18 +128,8 @@ export class HttpService {
   // Module Draft
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
-    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${ branch }`).pipe(
+    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
       map(xs => xs.map(this.convertModuleDraft)),
-    )
-
-  moderatedModules = (): Observable<ModeratedModule[]> =>
-    this.http.get<ModeratedModuleJson[]>('moduleDrafts/own').pipe(
-      map(xs => xs.map(x => {
-        return {
-          ...x,
-          moduleDraft: x.moduleDraft != null ? this.convertModuleDraft(x.moduleDraft) : undefined,
-        }
-      })),
     )
 
   addToDrafts = (
@@ -180,33 +142,27 @@ export class HttpService {
       branch: branch,
     }
     const request = id
-      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${ id }`, body)
+      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${id}`, body)
       : this.http.post<ModuleDraftJson>('moduleDrafts', body)
 
     return request.pipe(map(this.convertModuleDraft))
   }
 
-  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
-    const mc: ModuleCompendiumProtocol = { // TODO improve
-      deContent: asRecord(draft.data)['deContent'] as Content,
-      enContent: asRecord(draft.data)['enContent'] as Content,
-      metadata: asRecord(draft.data)['metadata'] as Metadata,
-    }
-    return ({...draft, lastModified: new Date(draft.lastModified), data: mc})
-  }
+  private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft =>
+    ({...draft, lastModified: new Date(draft.lastModified), data: JSON.parse(draft.data)})
 
   // Validation
 
   validate = (branch: string): Observable<ValidationResult> =>
-    this.http.get<ValidationResult>(`moduleDrafts/${ branch }/validate`)
+    this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
 
   // Commit
 
   commit = (branch: string, username: string): Observable<unknown> =>
-    this.http.put<unknown>(`moduleDrafts/${ branch }/commit`, {username})
+    this.http.put<unknown>(`moduleDrafts/${branch}/commit`, {username})
 
   revertCommit = (branch: string): Observable<unknown> =>
-    this.http.delete<unknown>(`moduleDrafts/${ branch }/revertCommit`)
+    this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
 
   // View
 
@@ -215,12 +171,4 @@ export class HttpService {
 
   allModuleAtomic = (): Observable<ModuleAtomic[]> =>
     this.http.get<ModuleAtomic[]>('modules/view')
-
-  // Review
-
-  createReview = (moduleId: string): Observable<unknown> =>
-    this.http.post(`review/${moduleId}`, null)
-
-  deleteReview = (moduleId: string): Observable<unknown> =>
-    this.http.delete(`review/${moduleId}`)
 }

@@ -7,7 +7,5 @@ export interface ModuleDraft {
   data: ModuleCompendiumProtocol
   branch: string
   status: ModuleDraftStatus,
-  keysToBeReviewed: ReadonlyArray<string>
-  modifiedKeys: ReadonlyArray<string>
   lastModified: Date
 }

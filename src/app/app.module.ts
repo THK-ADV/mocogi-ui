@@ -23,7 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { LineComponent } from './structure/line/line.component'
 import { HttpInterceptorDecorator } from './http/http-interceptor-decorator.service'
 import { PlainInputComponent } from './form/plain-input/plain-input.component'
-import { ModuleFormComponent } from './form/module-form/module-form.component'
+import { EditModuleComponent } from './form/edit-module/edit-module.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module'
 import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
@@ -64,7 +64,6 @@ import { CoordinatorFilterComponent } from './module/module-filter/coordinator-f
 import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
-import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { initializeKeycloak } from './keycloak/keycloak-init'
 import { ThKoelnBarComponent } from './components/th-koeln-bar/th-koeln-bar.component'
@@ -72,16 +71,6 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { AppRailComponent } from './components/app-rail/app-rail.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'
 import { LoaderComponent } from './components/loader/loader.component'
-import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
-import { MatMenuModule } from '@angular/material/menu'
-import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
-import { MatStepperModule } from '@angular/material/stepper'
-import { MatExpansionModule } from '@angular/material/expansion'
-import { myModulesReducer } from './state/reducer/my-modules.reducer'
-import { MyModuleEffects } from './state/effects/my-modules-effects.service'
-import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list/my-modules-list.component'
-import {UpdateModuleEffects} from './state/effects/update-module.effects'
-import {updateModuleReducer} from './state/reducer/update-module.reducer'
 
 @NgModule({
   declarations: [
@@ -92,7 +81,7 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     HeaderComponent,
     LineComponent,
     PlainInputComponent,
-    ModuleFormComponent,
+    EditModuleComponent,
     CreateOrUpdateModuleComponent,
     OptionsInputComponent,
     MultipleOptionsInputComponent,
@@ -119,12 +108,8 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     AppRailComponent,
     NavBarComponent,
     LoaderComponent,
-    MyModulesPageComponent,
-    UpdateModulePageComponent,
-    MyModulesListComponent,
   ],
   imports: [
-    MatStepperModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -137,7 +122,6 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     MatTooltipModule,
     MatIconModule,
     MatPaginatorModule,
-    MatProgressBarModule,
     NgbModule,
     RouterOutlet,
     MatToolbarModule,
@@ -149,13 +133,8 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     MatCheckboxModule,
     MatCardModule,
     MatSlideToggleModule,
-    StoreModule.forRoot({
-      module: moduleReducer,
-      moduleFilter: moduleFilterReducer,
-      myModules: myModulesReducer,
-      updateModule: updateModuleReducer,
-    }, {}),
-    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects, MyModuleEffects, UpdateModuleEffects]),
+    StoreModule.forRoot({module: moduleReducer, moduleFilter: moduleFilterReducer}, {}),
+    EffectsModule.forRoot([ModuleEffects, NavigationEffects, ModuleFilterEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,
     }),
@@ -166,8 +145,6 @@ import {updateModuleReducer} from './state/reducer/update-module.reducer'
     KeycloakAngularModule,
     ThKoelnBarComponent,
     MatSidenavModule,
-    MatMenuModule,
-    MatExpansionModule,
   ],
   providers: [
     {

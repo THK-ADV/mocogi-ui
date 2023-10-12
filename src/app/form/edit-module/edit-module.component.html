@@ -1,0 +1,47 @@
+<h1>{{title}}</h1>
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div mat-dialog-content>
+    <ng-container *ngFor="let entry of payload.inputs">
+      <h2>{{entry.header}}</h2>
+      <ng-container *ngFor="let i of entry.value" [ngSwitch]="i.kind">
+        <cops-options-input
+          *ngSwitchCase="'options'"
+          ngDefaultControl
+          [input]="asOptions(i)"
+          [formControl]="formControl(i.attr)">
+        </cops-options-input>
+        <cops-multiple-options-input
+          *ngSwitchCase="'multiple-options'"
+          ngDefaultControl
+          [input]="asMultipleOptions(i)"
+          [formControl]="formControl(i.attr)">
+        </cops-multiple-options-input>
+        <cops-read-only-input
+          *ngSwitchCase="'read-only'"
+          ngDefaultControl
+          [input]="asReadOnly(i)"
+          [formControl]="formControl(i.attr)">
+        </cops-read-only-input>
+        <cops-boolean-input
+          *ngSwitchCase="'boolean'"
+          ngDefaultControl
+          [input]="asBoolean(i)"
+          [formControl]="formControl(i.attr)">
+        </cops-boolean-input>
+        <cops-plain-input
+          *ngSwitchDefault
+          ngDefaultControl
+          [input]="asTextInput(i)"
+          [formControl]="formControl(i.attr)">
+        </cops-plain-input>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div mat-dialog-actions>
+    <button type="button" mat-flat-button (click)="cancel()">Abbrechen</button>
+    <button mat-flat-button color="primary" [disabled]="!formGroup.valid">{{buttonTitle}}</button>
+    <button type="button" mat-flat-button (click)="validate()">Validieren</button>
+  </div>
+</form>
