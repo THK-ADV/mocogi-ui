@@ -4,50 +4,65 @@ import { asMultipleOptionsInput, asOptionsInput, asReadOnlyInput, formControlFor
 import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
+import { NonEmptyArray } from 'src/app/types/non-empty-array'
+import {ModuleCompendiumProtocol} from '../../types/module-compendium'
+import {parseModuleCompendium} from '../../types/metadata-protocol-factory'
 
-export interface EditModulePayload<A, B> {
+export type Language = 'de' | 'en'
+
+export type LocalizedInput<A, B> = { input: FormInput<A, B>, language?: Language}
+
+export type Section<A,B> = {
+  header: string,
+  rows: Rows<A, B>
+}
+
+export type Rows<A, B> = {
+  [key: string]: NonEmptyArray<LocalizedInput<A, B>>
+}
+
+export interface ModuleForm<A, B> {
   objectName: string
   editType: EditType
-  inputs: {
-    header: string,
-    value: FormInput<A, B>[]
-  }[]
+  sections: Section<A, B>[]
 }
 
 type EditType = 'create' | 'update'
 
 @Component({
-  selector: 'cops-edit-module',
-  templateUrl: './edit-module.component.html',
-  styleUrls: ['./edit-module.component.css'],
+  selector: 'cops-module-form',
+  templateUrl: './module-form.component.html',
+  styleUrls: ['./module-form.component.css'],
 })
-export class EditModuleComponent<A, B> implements OnInit {
+export class ModuleFormComponent<A, B> implements OnInit {
 
-  @Input() payload!: EditModulePayload<A, B>
+  @Input() moduleForm!: ModuleForm<A, B>
+  @Input() moduleId!: string
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (value: unknown) => void
+  @Input() onSubmit?: (moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
 
   title = ''
   buttonTitle = ''
   formGroup = new FormGroup({})
 
   ngOnInit() {
-    this.buttonTitle = this.payload.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
-    this.title = `${this.payload.objectName} ${this.buttonTitle.toLowerCase()}`
-    this.payload.inputs.forEach(is => is.value.forEach(i => {
-      const fc = formControlForInput(i)
-      if (i.disabled) {
-        fc.disable()
-      }
-      this.formGroup.addControl(i.attr, fc)
-    }))
+    this.buttonTitle = this.moduleForm.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
+    this.title = `${this.moduleForm.objectName} ${this.buttonTitle.toLowerCase()}`
+    this.moduleForm.sections.forEach(section =>
+      Object.values(section.rows).forEach(row =>
+        row.forEach(({input}) => {
+          const fc = formControlForInput(input)
+          if (input.disabled) fc.disable()
+          this.formGroup.addControl(input.attr, fc)
+        })
+      )
+    )
   }
 
   submit = () => {
-    if (!this.formGroup.valid) {
-      return
-    }
-    this.onSubmit?.(this.formGroup.value)
+    if (!this.formGroup.valid) return
+    const mc = parseModuleCompendium(this.formGroup.value)
+    this.onSubmit?.(this.moduleId, mc)
   }
 
   cancel = () =>
@@ -78,4 +93,8 @@ export class EditModuleComponent<A, B> implements OnInit {
 
   formControl = (attr: string) =>
     this.formGroup.get(attr) as FormControl
+
+  originalOrder = (): number => {
+    return 0
+  }
 }

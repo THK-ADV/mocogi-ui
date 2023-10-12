@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { NavigationActions } from '../../state/actions/navigation.actions'
 
 export type CopsNavigationLink = {
   type: 'LINK',
   text: string
   icon: string,
   details?: string,
-  url: string
+  url: string[]
 };
 
 export type CopsNavigationHeader = {
@@ -22,4 +24,9 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
 })
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []
+  constructor(private store: Store) {
+  }
+  navigateTo(url: Array<string>) {
+    this.store.dispatch(NavigationActions.navigate({ path: url }))
+  }
 }
