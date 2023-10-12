@@ -89,6 +89,8 @@ import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-l
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
 import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
+import { updateModuleReducer } from './state/reducer/update-module.reducer'
+
 
 @NgModule({
   declarations: [
@@ -167,6 +169,7 @@ import { ElectiveModulesListsListComponent } from './components/modules/elective
       module: moduleReducer,
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
+      updateModule: updateModuleReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
