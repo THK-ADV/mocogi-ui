@@ -2,8 +2,9 @@ import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
 import { Content } from '../../types/content'
+import { Rows } from '../../form/module-form/module-form.component'
 
-export function learningOutcomeContent(deContent?: Content, enContent?: Content) {
+export function learningOutcomeContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
   // function go(lang: Lang): TextAreaInput[] {
   //   return [
   //     {
@@ -88,5 +89,10 @@ export function learningOutcomeContent(deContent?: Content, enContent?: Content)
     }
   }
 
-  return <FormInput<unknown, unknown>[]>[go('de'), go('en')]
+  return {
+    'learning-outcome': [
+      { input: go('de') as FormInput<unknown, unknown>, language: 'de' },
+      { input: go('en') as FormInput<unknown, unknown>, language: 'en' },
+    ],
+  }
 }

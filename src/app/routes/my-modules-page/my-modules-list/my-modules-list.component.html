@@ -1,0 +1,70 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+  <!-- Name -->
+  <ng-container matColumnDef="module">
+    <th mat-header-cell *matHeaderCellDef>
+      Modul
+    </th>
+    <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)" [style.color]="tableColor(element)">
+      <span (click)="showModule(element.module.id)" class="clickable">
+        {{title(element)}}
+      </span>
+    </td>
+  </ng-container>
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>
+      Status
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-chip disabled>{{status(element)}}</mat-chip>
+    </td>
+  </ng-container>
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>
+      Actions
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="inline">
+        <button
+          mat-stroked-button
+          *ngIf="canEdit(element.status)"
+          (click)="editModule(element.module.id)">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button
+          mat-stroked-button
+          *ngIf="canPublish(element.status)"
+          (click)="publishModule(element.module.id)">
+          <mat-icon>publish</mat-icon>
+          Publish
+        </button>
+        <button
+          mat-stroked-button
+          *ngIf="canRequestReview(element.status)"
+          (click)="requestReview(element.module.id)">
+          <mat-icon>approval</mat-icon>
+          Request review
+        </button>
+        <button
+          mat-stroked-button
+          *ngIf="canStopPublication(element.status)"
+          (click)="cancelReview(element.module.id)">
+          <mat-icon>pause</mat-icon>
+          Cancel review
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          *ngIf="canDiscardChanges(element)"
+          (click)="discardChanges(element.module.id)">
+          <mat-icon>undo</mat-icon>
+          Discard changes
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+</table>
