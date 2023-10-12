@@ -5,16 +5,15 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
 import { Person } from '../../types/core/person'
-import { showPerson } from '../../ops/show.instances'
-import { Rows } from '../../form/module-form/module-form.component'
 import { FormInput } from '../../form/form-input'
+import { showPerson } from '../../ops/show.instances'
 
 export function responsibilityInput(
   dialog: MatDialog,
   persons: Person[],
   currentLecturer: (attr: string) => Person[],
   moduleManagement?: string[],
-): Rows<unknown, unknown> {
+) {
   function moduleCoordinatorInput(): OptionsInput<Person> {
     return {
       kind: 'options',
@@ -69,10 +68,10 @@ export function responsibilityInput(
     )
   }
 
-  return {
-    'moduleCoordinator': [{ input: moduleCoordinatorInput() as FormInput<unknown,unknown> }],
-    'lecturer': [{ input: lecturerInput() as FormInput<unknown,unknown> }],
-  }
+  return <FormInput<unknown, unknown>[]>[
+    moduleCoordinatorInput(),
+    lecturerInput(),
+  ]
 }
 
 

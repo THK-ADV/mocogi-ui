@@ -1,9 +1,8 @@
 import { NumberInput } from '../../form/plain-input/plain-input.component'
 import { FormInput } from '../../form/form-input'
 import { WorkloadLike } from '../../types/workload'
-import { Rows } from '../../form/module-form/module-form.component'
 
-export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
+export function workloadInput(workload?: WorkloadLike) {
   function lectureInput(): NumberInput {
     return go('Vorlesung', 'lecture', workload?.lecture)
   }
@@ -40,12 +39,12 @@ export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
     }
   }
 
-  return {
-    'lecture': [{ input: lectureInput() as FormInput<unknown, unknown> }],
-    'seminar': [{ input: seminarInput() as FormInput<unknown, unknown> }],
-    'practical': [{ input: practicalInput() as FormInput<unknown, unknown> }],
-    'exercise': [{ input: exerciseInput() as FormInput<unknown, unknown> }],
-    'project-work': [{ input: projectWorkInput() as FormInput<unknown, unknown> }],
-    'project-supervision': [{ input: projectSupervisionInput() as FormInput<unknown, unknown> }],
-  }
+  return <FormInput<unknown, unknown>[]>[
+    lectureInput(),
+    seminarInput(),
+    practicalInput(),
+    exerciseInput(),
+    projectWorkInput(),
+    projectSupervisionInput(),
+  ]
 }

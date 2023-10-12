@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
 import { HttpService } from '../http/http.service'
 import { Observable, of, Subscription, zip } from 'rxjs'
-import { ModuleFormComponent, ModuleForm } from '../form/module-form/module-form.component'
+import { EditModuleComponent, EditModulePayload } from '../form/edit-module/edit-module.component'
 import { MatDialog } from '@angular/material/dialog'
 import { inputs } from './inputs/inputs'
 import { parseModuleCompendium } from '../types/metadata-protocol-factory'
@@ -17,7 +17,7 @@ import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
 
-export function toPOPreview(
+function toPOPreview(
   pos: ReadonlyArray<PO>,
   studyPrograms: ReadonlyArray<StudyProgram>,
   grades: ReadonlyArray<Grade>,
@@ -47,9 +47,9 @@ export function toPOPreview(
 })
 export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
 
-  // @ViewChild('editModuleComponent') editModuleComponent!: EditModuleComponent<unknown, unknown>
+  @ViewChild('editModuleComponent') editModuleComponent!: EditModuleComponent<unknown, unknown>
 
-  // payload?: EditModulePayload<unknown, unknown>
+  payload?: EditModulePayload<unknown, unknown>
 
   private readonly id?: string
   private readonly action!: string
@@ -90,27 +90,27 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         competences,
       ] = coreData
       const poPreviews = toPOPreview(pos, studyPrograms, grades)
-      // this.payload = {
-      //   objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
-      //   editType: this.action === 'create' ? 'create' : 'update',
-      //   inputs: inputs(
-      //     [...modules],
-      //     [...moduleTypes],
-      //     [...languages],
-      //     [...seasons],
-      //     [...locations],
-      //     [...status],
-      //     [...persons],
-      //     [...assessmentMethods],
-      //     [...poPreviews],
-      //     [...competences],
-      //     [...globalCriteria],
-      //     this.dialog,
-      //     attr => this.editModuleComponent?.formControl(attr).value,
-      //     moduleCompendium,
-      //     this.id,
-      //   ),
-      // }
+      this.payload = {
+        objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
+        editType: this.action === 'create' ? 'create' : 'update',
+        inputs: inputs(
+          [...modules],
+          [...moduleTypes],
+          [...languages],
+          [...seasons],
+          [...locations],
+          [...status],
+          [...persons],
+          [...assessmentMethods],
+          [...poPreviews],
+          [...competences],
+          [...globalCriteria],
+          this.dialog,
+          attr => this.editModuleComponent?.formControl(attr).value,
+          moduleCompendium,
+          this.id,
+        ),
+      }
     })
   }
 

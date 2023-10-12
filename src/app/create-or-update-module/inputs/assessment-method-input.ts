@@ -9,7 +9,6 @@ import { AssessmentMethod } from '../../types/core/assessment-method'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel } from '../../ops/show.instances'
-import {Rows} from '../../form/module-form/module-form.component'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -17,7 +16,7 @@ export function assessmentMethodInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
   currentEntries: (attr: string, kind: AssessmentMethodKind) => AssessmentMethodEntry[],
-): Rows<unknown, unknown> {
+) {
   function assessmentMethodsMandatoryInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
     return go('mandatory')
   }
@@ -103,8 +102,8 @@ export function assessmentMethodInput(
     }
   }
 
-  return {
-    'assessment-methods': [{ input: assessmentMethodsMandatoryInput() as FormInput<unknown,unknown> }],
-    'assessment-methods-optional': [{ input: assessmentMethodsOptionalInput() as FormInput<unknown,unknown> }],
-  }
+  return <FormInput<unknown, unknown>[]>[
+    assessmentMethodsMandatoryInput(),
+    assessmentMethodsOptionalInput(),
+  ]
 }

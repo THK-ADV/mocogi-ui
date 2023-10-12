@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { ModulePageActions } from '../actions/module.actions'
-import { tap } from 'rxjs'
+import { map, tap } from 'rxjs'
 import { HttpService } from '../../http/http.service'
 import { Router } from '@angular/router'
 import { NavigationActions } from '../actions/navigation.actions'
@@ -13,18 +13,10 @@ export class NavigationEffects {
       return this.actions$.pipe(
         ofType(ModulePageActions.selectModule),
         tap(({moduleId}) => this.router.navigate(['/show'], {state: {id: moduleId}})),
+        map(() => NavigationActions.empty(),
+        ),
       )
     },
-    { dispatch: false }
-  )
-
-  navigateToRoute$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(NavigationActions.navigate),
-        tap(({ path }) => this.router.navigate(path)),
-      )
-    },
-    { dispatch: false }
   )
 
   constructor(
