@@ -86,6 +86,9 @@ import { NewModuleEffects } from './state/effects/new-module-page.effects'
 import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
+import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
+import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 
 @NgModule({
   declarations: [
@@ -130,6 +133,9 @@ import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-l
     ApprovalsPageComponent,
     ElectiveModulesListsPageComponent,
     ModuleCompendiumListsPageComponent,
+    ApprovalsListComponent,
+    ModuleCompendiumListsListComponent,
+    ElectiveModulesListsListComponent,
   ],
   imports: [
     MatStepperModule,
