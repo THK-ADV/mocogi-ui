@@ -12,7 +12,7 @@ export class NavigationEffects {
   navigateToModuleDetail$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(ModulePageActions.selectModule),
-        tap(({moduleId}) => this.router.navigate(['/show'], {state: {id: moduleId}})),
+        tap(({moduleId}) => this.router.navigate(['/modules', moduleId])),
       )
     },
     { dispatch: false }

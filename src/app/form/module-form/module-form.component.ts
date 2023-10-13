@@ -5,8 +5,8 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import {ModuleCompendiumProtocol} from '../../types/module-compendium'
-import {parseModuleCompendium} from '../../types/metadata-protocol-factory'
+import { ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 
 export type Language = 'de' | 'en'
 
