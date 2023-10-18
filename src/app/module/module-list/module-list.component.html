@@ -8,8 +8,7 @@
          [dataSource]="dataSource"
          [matSortActive]="(selectedSort$ | async)?.active ?? 'title'"
          [matSortDirection]="(selectedSort$ | async)?.direction ?? 'asc'"
-         (matSortChange)="updateSort($event)"
-         class="mat-elevation-z8">
+         (matSortChange)="updateSort($event)">
     <ng-container matColumnDef="title">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Titel</th>
       <td mat-cell *matCellDef="let element">
