@@ -1,0 +1,60 @@
+<table mat-table [dataSource]="dataSource">
+  <!-- Name -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>
+      Semester
+    </th>
+    <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)">
+      <span class="clickable">
+        {{ element.title }} ({{ element.semester }})
+      </span>
+    </td>
+  </ng-container>
+  <!-- Study Program -->
+  <ng-container matColumnDef="study_program">
+    <th mat-header-cell *matHeaderCellDef>
+      Studiengang
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-chip>{{ element.studyProgram }}</mat-chip>
+    </td>
+  </ng-container>
+  <!-- PO -->
+  <ng-container matColumnDef="po">
+    <th mat-header-cell *matHeaderCellDef>
+      Prüfungsordnung
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-chip>{{ element.po }}</mat-chip>
+    </td>
+  </ng-container>
+  <!-- Actions -->
+  <ng-container matColumnDef="download_de">
+    <th mat-header-cell *matHeaderCellDef>
+      Download Deutsch
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="inline">
+        <button mat-stroked-button>
+          <mat-icon>download</mat-icon>
+          Deutsch
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="download_en">
+    <th mat-header-cell *matHeaderCellDef>
+      Download English
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="inline">
+        <button mat-stroked-button>
+          <mat-icon>download</mat-icon>
+          English
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+</table>

@@ -3,7 +3,13 @@
     <ng-container *ngFor="let item of railItems">
       <hr *ngIf="item.type === 'DIVIDER'">
       <div class="spacer" *ngIf="item.type === 'SPACER'"></div>
-      <li *ngIf="item.type === 'LINK'" [class.disabled]="item.disabled"><a [href]="item.url"><mat-icon>{{item.icon}}</mat-icon>{{item.text}}</a></li>
+      <li *ngIf="item.type === 'LINK'" [class.disabled]="item.disabled"  [class.active]="item.active">
+        <a [href]="item.url">
+          <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+          <img *ngIf="item.image" [src]="item.image" [alt]="'icon of' + item.text">
+          <span>{{item.text}}</span>
+        </a>
+      </li>
     </ng-container>
   </ul>
 </div>

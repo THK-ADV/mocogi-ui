@@ -1,5 +1,5 @@
-<div class="layout">
-  <h1>Änderungen</h1>
+<main>
+  <h2>Meine Module</h2>
   <div>
     <button mat-stroked-button color="primary" (click)="navigateTo(['modules', 'new'])">
       <mat-icon>add</mat-icon>
@@ -7,4 +7,4 @@
     </button>
   </div>
   <cops-my-modules-list [modules]="modules$ | async"></cops-my-modules-list>
-</div>
+</main>

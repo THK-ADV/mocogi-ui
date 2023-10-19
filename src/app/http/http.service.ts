@@ -140,7 +140,7 @@ export class HttpService {
   ): Observable<unknown> =>
     this.http
       .put(
-        `moduleDrafts/${ moduleId }/a`,
+        `moduleDrafts/${ moduleId }`,
         moduleCompendiumProtocol,
         { headers: { 'Mocogi-Version-Scheme': 'v1.0s' } }
       )

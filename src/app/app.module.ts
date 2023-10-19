@@ -83,7 +83,14 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
 import { UpdateModuleEffects } from './state/effects/update-module.effects'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
+import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
+import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
+import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
+import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
+import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
+
 
 @NgModule({
   declarations: [
@@ -125,6 +132,12 @@ import { updateModuleReducer } from './state/reducer/update-module.reducer'
     UpdateModulePageComponent,
     MyModulesListComponent,
     NewModulePageComponent,
+    ApprovalsPageComponent,
+    ElectiveModulesListsPageComponent,
+    ModuleCompendiumListsPageComponent,
+    ApprovalsListComponent,
+    ModuleCompendiumListsListComponent,
+    ElectiveModulesListsListComponent,
   ],
   imports: [
     MatStepperModule,

@@ -11,17 +11,18 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
 export class AppComponent {
   navItems: Array<CopsNavigationItem> = [
     { type: 'HEADER', text: 'Übersicht' },
-    { type: 'LINK', text: 'Module', icon: 'description', url: ['/'] },
-    // { type: 'LINK', text: 'Modulhandbücher', icon: 'apps', url: '#' },
+    { type: 'LINK', text: 'Modulsuche', icon: 'search', url: ['/'] },
+    { type: 'LINK', text: 'Modulhandbücher', icon: 'book', url: ['module-compendium-lists'] },
+    { type: 'LINK', text: 'WPF Listen', icon: 'list-document', url: ['elective-modules-lists'] },
     { type: 'HEADER', text: 'Verwaltung' },
-    { type: 'LINK', text: 'Änderungen', icon: 'apps', url: ['my-modules'] },
-    // { type: 'LINK', text: 'Freigaben', icon: 'apps', url: '#' },
+    { type: 'LINK', text: 'Meine Module', icon: 'update', url: ['my-modules'] },
+    { type: 'LINK', text: 'Änderungsfreigaben', icon: 'approval', url: ['approvals'] },
   ]
   railItems: Array<CopsAppRailItem> = [
-    { type: 'LINK', text: 'Modules', icon: 'description', url: '', disabled: false },
-    { type: 'LINK', text: 'Schedule', icon: 'apps', url: '', disabled: true },
-    { type: 'LINK', text: 'Rooms', icon: 'apps', url: '', disabled: true },
-    { type: 'LINK', text: 'Exams', icon: 'apps', url: '', disabled: true },
+    { type: 'LINK', text: 'Modules', image: '/assets/icons/modules.svg', url: '', disabled: false, active: true },
+    { type: 'LINK', text: 'Schedule', image: '/assets/icons/schedule.svg', url: '', disabled: true },
+    { type: 'LINK', text: 'Rooms', image: '/assets/icons/rooms.svg', url: '', disabled: true },
+    { type: 'LINK', text: 'Exams', image: '/assets/icons/exams.svg', url: '', disabled: true },
     { type: 'DIVIDER' },
     { type: 'SPACER' },
     { type: 'LINK', text: 'Feedback', icon: 'feedback', url: '#', disabled: true },

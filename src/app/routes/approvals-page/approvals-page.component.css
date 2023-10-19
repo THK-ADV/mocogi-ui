@@ -14,10 +14,3 @@ main {
   height: 100%;
   overflow-y: scroll;
 }
-
-aside {
-  flex-grow: 0;
-  max-width: 400px;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 2em;
-}

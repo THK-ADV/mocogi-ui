@@ -1,0 +1,9 @@
+.inline {
+  display: flex;
+  gap: .5em;
+}
+
+tr.clickable:hover {
+  cursor: pointer;
+  background: whitesmoke;
+}
