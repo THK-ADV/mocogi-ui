@@ -21,4 +21,8 @@ export class ApprovalsListComponent {
       this.dataSource.data = [...approvals]
     }
   }
+
+  selectRow = () => {
+    console.log('selected')
+  }
 }

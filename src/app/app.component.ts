@@ -19,7 +19,7 @@ export class AppComponent {
     { type: 'LINK', text: 'Änderungsfreigaben', icon: 'approval', url: ['approvals'] },
   ]
   railItems: Array<CopsAppRailItem> = [
-    { type: 'LINK', text: 'Modules', image: '/assets/icons/modules.svg', url: '', disabled: false },
+    { type: 'LINK', text: 'Modules', image: '/assets/icons/modules.svg', url: '', disabled: false, active: true },
     { type: 'LINK', text: 'Schedule', image: '/assets/icons/schedule.svg', url: '', disabled: true },
     { type: 'LINK', text: 'Rooms', image: '/assets/icons/rooms.svg', url: '', disabled: true },
     { type: 'LINK', text: 'Exams', image: '/assets/icons/exams.svg', url: '', disabled: true },
