@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core'
-import {HttpService} from '../../http/http.service'
-import {Actions, createEffect, ofType} from '@ngrx/effects'
-import {catchError, exhaustMap, map, of} from 'rxjs'
-import {UpdateModuleApiActions, UpdateModulePageActions} from '../actions/update-module-page.actions'
-import {HttpErrorResponse} from '@angular/common/http'
-import { NavigationEffects } from './navigation.effects'
+import { Injectable } from '@angular/core'
+import { HttpService } from '../../http/http.service'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { catchError, exhaustMap, map, of } from 'rxjs'
+import { UpdateModuleApiActions, UpdateModulePageActions } from '../actions/update-module-page.actions'
+import { HttpErrorResponse } from '@angular/common/http'
 import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
