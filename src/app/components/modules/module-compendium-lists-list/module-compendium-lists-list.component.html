@@ -4,8 +4,8 @@
     <th mat-header-cell *matHeaderCellDef>
       Semester
     </th>
-    <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)">
-      <span class="clickable">
+    <td mat-cell *matCellDef="let element">
+      <span>
         {{ element.title }} ({{ element.semester }})
       </span>
     </td>
@@ -35,10 +35,12 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
-        <button mat-stroked-button>
-          <mat-icon>download</mat-icon>
-          Deutsch
-        </button>
+        <a [href]="element.germanDownloadLink" target="_blank" [class.disabled-link]="!element.germanDownloadLink">
+          <button mat-stroked-button [disabled]="!element.germanDownloadLink">
+            <mat-icon>open_in_new</mat-icon>
+            Deutsch
+          </button>
+        </a>
       </div>
     </td>
   </ng-container>
@@ -48,10 +50,12 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
-        <button mat-stroked-button>
-          <mat-icon>download</mat-icon>
+        <a [href]="element.englishDownloadLin" target="_blank" [class.disabled-link]="!element.englishDownloadLink">
+        <button mat-stroked-button [disabled]="!element.englishDownloadLink">
+          <mat-icon>open_in_new</mat-icon>
           English
         </button>
+        </a>
       </div>
     </td>
   </ng-container>

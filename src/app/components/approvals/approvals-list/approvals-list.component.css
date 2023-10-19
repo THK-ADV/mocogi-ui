@@ -1,9 +1,15 @@
 .inline {
   display: flex;
+  align-items: center;
+  justify-content: end;
   gap: .5em;
 }
 
 tr.clickable:hover {
   cursor: pointer;
   background: whitesmoke;
+}
+
+.align-right {
+  text-align: right;
 }

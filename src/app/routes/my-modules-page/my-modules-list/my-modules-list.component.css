@@ -1,5 +1,5 @@
 .mat-column-select {
-  width: 0px;
+  width: 0;
 }
 
 .inline {
@@ -28,4 +28,8 @@ section {
 
 .mat-mdc-card-content > p {
   height: 100%;
+}
+
+.align-right {
+  text-align: right;
 }
