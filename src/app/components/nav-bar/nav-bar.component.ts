@@ -32,7 +32,6 @@ export class NavBarComponent {
   }
 
   isActive = (itemUrl: string) => {
-    console.log(itemUrl, this.router.url)
     const comparableUrl = itemUrl === '/' ? itemUrl : `/${ itemUrl }`
     return this.router.url === comparableUrl
   }
