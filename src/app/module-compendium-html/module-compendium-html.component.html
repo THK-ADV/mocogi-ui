@@ -1,10 +1,15 @@
-<mat-tab-group>
-  <mat-tab>
-    <ng-template mat-tab-label>Modulbeschreibung</ng-template>
-    <div #shadowRootContainer></div>
-  </mat-tab>
-  <mat-tab *ngIf="moduleCompendium | async as moduleCompendium">
-    <ng-template mat-tab-label>Json</ng-template>
-    <pre><p>{{moduleCompendium | json}}</p></pre>
-  </mat-tab>
-</mat-tab-group>
+<main>
+  <ng-template mat-tab-label>Modulbeschreibung</ng-template>
+  <div #shadowRootContainer></div>
+  <!--
+  <mat-tab-group>
+    <mat-tab>
+
+    </mat-tab>
+    <mat-tab *ngIf="moduleCompendium | async as moduleCompendium">
+      <ng-template mat-tab-label>Json</ng-template>
+      <pre><p>{{moduleCompendium | json}}</p></pre>
+    </mat-tab>
+  </mat-tab-group>
+  -->
+</main>
