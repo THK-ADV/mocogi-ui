@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { NavigationActions } from '../../state/actions/navigation.actions'
+import { Router } from '@angular/router'
 
 export type CopsNavigationLink = {
   type: 'LINK',
@@ -24,9 +25,14 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
 })
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []
-  constructor(private store: Store) {
+  constructor(private store: Store, private router: Router) {
   }
   navigateTo(url: Array<string>) {
     this.store.dispatch(NavigationActions.navigate({ path: url }))
+  }
+
+  isActive = (itemUrl: string) => {
+    const comparableUrl = itemUrl === '/' ? itemUrl : `/${ itemUrl }`
+    return this.router.url === comparableUrl
   }
 }

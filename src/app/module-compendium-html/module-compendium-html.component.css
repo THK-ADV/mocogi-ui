@@ -1,0 +1,18 @@
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  align-items: center;
+}
+
+.compendium-container {
+  max-width: 1000px;
+}
+
+mat-card  {
+  padding: 3em;
+}
+
+h1 {
+  color: red;
+}
