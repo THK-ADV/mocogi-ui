@@ -4,6 +4,8 @@ import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {catchError, exhaustMap, map, of} from 'rxjs'
 import {UpdateModuleApiActions, UpdateModulePageActions} from '../actions/update-module-page.actions'
 import {HttpErrorResponse} from '@angular/common/http'
+import { NavigationEffects } from './navigation.effects'
+import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
 export class UpdateModuleEffects {
@@ -13,7 +15,7 @@ export class UpdateModuleEffects {
         exhaustMap(({moduleId, moduleCompendiumProtocol}) => {
           return this.service.updateModuleDraft(moduleId, moduleCompendiumProtocol).pipe(
             map(() => {
-              return UpdateModuleApiActions.savedChangesSuccess()
+              return NavigationActions.navigate({path: ['my-modules']})
             }),
             catchError((error: HttpErrorResponse) => {
               return of(UpdateModuleApiActions.savedChangesFailure(error.error))
