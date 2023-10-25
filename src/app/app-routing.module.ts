@@ -15,8 +15,8 @@ import {
 import {
   ModuleCompendiumListsPageComponent,
 } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
-import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
-import { ApprovalPageComponent } from './routes/approval-page/approval-page.component'
+import { ModuleReviewsPageComponent } from './routes/module-reviews-page/module-reviews-page.component'
+import { ModuleReviewPageComponent } from './routes/module-review-page/module-review-page.component'
 
 const routes: Routes = [
   {
@@ -33,11 +33,11 @@ const routes: Routes = [
   },
   {
     path: 'module-reviews',
-    component: ApprovalsPageComponent,
+    component: ModuleReviewsPageComponent,
   },
   {
     path: 'module-reviews/:moduleId',
-    component: ApprovalPageComponent,
+    component: ModuleReviewPageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
