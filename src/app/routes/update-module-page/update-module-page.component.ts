@@ -87,4 +87,11 @@ export class UpdateModulePageComponent {
       }
     })
   }
+
+  changedKeys = [
+    {icon: 'add', name: 'Title', details: 'was added', toBeReviewed: true},
+    {icon: 'add', name: 'Short', details: 'was added', toBeReviewed: true},
+    {icon: 'remove', name: 'Literature', details: 'was removed', toBeReviewed: false},
+    {icon: 'edit', name: 'value', details: 'was updated', toBeReviewed: false},
+  ]
 }

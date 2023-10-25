@@ -1,7 +1,16 @@
-<cops-module-form
-  #moduleFormComponent
-  *ngIf="moduleForm"
-  [moduleForm]="moduleForm"
-  [onCancel]="cancel"
-  [onSubmit]="submit"
-></cops-module-form>
+<main>
+  <cops-module-form
+    #moduleFormComponent
+    *ngIf="moduleForm"
+    [moduleForm]="moduleForm"
+    [onCancel]="cancel"
+    [onSubmit]="submit"
+  ></cops-module-form>
+</main>
+<aside>
+  <div class="info">
+    <h3>Achtung!</h3>
+    <p>Das Modul wird erst den Genehmigungsprozess durchlaufen und erst im nächsten Semester in das Modulhandbuch aufgenommen.</p>
+  </div>
+  <cops-module-form-actions></cops-module-form-actions>
+</aside>

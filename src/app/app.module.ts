@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-
 import { AppComponent } from './app.component'
 import { ModuleComponent } from './module/module.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
@@ -91,6 +90,9 @@ import { ModuleCompendiumListsListComponent } from './components/modules/module-
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
 import { ModuleReviewPageComponent } from './routes/module-review-page/module-review-page.component'
+import { ListOfChangesComponent } from './components/list-of-changes/list-of-changes.component'
+import { ModuleFormActionsComponent } from './components/module-form-actions/module-form-actions.component'
+import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
 
 
 @NgModule({
@@ -140,6 +142,9 @@ import { ModuleReviewPageComponent } from './routes/module-review-page/module-re
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,
     ModuleReviewPageComponent,
+    ListOfChangesComponent,
+    ModuleFormActionsComponent,
+    ModuleReviewActionsComponent,
   ],
   imports: [
     MatStepperModule,

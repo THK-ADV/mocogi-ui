@@ -1,29 +1,8 @@
 form {
   display: flex;
-  padding: 1em;
-  gap: 1em;
-  height: 100%;
-  width: 100%;
-}
-
-main {
-  flex-grow: 1;
-  height: 100%;
-  overflow-y: scroll;
-  padding: 1em;
-}
-
-aside {
-  width: 400px;
-  padding: 1em;
-  display: flex;
   flex-direction: column;
-  gap: 2em;
-}
-
-.spacer {
-  display: block;
-  flex-grow: 1;
+  gap: 1em;
+  width: 100%;
 }
 
 .actions {

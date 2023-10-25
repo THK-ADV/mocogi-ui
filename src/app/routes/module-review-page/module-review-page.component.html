@@ -1,1 +1,11 @@
-<p>approval-page works!</p>
+<main>
+  <cops-module-form
+    #moduleFormComponent
+    *ngIf="moduleForm"
+    [moduleForm]="moduleForm"
+  ></cops-module-form>
+</main>
+<aside>
+  <cops-list-of-changes [changedKeys]="changedKeys"></cops-list-of-changes>
+  <cops-module-review-actions></cops-module-review-actions>
+</aside>

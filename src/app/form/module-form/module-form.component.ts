@@ -37,6 +37,7 @@ type EditType = 'create' | 'update'
 export class ModuleFormComponent<A, B> implements OnInit {
 
   @Input() moduleForm!: ModuleForm<A, B>
+  @Input() mode!: 'CREATE' | 'UPDATE' | 'REVIEW'
   @Input() onCancel?: () => void
   @Input() onSubmit?: (moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
 
