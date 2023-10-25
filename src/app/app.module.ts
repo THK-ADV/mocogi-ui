@@ -90,6 +90,7 @@ import { ApprovalsListComponent } from './components/approvals/approvals-list/ap
 import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
+import { ApprovalPageComponent } from './routes/approval-page/approval-page.component'
 
 
 @NgModule({
@@ -138,6 +139,7 @@ import { updateModuleReducer } from './state/reducer/update-module.reducer'
     ApprovalsListComponent,
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,
+    ApprovalPageComponent,
   ],
   imports: [
     MatStepperModule,

@@ -16,6 +16,7 @@ import {
   ModuleCompendiumListsPageComponent,
 } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
 import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
+import { ApprovalPageComponent } from './routes/approval-page/approval-page.component'
 
 const routes: Routes = [
   {
@@ -31,8 +32,13 @@ const routes: Routes = [
     component: ModuleCompendiumListsPageComponent,
   },
   {
-    path: 'approvals',
+    path: 'module-reviews',
     component: ApprovalsPageComponent,
+  },
+  {
+    path: 'module-reviews/:moduleId',
+    component: ApprovalPageComponent,
+    ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
     path: 'modules',
