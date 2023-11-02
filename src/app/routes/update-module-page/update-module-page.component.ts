@@ -11,13 +11,7 @@ import { ModuleCompendium, ModuleCompendiumProtocol } from '../../types/module-c
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
-
-type ChangeLogItem = {
-  icon: string,
-  name: string,
-  details: string,
-  toBeReviewed: boolean,
-}
+import { ChangeLogItem } from '../../types/changes'
 
 @Component({
   selector: 'cops-update-module-page',

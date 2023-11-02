@@ -7,6 +7,8 @@ import { zip } from 'rxjs'
 import { toPOPreview } from '../../create-or-update-module/create-or-update-module.component'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'
+import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
+import { ChangeLogItem } from '../../types/changes'
 
 @Component({
   selector: 'cops-module-review-page',
@@ -18,10 +20,14 @@ export class ModuleReviewPageComponent {
 
   moduleId: string
   moduleForm?: ModuleForm<unknown, unknown>
+  modifiedKeys: Array<ChangeLogItem> = []
+  
   constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     zip([
       http.latestModuleCompendiumById(this.moduleId),
+      http.stagingModuleCompendiumById(this.moduleId),
+      http.moduleDraftKeys(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
@@ -37,6 +43,8 @@ export class ModuleReviewPageComponent {
       http.allGrades(),
     ]).subscribe(([
                     moduleCompendium,
+                    stagingModuleCompendium,
+                    moduleDraftKeys,
                     modules,
                     moduleTypes,
                     seasons,
@@ -73,15 +81,10 @@ export class ModuleReviewPageComponent {
           moduleCompendium.metadata.id,
         ),
       }
+      this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
     })
   }
 
-  changedKeys = [
-    {icon: 'add', name: 'Title', details: 'was added', toBeReviewed: true},
-    {icon: 'add', name: 'Short', details: 'was added', toBeReviewed: true},
-    {icon: 'remove', name: 'Literature', details: 'was removed', toBeReviewed: false},
-    {icon: 'edit', name: 'value', details: 'was updated', toBeReviewed: false},
-  ]
   protected readonly onsubmit = () => {
     console.log('PING')
   }
