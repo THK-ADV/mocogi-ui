@@ -15,8 +15,8 @@ import {
 import {
   ModuleCompendiumListsPageComponent,
 } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
-import { ModuleReviewsPageComponent } from './routes/module-reviews-page/module-reviews-page.component'
-import { ModuleReviewPageComponent } from './routes/module-review-page/module-review-page.component'
+import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
+import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
 
 const routes: Routes = [
   {
@@ -32,12 +32,12 @@ const routes: Routes = [
     component: ModuleCompendiumListsPageComponent,
   },
   {
-    path: 'module-reviews',
-    component: ModuleReviewsPageComponent,
+    path: 'module-approvals',
+    component: ModuleApprovalsPageComponent,
   },
   {
-    path: 'module-reviews/:moduleId',
-    component: ModuleReviewPageComponent,
+    path: 'module-approvals/:moduleId',
+    component: ModuleApprovalPageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {

@@ -12,10 +12,10 @@ import { ChangeLogItem } from '../../types/changes'
 
 @Component({
   selector: 'cops-module-review-page',
-  templateUrl: './module-review-page.component.html',
-  styleUrls: ['./module-review-page.component.css'],
+  templateUrl: './module-approval-page.component.html',
+  styleUrls: ['./module-approval-page.component.css'],
 })
-export class ModuleReviewPageComponent {
+export class ModuleApprovalPageComponent {
   @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
 
   moduleId: string

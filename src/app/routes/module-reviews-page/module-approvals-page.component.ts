@@ -3,10 +3,10 @@ import { Approval } from '../../components/approvals/approvals-list/approvals-li
 
 @Component({
   selector: 'cops-module-reviews-page',
-  templateUrl: './module-reviews-page.component.html',
-  styleUrls: ['./module-reviews-page.component.css'],
+  templateUrl: './module-approvals-page.component.html',
+  styleUrls: ['./module-approvals-page.component.css'],
 })
-export class ModuleReviewsPageComponent {
+export class ModuleApprovalsPageComponent {
   approvals: ReadonlyArray<Approval> = [
     { title: 'Spezielle Gebiete der Mathematik (SGM)', requester: 'Ane Schmitter', moduleId: 'e37c5af9-6076-4f15-8c8b-d206b7091bc0' },
     { title: 'Approval no. 2', requester: 'Christian Kohls', moduleId: 'e37c5af9-6076-4f15-8c8b-d206b7091bc0' },

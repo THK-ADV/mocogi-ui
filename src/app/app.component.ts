@@ -16,7 +16,7 @@ export class AppComponent {
     { type: 'LINK', text: 'WPF Listen', icon: 'list-document', url: ['elective-modules-lists'] },
     { type: 'HEADER', text: 'Verwaltung' },
     { type: 'LINK', text: 'Meine Module', icon: 'update', url: ['my-modules'] },
-    { type: 'LINK', text: 'Änderungsfreigaben', icon: 'approval', url: ['module-reviews'] },
+    { type: 'LINK', text: 'Änderungsfreigaben', icon: 'approval', url: ['module-approvals'] },
   ]
   railItems: Array<CopsAppRailItem> = [
     { type: 'LINK', text: 'Modules', image: '/assets/icons/modules.svg', url: '', disabled: false, active: true },

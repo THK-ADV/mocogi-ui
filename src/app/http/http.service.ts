@@ -150,7 +150,7 @@ export class HttpService {
       .put(
         `moduleDrafts/${ moduleId }`,
         moduleCompendiumProtocol,
-        { headers: { 'Mocogi-Version-Scheme': 'v1.0s' } }
+        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
       )
 
   deleteDraft = (moduleId: string) =>
@@ -229,9 +229,20 @@ export class HttpService {
 
   // Review
 
-  createReview = (moduleId: string): Observable<unknown> =>
-    this.http.post(`review/${moduleId}`, null)
+  requestReview = (moduleId: string): Observable<unknown> =>
+    this.http.post(`moduleReviews/${ moduleId }`, {})
 
-  deleteReview = (moduleId: string): Observable<unknown> =>
-    this.http.delete(`review/${moduleId}`)
+  cancelReview = (moduleId: string): Observable<unknown> =>
+    this.http.delete(`moduleReviews/${ moduleId }`)
+
+  // Approval
+
+  myApprovals = () =>
+    this.http.get('approvals/own')
+
+  submitApproval = (approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
+    this.http.put(`approvals/${ approvalId }`, {
+      action,
+      comment,
+    })
 }

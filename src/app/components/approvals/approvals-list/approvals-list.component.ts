@@ -29,6 +29,6 @@ export class ApprovalsListComponent {
   }
 
   selectRow = (moduleId: string) => {
-    this.store.dispatch(NavigationActions.navigate({ path: ['module-reviews', moduleId] }))
+    this.store.dispatch(NavigationActions.navigate({ path: ['module-approvals', moduleId] }))
   }
 }
