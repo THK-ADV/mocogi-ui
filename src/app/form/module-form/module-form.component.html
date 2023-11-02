@@ -1,5 +1,5 @@
 <h2>{{title}}</h2>
-<form [formGroup]="formGroup" (ngSubmit)="submit()">
+<form [formGroup]="formGroup">
   <mat-accordion>
     <ng-container *ngFor="let section of moduleForm.sections; let indexOfElement = index;">
       <mat-expansion-panel [expanded]="indexOfElement === 0">

@@ -82,4 +82,12 @@ export class ModuleReviewPageComponent {
     {icon: 'remove', name: 'Literature', details: 'was removed', toBeReviewed: false},
     {icon: 'edit', name: 'value', details: 'was updated', toBeReviewed: false},
   ]
+  protected readonly onsubmit = () => {
+    console.log('PING')
+  }
+
+  protected readonly oncancel = () => {
+    console.log('PONG')
+  }
+
 }

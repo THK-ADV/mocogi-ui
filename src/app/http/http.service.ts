@@ -37,6 +37,11 @@ export interface ModuleDraftJson {
   lastModified: string
 }
 
+export type ModuleDraftKeys = {
+  modifiedKeys: Array<string>
+  keysToBeReviewed: Array<string>
+}
+
 interface ModeratedModuleJson {
   module: Module
   moduleDraft: ModuleDraftJson | undefined
@@ -66,6 +71,9 @@ export class HttpService {
 
   latestModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
     this.http.get<ModuleCompendium>(`moduleCompendium/${ id }/latest`)
+
+  stagingModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
+    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }/staging`)
 
   moduleCompendiumHtmlFile = (id: string) =>
     this.http.request('GET', `moduleCompendium/${ id }/file`, {responseType: 'text'})
@@ -159,6 +167,9 @@ export class HttpService {
     this.http.get<ModuleDraftJson[]>(`moduleDrafts/${ branch }`).pipe(
       map(xs => xs.map(this.convertModuleDraft)),
     )
+
+  moduleDraftKeys = (moduleId: string): Observable<ModuleDraftKeys> =>
+    this.http.get<ModuleDraftKeys>(`moduleDrafts/${ moduleId }/keys`)
 
   moderatedModules = (): Observable<ModeratedModule[]> =>
     this.http.get<ModeratedModuleJson[]>('moduleDrafts/own').pipe(

@@ -1,22 +1,20 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Sort } from '@angular/material/sort'
 import { ModuleAtomic } from '../../types/module-atomic'
 
 export const ModuleReviewPageActions = createActionGroup({
-  source: 'Module Page',
+  source: 'Module Review Page',
   events: {
     'Enter': emptyProps(),
-    'Select Module': props<{ moduleId: string }>(),
-    'Filter Module': props<{ filter: string }>(),
-    'Reset Filter': emptyProps(),
-    'Select Sort': props<{ sort: Sort }>(),
+    'Approve': props<{ comment: string }>(),
+    'Reject': props<{ comment: string }>(),
+    'JumpToKey': props<{ key: string }>,
   },
 })
 
 export const ModuleReviewApiActions = createActionGroup({
-  source: 'Module API',
+  source: 'Module Review API',
   events: {
-    'Retrieved Modules Success': props<{ modules: ModuleAtomic[] }>(),
-    'Retrieved Modules Failure': props<{ error: Error }>(),
+    'Retrieved Module Review Success': props<{ modules: ModuleAtomic[] }>(),
+    'Retrieved Modules Review Failure': props<{ error: Error }>(),
   },
 })

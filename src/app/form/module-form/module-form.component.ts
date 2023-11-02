@@ -59,11 +59,8 @@ export class ModuleFormComponent<A, B> implements OnInit {
     )
   }
 
-  submit = () => {
-    if (!this.formGroup.valid) return
-    const mc = parseModuleCompendium(this.formGroup.value)
-    this.onSubmit?.(mc)
-  }
+  moduleCompendiumProtocol = () =>
+    !this.formGroup.valid ? undefined : parseModuleCompendium(this.formGroup.value)
 
   cancel = () =>
     this.onCancel?.()
