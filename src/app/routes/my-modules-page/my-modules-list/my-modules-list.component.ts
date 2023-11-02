@@ -72,36 +72,23 @@ export class MyModulesListComponent {
   }
 
   status = ({status}: ModeratedModule) => {
-    switch (status) {
-      case 'published':
-        return 'Published'
-      case 'waiting_for_approval':
-        return 'Waiting for approval'
-      case 'waiting_for_publication':
-        return 'Waiting for publication'
-      case 'valid_for_review':
-        return 'Valid for review'
-      case 'valid_for_publication':
-        return 'Valid for publication'
-      case 'unknown':
-        return 'Unknown'
-    }
+    return status.deLabel
   }
 
   canEdit = (status: ModuleStatus) =>
-    status === 'valid_for_review' ||
-    status === 'valid_for_publication' ||
-    status === 'published'
+    status.id === 'valid_for_review' ||
+    status.id === 'valid_for_publication' ||
+    status.id === 'published'
 
   canPublish = (status: ModuleStatus) =>
-    status === 'valid_for_publication'
+    status.id === 'valid_for_publication'
 
   canRequestReview = (status: ModuleStatus) =>
-    status === 'valid_for_review'
+    status.id === 'valid_for_review'
 
   canStopPublication = (status: ModuleStatus) =>
-    status === 'waiting_for_approval'
+    status.id === 'waiting_for_approval'
 
   canDiscardChanges = ({moduleDraft, status}: ModeratedModule) =>
-    moduleDraft?.modifiedKeys?.length !== 0 && (status === 'valid_for_review' || status === 'valid_for_publication')
+    moduleDraft?.modifiedKeys?.length !== 0 && (status.id === 'valid_for_review' || status.id === 'valid_for_publication')
 }

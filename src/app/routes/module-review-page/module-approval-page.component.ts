@@ -9,6 +9,8 @@ import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
 import { ChangeLogItem } from '../../types/changes'
+import { Store } from '@ngrx/store'
+import { ModuleApprovalPageActions } from '../../state/actions/module-approval-page.actions'
 
 @Component({
   selector: 'cops-module-review-page',
@@ -19,11 +21,13 @@ export class ModuleApprovalPageComponent {
   @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
 
   moduleId: string
+  approvalId: string
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
   
-  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
+    this.approvalId = this.route.snapshot.paramMap.get('approvalId') ?? throwError('Module ID should be in route parameters.')
     zip([
       http.latestModuleCompendiumById(this.moduleId),
       http.stagingModuleCompendiumById(this.moduleId),
@@ -85,12 +89,16 @@ export class ModuleApprovalPageComponent {
     })
   }
 
-  protected readonly onsubmit = () => {
-    console.log('PING')
+  protected approve = (comment?: string) => {
+    this.store.dispatch(ModuleApprovalPageActions.approve({approvalId: this.approvalId, comment: comment }))
   }
 
-  protected readonly oncancel = () => {
-    console.log('PONG')
+  protected reject = (comment?: string) => {
+    this.store.dispatch(ModuleApprovalPageActions.reject({approvalId: this.approvalId, comment: comment }))
+  }
+
+  protected cancel = () => {
+    return
   }
 
 }

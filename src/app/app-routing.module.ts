@@ -36,7 +36,7 @@ const routes: Routes = [
     component: ModuleApprovalsPageComponent,
   },
   {
-    path: 'module-approvals/:moduleId',
+    path: 'modules/:moduleId/approvals/:approvalId',
     component: ModuleApprovalPageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
   },

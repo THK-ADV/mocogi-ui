@@ -4,9 +4,19 @@ import { Store } from '@ngrx/store'
 import { NavigationActions } from '../../../state/actions/navigation.actions'
 
 export type Approval = {
-  title: string,
-  requester: string,
+  reviewId: string,
   moduleId: string,
+  moduleTitle: string,
+  moduleAbbrev: string,
+  author: string,
+  role: string,
+  status: {
+    approved: boolean
+    deLabel: string
+    enLabel: string
+    id: string
+    needed: number
+  }
 }
 
 @Component({
@@ -17,7 +27,7 @@ export type Approval = {
 
 export class ApprovalsListComponent {
   protected dataSource = new MatTableDataSource<Approval>()
-  protected displayedColumns: string[] = ['title', 'requester', 'actions']
+  protected displayedColumns: string[] = ['title', 'requester']
 
   constructor(private store: Store) {
   }
@@ -28,7 +38,7 @@ export class ApprovalsListComponent {
     }
   }
 
-  selectRow = (moduleId: string) => {
-    this.store.dispatch(NavigationActions.navigate({ path: ['module-approvals', moduleId] }))
+  selectRow = (moduleId: string, approvalId: string) => {
+    this.store.dispatch(NavigationActions.navigate({ path: ['modules', moduleId, 'approvals', approvalId] }))
   }
 }

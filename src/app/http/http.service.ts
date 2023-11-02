@@ -25,6 +25,7 @@ import { asRecord } from '../parser/record-parser'
 import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleStatus } from '../types/moderated.module'
+import { Approval } from '../components/approvals/approvals-list/approvals-list.component'
 
 export interface ModuleDraftJson {
   module: string
@@ -237,11 +238,16 @@ export class HttpService {
 
   // Approval
 
-  myApprovals = () =>
-    this.http.get('approvals/own')
+  ownApprovals = () : Observable<ReadonlyArray<Approval>> =>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.http.get('moduleApprovals/own?user=cnoss')
+
+  getApproval = (approvalId: string): Observable<unknown> =>
+    this.http.get(`moduleApprovals/${ approvalId }`)
 
   submitApproval = (approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
-    this.http.put(`approvals/${ approvalId }`, {
+    this.http.put(`moduleApprovals/${ approvalId }`, {
       action,
       comment,
     })

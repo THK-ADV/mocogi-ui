@@ -1,12 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
 import { ModuleAtomic } from '../../types/module-atomic'
 
-export const ModuleReviewPageActions = createActionGroup({
+export const ModuleApprovalPageActions = createActionGroup({
   source: 'Module Review Page',
   events: {
     'Enter': emptyProps(),
-    'Approve': props<{ approvalId: string, comment: string }>(),
-    'Reject': props<{ approvalId: string, comment: string }>(),
+    'Approve': props<{ approvalId: string, comment?: string }>(),
+    'Reject': props<{ approvalId: string, comment?: string }>(),
     'JumpToKey': props<{ key: string }>,
   },
 })

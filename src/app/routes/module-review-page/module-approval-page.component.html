@@ -7,5 +7,9 @@
 </main>
 <aside>
   <cops-list-of-changes [changedKeys]="modifiedKeys"></cops-list-of-changes>
-  <cops-module-review-actions></cops-module-review-actions>
+  <cops-module-review-actions
+    [approveAction]="approve"
+    [rejectAction]="reject"
+    [cancelAction]="cancel"
+  ></cops-module-review-actions>
 </aside>

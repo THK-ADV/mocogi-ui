@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'cops-module-review-actions',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core'
   styleUrls: ['./module-review-actions.component.css'],
 })
 export class ModuleReviewActionsComponent {
-
+  @Input() approveAction!: () => void
+  @Input() rejectAction!: () => void
+  @Input() cancelAction!: () => void
 }
