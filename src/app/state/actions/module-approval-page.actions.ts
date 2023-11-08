@@ -1,5 +1,4 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { ModuleAtomic } from '../../types/module-atomic'
 
 export const ModuleApprovalPageActions = createActionGroup({
   source: 'Module Review Page',
@@ -11,10 +10,10 @@ export const ModuleApprovalPageActions = createActionGroup({
   },
 })
 
-export const ModuleReviewApiActions = createActionGroup({
-  source: 'Module Review API',
+export const ModuleApprovalApiActions = createActionGroup({
+  source: 'Module Approval API',
   events: {
-    'Retrieved Module Review Success': props<{ modules: ModuleAtomic[] }>(),
-    'Retrieved Modules Review Failure': props<{ error: Error }>(),
+    'Module Approval Success': emptyProps(),
+    'Module Approval Failed': props<{ error: Error }>(),
   },
 })

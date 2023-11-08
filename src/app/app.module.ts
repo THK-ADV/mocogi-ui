@@ -93,6 +93,7 @@ import { ModuleApprovalPageComponent } from './routes/module-review-page/module-
 import { ListOfChangesComponent } from './components/list-of-changes/list-of-changes.component'
 import { ModuleFormActionsComponent } from './components/module-form-actions/module-form-actions.component'
 import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
+import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 
 
 @NgModule({
@@ -185,6 +186,7 @@ import { ModuleReviewActionsComponent } from './components/module-review-actions
       MyModuleEffects,
       UpdateModuleEffects,
       NewModuleEffects,
+      ModuleApprovalEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

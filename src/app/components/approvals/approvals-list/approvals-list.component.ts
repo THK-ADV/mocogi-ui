@@ -27,7 +27,7 @@ export type Approval = {
 
 export class ApprovalsListComponent {
   protected dataSource = new MatTableDataSource<Approval>()
-  protected displayedColumns: string[] = ['title', 'requester']
+  protected displayedColumns: string[] = ['title', 'status', 'requester']
 
   constructor(private store: Store) {
   }

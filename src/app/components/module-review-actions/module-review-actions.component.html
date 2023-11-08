@@ -3,6 +3,6 @@
     <mat-label>Leave a comment</mat-label>
     <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
   </mat-form-field>
-  <button mat-stroked-button color="primary">Accept</button>
-  <button mat-stroked-button color="accent">Request Changes</button>
+  <button mat-stroked-button color="primary" (click)="approveAction()">Accept</button>
+  <button mat-stroked-button color="accent" (click)="rejectAction()">Request Changes</button>
 </form>
