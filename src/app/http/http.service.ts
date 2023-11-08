@@ -241,7 +241,7 @@ export class HttpService {
   ownApprovals = (): Observable<ReadonlyArray<Approval>> =>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    this.http.get('moduleApprovals/own?user=cnoss')
+    this.http.get('moduleApprovals/own')
 
   getApproval = (approvalId: string): Observable<unknown> =>
     this.http.get(`moduleApprovals/${approvalId}`)
