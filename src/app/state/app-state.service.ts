@@ -209,7 +209,7 @@ export class AppStateService implements OnDestroy {
         const res: Array<[Module, ModuleDraft | undefined]> = []
         usersModules.forEach(m => res.push([m, drafts.find(d => d.module === m.id)]))
         drafts.forEach(draft => {
-          if (draft.status === 'added') {
+          if (draft.source === 'added') {
             const module: Module = {
               id: draft.module,
               title: draft.data.metadata.title,

@@ -15,7 +15,7 @@ import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
-import { ModuleDraft, ModuleDraftStatus } from '../types/module-draft'
+import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
 import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
@@ -24,14 +24,14 @@ import { ModuleAtomic } from '../types/module-atomic'
 import { asRecord } from '../parser/record-parser'
 import { Content } from '../types/content'
 
-import { ModeratedModule, ModuleStatus } from '../types/moderated.module'
+import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../components/approvals/approvals-list/approvals-list.component'
 
 export interface ModuleDraftJson {
   module: string
   user: string
   branch: string
-  status: ModuleDraftStatus
+  source: ModuleDraftSource
   data: string
   keysToBeReviewed: ReadonlyArray<string>
   modifiedKeys: ReadonlyArray<string>
@@ -46,7 +46,7 @@ export type ModuleDraftKeys = {
 interface ModeratedModuleJson {
   module: Module
   moduleDraft: ModuleDraftJson | undefined
-  status: ModuleStatus
+  moduleDraftState: ModuleDraftState
 }
 
 @Injectable({
@@ -68,16 +68,16 @@ export class HttpService {
   // Module Compendium
 
   moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }`)
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
 
   latestModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }/latest`)
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}/latest`)
 
   stagingModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${ id }/staging`)
+    this.http.get<ModuleCompendium>(`moduleCompendium/${id}/staging`)
 
   moduleCompendiumHtmlFile = (id: string) =>
-    this.http.request('GET', `moduleCompendium/${ id }/file`, {responseType: 'text'})
+    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
 
   // Core Data
 
@@ -149,13 +149,13 @@ export class HttpService {
   ): Observable<unknown> =>
     this.http
       .put(
-        `moduleDrafts/${ moduleId }`,
+        `moduleDrafts/${moduleId}`,
         moduleCompendiumProtocol,
         {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
       )
 
   deleteDraft = (moduleId: string) =>
-    this.http.delete(`moduleDrafts/${ moduleId }`)
+    this.http.delete(`moduleDrafts/${moduleId}`)
 
   // Branch
 
@@ -165,12 +165,12 @@ export class HttpService {
   // Module Draft
 
   moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
-    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${ branch }`).pipe(
+    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
       map(xs => xs.map(this.convertModuleDraft)),
     )
 
   moduleDraftKeys = (moduleId: string): Observable<ModuleDraftKeys> =>
-    this.http.get<ModuleDraftKeys>(`moduleDrafts/${ moduleId }/keys`)
+    this.http.get<ModuleDraftKeys>(`moduleDrafts/${moduleId}/keys`)
 
   moderatedModules = (): Observable<ModeratedModule[]> =>
     this.http.get<ModeratedModuleJson[]>('moduleDrafts/own').pipe(
@@ -192,7 +192,7 @@ export class HttpService {
       branch: branch,
     }
     const request = id
-      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${ id }`, body)
+      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${id}`, body)
       : this.http.post<ModuleDraftJson>('moduleDrafts', body)
 
     return request.pipe(map(this.convertModuleDraft))
@@ -210,15 +210,15 @@ export class HttpService {
   // Validation
 
   validate = (branch: string): Observable<ValidationResult> =>
-    this.http.get<ValidationResult>(`moduleDrafts/${ branch }/validate`)
+    this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
 
   // Commit
 
   commit = (branch: string, username: string): Observable<unknown> =>
-    this.http.put<unknown>(`moduleDrafts/${ branch }/commit`, {username})
+    this.http.put<unknown>(`moduleDrafts/${branch}/commit`, {username})
 
   revertCommit = (branch: string): Observable<unknown> =>
-    this.http.delete<unknown>(`moduleDrafts/${ branch }/revertCommit`)
+    this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
 
   // View
 
@@ -231,23 +231,23 @@ export class HttpService {
   // Review
 
   requestReview = (moduleId: string): Observable<unknown> =>
-    this.http.post(`moduleReviews/${ moduleId }`, {})
+    this.http.post(`moduleReviews/${moduleId}`, {})
 
   cancelReview = (moduleId: string): Observable<unknown> =>
-    this.http.delete(`moduleReviews/${ moduleId }`)
+    this.http.delete(`moduleReviews/${moduleId}`)
 
   // Approval
 
-  ownApprovals = () : Observable<ReadonlyArray<Approval>> =>
+  ownApprovals = (): Observable<ReadonlyArray<Approval>> =>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.http.get('moduleApprovals/own?user=cnoss')
 
   getApproval = (approvalId: string): Observable<unknown> =>
-    this.http.get(`moduleApprovals/${ approvalId }`)
+    this.http.get(`moduleApprovals/${approvalId}`)
 
   submitApproval = (approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
-    this.http.put(`moduleApprovals/${ approvalId }`, {
+    this.http.put(`moduleApprovals/${approvalId}`, {
       action,
       comment,
     })

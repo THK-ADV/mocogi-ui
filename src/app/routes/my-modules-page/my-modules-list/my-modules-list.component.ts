@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { SelectionModel } from '@angular/cdk/collections'
 import { Module } from '../../../types/module'
 import { MyModulesPageActions } from '../../../state/actions/my-modules.action'
-import { ModeratedModule, ModuleStatus } from '../../../types/moderated.module'
+import { ModeratedModule } from '../../../types/moderated.module'
 
 @Component({
   selector: 'cops-my-modules-list',
@@ -28,27 +28,27 @@ export class MyModulesListComponent {
   }
 
   showModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.showModule({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.showModule({moduleId}))
   }
 
   editModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.editModule({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.editModule({moduleId}))
   }
 
   publishModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.publishModule({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.publishModule({moduleId}))
   }
 
   requestReview(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.requestReview({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.requestReview({moduleId}))
   }
 
   cancelReview(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.cancelReview({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.cancelReview({moduleId}))
   }
 
   discardChanges(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.discardChanges({ moduleId }))
+    this.store.dispatch(MyModulesPageActions.discardChanges({moduleId}))
   }
 
   title = ({module, moduleDraft}: ModeratedModule): string => {
@@ -63,7 +63,7 @@ export class MyModulesListComponent {
     if (!moduleDraft) {
       return '#000000'
     }
-    switch (moduleDraft.status) {
+    switch (moduleDraft.source) {
       case 'added':
         return '#309656'
       case 'modified':
@@ -71,24 +71,26 @@ export class MyModulesListComponent {
     }
   }
 
-  status = ({status}: ModeratedModule) => {
-    return status.deLabel
-  }
+  status = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.deLabel
 
-  canEdit = (status: ModuleStatus) =>
-    status.id === 'valid_for_review' ||
-    status.id === 'valid_for_publication' ||
-    status.id === 'published'
+  canEdit = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.id === 'valid_for_review' ||
+    moduleDraftState.id === 'valid_for_publication' ||
+    moduleDraftState.id === 'published' ||
+    moduleDraftState.id === 'waiting_for_changes'
 
-  canPublish = (status: ModuleStatus) =>
-    status.id === 'valid_for_publication'
+  canPublish = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.id === 'valid_for_publication'
 
-  canRequestReview = (status: ModuleStatus) =>
-    status.id === 'valid_for_review'
+  canRequestReview = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.id === 'valid_for_review'
 
-  canStopPublication = (status: ModuleStatus) =>
-    status.id === 'waiting_for_approval'
+  canCancelReview = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.id === 'waiting_for_review'
 
-  canDiscardChanges = ({moduleDraft, status}: ModeratedModule) =>
-    moduleDraft?.modifiedKeys?.length !== 0 && (status.id === 'valid_for_review' || status.id === 'valid_for_publication')
+  canDiscardChanges = ({moduleDraftState}: ModeratedModule) =>
+    moduleDraftState.id === 'valid_for_review' ||
+    moduleDraftState.id === 'valid_for_publication' ||
+    moduleDraftState.id === 'waiting_for_changes'
 }

@@ -3,25 +3,25 @@ import { ModuleDraft } from './module-draft'
 import { Label } from './core/label'
 
 export type ModeratedModule = {
-  module: Module,
-  moduleDraft: ModuleDraft | undefined,
-  status: ModuleStatus
+  module: Module
+  moduleDraft: ModuleDraft | undefined
+  moduleDraftState: ModuleDraftState
 }
 
-export type ModuleStatus =
+export type ModuleDraftState =
   Published |
-  WaitingForApproval |
-  WaitingForChanges |
   ValidForReview |
   ValidForPublication |
+  WaitingForReview |
+  WaitingForChanges |
   Unknown
 
 export interface Published extends Label {
   id: 'published'
 }
 
-export interface WaitingForApproval extends Label {
-  id: 'waiting_for_approval'
+export interface WaitingForReview extends Label {
+  id: 'waiting_for_review'
 }
 
 export interface WaitingForChanges extends Label {
