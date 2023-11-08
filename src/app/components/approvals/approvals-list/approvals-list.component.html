@@ -17,18 +17,28 @@
       {{element.status.deLabel}}
     </td>
   </ng-container>
-  <!-- Status -->
+  <!-- Requested by -->
   <ng-container matColumnDef="requester">
     <th mat-header-cell *matHeaderCellDef class="align-right">
-      Requester
+      Requested by
     </th>
     <td mat-cell *matCellDef="let element" class="align-right">
       <mat-chip>
-        <img matChipAvatar src="https://profile-images.xing.com/images/70752633f92e46ad305d65cde54eb4d1-2/christian-kohls.256x256.jpg" alt="Photo of a Shiba Inu"/>
         {{element.author}}
       </mat-chip>
     </td>
   </ng-container>
+  <!-- Role -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef class="align-right">
+      Genehmigung in der Rolle als
+    </th>
+    <td mat-cell *matCellDef="let element" class="align-right">
+      <mat-chip>
+        {{element.role}} for {{element.studyProgram}}
+      </mat-chip>
+    </td>
+  </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.canReview ? selectRow(row.moduleId, row.reviewId) : undefined" [class.clickable]="row.canReview">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.canReview ? selectRow(row.moduleId, row.reviewId) : undefined" [class.clickable]="row.canReview" [class.disabled]="!row.canReview">
 </table>
