@@ -65,14 +65,6 @@ export class ModuleFormComponent<A, B> implements OnInit {
   cancel = () =>
     this.onCancel?.()
 
-  validate = () => {
-    console.log('is valid: ', this.formGroup.valid)
-    for (const attr in this.formGroup.controls) {
-      const ctrl = this.formGroup.get(attr)
-      ctrl?.errors && console.log(attr, ctrl?.value, ctrl?.errors)
-    }
-  }
-
   asTextInput = (i: FormInput<A, B>): TextInput | NumberInput =>
     i as TextInput || i as NumberInput
 

@@ -39,7 +39,6 @@ function accessObject<T>(item: T, property: string) {
 function getChangeType(modifiedKey: string, updatedModuleCompendium: ModuleCompendium, initialModuleCompendium: ModuleCompendium) {
   const updatedValue = JSON.stringify(accessObject(updatedModuleCompendium, modifiedKey))
   const initialValue = JSON.stringify(accessObject(initialModuleCompendium, modifiedKey))
-  console.log(modifiedKey, { updatedValue, initialValue }, {clear: updatedValue === '', add: initialValue === '', update: initialValue !== updatedValue})
   if (updatedValue === '""') return 'clear'
   if (initialValue === '""') return 'add'
   if (initialValue !== updatedValue) return 'update'

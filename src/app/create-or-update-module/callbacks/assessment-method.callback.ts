@@ -74,11 +74,8 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     }
   }
 
-  onValidate(controls: { [key: string]: FormControl }): void {
-    console.log('method', this.validAssessmentMethod(controls['method'].value))
-    console.log('percentage', this.validPercentage(controls['percentage'].value))
-    console.log('precondition', this.validPrecondition(controls['precondition'].value))
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onValidate(_controls: { [key: string]: FormControl }): void { return }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return !this.validAssessmentMethod(controls['method'].value) ||

@@ -101,12 +101,9 @@ export class AppStateService implements OnDestroy {
   private userBranch?: Either<undefined, UserBranch>
   private userBranchSubject = new Subject<Either<undefined, UserBranch>>()
 
-  constructor(private readonly http: HttpService) {
-    console.log('AppStateService constructor')
-  }
+  constructor(private readonly http: HttpService) {}
 
   ngOnDestroy(): void {
-    console.log('AppStateService destroy')
     this.subs.forEach(s => s.unsubscribe())
   }
 
@@ -115,7 +112,8 @@ export class AppStateService implements OnDestroy {
 
   // Users Modules
 
-  getModulesForUser = (user: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getModulesForUser = (_user: string) => {
     this.addSubscription(
       updateArrayState(this.usersModules, () => this.http.allModules()),
     )
@@ -126,7 +124,8 @@ export class AppStateService implements OnDestroy {
 
   // Users Branch
 
-  private forceUpdateBranchForUser = (username: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private forceUpdateBranchForUser = (_username: string) => {
     // this.subs.push(
     //   this.http.branchForUser(username)
     //     .subscribe(this.updateUsersBranch),
@@ -185,7 +184,6 @@ export class AppStateService implements OnDestroy {
     this.addSubscription(
       this.http.addToDrafts(branch, mc, id)
         .subscribe(draft => {
-          console.log(draft)
           const index = this.moduleDrafts.value.findIndex(d => d.module === draft.module)
           if (index === -1) {
             this.moduleDrafts.value = [...this.moduleDrafts.value, draft]

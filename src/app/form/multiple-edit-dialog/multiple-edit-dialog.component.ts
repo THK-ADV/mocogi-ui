@@ -110,12 +110,12 @@ export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy 
 
   add = () => {
     if (this.callback === undefined) {
-      console.log('callback is undefined')
+      console.warn('callback is undefined')
       return
     }
     const alreadyExists = this.callback.tableEntryAlreadyExists(this.controls)
     if (this.dataSource.data.some(alreadyExists)) {
-      console.log('already exists', this.dataSource.data, this.controls)
+      console.warn('already exists', this.dataSource.data, this.controls)
       return
     }
     const tableEntry = this.callback.toTableEntry(this.controls)

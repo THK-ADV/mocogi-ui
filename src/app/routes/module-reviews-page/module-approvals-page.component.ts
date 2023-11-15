@@ -12,7 +12,6 @@ export class ModuleApprovalsPageComponent {
 
   constructor(http: HttpService) {
     http.ownApprovals().subscribe((approvals) => {
-      console.log(approvals)
       this.approvals = approvals
     })
   }

@@ -8,6 +8,7 @@ import { toPOPreview } from '../../create-or-update-module/create-or-update-modu
 import { HttpService } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
+import { NewModulePageActions } from '../../state/actions/new-module-page.actions'
 
 @Component({
   selector: 'cops-new-module-page',
@@ -81,7 +82,6 @@ export class NewModulePageComponent {
   }
 
   submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
-    console.log(moduleCompendiumProtocol)
-    // this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
+    this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
   }
 }

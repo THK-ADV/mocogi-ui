@@ -64,9 +64,8 @@ export class SingleEntryCallback<A> implements MultipleEditDialogComponentCallba
     return this.getAValue(controls)
   }
 
-  onValidate(controls: { [key: string]: FormControl }): void {
-    console.log(this.attr, this.validA(controls[this.attr].value))
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onValidate(_controls: { [key: string]: FormControl }): void { return }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return !this.validA(controls[this.attr].value)

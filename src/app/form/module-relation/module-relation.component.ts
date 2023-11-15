@@ -164,13 +164,6 @@ export class ModuleRelationComponent implements OnDestroy {
     this.moduleComponent.reset()
   }
 
-  validate = () => {
-    const relationType = this.relationTypeValue()
-    const module = this.moduleValue()
-    console.log('relationType', relationType, 'validMandatoryObject(relationType)', validMandatoryObject(relationType))
-    console.log('module', module, 'validMandatoryObject(module)', validMandatoryObject(module))
-  }
-
   nonEmptyTable = () =>
     this.dataSource.data.length > 0
 
