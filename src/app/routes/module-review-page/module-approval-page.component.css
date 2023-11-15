@@ -22,3 +22,7 @@ aside {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   HEIGHT: 100%;
 }
+
+mat-tab-group{
+  flex-grow: 1;
+}

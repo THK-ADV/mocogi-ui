@@ -11,6 +11,7 @@ import { buildChangeLog } from '../../components/list-of-changes/list-of-changes
 import { ChangeLogItem } from '../../types/changes'
 import { Store } from '@ngrx/store'
 import { ModuleApprovalPageActions } from '../../state/actions/module-approval-page.actions'
+import { Approval } from '../../types/approval'
 
 @Component({
   selector: 'cops-module-review-page',
@@ -24,6 +25,7 @@ export class ModuleApprovalPageComponent {
   approvalId: string
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
+  approvals: ReadonlyArray<Approval> = []
   
   constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
@@ -32,6 +34,7 @@ export class ModuleApprovalPageComponent {
       http.latestModuleCompendiumById(this.moduleId),
       http.stagingModuleCompendiumById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),
+      http.getApprovals(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
@@ -49,6 +52,7 @@ export class ModuleApprovalPageComponent {
                     moduleCompendium,
                     stagingModuleCompendium,
                     moduleDraftKeys,
+                    approvals,
                     modules,
                     moduleTypes,
                     seasons,
@@ -86,6 +90,7 @@ export class ModuleApprovalPageComponent {
         ),
       }
       this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
+      this.approvals = approvals
     })
   }
 

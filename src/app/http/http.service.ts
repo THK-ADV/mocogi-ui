@@ -25,7 +25,7 @@ import { asRecord } from '../parser/record-parser'
 import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
-import { Approval } from '../components/approvals/approvals-list/approvals-list.component'
+import { Approval } from '../types/approval'
 
 export interface ModuleDraftJson {
   module: string
@@ -38,9 +38,17 @@ export interface ModuleDraftJson {
   lastModified: string
 }
 
+export interface ModuleKey {
+  abbrev: string,
+  deLabel: string,
+  deDesc: string,
+  enLabel: string,
+  enDesc: string,
+}
+
 export type ModuleDraftKeys = {
-  modifiedKeys: Array<string>
-  keysToBeReviewed: Array<string>
+  modifiedKeys: Array<ModuleKey>
+  keysToBeReviewed: Array<ModuleKey>
 }
 
 interface ModeratedModuleJson {

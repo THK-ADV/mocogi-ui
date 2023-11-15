@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
-import { Approval } from '../../components/approvals/approvals-list/approvals-list.component'
 import { HttpService } from '../../http/http.service'
+import { Approval } from '../../types/approval'
 
 @Component({
   selector: 'cops-module-reviews-page',

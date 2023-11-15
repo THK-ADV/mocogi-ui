@@ -2,22 +2,7 @@ import { Component, Input } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { Store } from '@ngrx/store'
 import { NavigationActions } from '../../../state/actions/navigation.actions'
-
-export type Approval = {
-  reviewId: string,
-  moduleId: string,
-  moduleTitle: string,
-  moduleAbbrev: string,
-  author: string,
-  role: string,
-  status: {
-    approved: boolean
-    deLabel: string
-    enLabel: string
-    id: string
-    needed: number
-  }
-}
+import { Approval } from '../../../types/approval'
 
 @Component({
   selector: 'cops-approvals-list',

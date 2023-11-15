@@ -1,8 +1,8 @@
-<form>
+<div>
   <mat-form-field>
     <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    <textarea matInput name="comment" [(ngModel)]="comment"></textarea>
   </mat-form-field>
-  <button mat-stroked-button color="primary" (click)="approveAction()">Accept</button>
-  <button mat-stroked-button color="accent" (click)="rejectAction()">Request Changes</button>
-</form>
+  <button mat-stroked-button color="primary" (click)="approveAction(comment)">Accept</button>
+  <button mat-stroked-button color="accent" (click)="rejectAction(comment)">Request Changes</button>
+</div>

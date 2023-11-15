@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core'
   styleUrls: ['./module-review-actions.component.css'],
 })
 export class ModuleReviewActionsComponent {
-  @Input() approveAction!: () => void
-  @Input() rejectAction!: () => void
+  comment = ''
+  @Input() approveAction!: (comment: string) => void
+  @Input() rejectAction!: (comment: string) => void
   @Input() cancelAction!: () => void
 }

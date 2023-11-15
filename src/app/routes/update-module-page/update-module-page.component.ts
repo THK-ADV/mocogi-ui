@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
 import { ChangeLogItem } from '../../types/changes'
+import { Approval } from '../../types/approval'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -24,6 +25,7 @@ export class UpdateModulePageComponent {
   moduleId: string
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
+  approvals: ReadonlyArray<Approval> =  []
   stagingModuleCompendium?: ModuleCompendium
 
   cancel() {
@@ -47,6 +49,7 @@ export class UpdateModulePageComponent {
       http.latestModuleCompendiumById(this.moduleId),
       http.stagingModuleCompendiumById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),
+      http.getApprovals(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
@@ -64,6 +67,7 @@ export class UpdateModulePageComponent {
       moduleCompendium,
       stagingModuleCompendium,
       moduleDraftKeys,
+      approvals,
       modules,
       moduleTypes,
       seasons,
@@ -101,6 +105,7 @@ export class UpdateModulePageComponent {
         ),
       }
       this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
+      this.approvals = approvals
     })
   }
 }

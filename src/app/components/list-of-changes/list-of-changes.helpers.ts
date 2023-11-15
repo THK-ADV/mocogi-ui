@@ -10,10 +10,10 @@ export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendiu
   }
 
   return moduleDraftKeys.modifiedKeys.map((modifiedKey) => {
-    const type = getChangeType(modifiedKey, moduleCompendium, stagingModuleCompendium)
+    const type = getChangeType(modifiedKey.abbrev, moduleCompendium, stagingModuleCompendium)
     return {
       icon: detailDescriptions[type].icon,
-      name: modifiedKey,
+      name: modifiedKey.deLabel,
       details: detailDescriptions[type].message,
       toBeReviewed: moduleDraftKeys.keysToBeReviewed.includes(modifiedKey),
     }
