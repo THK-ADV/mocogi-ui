@@ -11,8 +11,8 @@ export class ModuleApprovalEffects {
   approve$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(ModuleApprovalPageActions.approve),
-        exhaustMap(({approvalId, comment}) => {
-          return this.service.submitApproval(approvalId, 'approve', comment).pipe(
+        exhaustMap(({ moduleId, approvalId, comment}) => {
+          return this.service.submitApproval(moduleId, approvalId, 'approve', comment).pipe(
             map(() => {
               return NavigationActions.navigate({path: ['module-approvals']})
             }),
@@ -27,8 +27,8 @@ export class ModuleApprovalEffects {
   reject = createEffect(() => {
       return this.actions$.pipe(
         ofType(ModuleApprovalPageActions.reject),
-        exhaustMap(({approvalId, comment}) => {
-          return this.service.submitApproval(approvalId, 'reject', comment).pipe(
+        exhaustMap(({ moduleId, approvalId, comment}) => {
+          return this.service.submitApproval(moduleId, approvalId, 'reject', comment).pipe(
             map(() => {
               return NavigationActions.navigate({path: ['module-approvals']})
             }),

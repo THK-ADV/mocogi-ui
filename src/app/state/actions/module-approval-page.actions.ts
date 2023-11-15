@@ -4,8 +4,8 @@ export const ModuleApprovalPageActions = createActionGroup({
   source: 'Module Review Page',
   events: {
     'Enter': emptyProps(),
-    'Approve': props<{ approvalId: string, comment?: string }>(),
-    'Reject': props<{ approvalId: string, comment?: string }>(),
+    'Approve': props<{ moduleId: string, approvalId: string, comment?: string }>(),
+    'Reject': props<{ moduleId: string, approvalId: string, comment?: string }>(),
     'JumpToKey': props<{ key: string }>,
   },
 })

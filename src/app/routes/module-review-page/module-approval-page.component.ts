@@ -90,11 +90,11 @@ export class ModuleApprovalPageComponent {
   }
 
   protected approve = (comment?: string) => {
-    this.store.dispatch(ModuleApprovalPageActions.approve({approvalId: this.approvalId, comment: comment }))
+    this.store.dispatch(ModuleApprovalPageActions.approve({ moduleId: this.moduleId, approvalId: this.approvalId, comment: comment }))
   }
 
   protected reject = (comment?: string) => {
-    this.store.dispatch(ModuleApprovalPageActions.reject({approvalId: this.approvalId, comment: comment }))
+    this.store.dispatch(ModuleApprovalPageActions.reject({ moduleId:  this.moduleId, approvalId: this.approvalId, comment: comment }))
   }
 
   protected cancel = () => {

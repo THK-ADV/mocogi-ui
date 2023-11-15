@@ -243,11 +243,16 @@ export class HttpService {
     // @ts-ignore
     this.http.get('moduleApprovals/own')
 
-  getApproval = (approvalId: string): Observable<unknown> =>
-    this.http.get(`moduleApprovals/${approvalId}`)
+  getApprovals = (moduleId: string): Observable<ReadonlyArray<Approval>> =>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.http.get(`moduleApprovals/${moduleId}`)
 
-  submitApproval = (approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
-    this.http.put(`moduleApprovals/${approvalId}`, {
+  getApproval = (moduleId: string, approvalId: string): Observable<unknown> =>
+    this.http.get(`moduleApprovals/${moduleId}/${approvalId}`)
+
+  submitApproval = (moduleId: string, approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
+    this.http.put(`moduleApprovals/${moduleId}/${approvalId}`, {
       action,
       comment,
     })
