@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
-
-export type Approval = {
-  title: string,
-  requester: string,
-}
+import { Store } from '@ngrx/store'
+import { NavigationActions } from '../../../state/actions/navigation.actions'
+import { Approval } from '../../../types/approval'
 
 @Component({
   selector: 'cops-approvals-list',
@@ -14,7 +12,10 @@ export type Approval = {
 
 export class ApprovalsListComponent {
   protected dataSource = new MatTableDataSource<Approval>()
-  protected displayedColumns: string[] = ['title', 'requester', 'actions']
+  protected displayedColumns: string[] = ['title', 'status', 'requester', 'role']
+
+  constructor(private store: Store) {
+  }
 
   @Input() set approvals(approvals: ReadonlyArray<Approval> | null) {
     if (approvals) {
@@ -22,7 +23,7 @@ export class ApprovalsListComponent {
     }
   }
 
-  selectRow = () => {
-    console.log('selected')
+  selectRow = (moduleId: string, approvalId: string) => {
+    this.store.dispatch(NavigationActions.navigate({ path: ['modules', moduleId, 'approvals', approvalId] }))
   }
 }

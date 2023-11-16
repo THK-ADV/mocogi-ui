@@ -1,6 +1,5 @@
 import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-
 import { AppComponent } from './app.component'
 import { ModuleComponent } from './module/module.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
@@ -83,13 +82,19 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
 import { UpdateModuleEffects } from './state/effects/update-module.effects'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
-import { ApprovalsPageComponent } from './routes/approvals-page/approvals-page.component'
+import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
 import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
+import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
+import { ListOfChangesComponent } from './components/list-of-changes/list-of-changes.component'
+import { ModuleFormActionsComponent } from './components/module-form-actions/module-form-actions.component'
+import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
+import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
+import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component'
 
 
 @NgModule({
@@ -132,12 +137,17 @@ import { updateModuleReducer } from './state/reducer/update-module.reducer'
     UpdateModulePageComponent,
     MyModulesListComponent,
     NewModulePageComponent,
-    ApprovalsPageComponent,
+    ModuleApprovalsPageComponent,
     ElectiveModulesListsPageComponent,
     ModuleCompendiumListsPageComponent,
     ApprovalsListComponent,
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,
+    ModuleApprovalPageComponent,
+    ListOfChangesComponent,
+    ModuleFormActionsComponent,
+    ModuleReviewActionsComponent,
+    ListOfCommentsComponent,
   ],
   imports: [
     MatStepperModule,
@@ -178,6 +188,7 @@ import { updateModuleReducer } from './state/reducer/update-module.reducer'
       MyModuleEffects,
       UpdateModuleEffects,
       NewModuleEffects,
+      ModuleApprovalEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

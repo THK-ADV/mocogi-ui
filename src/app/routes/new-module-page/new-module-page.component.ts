@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
 import { ModuleCompendiumProtocol } from '../../types/module-compendium'
-import { NewModulePageActions } from '../../state/actions/new-module-page.actions'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'
@@ -8,6 +7,8 @@ import { zip } from 'rxjs'
 import { toPOPreview } from '../../create-or-update-module/create-or-update-module.component'
 import { HttpService } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
+import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
+import { NewModulePageActions } from '../../state/actions/new-module-page.actions'
 
 @Component({
   selector: 'cops-new-module-page',
@@ -73,6 +74,11 @@ export class NewModulePageComponent {
 
   cancel() {
     return
+  }
+
+  onSave() {
+    const moduleCompendiumProtocol = parseModuleCompendium(this.moduleFormComponent?.formGroup.value)
+    this.submit(moduleCompendiumProtocol)
   }
 
   submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {

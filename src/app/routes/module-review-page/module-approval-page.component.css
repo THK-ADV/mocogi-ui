@@ -22,7 +22,7 @@ aside {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   HEIGHT: 100%;
 }
-.info {
-  padding: 2em;
+
+mat-tab-group{
   flex-grow: 1;
 }

@@ -153,7 +153,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     }
     let str = draft ? draft.data.metadata.title : module.title
     if (draft) {
-      str += ` (${draft.status})`
+      str += ` (${draft.source})`
     }
     return str
   }
@@ -162,7 +162,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     if (!draft) {
       return '#000000'
     }
-    switch (draft.status) {
+    switch (draft.source) {
       case 'added':
         return '#309656'
       case 'modified':

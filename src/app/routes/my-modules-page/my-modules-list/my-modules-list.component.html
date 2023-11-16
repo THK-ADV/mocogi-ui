@@ -28,28 +28,28 @@
       <div class="inline">
         <button
           mat-stroked-button
-          *ngIf="canEdit(element.status)"
+          *ngIf="canEdit(element)"
           (click)="editModule(element.module.id)">
           <mat-icon>edit</mat-icon>
           Edit
         </button>
         <button
           mat-stroked-button
-          *ngIf="canPublish(element.status)"
+          *ngIf="canPublish(element)"
           (click)="publishModule(element.module.id)">
           <mat-icon>publish</mat-icon>
           Publish
         </button>
         <button
           mat-stroked-button
-          *ngIf="canRequestReview(element.status)"
+          *ngIf="canRequestReview(element)"
           (click)="requestReview(element.module.id)">
           <mat-icon>approval</mat-icon>
           Request review
         </button>
         <button
           mat-stroked-button
-          *ngIf="canStopPublication(element.status)"
+          *ngIf="canCancelReview(element)"
           (click)="cancelReview(element.module.id)">
           <mat-icon>pause</mat-icon>
           Cancel review

@@ -37,6 +37,7 @@ type EditType = 'create' | 'update'
 export class ModuleFormComponent<A, B> implements OnInit {
 
   @Input() moduleForm!: ModuleForm<A, B>
+  @Input() mode!: 'CREATE' | 'UPDATE' | 'REVIEW'
   @Input() onCancel?: () => void
   @Input() onSubmit?: (moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
 
@@ -58,22 +59,11 @@ export class ModuleFormComponent<A, B> implements OnInit {
     )
   }
 
-  submit = () => {
-    if (!this.formGroup.valid) return
-    const mc = parseModuleCompendium(this.formGroup.value)
-    this.onSubmit?.(mc)
-  }
+  moduleCompendiumProtocol = () =>
+    !this.formGroup.valid ? undefined : parseModuleCompendium(this.formGroup.value)
 
   cancel = () =>
     this.onCancel?.()
-
-  validate = () => {
-    console.log('is valid: ', this.formGroup.valid)
-    for (const attr in this.formGroup.controls) {
-      const ctrl = this.formGroup.get(attr)
-      ctrl?.errors && console.log(attr, ctrl?.value, ctrl?.errors)
-    }
-  }
 
   asTextInput = (i: FormInput<A, B>): TextInput | NumberInput =>
     i as TextInput || i as NumberInput

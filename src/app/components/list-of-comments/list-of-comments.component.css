@@ -1,0 +1,17 @@
+.container {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+mat-card {
+
+  gap: 1em;
+}

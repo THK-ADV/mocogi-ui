@@ -12,13 +12,13 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.handleError(next.handle(this.prefixBackendUrl(this.log(request))))
+    return this.handleError(next.handle(this.prefixBackendUrl(request)))
   }
 
-  private log = (request: HttpRequest<unknown>): HttpRequest<unknown> => {
-    console.log(request.url)
-    return request
-  }
+  // private log = (request: HttpRequest<unknown>): HttpRequest<unknown> => {
+  //   console.log(request.url)
+  //   return request
+  // }
 
   private prefixBackendUrl = (request: HttpRequest<unknown>): HttpRequest<unknown> =>
     request.clone({

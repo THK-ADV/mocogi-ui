@@ -1,0 +1,8 @@
+<mat-nav-list role="list" id="changedKeys">
+  <mat-list-item role="listitem" *ngFor="let changedKey of changedKeys"  (click)="jumpTo(changedKey.name)">
+    <mat-icon matListItemIcon>{{changedKey.icon}}</mat-icon>
+    <span matListItemTitle>{{changedKey.name}}</span>
+    <span matListItemLine>{{changedKey.details}}</span>
+    <span *ngIf="changedKey.toBeReviewed">Your review is required!</span>
+  </mat-list-item>
+</mat-nav-list>

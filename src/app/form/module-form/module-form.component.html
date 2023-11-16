@@ -1,66 +1,48 @@
-<form [formGroup]="formGroup" (ngSubmit)="submit()">
-  <main>
-    <h1>{{title}}</h1>
-    <mat-accordion>
-      <ng-container *ngFor="let section of moduleForm.sections; let indexOfElement = index;">
-        <mat-expansion-panel [expanded]="indexOfElement === 0">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{section.header}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
-            <ng-container *ngFor="let input of row.value" [ngSwitch]="input.input.kind">
-              <cops-options-input
-                *ngSwitchCase="'options'"
-                ngDefaultControl
-                [input]="asOptions(input.input)"
-                [formControl]="formControl(input.input.attr)">
-              </cops-options-input>
-              <cops-multiple-options-input
-                *ngSwitchCase="'multiple-options'"
-                ngDefaultControl
-                [input]="asMultipleOptions(input.input)"
-                [formControl]="formControl(input.input.attr)">
-              </cops-multiple-options-input>
-              <cops-read-only-input
-                *ngSwitchCase="'read-only'"
-                ngDefaultControl
-                [input]="asReadOnly(input.input)"
-                [formControl]="formControl(input.input.attr)">
-              </cops-read-only-input>
-              <cops-boolean-input
-                *ngSwitchCase="'boolean'"
-                ngDefaultControl
-                [input]="asBoolean(input.input)"
-                [formControl]="formControl(input.input.attr)">
-              </cops-boolean-input>
-              <cops-plain-input
-                *ngSwitchDefault
-                ngDefaultControl
-                [input]="asTextInput(input.input)"
-                [formControl]="formControl(input.input.attr)">
-              </cops-plain-input>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </ng-container>
-    </mat-accordion>
-  </main>
-  <aside>
-    <div>
-      <h1>Info</h1>
-      <mat-card>
-        <mat-card-content>
-          <!-- TODO: Make information dynamic -->
-          Please note that all new modules and changes to existing modules will take effect starting next semester.
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="spacer"></div>
-    <div class="actions">
-      <button type="button" mat-button (click)="cancel()">Cancel</button>
-      <button mat-flat-button [disabled]="!formGroup.valid" color="primary">Save</button>
-    </div>
-  </aside>
+<h2>{{title}}</h2>
+<form [formGroup]="formGroup">
+  <mat-accordion>
+    <ng-container *ngFor="let section of moduleForm.sections; let indexOfElement = index;">
+      <mat-expansion-panel [expanded]="indexOfElement === 0">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{section.header}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
+          <ng-container *ngFor="let input of row.value" [ngSwitch]="input.input.kind">
+            <cops-options-input
+              *ngSwitchCase="'options'"
+              ngDefaultControl
+              [input]="asOptions(input.input)"
+              [formControl]="formControl(input.input.attr)">
+            </cops-options-input>
+            <cops-multiple-options-input
+              *ngSwitchCase="'multiple-options'"
+              ngDefaultControl
+              [input]="asMultipleOptions(input.input)"
+              [formControl]="formControl(input.input.attr)">
+            </cops-multiple-options-input>
+            <cops-read-only-input
+              *ngSwitchCase="'read-only'"
+              ngDefaultControl
+              [input]="asReadOnly(input.input)"
+              [formControl]="formControl(input.input.attr)">
+            </cops-read-only-input>
+            <cops-boolean-input
+              *ngSwitchCase="'boolean'"
+              ngDefaultControl
+              [input]="asBoolean(input.input)"
+              [formControl]="formControl(input.input.attr)">
+            </cops-boolean-input>
+            <cops-plain-input
+              *ngSwitchDefault
+              ngDefaultControl
+              [input]="asTextInput(input.input)"
+              [formControl]="formControl(input.input.attr)">
+            </cops-plain-input>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
 </form>

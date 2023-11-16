@@ -27,7 +27,7 @@ export class MyModuleEffects {
   requestReview = createEffect(() => {
     return this.actions$.pipe(
       ofType(MyModulesPageActions.requestReview, MyModulesPageActions.publishModule),
-      exhaustMap(({ moduleId }) => this.service.createReview(moduleId).pipe(
+      exhaustMap(({ moduleId }) => this.service.requestReview(moduleId).pipe(
         map(() => MyModulesPageActions.enter()))
       )
     )
@@ -36,7 +36,7 @@ export class MyModuleEffects {
   cancelReview = createEffect(() => {
     return this.actions$.pipe(
       ofType(MyModulesPageActions.cancelReview),
-      exhaustMap(({ moduleId }) => this.service.deleteReview(moduleId).pipe(
+      exhaustMap(({ moduleId }) => this.service.cancelReview(moduleId).pipe(
         map(() => MyModulesPageActions.enter()))
       )
     )

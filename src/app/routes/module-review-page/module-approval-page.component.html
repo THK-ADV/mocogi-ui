@@ -3,8 +3,6 @@
     #moduleFormComponent
     *ngIf="moduleForm"
     [moduleForm]="moduleForm"
-    [onCancel]="cancel"
-    [onSubmit]="submit"
   ></cops-module-form>
 </main>
 <aside>
@@ -13,5 +11,10 @@
     <mat-tab label="Kommentare"><cops-list-of-comments [approvals]="approvals"></cops-list-of-comments></mat-tab>
   </mat-tab-group>
 
-  <cops-module-form-actions [saveAction]="save" [cancelAction]="cancel" ></cops-module-form-actions>
+
+  <cops-module-review-actions
+    [approveAction]="approve"
+    [rejectAction]="reject"
+    [cancelAction]="cancel"
+  ></cops-module-review-actions>
 </aside>

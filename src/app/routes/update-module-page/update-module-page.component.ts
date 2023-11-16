@@ -7,9 +7,12 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-import { ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { ModuleCompendium, ModuleCompendiumProtocol } from '../../types/module-compendium'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
+import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
+import { ChangeLogItem } from '../../types/changes'
+import { Approval } from '../../types/approval'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -17,23 +20,36 @@ import { UpdateModulePageActions } from '../../state/actions/update-module-page.
   styleUrls: ['./update-module-page.component.css'],
 })
 export class UpdateModulePageComponent {
+  @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
+
   moduleId: string
   moduleForm?: ModuleForm<unknown, unknown>
-
-  @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
+  modifiedKeys: Array<ChangeLogItem> = []
+  approvals: ReadonlyArray<Approval> =  []
+  stagingModuleCompendium?: ModuleCompendium
 
   cancel() {
     return
+  }
+
+  save = () => {
+    const moduleCompendiumProtocol = this.moduleFormComponent?.moduleCompendiumProtocol()
+    if(moduleCompendiumProtocol) {
+      this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
+    }
   }
 
   submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
    this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
   }
 
-  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
+  constructor(private route: ActivatedRoute, http: HttpService, dialog: MatDialog, private store: Store) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     zip([
       http.latestModuleCompendiumById(this.moduleId),
+      http.stagingModuleCompendiumById(this.moduleId),
+      http.moduleDraftKeys(this.moduleId),
+      http.getApprovals(this.moduleId),
       http.allModules(),
       http.allModuleTypes(),
       http.allSeasons(),
@@ -49,6 +65,9 @@ export class UpdateModulePageComponent {
       http.allGrades(),
     ]).subscribe(([
       moduleCompendium,
+      stagingModuleCompendium,
+      moduleDraftKeys,
+      approvals,
       modules,
       moduleTypes,
       seasons,
@@ -85,6 +104,8 @@ export class UpdateModulePageComponent {
           moduleCompendium.metadata.id,
         ),
       }
+      this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
+      this.approvals = approvals
     })
   }
 }

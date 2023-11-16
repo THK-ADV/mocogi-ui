@@ -83,12 +83,8 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     }
   }
 
-  onValidate(controls: { [key: string]: FormControl }): void {
-    console.log('po', controls['po'].value, this.validPO(controls['po'].value))
-    console.log('instance-of', controls['instance-of'].value, this.validInstanceOf(controls['instance-of'].value))
-    console.log('part-of-catalog', controls['part-of-catalog'].value, this.validPartOfCatalog(controls['part-of-catalog'].value))
-    console.log('recommended-semester', controls['recommended-semester'].value, this.validRecommendedSemester(controls['recommended-semester'].value))
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onValidate(_controls: { [key: string]: FormControl }): void { return }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return !this.validPO(controls['po'].value) ||

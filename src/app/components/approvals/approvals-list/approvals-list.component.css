@@ -13,3 +13,8 @@ tr.clickable:hover {
 .align-right {
   text-align: right;
 }
+
+.disabled {
+  opacity: .5;
+  pointer-events: none;
+}
