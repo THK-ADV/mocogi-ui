@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
-import {  ModuleCompendiumList } from '../../components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
+import { HttpService } from '../../http/http.service'
+import { Observable } from 'rxjs'
+import { ModuleCompendiumList } from '../../types/module-compendium-list'
 
 @Component({
   selector: 'cops-module-compendium-lists-page',
@@ -7,46 +9,11 @@ import {  ModuleCompendiumList } from '../../components/modules/module-compendiu
   styleUrls: ['./module-compendium-lists-page.component.css'],
 })
 export class ModuleCompendiumListsPageComponent {
-  moduleCompendiumLists: ReadonlyArray<ModuleCompendiumList> = [
-    {
-      title: 'Modulhandbuch',
-      semester: 'SoSe 2021',
-      studyProgram: 'Medieninformatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'Modulhandbuch',
-      semester: 'SoSe 2021',
-      studyProgram: 'Wirtschaftsinformatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'Modulhandbuch',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'Modulhandbuch',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Bachelor)',
-      po: 'PO 5',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'Modulhandbuch',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Master)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-  ]
+
+  moduleCompendiumLists$: Observable<ReadonlyArray<ModuleCompendiumList>>
+
+  // TODO use ngrx
+  constructor(private readonly http: HttpService) {
+    this.moduleCompendiumLists$ = http.getModuleCompendiumList('wise_2023') // TODO use real semester data
+  }
 }
