@@ -15,7 +15,7 @@ export class NewModuleEffects {
         exhaustMap(({ moduleCompendiumProtocol }) => {
           return this.service.createNewDraft(moduleCompendiumProtocol).pipe(
             map(() => {
-              return UpdateModuleApiActions.savedChangesSuccess()
+              return NavigationActions.navigate({path: [ 'my-modules' ]})
             }),
             catchError((error: HttpErrorResponse) => {
               return of(UpdateModuleApiActions.savedChangesFailure(error.error))

@@ -76,7 +76,8 @@ export class NewModulePageComponent {
     this.store.dispatch(NewModulePageActions.cancel())
   }
 
-  save() {
+  save = () => {
+    console.log(this.moduleFormComponent?.formGroup.value)
     const moduleCompendiumProtocol = parseModuleCompendium(this.moduleFormComponent?.formGroup.value)
     this.submit(moduleCompendiumProtocol)
   }
