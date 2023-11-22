@@ -72,11 +72,11 @@ export class NewModulePageComponent {
     })
   }
 
-  cancel() {
-    return
+  cancel = () => {
+    this.store.dispatch(NewModulePageActions.cancel())
   }
 
-  onSave() {
+  save() {
     const moduleCompendiumProtocol = parseModuleCompendium(this.moduleFormComponent?.formGroup.value)
     this.submit(moduleCompendiumProtocol)
   }
@@ -84,4 +84,5 @@ export class NewModulePageComponent {
   submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
     this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
   }
+
 }

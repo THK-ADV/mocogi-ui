@@ -5,6 +5,7 @@ import { catchError, exhaustMap, map, of } from 'rxjs'
 import { UpdateModuleApiActions } from '../actions/update-module-page.actions'
 import { HttpErrorResponse } from '@angular/common/http'
 import { NewModulePageActions } from '../actions/new-module-page.actions'
+import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
 export class NewModuleEffects {
@@ -21,8 +22,16 @@ export class NewModuleEffects {
             }))
         })
       )
-    }
-  )
+    })
+
+  cancel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(NewModulePageActions.cancel),
+      map(() => {
+        return NavigationActions.navigate({ path: [ 'my-modules' ] })
+      })
+    )
+  })
 
   constructor(
     private readonly service: HttpService,
