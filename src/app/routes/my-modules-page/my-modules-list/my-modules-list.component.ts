@@ -5,6 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections'
 import { Module } from '../../../types/module'
 import { MyModulesPageActions } from '../../../state/actions/my-modules.action'
 import { ModeratedModule } from '../../../types/moderated.module'
+import { MatDialog } from '@angular/material/dialog'
+import { PermissionsDialogComponent } from '../../../components/permissions-dialog/permissions-dialog.component'
 
 @Component({
   selector: 'cops-my-modules-list',
@@ -23,9 +25,7 @@ export class MyModulesListComponent {
     }
   }
 
-  constructor(private readonly store: Store) {
-
-  }
+  constructor(private readonly store: Store, private dialog: MatDialog) {}
 
   showModule(moduleId: string) {
     this.store.dispatch(MyModulesPageActions.showModule({moduleId}))
@@ -93,4 +93,11 @@ export class MyModulesListComponent {
     moduleDraftState.id === 'valid_for_review' ||
     moduleDraftState.id === 'valid_for_publication' ||
     moduleDraftState.id === 'waiting_for_changes'
+
+  openDialog = () => {
+    this.dialog.open(PermissionsDialogComponent, {
+      width: '600px',
+      disableClose: true,
+    })
+  }
 }
