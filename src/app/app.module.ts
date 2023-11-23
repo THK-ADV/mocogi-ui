@@ -95,6 +95,7 @@ import { ModuleFormActionsComponent } from './components/module-form-actions/mod
 import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
 import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component'
+import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { ListOfCommentsComponent } from './components/list-of-comments/list-of-c
     ModuleFormActionsComponent,
     ModuleReviewActionsComponent,
     ListOfCommentsComponent,
+    ModuleCompendiumsFilterComponent,
   ],
   imports: [
     MatStepperModule,

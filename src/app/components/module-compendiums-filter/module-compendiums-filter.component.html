@@ -1,0 +1,39 @@
+<h2>Search</h2>
+
+<mat-form-field class="container-fluid" appearance="fill">
+  <mat-label>Suche</mat-label>
+  <input matInput
+         type="text"
+         [ngModel]="''"
+         (ngModelChange)="updateFilter"
+         placeholder="Semester, Studiengang, Prüfungsordnung...">
+  <button matSuffix
+          mat-icon-button
+          aria-label="Clear">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+
+<h2>Filter</h2>
+
+
+<cops-abstract-module-filter
+  [options]="semesters() | async"
+  label="Semester"
+  [selectAction]="selectAction"
+  [selection]=""
+  [deselectAction]="deselectAction"
+  [show]="showSemester"
+>
+</cops-abstract-module-filter>
+
+<cops-study-program-filter></cops-study-program-filter>
+
+<button mat-stroked-button
+        color="primary"
+        (click)="onResetFilter()"
+        matTooltip="Filter zurücksetzen"
+        matTooltipPosition="left">
+  Filter zurücksetzen
+</button>

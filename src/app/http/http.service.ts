@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, Observable } from 'rxjs'
+import { map, Observable, of } from 'rxjs'
 import { Location } from '../types/core/location'
 import { Language } from '../types/core/language'
 import { Status } from '../types/core/status'
@@ -264,4 +264,20 @@ export class HttpService {
       action,
       comment,
     })
+
+  // Semester
+
+  getSemesters = () => {
+    const currentYear = (new Date()).getFullYear()
+    const rangeInYears = 5
+    const semesterTypes = ['WiSe', 'SoSe']
+    const semesterList: Array<string> = []
+    for (let i = rangeInYears * -1; i < rangeInYears; i++) {
+      semesterTypes.forEach((semesterType) => {
+        semesterList.push(`${semesterType} ${currentYear + i}`)
+      })
+    }
+    const semesters: ReadonlyArray<string> = semesterList
+    return of(semesters)
+  }
 }
