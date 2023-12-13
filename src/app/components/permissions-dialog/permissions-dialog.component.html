@@ -4,7 +4,7 @@
     <mat-label>People with permissions</mat-label>
     <mat-chip-grid #chipGrid aria-label="Enter CampusId">
       <mat-chip-row
-        *ngFor="let campusId of permissions"
+        *ngFor="let campusId of (permissions$ | async)"
         (removed)="remove(campusId)"
         [editable]="true"
         (edited)="edit(campusId, $event)">
@@ -23,5 +23,5 @@
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true">Save</button>
+  <button mat-button [mat-dialog-close]="true" (click)="save()">Save</button>
 </div>

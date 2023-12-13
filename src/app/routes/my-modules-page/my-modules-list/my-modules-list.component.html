@@ -69,7 +69,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openDialog()">Change permissions</button>
+          <button [disabled]="!element.privilegedForModule" mat-menu-item (click)="openDialog(element.module.id)">Change permissions</button>
         </mat-menu>
       </div>
     </td>

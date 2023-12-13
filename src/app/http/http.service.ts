@@ -268,10 +268,8 @@ export class HttpService {
   // Permissions
 
   getPermissions = (moduleId: string): Observable<Array<string>> =>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.http.get(`modulePermissions/${moduleId}`)
+    this.http.get<Array<string>>(`moduleUpdatePermissions/${moduleId}`)
 
-  setPermissions = (moduleId: string, permissions: Array<string>): Observable<unknown> =>
-    this.http.put(`modulePermissions/${moduleId}`, { permissions })
+  setPermissions = (moduleId: string, permissions: ReadonlyArray<string>): Observable<unknown> =>
+    this.http.post(`moduleUpdatePermissions/${moduleId}`, permissions)
 }

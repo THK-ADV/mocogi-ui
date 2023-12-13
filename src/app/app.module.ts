@@ -96,6 +96,8 @@ import { ModuleReviewActionsComponent } from './components/module-review-actions
 import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component'
 import { PermissionsDialogComponent } from './components/permissions-dialog/permissions-dialog.component'
+import { PermissionsDialogEffects } from "./state/effects/permissions-dialog.effects.service";
+import { permissionsDialogReducer } from "./state/reducer/permissions-dialog.reducer";
 
 
 @NgModule({
@@ -182,6 +184,7 @@ import { PermissionsDialogComponent } from './components/permissions-dialog/perm
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
       updateModule: updateModuleReducer,
+      permissionDialog: permissionsDialogReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -191,6 +194,7 @@ import { PermissionsDialogComponent } from './components/permissions-dialog/perm
       UpdateModuleEffects,
       NewModuleEffects,
       ModuleApprovalEffects,
+      PermissionsDialogEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,
