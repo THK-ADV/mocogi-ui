@@ -95,7 +95,11 @@ import { ModuleFormActionsComponent } from './components/module-form-actions/mod
 import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
 import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component';
-import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
+import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component';
+import { ModuleCompendiumsSearchFilterComponent } from './components/module-compendiums-search-filter/module-compendiums-search-filter.component';
+import { ModuleCompendiumsStudyProgramFilterComponent } from './components/module-compendiums-study-program-filter/module-compendiums-study-program-filter.component';
+import { ModuleCompendiumsSemesterFilterComponent } from './components/module-compendiums-semester-filter/module-compendiums-semester-filter.component';
+import { ModuleCompendiumsPoFilterComponent } from './components/module-compendiums-po-filter/module-compendiums-po-filter.component'
 
 
 @NgModule({
@@ -150,6 +154,10 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
     ModuleReviewActionsComponent,
     ListOfCommentsComponent,
     ModuleCompendiumsFilterComponent,
+    ModuleCompendiumsSearchFilterComponent,
+    ModuleCompendiumsStudyProgramFilterComponent,
+    ModuleCompendiumsSemesterFilterComponent,
+    ModuleCompendiumsPoFilterComponent,
   ],
   imports: [
     MatStepperModule,
