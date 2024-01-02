@@ -1,14 +1,9 @@
 import { createReducer, on } from '@ngrx/store'
-import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
 import { Person } from '../../types/core/person'
 
 import { StudyProgramAtomic } from '../../types/study-program-atomic'
 import { SemesterAtomic } from "../../types/core/semester";
-
-export interface SelectedStudyProgramId {
-  poId: string
-  specializationId: string | undefined
-}
+import { ModuleCompendiumsFilterActions } from "../actions/module-compendium-filter.actions";
 
 export interface State {
   studyPrograms: ReadonlyArray<StudyProgramAtomic>
@@ -22,7 +17,7 @@ export interface State {
 const initialState: State = {
   studyPrograms: [],
   people: [],
-  semester: [1, 2, 3, 4, 5, 6],
+  semester: [],
   selectedStudyProgramId: undefined,
   selectedSemester: undefined,
   selectedCoordinatorId: undefined,
@@ -30,28 +25,28 @@ const initialState: State = {
 
 export const moduleFilterReducer = createReducer(
   initialState,
-  on(ModuleFilterPageActions.enter, (state): State => {
+  on(ModuleCompendiumsFilterActions.enter, (state): State => {
     return state
   }),
-  on(ModuleFilterPageActions.selectStudyProgram, (state, {selectedStudyProgramId}): State => {
+  on(ModuleCompendiumsFilterActions.selectStudyProgram, (state, {selectedStudyProgramId}): State => {
     return {
       ...state,
       selectedStudyProgramId,
     }
   }),
-  on(ModuleFilterPageActions.selectSemester, (state, {semester}): State => {
+  on(ModuleCompendiumsFilterActions.selectSemester, (state, {semester}): State => {
     return {
       ...state,
       selectedSemester: semester,
     }
   }),
-  on(ModuleFilterPageActions.selectCoordinator, (state, {coordinatorId}): State => {
+  on(ModuleCompendiumsFilterActions.selectCoordinator, (state, {coordinatorId}): State => {
     return {
       ...state,
       selectedCoordinatorId: coordinatorId,
     }
   }),
-  on(ModuleFilterPageActions.resetFilter, (state): State => {
+  on(ModuleCompendiumsFilterActions.resetFilter, (state): State => {
     return {
       ...state,
       selectedStudyProgramId: undefined,
@@ -59,34 +54,22 @@ export const moduleFilterReducer = createReducer(
       selectedCoordinatorId: undefined,
     }
   }),
-  on(ModuleFilterPageActions.deselectStudyProgram, (state): State => {
+  on(ModuleCompendiumsFilterActions.deselectStudyProgram, (state): State => {
     return {
       ...state,
       selectedStudyProgramId: undefined,
     }
   }),
-  on(ModuleFilterPageActions.deselectSemester, (state): State => {
+  on(ModuleCompendiumsFilterActions.deselectSemester, (state): State => {
     return {
       ...state,
       selectedSemester: undefined,
     }
   }),
-  on(ModuleFilterPageActions.deselectCoordinator, (state): State => {
+  on(ModuleCompendiumsFilterActions.deselectCoordinator, (state): State => {
     return {
       ...state,
       selectedCoordinatorId: undefined,
-    }
-  }),
-  on(ModuleFilterAPIActions.retrievedStudyProgramsSuccess, (state, {studyPrograms}): State => {
-    return {
-      ...state,
-      studyPrograms,
-    }
-  }),
-  on(ModuleFilterAPIActions.retrievedPeopleSuccess, (state, {people}): State => {
-    return {
-      ...state,
-      people,
     }
   })
 )

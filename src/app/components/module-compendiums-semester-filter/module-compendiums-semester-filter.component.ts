@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { showStudyProgramAtomic } from "../../ops/show.instances";
 import {
-  selectSelectedStudyProgram,
-  selectStudyPrograms
+  selectSelectedSemester,
+  selectSemester,
 } from "../../state/selectors/module-filter.selectors";
-import { StudyProgramAtomic } from "../../types/study-program-atomic";
-import { ModuleFilterPageActions } from "../../state/actions/module-filter.actions";
+import { SemesterAtomic } from "../../types/core/semester"
 import { Store } from "@ngrx/store";
+import { ModuleCompendiumsFilterActions } from "../../state/actions/module-compendium-filter.actions";
 
 @Component({
   selector: 'cops-module-compendiums-semester-filter',
@@ -16,17 +16,15 @@ import { Store } from "@ngrx/store";
 export class ModuleCompendiumsSemesterFilterComponent {
   label = 'Semester'
 
-  options$ = this.store.select(selectStudyPrograms)
+  options$ = this.store.select(selectSemester)
 
-  selection$ = this.store.select(selectSelectedStudyProgram)
+  selection$ = this.store.select(selectSelectedSemester)
 
   show = showStudyProgramAtomic
 
-  selectAction = ({poAbbrev, specialization}: StudyProgramAtomic) => ModuleFilterPageActions.selectStudyProgram({
-    selectedStudyProgramId: {poId: poAbbrev, specializationId: specialization?.abbrev},
-  })
+  selectAction = (semester: SemesterAtomic) => ModuleCompendiumsFilterActions.selectSemester({semester: semester})
 
-  deselectAction = ModuleFilterPageActions.deselectStudyProgram
+  deselectAction = ModuleCompendiumsFilterActions.deselectSemester
 
   constructor(private readonly store: Store) {
   }
