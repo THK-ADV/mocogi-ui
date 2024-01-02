@@ -1,11 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Location as AngularLocation } from '@angular/common'
 import { HttpService } from '../http/http.service'
 import { Observable, of, Subscription, zip } from 'rxjs'
-import { ModuleFormComponent, ModuleForm } from '../form/module-form/module-form.component'
 import { MatDialog } from '@angular/material/dialog'
-import { inputs } from './inputs/inputs'
 import { parseModuleCompendium } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
@@ -90,27 +88,6 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
         competences,
       ] = coreData
       const poPreviews = toPOPreview(pos, studyPrograms, grades)
-      // this.payload = {
-      //   objectName: moduleCompendium?.metadata?.title ?? 'Neues Modul',
-      //   editType: this.action === 'create' ? 'create' : 'update',
-      //   inputs: inputs(
-      //     [...modules],
-      //     [...moduleTypes],
-      //     [...languages],
-      //     [...seasons],
-      //     [...locations],
-      //     [...status],
-      //     [...persons],
-      //     [...assessmentMethods],
-      //     [...poPreviews],
-      //     [...competences],
-      //     [...globalCriteria],
-      //     this.dialog,
-      //     attr => this.editModuleComponent?.formControl(attr).value,
-      //     moduleCompendium,
-      //     this.id,
-      //   ),
-      // }
     })
   }
 

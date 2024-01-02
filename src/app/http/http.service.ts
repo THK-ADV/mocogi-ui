@@ -264,4 +264,12 @@ export class HttpService {
       action,
       comment,
     })
+
+  // Permissions
+
+  getPermissions = (moduleId: string): Observable<Array<string>> =>
+    this.http.get<Array<string>>(`moduleUpdatePermissions/${moduleId}`)
+
+  setPermissions = (moduleId: string, permissions: ReadonlyArray<string>): Observable<unknown> =>
+    this.http.post(`moduleUpdatePermissions/${moduleId}`, permissions)
 }

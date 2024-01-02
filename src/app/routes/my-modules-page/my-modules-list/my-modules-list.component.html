@@ -62,6 +62,15 @@
           <mat-icon>undo</mat-icon>
           Discard changes
         </button>
+        <button
+          mat-icon-button
+          aria-label="Icon button with a vertical three dot icon"
+          [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button [disabled]="!element.privilegedForModule" mat-menu-item (click)="openDialog(element.module.id)">Change permissions</button>
+        </mat-menu>
       </div>
     </td>
   </ng-container>
