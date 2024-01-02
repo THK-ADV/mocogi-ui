@@ -5,8 +5,8 @@ import { HttpService } from '../../http/http.service'
 import { PermissionsDialogActions, PermissionsDialogApiActions } from '../actions/permissions-dialog.actions'
 import { NavigationActions } from '../actions/navigation.actions'
 import { HttpErrorResponse } from '@angular/common/http'
-import { Store } from "@ngrx/store";
-import { selectPermissions } from "../selectors/permissions-dialog.selector";
+import { Store } from '@ngrx/store'
+import { selectPermissions } from '../selectors/permissions-dialog.selector'
 
 @Injectable()
 export class PermissionsDialogEffects {

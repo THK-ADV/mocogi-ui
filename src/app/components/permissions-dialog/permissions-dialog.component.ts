@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips'
-import { Store } from "@ngrx/store";
-import { PermissionsDialogActions } from "../../state/actions/permissions-dialog.actions";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Observable } from "rxjs";
-import { selectPermissions } from "../../state/selectors/permissions-dialog.selector";
+import { Store } from '@ngrx/store'
+import { PermissionsDialogActions } from '../../state/actions/permissions-dialog.actions'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Observable } from 'rxjs'
+import { selectPermissions } from '../../state/selectors/permissions-dialog.selector'
 
 @Component({
   selector: 'cops-permissions-dialog',
@@ -53,7 +53,7 @@ export class PermissionsDialogComponent implements OnInit {
   }
 
   save = () => {
-    if(!this.moduleId) return;
+    if(!this.moduleId) return
     this.store.dispatch(PermissionsDialogActions.save({moduleId: this.moduleId}))
   }
   protected readonly COMMA = COMMA

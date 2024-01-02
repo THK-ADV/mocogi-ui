@@ -96,8 +96,8 @@ import { ModuleReviewActionsComponent } from './components/module-review-actions
 import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component'
 import { PermissionsDialogComponent } from './components/permissions-dialog/permissions-dialog.component'
-import { PermissionsDialogEffects } from "./state/effects/permissions-dialog.effects.service";
-import { permissionsDialogReducer } from "./state/reducer/permissions-dialog.reducer";
+import { PermissionsDialogEffects } from './state/effects/permissions-dialog.effects.service'
+import { permissionsDialogReducer } from './state/reducer/permissions-dialog.reducer'
 
 
 @NgModule({

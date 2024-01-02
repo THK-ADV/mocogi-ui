@@ -98,7 +98,7 @@ export class MyModulesListComponent {
     this.dialog.open(PermissionsDialogComponent, {
       width: '600px',
       disableClose: true,
-      data: { moduleId }
+      data: { moduleId },
     })
   }
 }
