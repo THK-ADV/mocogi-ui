@@ -4,8 +4,8 @@
     <th mat-header-cell *matHeaderCellDef>
       Modul
     </th>
-    <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)" [style.color]="tableColor(element)">
-      <span (click)="showModule(element.module.id)" class="clickable">
+    <td mat-cell *matCellDef="let element" (click)="showModule(element.module.id)" [style.color]="tableColor(element)">
+      <span class="clickable">
         {{title(element)}}
       </span>
     </td>
