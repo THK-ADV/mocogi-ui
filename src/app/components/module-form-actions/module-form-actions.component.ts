@@ -7,8 +7,9 @@ import { ModuleFormComponent } from '../../form/module-form/module-form.componen
   styleUrls: ['./module-form-actions.component.css'],
 })
 export class ModuleFormActionsComponent {
-  @Input() disabled!: boolean
   @Input() cancelAction!: () => void
   @Input() saveAction!: () => void
-  @Input() moduleFormComponent: ModuleFormComponent<unknown, unknown> | unknown
+  @Input() moduleFormComponent?: ModuleFormComponent<unknown, unknown>
+
+  isValid = () => this.moduleFormComponent?.formGroup?.valid ?? false
 }

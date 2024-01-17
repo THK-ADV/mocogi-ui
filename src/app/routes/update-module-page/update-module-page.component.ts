@@ -7,7 +7,7 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-import { ModuleCompendium, ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { ModuleCompendium } from '../../types/module-compendium'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -28,8 +28,8 @@ export class UpdateModulePageComponent {
   approvals: ReadonlyArray<Approval> =  []
   stagingModuleCompendium?: ModuleCompendium
 
-  cancel() {
-    return
+  cancel = () => {
+    this.store.dispatch(UpdateModulePageActions.cancel())
   }
 
   save = () => {
@@ -37,10 +37,6 @@ export class UpdateModulePageComponent {
     if(moduleCompendiumProtocol) {
       this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
     }
-  }
-
-  submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
-   this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
   }
 
   constructor(private route: ActivatedRoute, http: HttpService, dialog: MatDialog, private store: Store) {

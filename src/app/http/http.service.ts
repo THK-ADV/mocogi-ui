@@ -266,4 +266,12 @@ export class HttpService {
 
   getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleCompendiumList>> =>
     this.http.get<ReadonlyArray<ModuleCompendiumList>>(`moduleCompendiumLists/${semester}`)
+
+  // Permissions
+
+  getPermissions = (moduleId: string): Observable<Array<string>> =>
+    this.http.get<Array<string>>(`moduleUpdatePermissions/${moduleId}`)
+
+  setPermissions = (moduleId: string, permissions: ReadonlyArray<string>): Observable<unknown> =>
+    this.http.post(`moduleUpdatePermissions/${moduleId}`, permissions)
 }
