@@ -26,6 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
+import { ModuleCompendiumList } from '../types/module-compendium-list'
 
 export interface ModuleDraftJson {
   module: string
@@ -247,14 +248,10 @@ export class HttpService {
   // Approval
 
   ownApprovals = (): Observable<ReadonlyArray<Approval>> =>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.http.get('moduleApprovals/own')
+    this.http.get<ReadonlyArray<Approval>>('moduleApprovals/own')
 
   getApprovals = (moduleId: string): Observable<ReadonlyArray<Approval>> =>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.http.get(`moduleApprovals/${moduleId}`)
+    this.http.get<ReadonlyArray<Approval>>(`moduleApprovals/${moduleId}`)
 
   getApproval = (moduleId: string, approvalId: string): Observable<unknown> =>
     this.http.get(`moduleApprovals/${moduleId}/${approvalId}`)
@@ -264,6 +261,11 @@ export class HttpService {
       action,
       comment,
     })
+
+  // Module Compendium List
+
+  getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleCompendiumList>> =>
+    this.http.get<ReadonlyArray<ModuleCompendiumList>>(`moduleCompendiumLists/${semester}`)
 
   // Permissions
 
