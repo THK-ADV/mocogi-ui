@@ -52,7 +52,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
       Object.values(section.rows).forEach(row =>
         row.forEach(({input}) => {
           const fc = formControlForInput(input)
-          if (input.disabled) fc.disable()
+          if (input.disabled || this.mode === 'REVIEW') fc.disable()
           this.formGroup.addControl(input.attr, fc)
         })
       )

@@ -95,6 +95,9 @@ import { ModuleFormActionsComponent } from './components/module-form-actions/mod
 import { ModuleReviewActionsComponent } from './components/module-review-actions/module-review-actions.component'
 import { ModuleApprovalEffects } from './state/effects/module-approval-page.effects.service'
 import { ListOfCommentsComponent } from './components/list-of-comments/list-of-comments.component'
+import { PermissionsDialogComponent } from './components/permissions-dialog/permissions-dialog.component'
+import { PermissionsDialogEffects } from './state/effects/permissions-dialog.effects.service'
+import { permissionsDialogReducer } from './state/reducer/permissions-dialog.reducer'
 import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
 
 
@@ -149,6 +152,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
     ModuleFormActionsComponent,
     ModuleReviewActionsComponent,
     ListOfCommentsComponent,
+    PermissionsDialogComponent,
     ModuleCompendiumsFilterComponent,
   ],
   imports: [
@@ -182,6 +186,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
       updateModule: updateModuleReducer,
+      permissionDialog: permissionsDialogReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -191,6 +196,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
       UpdateModuleEffects,
       NewModuleEffects,
       ModuleApprovalEffects,
+      PermissionsDialogEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

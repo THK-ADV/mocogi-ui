@@ -5,6 +5,7 @@ import { catchError, exhaustMap, map, of } from 'rxjs'
 import { UpdateModuleApiActions } from '../actions/update-module-page.actions'
 import { HttpErrorResponse } from '@angular/common/http'
 import { NewModulePageActions } from '../actions/new-module-page.actions'
+import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
 export class NewModuleEffects {
@@ -14,15 +15,23 @@ export class NewModuleEffects {
         exhaustMap(({ moduleCompendiumProtocol }) => {
           return this.service.createNewDraft(moduleCompendiumProtocol).pipe(
             map(() => {
-              return UpdateModuleApiActions.savedChangesSuccess()
+              return NavigationActions.navigate({path: [ 'my-modules' ]})
             }),
             catchError((error: HttpErrorResponse) => {
               return of(UpdateModuleApiActions.savedChangesFailure(error.error))
             }))
         })
       )
-    }
-  )
+    })
+
+  cancel$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(NewModulePageActions.cancel),
+      map(() => {
+        return NavigationActions.navigate({ path: [ 'my-modules' ] })
+      })
+    )
+  })
 
   constructor(
     private readonly service: HttpService,

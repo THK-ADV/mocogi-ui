@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Permissions</h1>
+<div mat-dialog-content>
+  <mat-form-field class="example-chip-list">
+    <mat-label>People with permissions</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter CampusId">
+      <mat-chip-row
+        *ngFor="let campusId of (permissions$ | async)"
+        (removed)="remove(campusId)"
+        [editable]="true"
+        (edited)="edit(campusId, $event)">
+        {{campusId}}
+        <button matChipRemove [attr.aria-label]="'remove ' + campusId">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <input placeholder="CampusID"
+             [matChipInputFor]="chipGrid"
+             [matChipInputSeparatorKeyCodes]="[ENTER, COMMA]"
+             matChipInputAddOnBlur="true"
+             (matChipInputTokenEnd)="add($event)"/>
+    </mat-chip-grid>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="save()">Save</button>
+</div>

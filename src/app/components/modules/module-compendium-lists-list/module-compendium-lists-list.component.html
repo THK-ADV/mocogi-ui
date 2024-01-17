@@ -6,7 +6,7 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <span>
-        {{ element.title }} ({{ element.semester }})
+        {{ element.semester.deLabel }} {{ element.semester.year }}
       </span>
     </td>
   </ng-container>
@@ -16,7 +16,7 @@
       Studiengang
     </th>
     <td mat-cell *matCellDef="let element">
-      <mat-chip>{{ element.studyProgram }}</mat-chip>
+      <mat-chip>{{ studyProgramLabel(element) }} ({{ element.studyProgram.grade.deLabel }})</mat-chip>
     </td>
   </ng-container>
   <!-- PO -->
@@ -25,7 +25,7 @@
       Prüfungsordnung
     </th>
     <td mat-cell *matCellDef="let element">
-      <mat-chip>{{ element.po }}</mat-chip>
+      <mat-chip>{{ element.poNumber }}</mat-chip>
     </td>
   </ng-container>
   <!-- Actions -->
@@ -35,8 +35,8 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
-        <a [href]="element.germanDownloadLink" target="_blank" [class.disabled-link]="!element.germanDownloadLink">
-          <button mat-stroked-button [disabled]="!element.germanDownloadLink">
+        <a [href]="absoluteUrl(element.deUrl)" target="_blank" [class.disabled-link]="!element.deUrl">
+          <button mat-stroked-button [disabled]="!element.deUrl">
             <mat-icon>open_in_new</mat-icon>
             Deutsch
           </button>
@@ -50,8 +50,8 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
-        <a [href]="element.englishDownloadLin" target="_blank" [class.disabled-link]="!element.englishDownloadLink">
-        <button mat-stroked-button [disabled]="!element.englishDownloadLink">
+        <a [href]="absoluteUrl(element.enUrl)" target="_blank" [class.disabled-link]="!element.enUrl">
+        <button mat-stroked-button [disabled]="!element.enUrl">
           <mat-icon>open_in_new</mat-icon>
           English
         </button>

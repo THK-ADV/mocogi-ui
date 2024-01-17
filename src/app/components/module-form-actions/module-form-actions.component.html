@@ -1,4 +1,10 @@
 <div class="actions">
   <button type="button" mat-button (click)="cancelAction()">Cancel</button>
-  <button mat-flat-button [disabled]="disabled" color="primary" (click)="saveAction()">Save</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="saveAction()"
+    [disabled]="!isValid()">
+    Save
+  </button>
 </div>
