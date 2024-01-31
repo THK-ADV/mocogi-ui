@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCompendiumList } from '../types/module-compendium-list'
+import { ModuleCompendiumList, Semester, StudyProgramShort } from '../types/module-compendium-list'
 
 export interface ModuleDraftJson {
   module: string
@@ -231,8 +231,8 @@ export class HttpService {
 
   // View
 
-  allStudyProgramAtomic = (): Observable<StudyProgramAtomic[]> =>
-    this.http.get<StudyProgramAtomic[]>('studyPrograms/view')
+  allStudyProgramAtomic = (): Observable<ReadonlyArray<StudyProgramAtomic>> =>
+    this.http.get<ReadonlyArray<StudyProgramAtomic>>('studyPrograms/view')
 
   allModuleAtomic = (): Observable<ModuleAtomic[]> =>
     this.http.get<ModuleAtomic[]>('modules/view')
@@ -267,21 +267,30 @@ export class HttpService {
   getSemesters = () => {
     const currentYear = (new Date()).getFullYear()
     const rangeInYears = 5
-    const semesterTypes = ['WiSe', 'SoSe']
-    const semesterList: Array<string> = []
+    const semesterTypes = [
+      { abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
+      { abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' }
+    ]
+    const semesterList: Array<Semester> = []
     for (let i = rangeInYears * -1; i < rangeInYears; i++) {
       semesterTypes.forEach((semesterType) => {
-        semesterList.push(`${semesterType} ${currentYear + i}`)
+        semesterList.push({
+          id: `${semesterType.abbrev}_${currentYear + i}`,
+          year: currentYear + i,
+          abbrev: `${semesterType.abbrev} ${currentYear + i}`,
+          deLabel: `${semesterType.deLabel} ${currentYear + i}`,
+          enLabel: `${semesterType.enLabel} ${currentYear + i}`,
+        })
       })
     }
-    const semesters: ReadonlyArray<string> = semesterList
+    const semesters: ReadonlyArray<Semester> = semesterList
     return of(semesters)
   }
 
   // Module Compendium List
 
   getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleCompendiumList>> =>
-    this.http.get<ReadonlyArray<ModuleCompendiumList>>(`moduleCompendiumLists/${semester}`)
+    this.http.get<ReadonlyArray<ModuleCompendiumList>>(`moduleCompendiums/${semester}`)
 
   // Permissions
 

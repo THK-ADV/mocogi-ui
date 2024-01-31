@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ModuleCompendiumsFilterComponentActions } from '../../state/actions/module-compendiums-filter.actions'
 import { HttpService } from '../../http/http.service'
+import {
+  selectSelectedSemester,
+  selectSelectedStudyProgram
+} from "../../state/selectors/module-compendiums-filter.selectors";
+import { Semester } from "../../types/module-compendium-list";
+import { ModuleCompendiumsFilterEffects } from "../../state/effects/module-compendiums-filter.service";
+import { SelectedStudyProgramId } from "../../state/reducer/module-compendiums-filter.reducer";
+import { StudyProgramAtomic } from "../../types/study-program-atomic";
+import { Observable } from "rxjs";
+import { StudyProgram } from "../../types/core/study-program";
 
 @Component({
   selector: 'cops-module-compendiums-filter',
@@ -20,16 +30,27 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
     this.store.dispatch(ModuleCompendiumsFilterComponentActions.resetFilter())
   }
 
-  selectAction = () => ({type: 'XYZ'})
-  deselectAction = () => ({type: 'XYZ'})
+  semesters = this.httpService.getSemesters()
 
-  semesters = () => {
-    return this.httpService.getSemesters()
-  }
+  selectedSemester$ = this.store.select(selectSelectedSemester)
+
+  selectSemester = (semester: Semester) => ModuleCompendiumsFilterComponentActions.selectSemester({ semester })
+
+  deselectSemester = ( ) => ModuleCompendiumsFilterComponentActions.deselectSemester
+
+  showSemester = (semester: Semester) => semester.deLabel
+
+  studyPrograms = this.httpService.allStudyPrograms()
+
+  selectedStudyProgram$ = this.store.select(selectSelectedStudyProgram)
+
+  selectStudyProgram = (selectedStudyProgram: StudyProgram) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({ selectedStudyProgramId: selectedStudyProgram.abbrev })
+
+  deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram
+
+  showStudyProgram = (sp: StudyProgram) => `${sp.deLabel} (${sp.grade})`
 
   updateFilter = () => {
     return
   }
-
-  showSemester = (semester: string) => semester
 }

@@ -3,17 +3,18 @@ import { Person } from '../../types/core/person'
 import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
 
 import { StudyProgramAtomic } from '../../types/study-program-atomic'
+import { Semester } from "../../types/module-compendium-list";
+import { StudyProgram } from "../../types/core/study-program";
 
 export const ModuleCompendiumsFilterComponentActions = createActionGroup({
   source: 'Module Compendiums Filter Component',
   events: {
     'Enter': emptyProps(),
-    'Select Study Program': props<{ selectedStudyProgramId: SelectedStudyProgramId }>(),
-    'Select Semester': props<{ semester: number }>(),
-    'Select Coordinator': props<{ coordinatorId: string }>(),
+    'UpdateSearchQuery': props<{ searchQuery: string }>(),
+    'Select Study Program': props<{ selectedStudyProgramId: string }>(),
     'Deselect Study Program': emptyProps(),
+    'Select Semester': props<{ semester: Semester }>(),
     'Deselect Semester': emptyProps(),
-    'Deselect Coordinator': emptyProps(),
     'Reset Filter': emptyProps(),
   },
 })
@@ -21,7 +22,7 @@ export const ModuleCompendiumsFilterComponentActions = createActionGroup({
 export const ModuleCompendiumsFilterAPIActions = createActionGroup({
   source: 'Module Compendiums Filter API',
   events: {
-    'Retrieved Study Programs Success': props<{ studyPrograms: StudyProgramAtomic[] }>(),
-    'Retrieved People Success': props<{ people: Person[] }>(),
+    'Retrieved Study Programs Success': props<{ studyPrograms: readonly StudyProgram[] }>(),
+    'Retrieved Semesters Success': props<{ semesters: readonly Semester[] }>(),
   },
 })

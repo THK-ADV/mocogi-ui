@@ -15,7 +15,7 @@ export class ModuleCompendiumListsListComponent {
   protected displayedColumns: string[] = ['title', 'study_program', 'po', 'download_de', 'download_en']
 
   private ord = Ordering.many<ModuleCompendiumList>([
-    Ordering.contraMap(stringOrd, a => a.poAbbrev),
+    Ordering.contraMap(stringOrd, a => a.studyProgram.abbrev),
     Ordering.contraMap(stringOrd, a => a.studyProgram.grade.abbrev),
     Ordering.contraMap(numberOrd, a => a.poNumber),
   ])

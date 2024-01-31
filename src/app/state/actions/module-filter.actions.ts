@@ -21,7 +21,7 @@ export const ModuleFilterPageActions = createActionGroup({
 export const ModuleFilterAPIActions = createActionGroup({
   source: 'Module Filter API',
   events: {
-    'Retrieved Study Programs Success': props<{ studyPrograms: StudyProgramAtomic[] }>(),
+    'Retrieved Study Programs Success': props<{ studyPrograms: readonly StudyProgramAtomic[] }>(),
     'Retrieved People Success': props<{ people: Person[] }>(),
   },
 })

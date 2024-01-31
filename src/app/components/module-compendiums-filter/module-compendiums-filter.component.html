@@ -19,16 +19,24 @@
 
 
 <cops-abstract-module-filter
-  [options]="semesters() | async"
+  [options]="semesters | async"
   label="Semester"
-  [selectAction]="selectAction"
-  [selection]=""
-  [deselectAction]="deselectAction"
+  [selectAction]="selectSemester"
+  [selection]="selectedSemester$ | async"
+  [deselectAction]="deselectSemester"
   [show]="showSemester"
 >
 </cops-abstract-module-filter>
 
-<cops-study-program-filter></cops-study-program-filter>
+<cops-abstract-module-filter
+  [options]="studyPrograms | async"
+  label="Study Program"
+  [selectAction]="selectStudyProgram"
+  [selection]="selectedStudyProgram$ | async"
+  [deselectAction]="deselectStudyProgram"
+  [show]="showStudyProgram"
+>
+</cops-abstract-module-filter>
 
 <button mat-stroked-button
         color="primary"
