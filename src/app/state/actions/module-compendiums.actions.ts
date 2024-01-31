@@ -1,6 +1,4 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Sort } from '@angular/material/sort'
-import { ModuleAtomic } from '../../types/module-atomic'
 import { ModuleCompendium } from "../../types/module-compendium";
 
 export const ModuleCompendiumsPageActions = createActionGroup({

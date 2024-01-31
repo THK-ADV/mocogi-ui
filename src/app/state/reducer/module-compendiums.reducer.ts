@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleApiActions, ModulePageActions } from '../actions/module.actions'
 import { Sort } from '@angular/material/sort'
-import { ModuleAtomic } from '../../types/module-atomic'
 import { ModuleCompendium } from "../../types/module-compendium";
 
 export interface State {

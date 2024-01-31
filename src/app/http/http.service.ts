@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCompendiumList, Semester, StudyProgramShort } from '../types/module-compendium-list'
+import { ModuleCompendiumList, Semester } from '../types/module-compendium-list'
 
 export interface ModuleDraftJson {
   module: string

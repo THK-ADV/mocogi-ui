@@ -7,10 +7,6 @@ import {
   selectSelectedStudyProgram
 } from "../../state/selectors/module-compendiums-filter.selectors";
 import { Semester } from "../../types/module-compendium-list";
-import { ModuleCompendiumsFilterEffects } from "../../state/effects/module-compendiums-filter.service";
-import { SelectedStudyProgramId } from "../../state/reducer/module-compendiums-filter.reducer";
-import { StudyProgramAtomic } from "../../types/study-program-atomic";
-import { Observable } from "rxjs";
 import { StudyProgram } from "../../types/core/study-program";
 
 @Component({

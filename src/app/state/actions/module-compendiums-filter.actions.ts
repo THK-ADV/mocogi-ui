@@ -1,8 +1,4 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Person } from '../../types/core/person'
-import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
-
-import { StudyProgramAtomic } from '../../types/study-program-atomic'
 import { Semester } from "../../types/module-compendium-list";
 import { StudyProgram } from "../../types/core/study-program";
 

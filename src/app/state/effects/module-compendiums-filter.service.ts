@@ -6,9 +6,6 @@ import {
   ModuleCompendiumsFilterAPIActions,
   ModuleCompendiumsFilterComponentActions
 } from "../actions/module-compendiums-filter.actions";
-import {
-  ModuleCompendiumsFilterComponent
-} from "../../components/module-compendiums-filter/module-compendiums-filter.component";
 
 @Injectable()
 export class ModuleCompendiumsFilterEffects {

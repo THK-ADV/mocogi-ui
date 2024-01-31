@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store'
 
-import { StudyProgramAtomic } from '../../types/study-program-atomic'
 import {
   ModuleCompendiumsFilterAPIActions,
   ModuleCompendiumsFilterComponentActions
