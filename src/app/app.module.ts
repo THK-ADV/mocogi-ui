@@ -42,7 +42,7 @@ import { ParticipantsComponent } from './form/participants/participants.componen
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
-import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
+import { ModuleRenderedHtmlComponent } from './module-compendium-html/module-rendered-html.component'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { AlertComponent } from './alert/alert.component'
 import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
@@ -122,7 +122,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
     ModuleRelationComponent,
     ConfirmationDialogComponent,
     PageNotFoundComponent,
-    ModuleCompendiumHtmlComponent,
+    ModuleRenderedHtmlComponent,
     UnsafeHtmlPipe,
     AlertComponent,
     PipelineErrorPipe,

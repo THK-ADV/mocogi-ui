@@ -6,11 +6,11 @@ import { Location as AngularLocation } from '@angular/common'
 import { ModuleCompendium } from '../types/module-compendium'
 
 @Component({
-  selector: 'cops-module-compendium-html',
-  templateUrl: './module-compendium-html.component.html',
-  styleUrls: ['./module-compendium-html.component.css'],
+  selector: 'cops-module-rendered-html',
+  templateUrl: './module-rendered-html.component.html',
+  styleUrls: ['./module-rendered-html.component.css'],
 })
-export class ModuleCompendiumHtmlComponent {
+export class ModuleRenderedHtmlComponent {
   @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef
   moduleCompendiumHtml?: Observable<string>
   moduleCompendium?: Observable<ModuleCompendium>
