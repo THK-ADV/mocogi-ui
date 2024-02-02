@@ -26,7 +26,7 @@ import { POPreview } from '../../types/pos'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
 import { Module } from '../../types/module'
-import { ModuleCompendiumLike } from '../../types/module-compendium'
+import { ModuleDescriptionLike } from '../../types/module'
 import { Section } from 'src/app/form/module-form/module-form.component'
 
 export const requiredLabel = (label: string): string =>
@@ -51,7 +51,7 @@ export function inputs(
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => unknown,
-  moduleCompendium?: ModuleCompendiumLike,
+  moduleCompendium?: ModuleDescriptionLike,
   metadataId?: string,
 ): Section<unknown, unknown>[] {
   const metadata = moduleCompendium?.metadata

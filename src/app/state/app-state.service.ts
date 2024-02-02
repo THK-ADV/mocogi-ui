@@ -17,7 +17,7 @@ import { Grade } from '../types/core/grade'
 import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
-import { ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ModuleCompendiumProtocol } from '../types/module'
 import { ValidationResult } from '../types/validation-result'
 
 interface State<A> {

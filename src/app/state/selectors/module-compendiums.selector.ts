@@ -1,15 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import { State } from '../reducer/-compendiums.reducer'
-import { selectSelectedCoordinatorId, selectSelectedSemester, selectSelectedStudyProgramId } from './module-filter.selectors'
+import { State } from '../reducer/module-compendiums.reducer'
 import { ModuleAtomic, StudyProgramModuleAssociation } from '../../types/module-atomic'
-import { toModuleTableEntry } from '../../module/module-list/module-table-entry'
 import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
 
 export const selectModuleCompendiumsState = createFeatureSelector<State>('module-compendiums')
 
-const selectModuleCompendiums_ = createSelector(
+export const selectModuleCompendiums = createSelector(
   selectModuleCompendiumsState,
-  (state) => state.modules,
+  (state) => state.moduleCompendiums,
 )
 
 export const selectModuleCompendiumsFilter = createSelector(
@@ -40,12 +38,6 @@ function titleFilter(filter: string) {
     )
 }
 
-
-function coordinatorFilter(coordinatorId: string) {
-  return (m: ModuleAtomic) =>
-    m.moduleManagement.some(p => p.id === coordinatorId)
-}
-
 function checkStudyProgram({poId, specializationId}: SelectedStudyProgramId, sp: StudyProgramModuleAssociation): boolean {
   if (specializationId) {
     return sp.specialization?.abbrev === specializationId // take modules from the specialization
@@ -72,30 +64,3 @@ function studyProgramSemesterFilter(selectedStudyProgramId: SelectedStudyProgram
   return (m: ModuleAtomic) =>
     m.studyProgram.some(po => checkStudyProgram(selectedStudyProgramId, po) && checkSemester(semester, po))
 }
-
-export const selectModules = createSelector(
-  selectModules_,
-  selectModuleFilter,
-  selectSelectedStudyProgramId,
-  selectSelectedSemester,
-  selectSelectedCoordinatorId,
-  (
-    modules,
-    filter,
-    studyProgramId,
-    semester,
-    coordinatorId,
-  ) => {
-    const filters = [
-      ...(studyProgramId && semester ? [studyProgramSemesterFilter(studyProgramId, semester)] : []),
-      ...(studyProgramId && !semester ? [studyProgramFilter(studyProgramId)] : []),
-      ...(!studyProgramId && semester ? [semesterFilter(semester)] : []),
-      ...(coordinatorId ? [coordinatorFilter(coordinatorId)] : []),
-      ...(filter ? [titleFilter(filter)] : []),
-    ]
-
-    return filters
-      .reduce((xs, f) => xs.filter(f), modules)
-      .map(m => toModuleTableEntry(m, studyProgramId))
-  }
-)

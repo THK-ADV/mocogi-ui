@@ -16,7 +16,7 @@ import { Competence } from '../types/core/competence'
 import { Module } from '../types/module'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
-import { ModuleCompendium, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ModuleDescription, ModuleCompendiumProtocol } from '../types/module'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
 import { StudyProgramAtomic } from '../types/study-program-atomic'
@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCompendiumList, Semester } from '../types/module-compendium-list'
+import { Semester } from '../types/module-compendium'
 
 export interface ModuleDraftJson {
   module: string
@@ -76,14 +76,14 @@ export class HttpService {
 
   // Module Compendium
 
-  moduleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${id}`)
+  moduleCompendiumById = (id: string): Observable<ModuleDescription> =>
+    this.http.get<ModuleDescription>(`moduleCompendium/${id}`)
 
-  latestModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${id}/latest`)
+  latestModuleCompendiumById = (id: string): Observable<ModuleDescription> =>
+    this.http.get<ModuleDescription>(`moduleCompendium/${id}/latest`)
 
-  stagingModuleCompendiumById = (id: string): Observable<ModuleCompendium> =>
-    this.http.get<ModuleCompendium>(`moduleCompendium/${id}/staging`)
+  stagingModuleCompendiumById = (id: string): Observable<ModuleDescription> =>
+    this.http.get<ModuleDescription>(`moduleCompendium/${id}/staging`)
 
   moduleCompendiumHtmlFile = (id: string) =>
     this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
@@ -289,8 +289,8 @@ export class HttpService {
 
   // Module Compendium List
 
-  getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleCompendiumList>> =>
-    this.http.get<ReadonlyArray<ModuleCompendiumList>>(`moduleCompendiums/${semester}`)
+  getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleDescription>> =>
+    this.http.get<ReadonlyArray<ModuleDescription>>(`moduleCompendiums/${semester}`)
 
   // Permissions
 

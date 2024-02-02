@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { HttpService } from '../http/http.service'
 import { Observable } from 'rxjs'
 import { Location as AngularLocation } from '@angular/common'
-import { ModuleCompendium } from '../types/module-compendium'
+import { ModuleDescription } from '../types/module'
 
 @Component({
   selector: 'cops-module-rendered-html',
@@ -13,7 +13,7 @@ import { ModuleCompendium } from '../types/module-compendium'
 export class ModuleRenderedHtmlComponent {
   @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef
   moduleCompendiumHtml?: Observable<string>
-  moduleCompendium?: Observable<ModuleCompendium>
+  moduleCompendium?: Observable<ModuleDescription>
 
   constructor(
     private readonly route: ActivatedRoute,

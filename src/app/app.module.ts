@@ -84,7 +84,7 @@ import { NewModulePageComponent } from './routes/new-module-page/new-module-page
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
-import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
 import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
@@ -143,7 +143,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
     NewModulePageComponent,
     ModuleApprovalsPageComponent,
     ElectiveModulesListsPageComponent,
-    ModuleCompendiumListsPageComponent,
+    ModuleCompendiumsPageComponent,
     ApprovalsListComponent,
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,

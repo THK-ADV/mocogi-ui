@@ -13,7 +13,7 @@ export const ModuleCompendiumsPageActions = createActionGroup({
 export const ModuleCompendiumsApiActions = createActionGroup({
   source: 'Module Compendiums API',
   events: {
-    'Retrieved Modules Compendiums Success': props<{ modules: ModuleCompendium[] }>(),
+    'Retrieved Modules Compendiums Success': props<{ moduleCompendiums: ModuleCompendium[] }>(),
     'Retrieved Modules Compendiums Failure': props<{ error: string }>(),
   },
 })

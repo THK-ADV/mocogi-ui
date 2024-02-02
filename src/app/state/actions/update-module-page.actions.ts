@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { ModuleCompendiumProtocol } from '../../types/module'
 
 export const UpdateModulePageActions = createActionGroup({
     source: 'Update Module Page',

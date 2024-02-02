@@ -4,7 +4,7 @@ import {
   ModuleCompendiumsFilterAPIActions,
   ModuleCompendiumsFilterComponentActions
 } from "../actions/module-compendiums-filter.actions";
-import { Semester } from "../../types/module-compendium-list";
+import { Semester } from "../../types/module-compendium";
 import { StudyProgram } from "../../types/core/study-program";
 
 export interface SelectedStudyProgramId {

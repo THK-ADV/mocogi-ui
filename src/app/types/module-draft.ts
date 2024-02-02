@@ -1,4 +1,4 @@
-import { ModuleCompendiumProtocol } from './module-compendium'
+import { ModuleCompendiumProtocol } from './module'
 
 export type ModuleDraftSource = 'added' | 'modified'
 

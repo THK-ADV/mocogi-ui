@@ -7,7 +7,7 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-import { ModuleCompendium } from '../../types/module-compendium'
+import { ModuleDescription } from '../../types/module'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -26,7 +26,7 @@ export class UpdateModulePageComponent {
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
   approvals: ReadonlyArray<Approval> =  []
-  stagingModuleCompendium?: ModuleCompendium
+  stagingModuleCompendium?: ModuleDescription
 
   cancel = () => {
     this.store.dispatch(UpdateModulePageActions.cancel())

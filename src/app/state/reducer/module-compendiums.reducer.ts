@@ -1,10 +1,11 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleApiActions, ModulePageActions } from '../actions/module.actions'
 import { Sort } from '@angular/material/sort'
+import { ModuleCompendiumsApiActions } from "../actions/module-compendiums.actions";
 import { ModuleCompendium } from "../../types/module-compendium";
 
 export interface State {
-  moduleCompendiums: ModuleCompendium[]
+  moduleCompendiums: ReadonlyArray<ModuleCompendium>
   selectedModuleId?: string
   moduleFilter?: string
   error?: Error
@@ -12,7 +13,7 @@ export interface State {
 }
 
 const initialState: State = {
-  modules: [],
+  moduleCompendiums: [],
   selectedModuleId: undefined,
   moduleFilter: undefined,
   error: undefined,
@@ -52,10 +53,10 @@ export const moduleReducer = createReducer(
       selectedSort: sort,
     }
   }),
-  on(ModuleApiActions.retrievedModulesSuccess, (state, {modules}): State => {
+  on(ModuleCompendiumsApiActions.retrievedModulesCompendiumsSuccess, (state, {moduleCompendiums}): State => {
     return {
       ...state,
-      modules,
+      moduleCompendiums,
     }
   }),
   on(ModuleApiActions.retrievedModulesFailure, (state, {error}): State => {

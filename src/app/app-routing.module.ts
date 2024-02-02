@@ -13,8 +13,8 @@ import {
   ElectiveModulesListsPageComponent,
 } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import {
-  ModuleCompendiumListsPageComponent,
-} from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+  ModuleCompendiumsPageComponent,
+} from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
 
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'module-compendium-lists',
-    component: ModuleCompendiumListsPageComponent,
+    component: ModuleCompendiumsPageComponent,
   },
   {
     path: 'module-approvals',

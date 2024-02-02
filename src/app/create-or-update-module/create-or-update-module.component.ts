@@ -11,7 +11,7 @@ import { Grade } from '../types/core/grade'
 import { StudyProgram } from '../types/core/study-program'
 import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
-import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ModuleDescriptionLike, ModuleCompendiumProtocol } from '../types/module'
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
 
@@ -64,7 +64,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     this.action = route.snapshot.queryParamMap.get('action') ?? throwError('expected action parameter')
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
     const moduleCompendium: ModuleCompendiumProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
-    const moduleCompendium$: Observable<ModuleCompendiumLike | undefined> =
+    const moduleCompendium$: Observable<ModuleDescriptionLike | undefined> =
       mapOpt(moduleCompendium, of) ??
       mapOpt(this.id, this.http.moduleCompendiumById) ??
       of(undefined)

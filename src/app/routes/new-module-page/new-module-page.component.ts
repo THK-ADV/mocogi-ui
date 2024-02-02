@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { ModuleCompendiumProtocol } from '../../types/module-compendium'
+import { ModuleCompendiumProtocol } from '../../types/module'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'

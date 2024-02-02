@@ -6,7 +6,7 @@ import {
   selectSelectedSemester,
   selectSelectedStudyProgram
 } from "../../state/selectors/module-compendiums-filter.selectors";
-import { Semester } from "../../types/module-compendium-list";
+import { Semester } from "../../types/module-compendium";
 import { StudyProgram } from "../../types/core/study-program";
 
 @Component({

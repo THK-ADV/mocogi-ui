@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Semester } from "../../types/module-compendium-list";
+import { Semester } from "../../types/module-compendium";
 import { StudyProgram } from "../../types/core/study-program";
 
 export const ModuleCompendiumsFilterComponentActions = createActionGroup({
