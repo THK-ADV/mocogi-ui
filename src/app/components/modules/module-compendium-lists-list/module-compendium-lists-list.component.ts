@@ -20,9 +20,9 @@ export class ModuleCompendiumListsListComponent {
     Ordering.contraMap(numberOrd, a => a.poNumber),
   ])
 
-  @Input() set moduleCompendiumList(moduleCompendiumList: ReadonlyArray<ModuleCompendium> | null) {
-    if (moduleCompendiumList) {
-      this.dataSource.data = [...moduleCompendiumList].sort(this.ord)
+  @Input() set moduleCompendiums(moduleCompendiums: ReadonlyArray<ModuleCompendium> | null) {
+    if (moduleCompendiums) {
+      this.dataSource.data = [...moduleCompendiums].sort(this.ord)
     }
   }
 

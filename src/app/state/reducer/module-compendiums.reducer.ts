@@ -1,56 +1,40 @@
 import { createReducer, on } from '@ngrx/store'
-import { ModuleApiActions, ModulePageActions } from '../actions/module.actions'
+import { ModuleCompendiumsApiActions, ModuleCompendiumsPageActions } from '../actions/module-compendiums.actions'
 import { Sort } from '@angular/material/sort'
-import { ModuleCompendiumsApiActions } from "../actions/module-compendiums.actions";
 import { ModuleCompendium } from "../../types/module-compendium";
 
 export interface State {
   moduleCompendiums: ReadonlyArray<ModuleCompendium>
-  selectedModuleId?: string
   moduleFilter?: string
-  error?: Error
+  error?: string
   selectedSort?: Sort
 }
 
 const initialState: State = {
   moduleCompendiums: [],
-  selectedModuleId: undefined,
   moduleFilter: undefined,
   error: undefined,
   selectedSort: undefined,
 }
 
-export const moduleReducer = createReducer(
+export const moduleCompendiumsReducer = createReducer(
   initialState,
-  on(ModulePageActions.enter, (state): State => {
+  on(ModuleCompendiumsPageActions.enter, (state): State => {
     return {
       ...state,
       error: undefined,
-      selectedModuleId: undefined,
     }
   }),
-  on(ModulePageActions.selectModule, (state, {moduleId}): State => {
-    return {
-      ...state,
-      selectedModuleId: moduleId,
-    }
-  }),
-  on(ModulePageActions.filterModule, (state, {filter}): State => {
+  on(ModuleCompendiumsPageActions.filterModuleCompendiums, (state, {filter}): State => {
     return {
       ...state,
       moduleFilter: filter,
     }
   }),
-  on(ModulePageActions.resetFilter, (state): State => {
+  on(ModuleCompendiumsPageActions.resetFilter, (state): State => {
     return {
       ...state,
       moduleFilter: undefined,
-    }
-  }),
-  on(ModulePageActions.selectSort, (state, {sort}): State => {
-    return {
-      ...state,
-      selectedSort: sort,
     }
   }),
   on(ModuleCompendiumsApiActions.retrievedModulesCompendiumsSuccess, (state, {moduleCompendiums}): State => {
@@ -59,7 +43,7 @@ export const moduleReducer = createReducer(
       moduleCompendiums,
     }
   }),
-  on(ModuleApiActions.retrievedModulesFailure, (state, {error}): State => {
+  on(ModuleCompendiumsApiActions.retrievedModulesCompendiumsFailure, (state, {error}): State => {
     return {
       ...state,
       error,

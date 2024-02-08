@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module-compendiums.reducer'
-import { ModuleAtomic, StudyProgramModuleAssociation } from '../../types/module-atomic'
-import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
+import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
+import { ModuleCompendium, Semester } from "../../types/module-compendium";
 
 export const selectModuleCompendiumsState = createFeatureSelector<State>('module-compendiums')
 
@@ -22,45 +22,23 @@ export const selectSelectedSort = createSelector(
 
 function titleFilter(filter: string) {
   filter = filter.trim().toLowerCase()
-  return (m: ModuleAtomic) =>
-    m.title.toLowerCase().includes(filter) ||
-    m.abbrev.toLowerCase().includes(filter) ||
-    m.moduleManagement.some(p => {
-        switch (p.kind) {
-          case 'default':
-            return p.abbrev.toLowerCase().includes(filter) ||
-              p.lastname.toLowerCase().includes(filter) ||
-              p.firstname.toLowerCase().includes(filter)
-          default:
-            return p.title.toLowerCase().includes(filter)
-        }
-      },
-    )
-}
-
-function checkStudyProgram({poId, specializationId}: SelectedStudyProgramId, sp: StudyProgramModuleAssociation): boolean {
-  if (specializationId) {
-    return sp.specialization?.abbrev === specializationId // take modules from the specialization
-      || (sp.poAbbrev === poId && !sp.specialization) // plus all mandatory modules from the sp without the specialization
-  }
-  return !sp.specialization && sp.poAbbrev === poId
-}
-
-function checkSemester(semester: number, sp: StudyProgramModuleAssociation): boolean {
-  return sp.recommendedSemester.includes(semester)
+  return (moduleCompendium: ModuleCompendium) =>
+    moduleCompendium.studyProgram.deLabel.toLowerCase().includes(filter) ||
+    moduleCompendium.studyProgram.enLabel.toLowerCase().includes(filter) ||
+    moduleCompendium.semester.deLabel.toLowerCase().includes(filter) ||
+    moduleCompendium.semester.enLabel.toLowerCase().includes(filter)
 }
 
 function studyProgramFilter(selectedStudyProgramId: SelectedStudyProgramId) {
-  return (m: ModuleAtomic) =>
-    m.studyProgram.some(sp => checkStudyProgram(selectedStudyProgramId, sp))
+  return (m: ModuleCompendium) =>
+    m.studyProgram.abbrev === selectedStudyProgramId.poId
 }
 
-function semesterFilter(semester: number) {
-  return (m: ModuleAtomic) =>
-    m.studyProgram.some(sp => checkSemester(semester, sp))
+function semesterFilter(semester: Semester) {
+  return (moduleCompendium: ModuleCompendium) =>
+    moduleCompendium.semester.abbrev === semester.abbrev
 }
 
-function studyProgramSemesterFilter(selectedStudyProgramId: SelectedStudyProgramId, semester: number) {
-  return (m: ModuleAtomic) =>
-    m.studyProgram.some(po => checkStudyProgram(selectedStudyProgramId, po) && checkSemester(semester, po))
+function studyProgramSemesterFilter(selectedStudyProgramId: SelectedStudyProgramId, semester: Semester) {
+  return (mc: ModuleCompendium) => studyProgramFilter(selectedStudyProgramId)(mc) && semesterFilter(semester)(mc)
 }

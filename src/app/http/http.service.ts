@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { Semester } from '../types/module-compendium'
+import { ModuleCompendium, Semester } from '../types/module-compendium'
 
 export interface ModuleDraftJson {
   module: string
@@ -76,16 +76,16 @@ export class HttpService {
 
   // Module Compendium
 
-  moduleCompendiumById = (id: string): Observable<ModuleDescription> =>
+  moduleDescriptionById = (id: string): Observable<ModuleDescription> =>
     this.http.get<ModuleDescription>(`moduleCompendium/${id}`)
 
-  latestModuleCompendiumById = (id: string): Observable<ModuleDescription> =>
+  latestModuleDescriptionById = (id: string): Observable<ModuleDescription> =>
     this.http.get<ModuleDescription>(`moduleCompendium/${id}/latest`)
 
-  stagingModuleCompendiumById = (id: string): Observable<ModuleDescription> =>
+  stagingModuleDescriptionById = (id: string): Observable<ModuleDescription> =>
     this.http.get<ModuleDescription>(`moduleCompendium/${id}/staging`)
 
-  moduleCompendiumHtmlFile = (id: string) =>
+  moduleDescriptionHtmlFile = (id: string) =>
     this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
 
   // Core Data
@@ -289,8 +289,8 @@ export class HttpService {
 
   // Module Compendium List
 
-  getModuleCompendiumList = (semester: string): Observable<ReadonlyArray<ModuleDescription>> =>
-    this.http.get<ReadonlyArray<ModuleDescription>>(`moduleCompendiums/${semester}`)
+  allModuleCompendiums = (semester: string): Observable<ReadonlyArray<ModuleCompendium>> =>
+    this.http.get<ReadonlyArray<ModuleCompendium>>(`moduleCompendiums/${semester}`)
 
   // Permissions
 

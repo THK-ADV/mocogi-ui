@@ -31,8 +31,8 @@ export class ModuleApprovalPageComponent {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     this.approvalId = this.route.snapshot.paramMap.get('approvalId') ?? throwError('Module ID should be in route parameters.')
     zip([
-      http.latestModuleCompendiumById(this.moduleId),
-      http.stagingModuleCompendiumById(this.moduleId),
+      http.latestModuleDescriptionById(this.moduleId),
+      http.stagingModuleDescriptionById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),
       http.getApprovals(this.moduleId),
       http.allModules(),

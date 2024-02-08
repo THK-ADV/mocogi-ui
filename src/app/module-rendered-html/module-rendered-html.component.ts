@@ -22,10 +22,10 @@ export class ModuleRenderedHtmlComponent {
   ) {
     const moduleId: string | null | undefined = this.route.snapshot.paramMap.get('moduleId')
     if (moduleId) {
-      http.moduleCompendiumHtmlFile(moduleId).subscribe((value) => {
+      http.moduleDescriptionHtmlFile(moduleId).subscribe((value) => {
         (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML= value
       })
-      this.moduleCompendium = http.moduleCompendiumById(moduleId)
+      this.moduleCompendium = http.moduleDescriptionById(moduleId)
     } else {
       location.back()
     }

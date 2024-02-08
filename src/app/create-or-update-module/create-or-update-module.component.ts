@@ -66,7 +66,7 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
     const moduleCompendium: ModuleCompendiumProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
     const moduleCompendium$: Observable<ModuleDescriptionLike | undefined> =
       mapOpt(moduleCompendium, of) ??
-      mapOpt(this.id, this.http.moduleCompendiumById) ??
+      mapOpt(this.id, this.http.moduleDescriptionById) ??
       of(undefined)
     this.sub = zip([
       this.appState.allModules$(),
