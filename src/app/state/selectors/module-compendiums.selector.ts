@@ -3,7 +3,7 @@ import { State } from '../reducer/module-compendiums.reducer'
 import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
 import { ModuleCompendium, Semester } from "../../types/module-compendium";
 
-export const selectModuleCompendiumsState = createFeatureSelector<State>('module-compendiums')
+export const selectModuleCompendiumsState = createFeatureSelector<State>('moduleCompendiums')
 
 export const selectModuleCompendiums = createSelector(
   selectModuleCompendiumsState,
