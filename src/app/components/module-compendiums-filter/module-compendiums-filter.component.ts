@@ -32,7 +32,7 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectSemester = (semester: Semester) => ModuleCompendiumsFilterComponentActions.selectSemester({ semester })
 
-  deselectSemester = ( ) => ModuleCompendiumsFilterComponentActions.deselectSemester
+  deselectSemester = ( ) => ModuleCompendiumsFilterComponentActions.deselectSemester()
 
   showSemester = (semester: Semester) => semester.deLabel
 
@@ -42,7 +42,7 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectStudyProgram = (selectedStudyProgram: StudyProgram) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({ selectedStudyProgramId: selectedStudyProgram.abbrev })
 
-  deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram
+  deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram()
 
   showStudyProgram = (sp: StudyProgram) => `${sp.deLabel} (${sp.grade})`
 
