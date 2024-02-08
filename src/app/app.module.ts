@@ -103,6 +103,8 @@ import { moduleCompendiumsReducer } from "./state/reducer/module-compendiums.red
 import { ModuleCompendiumEffects } from "./state/effects/module-compendiums.effects.service";
 import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiums-filter.reducer";
 import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiums-filter.service";
+import { ElectivesCataloguesEffects } from "./state/effects/electives-catalogues.effects.service";
+import { electiveCataloguesReducer } from "./state/reducer/electives-catalogues.reducer";
 
 
 @NgModule({
@@ -193,6 +195,7 @@ import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiu
       permissionDialog: permissionsDialogReducer,
       moduleCompendiums: moduleCompendiumsReducer,
       moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
+      electiveCatalogues: electiveCataloguesReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -204,7 +207,8 @@ import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiu
       ModuleApprovalEffects,
       PermissionsDialogEffects,
       ModuleCompendiumEffects,
-      ModuleCompendiumsFilterEffects
+      ModuleCompendiumsFilterEffects,
+      ElectivesCataloguesEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

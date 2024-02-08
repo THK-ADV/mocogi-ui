@@ -27,6 +27,7 @@ import { Content } from '../types/content'
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
 import { ModuleCompendium, Semester } from '../types/module-compendium'
+import { ElectivesCatalogue } from "../types/electivesCatalogues";
 
 export interface ModuleDraftJson {
   module: string
@@ -299,4 +300,9 @@ export class HttpService {
 
   setPermissions = (moduleId: string, permissions: ReadonlyArray<string>): Observable<unknown> =>
     this.http.post(`moduleUpdatePermissions/${moduleId}`, permissions)
+
+  // Electives Catalogues
+
+  allElectivesCatalogues = (semester: string): Observable<ReadonlyArray<ElectivesCatalogue>> =>
+    this.http.get<ReadonlyArray<ElectivesCatalogue>>(`electivesCatalogues/${semester}`)
 }

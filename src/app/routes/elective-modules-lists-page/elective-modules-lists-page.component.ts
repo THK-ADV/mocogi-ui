@@ -1,52 +1,23 @@
-import { Component } from '@angular/core'
-import {  ElectiveModulesList } from '../../components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
+import { Component, OnInit } from '@angular/core'
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { ElectivesCataloguesPageActions } from "../../state/actions/electives-catalogues.actions";
+import { selectElectivesCatalogues } from "../../state/selectors/electives-catalogues.selector";
+import { ElectivesCatalogue } from "../../types/electivesCatalogues";
 
 @Component({
   selector: 'cops-elective-modules-lists-page',
   templateUrl: './elective-modules-lists-page.component.html',
   styleUrls: ['./elective-modules-lists-page.component.css'],
 })
-export class ElectiveModulesListsPageComponent {
-  electiveModulesLists: ReadonlyArray<ElectiveModulesList> = [
-    {
-      title: 'WPF Liste',
-      semester: 'SoSe 2021',
-      studyProgram: 'Medieninformatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'WPF Liste',
-      semester: 'SoSe 2021',
-      studyProgram: 'Wirtschaftsinformatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'WPF Liste',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Bachelor)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'WPF Liste',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Bachelor)',
-      po: 'PO 5',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-    {
-      title: 'WPF Liste',
-      semester: 'SoSe 2021',
-      studyProgram: 'Allgemeine Informatik (Master)',
-      po: 'PO 6',
-      germanDownloadLink: 'http://www.medieninformatik.th-koeln.de/download/modulbeschreibungen-bachelor-bpo4.pdf',
-      englishDownloadLink: '',
-    },
-  ]
+export class ElectiveModulesListsPageComponent implements OnInit{
+  electivesCatalogues$: Observable<ReadonlyArray<ElectivesCatalogue>>
+
+  constructor(private readonly store: Store) {
+    this.electivesCatalogues$ = store.select(selectElectivesCatalogues)
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(ElectivesCataloguesPageActions.enter())
+  }
 }
