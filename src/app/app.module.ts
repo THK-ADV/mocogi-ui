@@ -101,6 +101,7 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
 import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
 import { moduleCompendiumsReducer } from "./state/reducer/module-compendiums.reducer";
 import { ModuleCompendiumEffects } from "./state/effects/module-compendiums.effects.service";
+import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiums-filter.reducer";
 
 
 @NgModule({
@@ -189,7 +190,8 @@ import { ModuleCompendiumEffects } from "./state/effects/module-compendiums.effe
       myModules: myModulesReducer,
       updateModule: updateModuleReducer,
       permissionDialog: permissionsDialogReducer,
-      moduleCompendiums: moduleCompendiumsReducer
+      moduleCompendiums: moduleCompendiumsReducer,
+      moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
