@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ModuleCompendiumsFilterComponentActions } from '../../state/actions/module-compendiums-filter.actions'
-import { HttpService } from '../../http/http.service'
 import {
   selectSelectedSemester,
-  selectSelectedStudyProgram
+  selectSelectedStudyProgram, selectSemesters, selectStudyPrograms
 } from "../../state/selectors/module-compendiums-filter.selectors";
 import { Semester } from "../../types/module-compendium";
 import { StudyProgram } from "../../types/core/study-program";
@@ -15,7 +14,7 @@ import { StudyProgram } from "../../types/core/study-program";
   styleUrls: ['./module-compendiums-filter.component.css'],
 })
 export class ModuleCompendiumsFilterComponent implements OnInit {
-  constructor(private readonly store: Store, private readonly httpService: HttpService) {
+  constructor(private readonly store: Store) {
   }
 
   ngOnInit() {
@@ -26,7 +25,7 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
     this.store.dispatch(ModuleCompendiumsFilterComponentActions.resetFilter())
   }
 
-  semesters = this.httpService.getSemesters()
+  semesters = this.store.select(selectSemesters)
 
   selectedSemester$ = this.store.select(selectSelectedSemester)
 
@@ -36,7 +35,7 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   showSemester = (semester: Semester) => semester.deLabel
 
-  studyPrograms = this.httpService.allStudyPrograms()
+  studyPrograms = this.store.select(selectStudyPrograms)
 
   selectedStudyProgram$ = this.store.select(selectSelectedStudyProgram)
 

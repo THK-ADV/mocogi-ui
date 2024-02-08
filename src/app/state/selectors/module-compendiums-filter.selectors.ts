@@ -29,6 +29,7 @@ export const selectSelectedStudyProgram = createSelector(
     if (!studyProgramId) {
       return undefined
     }
-    studyPrograms.find((sp) => sp.abbrev === studyProgramId )
+
+    return studyPrograms.find((sp) => sp.abbrev === studyProgramId )
   }
 )

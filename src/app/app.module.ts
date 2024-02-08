@@ -102,6 +102,7 @@ import { ModuleCompendiumsFilterComponent } from './components/module-compendium
 import { moduleCompendiumsReducer } from "./state/reducer/module-compendiums.reducer";
 import { ModuleCompendiumEffects } from "./state/effects/module-compendiums.effects.service";
 import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiums-filter.reducer";
+import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiums-filter.service";
 
 
 @NgModule({
@@ -202,7 +203,8 @@ import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiu
       NewModuleEffects,
       ModuleApprovalEffects,
       PermissionsDialogEffects,
-      ModuleCompendiumEffects
+      ModuleCompendiumEffects,
+      ModuleCompendiumsFilterEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,
