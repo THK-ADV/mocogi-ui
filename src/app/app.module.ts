@@ -103,8 +103,8 @@ import { moduleCatalogsReducer } from "./state/reducer/module-catalogs.reducer";
 import { ModuleCompendiumEffects } from "./state/effects/module-catalogs.effects.service";
 import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiums-filter.reducer";
 import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiums-filter.service";
-import { ElectivesCataloguesEffects } from "./state/effects/electives-catalogues.effects.service";
-import { electiveCataloguesReducer } from "./state/reducer/electives-catalogues.reducer";
+import { ElectivesCatalogsEffects } from "./state/effects/electives-catalogues.effects.service";
+import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.reducer";
 
 
 @NgModule({
@@ -195,7 +195,7 @@ import { electiveCataloguesReducer } from "./state/reducer/electives-catalogues.
       permissionDialog: permissionsDialogReducer,
       moduleCatalogs: moduleCatalogsReducer,
       moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
-      electiveCatalogues: electiveCataloguesReducer,
+      electivesCatalogues: electiveCatalogsReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -208,7 +208,7 @@ import { electiveCataloguesReducer } from "./state/reducer/electives-catalogues.
       PermissionsDialogEffects,
       ModuleCompendiumEffects,
       ModuleCompendiumsFilterEffects,
-      ElectivesCataloguesEffects,
+      ElectivesCatalogsEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

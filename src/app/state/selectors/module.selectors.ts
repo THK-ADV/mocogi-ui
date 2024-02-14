@@ -46,12 +46,12 @@ function coordinatorFilter(coordinatorId: string) {
     m.moduleManagement.some(p => p.id === coordinatorId)
 }
 
-function checkStudyProgram({poId, specializationId}: SelectedStudyProgramId, sp: StudyProgramModuleAssociation): boolean {
+function checkStudyProgram({poId, specializationId}: SelectedStudyProgramId, association: StudyProgramModuleAssociation): boolean {
   if (specializationId) {
-    return sp.specialization?.id === specializationId // take modules from the specialization
-      || (sp.poId === poId && !sp.specialization) // plus all mandatory modules from the sp without the specialization
+    return association.studyProgram.specialization?.id === specializationId // take modules from the specialization
+      || (association.studyProgram.po.id === poId && !association.studyProgram.specialization) // plus all mandatory modules from the sp without the specialization
   }
-  return !sp.specialization && sp.poId === poId
+  return !association.studyProgram.specialization && association.studyProgram.po.id === poId
 }
 
 function checkSemester(semester: number, sp: StudyProgramModuleAssociation): boolean {

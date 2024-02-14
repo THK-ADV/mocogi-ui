@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core'
 import { HttpService } from '../../http/http.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
-import { ElectivesCataloguesPageActions, ElectivesCataloguesApiActions } from '../actions/electives-catalogues.actions'
+import { ElectivesCatalogsPageActions, ElectivesCatalogsApiActions } from '../actions/electives-catalogues.actions'
 
 @Injectable()
-export class ElectivesCataloguesEffects {
+export class ElectivesCatalogsEffects {
 
   fetchElectivesCatalogues$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(ElectivesCataloguesPageActions.enter),
+        ofType(ElectivesCatalogsPageActions.enter),
         exhaustMap(() =>
           this.service.allElectivesCatalogues('wise_2023').pipe(
-            map((electivesCatalogues) => ElectivesCataloguesApiActions.retrievedElectivesCataloguesSuccess({ electivesCatalogues })),
+            map((electivesCatalogues) => ElectivesCatalogsApiActions.retrievedElectivesCatalogsSuccess({ electivesCatalogues })),
           ),
         ),
       )

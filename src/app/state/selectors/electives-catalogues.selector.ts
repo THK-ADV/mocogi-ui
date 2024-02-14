@@ -1,23 +1,23 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import { State } from '../reducer/electives-catalogues.reducer'
+import { State } from '../reducer/electives-catalogs.reducer'
 import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
 import { Semester } from "../../types/module-compendium";
 import { ElectivesCatalogue } from "../../types/electivesCatalogues";
 
-export const selectElectivesCataloguesState = createFeatureSelector<State>('electivesCatalogues')
+export const selectElectivesCatalogsState = createFeatureSelector<State>('electivesCatalogs')
 
 export const selectElectivesCatalogues = createSelector(
-  selectElectivesCataloguesState,
-  (state) => state.electivesCatalogues,
+  selectElectivesCatalogsState,
+  (state) => state.electivesCatalogs,
 )
 
 export const selectElectivesCataloguesFilter = createSelector(
-  selectElectivesCataloguesState,
-  (state) => state.cataloguesFilter,
+  selectElectivesCatalogsState,
+  (state) => state.catalogsFilter,
 )
 
 export const selectSelectedSort = createSelector(
-  selectElectivesCataloguesState,
+  selectElectivesCatalogsState,
   (state) => state.selectedSort,
 )
 

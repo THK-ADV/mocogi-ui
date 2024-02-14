@@ -1,5 +1,6 @@
-import { StudyProgram } from './core/study-program'
+// import { StudyProgram } from './core/study-program'
 import { Person } from './core/person'
+import { StudyProgram } from "./module-compendium";
 
 export interface TranslatedLabel {
   deLabel: string,

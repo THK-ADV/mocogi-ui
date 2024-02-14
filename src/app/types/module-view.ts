@@ -1,4 +1,4 @@
-import { IdLabel } from "./idlabel";
+import { StudyProgram } from "./module-compendium";
 
 export type IdentityKind = 'person' | 'group' | 'unknown'
 
@@ -12,11 +12,7 @@ export interface PersonShort {
 }
 
 export interface StudyProgramModuleAssociation {
-  poId: string,
-  studyProgram: IdLabel
-  degree: string,
-  poVersion: number,
-  specialization?: IdLabel,
+  studyProgram: StudyProgram
   mandatory: boolean,
   recommendedSemester: number[]
 }

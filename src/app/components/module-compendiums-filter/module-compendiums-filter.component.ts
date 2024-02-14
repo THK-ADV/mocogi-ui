@@ -5,8 +5,8 @@ import {
   selectSelectedSemester,
   selectSelectedStudyProgram, selectSemesters, selectStudyPrograms
 } from "../../state/selectors/module-compendiums-filter.selectors";
-import { Semester } from "../../types/module-compendium";
-import { StudyProgram } from "../../types/core/study-program";
+import { Semester, StudyProgram } from "../../types/module-compendium";
+// import { StudyProgram } from "../../types/core/study-program";
 
 @Component({
   selector: 'cops-module-compendiums-filter',
@@ -39,11 +39,11 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectedStudyProgram$ = this.store.select(selectSelectedStudyProgram)
 
-  selectStudyProgram = (selectedStudyProgram: StudyProgram) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({ selectedStudyProgramId: selectedStudyProgram.abbrev })
+  selectStudyProgram = (selectedStudyProgram: StudyProgram) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({ selectedStudyProgramId: selectedStudyProgram.id })
 
   deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram()
 
-  showStudyProgram = (sp: StudyProgram) => `${sp.deLabel} (${sp.grade})`
+  showStudyProgram = (sp: StudyProgram) => `${sp.deLabel} (${sp.degree.deLabel})`
 
   updateFilter = () => {
     return

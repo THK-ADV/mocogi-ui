@@ -12,8 +12,8 @@ export class ModuleFilterEffects {
       return this.actions$.pipe(
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
-          this.service.allStudyProgramAtomic().pipe(
-            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({ studyPrograms }))
+          this.service.allStudyPrograms().pipe(
+            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({ studyPrograms: studyPrograms }))
           )
         )
       )

@@ -1,8 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
 import { Identity } from '../../types/core/person'
-
-import { StudyProgramView } from '../../types/study-program-view'
+import { StudyProgram } from "../../types/module-compendium";
 
 export interface SelectedStudyProgramId {
   poId: string
@@ -10,7 +9,7 @@ export interface SelectedStudyProgramId {
 }
 
 export interface State {
-  studyPrograms: ReadonlyArray<StudyProgramView>
+  studyPrograms: ReadonlyArray<StudyProgram>
   semester: ReadonlyArray<number>
   identities: Identity[]
   selectedStudyProgramId?: SelectedStudyProgramId

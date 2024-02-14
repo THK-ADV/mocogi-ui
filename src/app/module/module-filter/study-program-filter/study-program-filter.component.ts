@@ -2,8 +2,8 @@ import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { selectSelectedStudyProgram, selectStudyPrograms } from '../../../state/selectors/module-filter.selectors'
-import { showStudyProgramAtomic } from '../../../ops/show.instances'
-import { StudyProgramView } from '../../../types/study-program-view'
+import { showStudyProgram } from '../../../ops/show.instances'
+import { StudyProgram } from "../../../types/module-compendium";
 
 @Component({
   selector: 'cops-study-program-filter',
@@ -18,10 +18,10 @@ export class StudyProgramFilterComponent {
 
   selection$ = this.store.select(selectSelectedStudyProgram)
 
-  show = showStudyProgramAtomic
+  show = showStudyProgram
 
-  selectAction = ({poId, specialization}: StudyProgramView) => ModuleFilterPageActions.selectStudyProgram({
-    selectedStudyProgramId: { poId, specializationId: specialization?.id },
+  selectAction = ({po, specialization}: StudyProgram) => ModuleFilterPageActions.selectStudyProgram({
+    selectedStudyProgramId: { poId: po.id, specializationId: specialization?.id },
   })
 
   deselectAction = ModuleFilterPageActions.deselectStudyProgram

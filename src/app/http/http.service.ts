@@ -11,7 +11,7 @@ import { Identity } from '../types/core/person'
 import { PO } from '../types/core/po'
 import { Degree } from '../types/core/degree'
 import { GlobalCriteria } from '../types/core/global-criteria'
-import { StudyProgram } from '../types/core/study-program'
+// import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
 import { ModuleCore } from '../types/moduleCore'
 import { UserBranch } from '../types/user-branch'
@@ -19,14 +19,13 @@ import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
 import { Module, ModuleProtocol } from '../types/moduleCore'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
-import { StudyProgramView } from '../types/study-program-view'
 import { ModuleView } from '../types/module-view'
 import { asRecord } from '../parser/record-parser'
 import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCatalog, Semester } from '../types/module-compendium'
+import { ModuleCatalog, Semester, StudyProgram, StudyProgramCore } from '../types/module-compendium'
 import { ElectivesCatalogue } from "../types/electivesCatalogues";
 
 export interface ModuleDraftJson {
@@ -129,13 +128,8 @@ export class HttpService {
   allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
     this.http.get<GlobalCriteria[]>('globalCriteria')
 
-  allStudyPrograms = (): Observable<StudyProgram[]> =>
-    this.http.get<StudyProgram[]>('studyPrograms?extend=true').pipe(
-      map(sps => sps.map(sp => ({
-        ...sp,
-        accreditationUntil: new Date(sp.accreditationUntil),
-      }))),
-    )
+  allStudyProgramCores = (): Observable<StudyProgramCore[]> =>
+    this.http.get<StudyProgram[]>('studyPrograms?extend=false')
 
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
@@ -232,8 +226,8 @@ export class HttpService {
 
   // View
 
-  allStudyProgramAtomic = (): Observable<ReadonlyArray<StudyProgramView>> =>
-    this.http.get<ReadonlyArray<StudyProgramView>>('studyPrograms/view')
+  allStudyPrograms = (): Observable<ReadonlyArray<StudyProgram>> =>
+    this.http.get<ReadonlyArray<StudyProgram>>('studyPrograms?extend=true')
 
   allModuleAtomic = (): Observable<ModuleView[]> =>
     this.http.get<ModuleView[]>('modules/view')
