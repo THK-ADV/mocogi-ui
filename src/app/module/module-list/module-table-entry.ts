@@ -1,31 +1,31 @@
-import { showPersonShort, showRecommendedSemester, showStudyProgramAtomic } from '../../ops/show.instances'
+import { showRecommendedSemester, showStudyProgramAtomic } from '../../ops/show.instances'
 import { SelectedStudyProgramId } from '../../state/reducer/module-filter.reducer'
-import { ModuleAtomic, StudyProgramModuleAssociation } from '../../types/module-atomic'
+import { ModuleView, StudyProgramModuleAssociation } from '../../types/module-view'
 import { stringOrd } from '../../ops/ordering.instances'
 import { Ordering } from '../../ops/ordering'
 
-export type ModuleTableEntry = ModuleAtomic & {
+export type ModuleTableEntry = ModuleView & {
   isSpecialization: boolean,
   moduleManagementStr: string,
   recommendedSemesterStr: string,
   studyProgramsStr: () => ReadonlyArray<string>
 }
 
-export function toModuleTableEntry(module: ModuleAtomic, selectedStudyProgramId?: SelectedStudyProgramId): ModuleTableEntry {
+export function toModuleTableEntry(module: ModuleView, selectedStudyProgramId?: SelectedStudyProgramId): ModuleTableEntry {
   return {
     ...module,
     isSpecialization: module.studyProgram.some(s => s.specialization),
-    moduleManagementStr: module.moduleManagement.map(showPersonShort).join('; '),
+    moduleManagementStr: module.moduleManagement.map((moduleManager) => `${moduleManager.title} ${moduleManager.firstname} ${moduleManager.lastname}`).join('; '),
     recommendedSemesterStr: formatSemester(module, selectedStudyProgramId),
     studyProgramsStr: () => !selectedStudyProgramId ? formatStudyPrograms([...module.studyProgram]) : [],
   }
 }
 
-function formatSemester(module: ModuleAtomic, selectedStudyProgramId?: SelectedStudyProgramId): string {
+function formatSemester(module: ModuleView, selectedStudyProgramId?: SelectedStudyProgramId): string {
   let semester: number[]
   if (selectedStudyProgramId) {
     semester = module.studyProgram
-      .find(sp => sp.poAbbrev === selectedStudyProgramId.poId)?.recommendedSemester ?? [] // TODO adapt to specialization?
+      .find(sp => sp.poId === selectedStudyProgramId.poId)?.recommendedSemester ?? [] // TODO adapt to specialization?
   } else {
     const res: Record<number, undefined> = {}
     module.studyProgram.forEach(sp => {
@@ -37,9 +37,9 @@ function formatSemester(module: ModuleAtomic, selectedStudyProgramId?: SelectedS
 }
 
 const studyProgramAtomicOrd = Ordering.many<StudyProgramModuleAssociation>([
-  Ordering.contraMap(stringOrd, ({studyProgramLabel}) => studyProgramLabel),
-  Ordering.contraMap(stringOrd, ({poAbbrev}) => poAbbrev),
-  Ordering.contraMap(stringOrd, ({grade}) => grade),
+  Ordering.contraMap(stringOrd, ({studyProgram}) => studyProgram.deLabel),
+  Ordering.contraMap(stringOrd, ({poId}) => poId),
+  Ordering.contraMap(stringOrd, ({degree}) => degree),
 ])
 
 function formatStudyPrograms(studyPrograms: StudyProgramModuleAssociation[]): string[] {

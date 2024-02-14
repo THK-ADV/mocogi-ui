@@ -1,5 +1,5 @@
 import { Ordering } from './ordering'
-import { Person } from '../types/core/person'
+import { Identity } from '../types/core/person'
 
 export const numberOrd: Ordering<number> = (lhs, rhs) =>
   lhs < rhs ? -1 : (lhs > rhs ? 1 : 0)
@@ -9,10 +9,10 @@ export const stringOrd: Ordering<string> = (lhs, rhs) => {
   return res === 0 ? 0 : (res > 0 ? 1 : -1)
 }
 
-export const peopleOrd = Ordering.many<Person>([
+export const peopleOrd = Ordering.many<Identity>([
   Ordering.contraMap(numberOrd, ({kind}) => {
     switch (kind) {
-      case 'default':
+      case 'person':
         return 0
       case 'group':
         return 1
@@ -22,7 +22,7 @@ export const peopleOrd = Ordering.many<Person>([
   }),
   Ordering.contraMap(stringOrd, (p) => {
     switch (p.kind) {
-      case 'default':
+      case 'person':
         return p.lastname
       case 'unknown':
         return p.label

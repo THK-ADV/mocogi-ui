@@ -5,18 +5,18 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
 import { POOptional, POPreview } from '../../types/pos'
-import { Module } from '../../types/module'
+import { ModuleCore } from '../../types/moduleCore'
 import { showRecommendedSemester } from '../../ops/show.instances'
 
 export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, POPreview> {
   readonly all: { [id: string]: POPreview } = {}
   readonly selected: { [id: string]: POOptional } = {}
-  readonly genericModules: { [id: string]: Module } = {}
+  readonly genericModules: { [id: string]: ModuleCore } = {}
 
   constructor(
     all: Readonly<POPreview[]>,
     selected: Readonly<POOptional[]>,
-    genericModules: Readonly<Module>[],
+    genericModules: Readonly<ModuleCore>[],
   ) {
     this.all = arrayToObject(all, a => a.id)
     this.selected = arrayToObject(selected, a => a.po)
@@ -114,7 +114,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     controls['po'].value as POPreview
 
   private getInstanceOfValue = (controls: { [p: string]: FormControl }) =>
-    controls['instance-of'].value as Module
+    controls['instance-of'].value as ModuleCore
 
   private getPartOfCatalogValue = (controls: { [p: string]: FormControl }) =>
     controls['part-of-catalog'].value as boolean

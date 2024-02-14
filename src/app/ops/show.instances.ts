@@ -1,14 +1,14 @@
-import { Person } from '../types/core/person'
+import { Identity } from '../types/core/person'
 import { Label } from '../types/core/label'
-import { Module } from '../types/module'
+import { ModuleCore } from '../types/moduleCore'
 import { Show } from './show'
 
-import { StudyProgramAtomic } from '../types/study-program-atomic'
-import { PersonShort } from '../types/module-atomic'
+import { StudyProgramView } from '../types/study-program-view'
+import { PersonShort } from '../types/module-view'
 
-export const showPerson: Show<Person> = p => {
+export const showPerson: Show<Identity> = p => {
   switch (p.kind) {
-    case 'default':
+    case 'person':
       return `${p.lastname}, ${p.firstname}`
     case 'group':
       return p.label
@@ -17,32 +17,32 @@ export const showPerson: Show<Person> = p => {
   }
 }
 export const showPersonShort: Show<PersonShort> = p =>
-  p.kind === 'default' ? `${p.lastname}, ${p.firstname}` : p.title
+  p.kind === 'person' ? `${p.lastname}, ${p.firstname}` : p.title
 
 // TODO temporary fix for handling 'flex issue'. see: https://git.st.archi-lab.io/adobryni/modulhandbuecher_test/-/issues/3
-export const showStudyProgramAtomic: Show<StudyProgramAtomic> = (
+export const showStudyProgramAtomic: Show<StudyProgramView> = (
   {
-    studyProgramLabel,
-    poAbbrev,
-    grade,
-    version,
+    studyProgram,
+    poId,
+    poVersion,
+    degree,
     specialization,
   },
 ) => {
   if (specialization) { // TODO refactor
-    return poAbbrev.endsWith('flex')
-      ? `${studyProgramLabel}-Flex ${specialization.label} (${grade} - PO ${version})`
-      : `${studyProgramLabel} ${specialization.label} (${grade} - PO ${version})`
+    return poId.endsWith('flex')
+      ? `${studyProgram.deLabel}-Flex ${specialization.deLabel} (${degree} - PO ${poVersion})`
+      : `${studyProgram.deLabel} ${specialization.deLabel} (${degree} - PO ${poVersion})`
   } else {
-    return poAbbrev.endsWith('flex')
-      ? `${studyProgramLabel}-Flex (${grade} - PO ${version})`
-      : `${studyProgramLabel} (${grade} - PO ${version})`
+    return poId.endsWith('flex')
+      ? `${studyProgram.deLabel}-Flex (${degree} - PO ${poVersion})`
+      : `${studyProgram.deLabel} (${degree} - PO ${poVersion})`
   }
 }
 
 export const showLabel: Show<Label> = label => label.deLabel
 
-export const showModule: Show<Module> = module => module.title
+export const showModule: Show<ModuleCore> = module => module.title
 
 
 export const showRecommendedSemester: Show<number[]> = semesters =>

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { TableHeaderColumn } from '../generic-ui/table-header-column'
-import { Module } from '../types/module'
+import { ModuleCore } from '../types/moduleCore'
 import { Either, fold } from '../types/either'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft } from '../types/module-draft'
@@ -20,7 +20,7 @@ import { KeycloakService } from '../keycloak/keycloak.service'
 })
 export class OwnModulesComponent implements OnInit, OnDestroy {
 
-  dataSource: MatTableDataSource<[Module, ModuleDraft | undefined]>
+  dataSource: MatTableDataSource<[ModuleCore, ModuleDraft | undefined]>
   columns: TableHeaderColumn[]
   displayedColumns: string[]
   headerTitle = 'Meine Module'
@@ -103,7 +103,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   // Navigation
 
-  onEdit = ([module, draft]: [Module, ModuleDraft | undefined]) =>
+  onEdit = ([module, draft]: [ModuleCore, ModuleDraft | undefined]) =>
     this.router.navigate(
       ['/edit'],
       {
@@ -117,7 +117,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
       },
     )
 
-  show = ([m]: [Module, ModuleDraft | undefined]) =>
+  show = ([m]: [ModuleCore, ModuleDraft | undefined]) =>
     this.router.navigate(['/show'], {state: {id: m.id}})
 
   onCreate = () =>
@@ -147,7 +147,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
 
   // Table
 
-  tableContent = ([module, draft]: [Module, ModuleDraft | undefined], attr: string): string => {
+  tableContent = ([module, draft]: [ModuleCore, ModuleDraft | undefined], attr: string): string => {
     if (attr !== 'name') {
       return '???'
     }
@@ -158,7 +158,7 @@ export class OwnModulesComponent implements OnInit, OnDestroy {
     return str
   }
 
-  tableColor = ([, draft]: [Module, ModuleDraft | undefined]) => {
+  tableColor = ([, draft]: [ModuleCore, ModuleDraft | undefined]) => {
     if (!draft) {
       return '#000000'
     }

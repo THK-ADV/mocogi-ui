@@ -7,26 +7,26 @@ import { Status } from '../types/core/status'
 import { AssessmentMethod } from '../types/core/assessment-method'
 import { ModuleType } from '../types/core/module-type'
 import { Season } from '../types/core/season'
-import { Person } from '../types/core/person'
+import { Identity } from '../types/core/person'
 import { PO } from '../types/core/po'
-import { Grade } from '../types/core/grade'
+import { Degree } from '../types/core/degree'
 import { GlobalCriteria } from '../types/core/global-criteria'
 import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
-import { Module } from '../types/module'
+import { ModuleCore } from '../types/moduleCore'
 import { UserBranch } from '../types/user-branch'
 import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
-import { ModuleDescription, ModuleCompendiumProtocol } from '../types/module'
+import { Module, ModuleProtocol } from '../types/moduleCore'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
-import { StudyProgramAtomic } from '../types/study-program-atomic'
-import { ModuleAtomic } from '../types/module-atomic'
+import { StudyProgramView } from '../types/study-program-view'
+import { ModuleView } from '../types/module-view'
 import { asRecord } from '../parser/record-parser'
 import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCompendium, Semester } from '../types/module-compendium'
+import { ModuleCatalog, Semester } from '../types/module-compendium'
 import { ElectivesCatalogue } from "../types/electivesCatalogues";
 
 export interface ModuleDraftJson {
@@ -54,7 +54,7 @@ export type ModuleDraftKeys = {
 }
 
 interface ModeratedModuleJson {
-  module: Module
+  module: ModuleCore
   moduleDraft: ModuleDraftJson | undefined
   moduleDraftState: ModuleDraftState
 }
@@ -69,22 +69,22 @@ export class HttpService {
 
   // Modules
 
-  allModules = (): Observable<Module[]> =>
-    this.http.get<Module[]>('modules')
+  allModules = (): Observable<ModuleCore[]> =>
+    this.http.get<ModuleCore[]>('modules')
 
-  ownModules = (): Observable<Module[]> =>
-    this.http.get<Module[]>('modules/own')
+  ownModules = (): Observable<ModuleCore[]> =>
+    this.http.get<ModuleCore[]>('modules/own')
 
   // Module Compendium
 
-  moduleDescriptionById = (id: string): Observable<ModuleDescription> =>
-    this.http.get<ModuleDescription>(`moduleCompendium/${id}`)
+  moduleDescriptionById = (id: string): Observable<Module> =>
+    this.http.get<Module>(`moduleCompendium/${id}`)
 
-  latestModuleDescriptionById = (id: string): Observable<ModuleDescription> =>
-    this.http.get<ModuleDescription>(`moduleCompendium/${id}/latest`)
+  latestModuleDescriptionById = (id: string): Observable<Module> =>
+    this.http.get<Module>(`moduleCompendium/${id}/latest`)
 
-  stagingModuleDescriptionById = (id: string): Observable<ModuleDescription> =>
-    this.http.get<ModuleDescription>(`moduleCompendium/${id}/staging`)
+  stagingModuleDescriptionById = (id: string): Observable<Module> =>
+    this.http.get<Module>(`moduleCompendium/${id}/staging`)
 
   moduleDescriptionHtmlFile = (id: string) =>
     this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
@@ -109,8 +109,8 @@ export class HttpService {
   allSeasons = (): Observable<Season[]> =>
     this.http.get<Season[]>('seasons')
 
-  allPersons = (): Observable<Person[]> =>
-    this.http.get<Person[]>('persons')
+  allIdentities = (): Observable<Identity[]> =>
+    this.http.get<Identity[]>('identities')
 
   allValidPOs = (): Observable<PO[]> =>
     this.http.get<PO[]>('pos?valid=true').pipe(
@@ -123,14 +123,14 @@ export class HttpService {
       }))),
     )
 
-  allGrades = (): Observable<Grade[]> =>
-    this.http.get<Grade[]>('grades')
+  allGrades = (): Observable<Degree[]> =>
+    this.http.get<Degree[]>('grades')
 
   allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
     this.http.get<GlobalCriteria[]>('globalCriteria')
 
   allStudyPrograms = (): Observable<StudyProgram[]> =>
-    this.http.get<StudyProgram[]>('studyPrograms').pipe(
+    this.http.get<StudyProgram[]>('studyPrograms?extend=true').pipe(
       map(sps => sps.map(sp => ({
         ...sp,
         accreditationUntil: new Date(sp.accreditationUntil),
@@ -143,7 +143,7 @@ export class HttpService {
   // Draft
 
   createNewDraft = (
-    mc: ModuleCompendiumProtocol
+    mc: ModuleProtocol
   ): Observable<ModuleDraft> =>
     this.http
       .post<ModuleDraftJson>(
@@ -155,7 +155,7 @@ export class HttpService {
 
   updateModuleDraft = (
     moduleId: string,
-    moduleCompendiumProtocol: ModuleCompendiumProtocol,
+    moduleCompendiumProtocol: ModuleProtocol,
   ): Observable<unknown> =>
     this.http
       .put(
@@ -194,7 +194,7 @@ export class HttpService {
 
   addToDrafts = (
     branch: string,
-    mc: ModuleCompendiumProtocol,
+    mc: ModuleProtocol,
     id: string | undefined,
   ): Observable<ModuleDraft> => {
     const body = {
@@ -209,7 +209,7 @@ export class HttpService {
   }
 
   private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
-    const mc: ModuleCompendiumProtocol = { // TODO improve
+    const mc: ModuleProtocol = { // TODO improve
       deContent: asRecord(draft.data)['deContent'] as Content,
       enContent: asRecord(draft.data)['enContent'] as Content,
       metadata: asRecord(draft.data)['metadata'] as Metadata,
@@ -232,11 +232,11 @@ export class HttpService {
 
   // View
 
-  allStudyProgramAtomic = (): Observable<ReadonlyArray<StudyProgramAtomic>> =>
-    this.http.get<ReadonlyArray<StudyProgramAtomic>>('studyPrograms/view')
+  allStudyProgramAtomic = (): Observable<ReadonlyArray<StudyProgramView>> =>
+    this.http.get<ReadonlyArray<StudyProgramView>>('studyPrograms/view')
 
-  allModuleAtomic = (): Observable<ModuleAtomic[]> =>
-    this.http.get<ModuleAtomic[]>('modules/view')
+  allModuleAtomic = (): Observable<ModuleView[]> =>
+    this.http.get<ModuleView[]>('modules/view')
 
   // Review
 
@@ -290,8 +290,8 @@ export class HttpService {
 
   // Module Compendium List
 
-  allModuleCompendiums = (semester: string): Observable<ReadonlyArray<ModuleCompendium>> =>
-    this.http.get<ReadonlyArray<ModuleCompendium>>(`moduleCompendiums/${semester}`)
+  allModuleCatalogs = (semester: string): Observable<ReadonlyArray<ModuleCatalog>> =>
+    this.http.get<ReadonlyArray<ModuleCatalog>>(`moduleCatalogs/${semester}`)
 
   // Permissions
 
@@ -304,5 +304,5 @@ export class HttpService {
   // Electives Catalogues
 
   allElectivesCatalogues = (semester: string): Observable<ReadonlyArray<ElectivesCatalogue>> =>
-    this.http.get<ReadonlyArray<ElectivesCatalogue>>(`electivesCatalogues/${semester}`)
+    this.http.get<ReadonlyArray<ElectivesCatalogue>>(`electivesCatalogs/${semester}`)
 }

@@ -1,13 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import { State } from '../reducer/module-compendiums.reducer'
+import { State } from '../reducer/module-catalogs.reducer'
 import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
-import { ModuleCompendium, Semester } from "../../types/module-compendium";
+import { ModuleCatalog, Semester } from "../../types/module-compendium";
 
-export const selectModuleCompendiumsState = createFeatureSelector<State>('moduleCompendiums')
+export const selectModuleCompendiumsState = createFeatureSelector<State>('moduleCatalogs')
 
 export const selectModuleCompendiums = createSelector(
   selectModuleCompendiumsState,
-  (state) => state.moduleCompendiums,
+  (state) => state.moduleCatalogs,
 )
 
 export const selectModuleCompendiumsFilter = createSelector(
@@ -22,7 +22,7 @@ export const selectSelectedSort = createSelector(
 
 function titleFilter(filter: string) {
   filter = filter.trim().toLowerCase()
-  return (moduleCompendium: ModuleCompendium) =>
+  return (moduleCompendium: ModuleCatalog) =>
     moduleCompendium.studyProgram.deLabel.toLowerCase().includes(filter) ||
     moduleCompendium.studyProgram.enLabel.toLowerCase().includes(filter) ||
     moduleCompendium.semester.deLabel.toLowerCase().includes(filter) ||
@@ -30,15 +30,15 @@ function titleFilter(filter: string) {
 }
 
 function studyProgramFilter(selectedStudyProgramId: SelectedStudyProgramId) {
-  return (m: ModuleCompendium) =>
-    m.studyProgram.abbrev === selectedStudyProgramId.poId
+  return (m: ModuleCatalog) =>
+    m.studyProgram.id === selectedStudyProgramId.poId
 }
 
 function semesterFilter(semester: Semester) {
-  return (moduleCompendium: ModuleCompendium) =>
+  return (moduleCompendium: ModuleCatalog) =>
     moduleCompendium.semester.abbrev === semester.abbrev
 }
 
 function studyProgramSemesterFilter(selectedStudyProgramId: SelectedStudyProgramId, semester: Semester) {
-  return (mc: ModuleCompendium) => studyProgramFilter(selectedStudyProgramId)(mc) && semesterFilter(semester)(mc)
+  return (mc: ModuleCatalog) => studyProgramFilter(selectedStudyProgramId)(mc) && semesterFilter(semester)(mc)
 }

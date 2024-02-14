@@ -1,11 +1,11 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { ModuleCompendiumProtocol } from '../../types/module'
+import { ModuleProtocol } from '../../types/moduleCore'
 
 export const UpdateModulePageActions = createActionGroup({
     source: 'Update Module Page',
     events: {
         'Enter': emptyProps(),
-        'Save': props<{ moduleId: string, moduleCompendiumProtocol: ModuleCompendiumProtocol }>(),
+        'Save': props<{ moduleId: string, moduleCompendiumProtocol: ModuleProtocol }>(),
         'Cancel': emptyProps(),
     },
 })

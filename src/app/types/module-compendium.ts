@@ -1,25 +1,34 @@
-import { Grade } from './core/grade'
+import { Degree } from './core/degree'
 
-export interface ModuleCompendium {
-  poAbbrev: string,
-  poNumber: number,
-  studyProgram: StudyProgramShort,
+export interface LocalizedCore {
+  id: string,
+  deLabel: string,
+  enLabel: string,
+}
+
+export interface ModuleCatalog {
+  studyProgram: StudyProgram,
   semester: Semester,
   deUrl: string,
   enUrl: string,
+  generated: string
 }
 
-export interface StudyProgramShort {
-  abbrev: string,
-  deLabel: string,
-  enLabel: string,
-  grade: Grade
-}
-
-export interface Semester {
+export interface POCore {
   id: string,
+  version: number
+}
+
+export interface StudyProgram extends StudyProgramCore {
+  po: POCore
+  specialization: LocalizedCore
+}
+
+export interface StudyProgramCore extends LocalizedCore {
+  degree: Degree
+}
+
+export interface Semester extends LocalizedCore {
   year: number,
   abbrev: string,
-  deLabel: string,
-  enLabel: string,
 }

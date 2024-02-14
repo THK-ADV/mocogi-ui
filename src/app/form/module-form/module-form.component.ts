@@ -5,7 +5,7 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import { ModuleCompendiumProtocol } from '../../types/module'
+import { ModuleProtocol } from '../../types/moduleCore'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 
 export type Language = 'de' | 'en'
@@ -39,7 +39,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
   @Input() moduleForm!: ModuleForm<A, B>
   @Input() mode!: 'CREATE' | 'UPDATE' | 'REVIEW'
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (moduleCompendiumProtocol: ModuleCompendiumProtocol) => void
+  @Input() onSubmit?: (moduleCompendiumProtocol: ModuleProtocol) => void
 
   title = ''
   buttonTitle = ''

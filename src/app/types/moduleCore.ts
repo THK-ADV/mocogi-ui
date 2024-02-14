@@ -1,25 +1,25 @@
 import { Metadata, MetadataLike, MetadataProtocol } from './metadata'
 import { Content } from './content'
 
-export interface Module {
+export interface ModuleCore {
   id: string
   title: string
   abbrev: string
 }
 
-export interface ModuleDescriptionLike {
+export interface ModuleLike {
   metadata: MetadataLike
   deContent: Content
   enContent: Content
 }
 
-export interface ModuleDescription extends ModuleDescriptionLike {
+export interface Module extends ModuleLike {
   metadata: Metadata
   deContent: Content
   enContent: Content
 }
 
-export interface ModuleCompendiumProtocol extends ModuleDescriptionLike {
+export interface ModuleProtocol extends ModuleLike {
   metadata: MetadataProtocol
   deContent: Content
   enContent: Content

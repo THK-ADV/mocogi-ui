@@ -5,7 +5,7 @@ import { optionalLabel, requiredLabel } from './inputs'
 import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
 import { PoOptionalCallback } from '../callbacks/po-optional-callback'
 import { POMandatory, POOptional, POPreview } from '../../types/pos'
-import { Module } from '../../types/module'
+import { ModuleCore } from '../../types/moduleCore'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { Rows } from '../../form/module-form/module-form.component'
@@ -13,7 +13,7 @@ import { Rows } from '../../form/module-form/module-form.component'
 export function poInput(
   dialog: MatDialog,
   allPOs: POPreview[],
-  genericModules: Module[],
+  genericModules: ModuleCore[],
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
 ): Rows<unknown, unknown> {
@@ -115,7 +115,7 @@ export function poInput(
       dialogTitle,
       [
         poPreviewOptionsInput(),
-        <OptionsInput<Module>>{
+        <OptionsInput<ModuleCore>>{
           kind: 'options',
           label: requiredLabel(columns[1].title),
           attr: columns[1].attr,

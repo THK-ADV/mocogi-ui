@@ -1,8 +1,8 @@
 import { SingleEntryCallback } from './single-entry-callback'
-import { Person } from '../../types/core/person'
+import { Identity } from '../../types/core/person'
 
-export class LecturerCallback extends SingleEntryCallback<Person> {
-  constructor(all: Readonly<Person[]>, selected: Readonly<Person[]>, attr: string, show: (m: Person) => string) {
+export class LecturerCallback extends SingleEntryCallback<Identity> {
+  constructor(all: Readonly<Identity[]>, selected: Readonly<Identity[]>, attr: string, show: (m: Identity) => string) {
     super(all, selected, attr, p => p.id, show)
   }
 }

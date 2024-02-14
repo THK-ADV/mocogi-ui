@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { ModuleCompendium } from '../../types/module-compendium'
+import { ModuleCatalog } from '../../types/module-compendium'
 import { Store } from "@ngrx/store";
-import { selectModuleCompendiums } from "../../state/selectors/module-compendiums.selector";
-import { ModuleCompendiumsPageActions } from "../../state/actions/module-compendiums.actions";
+import { selectModuleCompendiums } from "../../state/selectors/module-catalogs.selector";
+import { ModuleCatalogsPageActions } from "../../state/actions/module-catalogs.actions";
 
 @Component({
   selector: 'cops-module-compendiums-page',
@@ -12,7 +12,7 @@ import { ModuleCompendiumsPageActions } from "../../state/actions/module-compend
 })
 export class ModuleCompendiumsPageComponent implements OnInit{
 
-  moduleCompendiums$: Observable<ReadonlyArray<ModuleCompendium>>
+  moduleCompendiums$: Observable<ReadonlyArray<ModuleCatalog>>
 
   // TODO use ngrx
   constructor(private readonly store: Store) {
@@ -20,6 +20,6 @@ export class ModuleCompendiumsPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store.dispatch(ModuleCompendiumsPageActions.enter())
+    this.store.dispatch(ModuleCatalogsPageActions.enter())
   }
 }

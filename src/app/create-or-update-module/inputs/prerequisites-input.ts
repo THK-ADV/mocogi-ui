@@ -6,7 +6,7 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { ModuleCallback } from '../callbacks/module-callback'
 import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
 import { POPreview } from '../../types/pos'
-import { Module } from '../../types/module'
+import { ModuleCore } from '../../types/moduleCore'
 import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
@@ -17,8 +17,8 @@ export type PrerequisitesKind = 'required' | 'recommended'
 
 export function prerequisitesInputs(
   dialog: MatDialog,
-  allModules: Module[],
-  currentModules: (attr: string, kind: PrerequisitesKind) => Module[],
+  allModules: ModuleCore[],
+  currentModules: (attr: string, kind: PrerequisitesKind) => ModuleCore[],
   allPOs: POPreview[],
   currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
   prerequisites?: PrerequisitesOutput,
@@ -31,11 +31,11 @@ export function prerequisitesInputs(
     return text('recommended', prerequisites?.recommended?.text)
   }
 
-  function requiredPrerequisitesModules(): ReadOnlyInput<Module, Module> {
+  function requiredPrerequisitesModules(): ReadOnlyInput<ModuleCore, ModuleCore> {
     return modules('required')
   }
 
-  function recommendedPrerequisitesModules(): ReadOnlyInput<Module, Module> {
+  function recommendedPrerequisitesModules(): ReadOnlyInput<ModuleCore, ModuleCore> {
     return modules('recommended')
   }
 
@@ -58,7 +58,7 @@ export function prerequisitesInputs(
     }
   }
 
-  function modules(kind: PrerequisitesKind): ReadOnlyInput<Module, Module> {
+  function modules(kind: PrerequisitesKind): ReadOnlyInput<ModuleCore, ModuleCore> {
     const attr = `${kind}-prerequisites-modules`
     const entries = currentModules(attr, kind)
     return {
@@ -101,7 +101,7 @@ export function prerequisitesInputs(
       columns,
       'Module bearbeiten',
       [
-        <OptionsInput<Module>>{
+        <OptionsInput<ModuleCore>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,

@@ -41,7 +41,7 @@ export class ModuleApprovalPageComponent {
       http.allLanguages(),
       http.allLocations(),
       http.allStatus(),
-      http.allPersons(),
+      http.allIdentities(),
       http.allAssessmentMethods(),
       http.allValidPOs(),
       http.allCompetences(),

@@ -15,7 +15,7 @@ import {Language} from '../../types/core/language'
 import {Status} from '../../types/core/status'
 import {ModuleType} from '../../types/core/module-type'
 import {Season} from '../../types/core/season'
-import {Module} from '../../types/module'
+import {ModuleCore} from '../../types/moduleCore'
 import {showLabel} from '../../ops/show.instances'
 import {Rows} from 'src/app/form/module-form/module-form.component'
 
@@ -26,7 +26,7 @@ export function simpleInput(
   seasons: Season[],
   locations: Location[],
   status: Status[],
-  modules: Module[],
+  modules: ModuleCore[],
   currentParticipants: (attr: string) => Participants | undefined,
   currentModuleRelation: (attr: string) => ModuleRelation | undefined,
   metadata?: MetadataLike,

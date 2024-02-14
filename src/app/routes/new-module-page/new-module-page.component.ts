@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { ModuleCompendiumProtocol } from '../../types/module'
+import { ModuleProtocol } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'
@@ -27,7 +27,7 @@ export class NewModulePageComponent {
       http.allLanguages(),
       http.allLocations(),
       http.allStatus(),
-      http.allPersons(),
+      http.allIdentities(),
       http.allAssessmentMethods(),
       http.allValidPOs(),
       http.allCompetences(),
@@ -82,7 +82,7 @@ export class NewModulePageComponent {
     this.submit(moduleCompendiumProtocol)
   }
 
-  submit = (moduleCompendiumProtocol: ModuleCompendiumProtocol) => {
+  submit = (moduleCompendiumProtocol: ModuleProtocol) => {
     this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
   }
 

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { selectSelectedStudyProgram, selectStudyPrograms } from '../../../state/selectors/module-filter.selectors'
 import { showStudyProgramAtomic } from '../../../ops/show.instances'
-import { StudyProgramAtomic } from '../../../types/study-program-atomic'
+import { StudyProgramView } from '../../../types/study-program-view'
 
 @Component({
   selector: 'cops-study-program-filter',
@@ -20,8 +20,8 @@ export class StudyProgramFilterComponent {
 
   show = showStudyProgramAtomic
 
-  selectAction = ({poAbbrev, specialization}: StudyProgramAtomic) => ModuleFilterPageActions.selectStudyProgram({
-    selectedStudyProgramId: {poId: poAbbrev, specializationId: specialization?.abbrev},
+  selectAction = ({poId, specialization}: StudyProgramView) => ModuleFilterPageActions.selectStudyProgram({
+    selectedStudyProgramId: { poId, specializationId: specialization?.id },
   })
 
   deselectAction = ModuleFilterPageActions.deselectStudyProgram

@@ -13,7 +13,7 @@ export class ModuleFilterEffects {
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
           this.service.allStudyProgramAtomic().pipe(
-            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}))
+            map((studyPrograms) => ModuleFilterAPIActions.retrievedStudyProgramsSuccess({ studyPrograms }))
           )
         )
       )
@@ -24,10 +24,10 @@ export class ModuleFilterEffects {
       return this.actions$.pipe(
         ofType(ModuleFilterPageActions.enter),
         exhaustMap(() =>
-          this.service.allPersons().pipe(
+          this.service.allIdentities().pipe(
             map((ps) => {
-              const people = ps.sort(peopleOrd)
-              return ModuleFilterAPIActions.retrievedPeopleSuccess({people})
+              const identities = ps.sort(peopleOrd)
+              return ModuleFilterAPIActions.retrievedIdentitiesSuccess({ identities })
             })
           )
         )

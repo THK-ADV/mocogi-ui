@@ -1,7 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/electives-catalogues.reducer'
 import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
-import { ModuleCompendium, Semester } from "../../types/module-compendium";
+import { Semester } from "../../types/module-compendium";
+import { ElectivesCatalogue } from "../../types/electivesCatalogues";
 
 export const selectElectivesCataloguesState = createFeatureSelector<State>('electivesCatalogues')
 
@@ -22,7 +23,7 @@ export const selectSelectedSort = createSelector(
 
 function titleFilter(filter: string) {
   filter = filter.trim().toLowerCase()
-  return (moduleCompendium: ModuleCompendium) =>
+  return (moduleCompendium: ElectivesCatalogue) =>
     moduleCompendium.studyProgram.deLabel.toLowerCase().includes(filter) ||
     moduleCompendium.studyProgram.enLabel.toLowerCase().includes(filter) ||
     moduleCompendium.semester.deLabel.toLowerCase().includes(filter) ||
@@ -30,11 +31,11 @@ function titleFilter(filter: string) {
 }
 
 function studyProgramFilter(selectedStudyProgramId: SelectedStudyProgramId) {
-  return (m: ModuleCompendium) =>
-    m.studyProgram.abbrev === selectedStudyProgramId.poId
+  return (m: ElectivesCatalogue) =>
+    m.studyProgram.id === selectedStudyProgramId.poId
 }
 
 function semesterFilter(semester: Semester) {
-  return (moduleCompendium: ModuleCompendium) =>
+  return (moduleCompendium: ElectivesCatalogue) =>
     moduleCompendium.semester.abbrev === semester.abbrev
 }

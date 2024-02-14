@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
-import { Person } from '../../types/core/person'
+import { Identity } from '../../types/core/person'
 
-import { StudyProgramAtomic } from '../../types/study-program-atomic'
+import { StudyProgramView } from '../../types/study-program-view'
 
 export interface SelectedStudyProgramId {
   poId: string
@@ -10,9 +10,9 @@ export interface SelectedStudyProgramId {
 }
 
 export interface State {
-  studyPrograms: ReadonlyArray<StudyProgramAtomic>
+  studyPrograms: ReadonlyArray<StudyProgramView>
   semester: ReadonlyArray<number>
-  people: Person[]
+  identities: Identity[]
   selectedStudyProgramId?: SelectedStudyProgramId
   selectedSemester?: number
   selectedCoordinatorId?: string
@@ -20,8 +20,8 @@ export interface State {
 
 const initialState: State = {
   studyPrograms: [],
-  people: [],
-  semester: [1, 2, 3, 4, 5, 6],
+  identities: [],
+  semester: [1, 2, 3, 4, 5, 6, 7],
   selectedStudyProgramId: undefined,
   selectedSemester: undefined,
   selectedCoordinatorId: undefined,
@@ -82,10 +82,10 @@ export const moduleFilterReducer = createReducer(
       studyPrograms,
     }
   }),
-  on(ModuleFilterAPIActions.retrievedPeopleSuccess, (state, {people}): State => {
+  on(ModuleFilterAPIActions.retrievedIdentitiesSuccess, (state, { identities }): State => {
     return {
       ...state,
-      people,
+      identities,
     }
   })
 )

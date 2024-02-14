@@ -1,7 +1,7 @@
 import { ModuleDraftKeys } from '../../http/http.service'
-import { ModuleDescription } from '../../types/module'
+import { Module } from '../../types/moduleCore'
 
-export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendium: ModuleDescription, stagingModuleCompendium: ModuleDescription) {
+export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendium: Module, stagingModuleCompendium: Module) {
   const detailDescriptions = {
     'add': { message: 'was added', icon: 'add' },
     'clear': { message: 'was cleared', icon:  'remove' },
@@ -36,7 +36,7 @@ function accessObject<T>(item: T, property: string) {
 }
 
 
-function getChangeType(modifiedKey: string, updatedModuleCompendium: ModuleDescription, initialModuleCompendium: ModuleDescription) {
+function getChangeType(modifiedKey: string, updatedModuleCompendium: Module, initialModuleCompendium: Module) {
   const updatedValue = JSON.stringify(accessObject(updatedModuleCompendium, modifiedKey))
   const initialValue = JSON.stringify(accessObject(initialModuleCompendium, modifiedKey))
   if (updatedValue === '""') return 'clear'

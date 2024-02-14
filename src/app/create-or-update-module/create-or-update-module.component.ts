@@ -7,18 +7,18 @@ import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
-import { Grade } from '../types/core/grade'
+import { Degree } from '../types/core/degree'
 import { StudyProgram } from '../types/core/study-program'
 import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
-import { ModuleDescriptionLike, ModuleCompendiumProtocol } from '../types/module'
+import { ModuleLike, ModuleProtocol } from '../types/moduleCore'
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
 
 export function toPOPreview(
   pos: ReadonlyArray<PO>,
   studyPrograms: ReadonlyArray<StudyProgram>,
-  grades: ReadonlyArray<Grade>,
+  grades: ReadonlyArray<Degree>,
 ): ReadonlyArray<POPreview> {
   const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`, abbrev: '???'})
   return pos.map(po => {
@@ -26,7 +26,7 @@ export function toPOPreview(
     if (!sp) {
       return abort(po)
     }
-    const grade = grades.find(g => g.abbrev === sp.grade)
+    const grade = grades.find(g => g.id === sp.grade)
     if (!grade) {
       return abort(po)
     }
@@ -63,8 +63,8 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   ) {
     this.action = route.snapshot.queryParamMap.get('action') ?? throwError('expected action parameter')
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
-    const moduleCompendium: ModuleCompendiumProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
-    const moduleCompendium$: Observable<ModuleDescriptionLike | undefined> =
+    const moduleCompendium: ModuleProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
+    const moduleCompendium$: Observable<ModuleLike | undefined> =
       mapOpt(moduleCompendium, of) ??
       mapOpt(this.id, this.http.moduleDescriptionById) ??
       of(undefined)

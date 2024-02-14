@@ -7,7 +7,7 @@ import { GlobalCriteriaCallback } from '../callbacks/global-criteria-callback'
 import { ModuleCallback } from '../callbacks/module-callback'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
-import { Module } from '../../types/module'
+import { ModuleCore } from '../../types/moduleCore'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel, showModule } from '../../ops/show.instances'
@@ -16,11 +16,11 @@ import { Rows } from '../../form/module-form/module-form.component'
 export function miscellaneousInput(
   dialog: MatDialog,
   competences: Competence[],
-  modules: Module[],
+  modules: ModuleCore[],
   globalCriteria: GlobalCriteria[],
   currentCompetences: (attr: string) => Competence[],
   currentGlobalCriteria: (attr: string) => GlobalCriteria[],
-  currentTaughtWith: (attr: string) => Module[],
+  currentTaughtWith: (attr: string) => ModuleCore[],
 ): Rows<unknown, unknown> {
   function competenceInput(): ReadOnlyInput<Competence, Competence> {
     const attr = 'competences'
@@ -54,7 +54,7 @@ export function miscellaneousInput(
     }
   }
 
-  function taughtWithInput(): ReadOnlyInput<Module, Module> {
+  function taughtWithInput(): ReadOnlyInput<ModuleCore, ModuleCore> {
     const attr = 'taught-with'
     const entries = currentTaughtWith(attr)
     return {
@@ -131,7 +131,7 @@ export function miscellaneousInput(
       columns,
       'Zusammen gelehrte Module bearbeiten',
       [
-        <OptionsInput<Module>>{
+        <OptionsInput<ModuleCore>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
