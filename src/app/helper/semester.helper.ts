@@ -1,8 +1,8 @@
-import { Semester } from "../types/module-compendium";
+import { Semester } from '../types/module-compendium'
 
 const semesterTypes = [
   { id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
-  { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' }
+  { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' },
 ]
 
 export const generateSemestersAroundYear = (year: number, rangeInYears: number ) => {

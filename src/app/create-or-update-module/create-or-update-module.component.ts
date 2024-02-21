@@ -14,7 +14,7 @@ import { mapOpt } from '../ops/undefined-ops'
 import { ModuleLike, ModuleProtocol } from '../types/moduleCore'
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
-import { StudyProgram } from "../types/module-compendium";
+import { StudyProgram } from '../types/module-compendium'
 
 export function toPOPreview(
   pos: ReadonlyArray<PO>,

@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { ModuleCatalog } from "../../types/module-compendium";
+import { ModuleCatalog } from '../../types/module-compendium'
 
 export const ModuleCatalogsPageActions = createActionGroup({
   source: 'Module Catalogs Page',

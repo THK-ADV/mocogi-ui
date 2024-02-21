@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
 import { Identity } from '../../types/core/person'
-import { StudyProgram } from "../../types/module-compendium";
+import { StudyProgram } from '../../types/module-compendium'
 
 export interface SelectedStudyProgramId {
   poId: string

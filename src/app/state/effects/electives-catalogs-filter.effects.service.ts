@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
 import { HttpService } from '../../http/http.service'
-import { generateCurrentSemester } from "../../helper/semester.helper";
+import { generateCurrentSemester } from '../../helper/semester.helper'
 import {
   ElectivesCatalogsFilterAPIActions,
-  ElectivesCatalogsFilterComponentActions
-} from "../actions/electives-catalogs-filter.actions";
-import { ElectivesCatalogsApiActions } from "../actions/electives-catalogues.actions";
+  ElectivesCatalogsFilterComponentActions,
+} from '../actions/electives-catalogs-filter.actions'
+import { ElectivesCatalogsApiActions } from '../actions/electives-catalogues.actions'
 
 @Injectable()
 export class ElectivesCatalogsFilterEffects {

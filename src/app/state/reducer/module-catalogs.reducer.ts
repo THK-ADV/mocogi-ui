@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { ModuleCatalogsApiActions, ModuleCatalogsPageActions } from '../actions/module-catalogs.actions'
 import { Sort } from '@angular/material/sort'
-import { ModuleCatalog } from "../../types/module-compendium";
+import { ModuleCatalog } from '../../types/module-compendium'
 
 export interface State {
   moduleCatalogs: ReadonlyArray<ModuleCatalog>

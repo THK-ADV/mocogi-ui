@@ -18,7 +18,7 @@ import { GlobalCriteria } from '../types/core/global-criteria'
 import { Competence } from '../types/core/competence'
 import { ModuleProtocol } from '../types/moduleCore'
 import { ValidationResult } from '../types/validation-result'
-import { StudyProgram } from "../types/module-compendium";
+import { StudyProgram } from '../types/module-compendium'
 
 interface State<A> {
   value: A

@@ -26,7 +26,7 @@ import { Content } from '../types/content'
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
 import { ModuleCatalog, Semester, StudyProgram, StudyProgramCore } from '../types/module-compendium'
-import { ElectivesCatalogue } from "../types/electivesCatalogues";
+import { ElectivesCatalogue } from '../types/electivesCatalogues'
 
 export interface ModuleDraftJson {
   module: string
@@ -264,7 +264,7 @@ export class HttpService {
     const rangeInYears = 5
     const semesterTypes = [
       { id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
-      { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' }
+      { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' },
     ]
     const semesterList: Array<Semester> = []
     for (let i = rangeInYears * -1; i < rangeInYears; i++) {

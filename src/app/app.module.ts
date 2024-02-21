@@ -99,15 +99,15 @@ import { PermissionsDialogComponent } from './components/permissions-dialog/perm
 import { PermissionsDialogEffects } from './state/effects/permissions-dialog.effects.service'
 import { permissionsDialogReducer } from './state/reducer/permissions-dialog.reducer'
 import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
-import { moduleCatalogsReducer } from "./state/reducer/module-catalogs.reducer";
-import { ModuleCompendiumEffects } from "./state/effects/module-catalogs.effects.service";
-import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiums-filter.reducer";
-import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiums-filter.service";
-import { ElectivesCatalogsEffects } from "./state/effects/electives-catalogues.effects.service";
-import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.reducer";
-import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component';
-import { electivesCatalogsFilterReducer } from "./state/reducer/electives-catalogs-filter.reducer";
-import { ElectivesCatalogsFilterEffects } from "./state/effects/electives-catalogs-filter.effects.service";
+import { moduleCatalogsReducer } from './state/reducer/module-catalogs.reducer'
+import { ModuleCompendiumEffects } from './state/effects/module-catalogs.effects.service'
+import { moduleCompendiumsFilterReducer } from './state/reducer/module-compendiums-filter.reducer'
+import { ModuleCompendiumsFilterEffects } from './state/effects/module-compendiums-filter.service'
+import { ElectivesCatalogsEffects } from './state/effects/electives-catalogues.effects.service'
+import { electiveCatalogsReducer } from './state/reducer/electives-catalogs.reducer'
+import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component'
+import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
+import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
 
 
 @NgModule({

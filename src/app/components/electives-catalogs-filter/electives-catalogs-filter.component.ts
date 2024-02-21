@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { selectSelectedSemester, selectSemesters } from "../../state/selectors/electives-catalogs-filter.selector";
-import { Semester } from "../../types/module-compendium";
-import { ElectivesCatalogsFilterComponentActions } from "../../state/actions/electives-catalogs-filter.actions";
+import { selectSelectedSemester, selectSemesters } from '../../state/selectors/electives-catalogs-filter.selector'
+import { Semester } from '../../types/module-compendium'
+import { ElectivesCatalogsFilterComponentActions } from '../../state/actions/electives-catalogs-filter.actions'
 @Component({
   selector: 'cops-electives-catalogs-filter',
   templateUrl: './electives-catalogs-filter.component.html',
-  styleUrls: ['./electives-catalogs-filter.component.css']
+  styleUrls: ['./electives-catalogs-filter.component.css'],
 })
 export class ElectivesCatalogsFilterComponent implements OnInit {
   constructor(private readonly store: Store) {

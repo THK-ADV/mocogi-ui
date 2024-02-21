@@ -1,4 +1,4 @@
-import { StudyProgram } from "./module-compendium";
+import { StudyProgram } from './module-compendium'
 
 export type IdentityKind = 'person' | 'group' | 'unknown'
 

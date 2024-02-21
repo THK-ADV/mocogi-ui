@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { selectSelectedStudyProgram, selectStudyPrograms } from '../../../state/selectors/module-filter.selectors'
 import { showStudyProgram } from '../../../ops/show.instances'
-import { StudyProgram } from "../../../types/module-compendium";
+import { StudyProgram } from '../../../types/module-compendium'
 
 @Component({
   selector: 'cops-study-program-filter',

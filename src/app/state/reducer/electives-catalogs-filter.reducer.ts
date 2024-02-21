@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store'
-import { Semester } from "../../types/module-compendium";
-import { generateCurrentSemester } from "../../helper/semester.helper";
+import { Semester } from '../../types/module-compendium'
+import { generateCurrentSemester } from '../../helper/semester.helper'
 import {
   ElectivesCatalogsFilterAPIActions,
-  ElectivesCatalogsFilterComponentActions
-} from "../actions/electives-catalogs-filter.actions";
+  ElectivesCatalogsFilterComponentActions,
+} from '../actions/electives-catalogs-filter.actions'
 
 export interface State {
   semesters: ReadonlyArray<Semester>
@@ -42,7 +42,7 @@ export const electivesCatalogsFilterReducer = createReducer(
     return {
       ...state,
       semesters,
-      selectedSemester: generateCurrentSemester()
+      selectedSemester: generateCurrentSemester(),
     }
   }),
 )

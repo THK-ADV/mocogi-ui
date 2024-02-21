@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/electives-catalogs.reducer'
 import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
-import { Semester } from "../../types/module-compendium";
-import { ElectivesCatalogue } from "../../types/electivesCatalogues";
+import { Semester } from '../../types/module-compendium'
+import { ElectivesCatalogue } from '../../types/electivesCatalogues'
 
 export const selectElectivesCatalogsState = createFeatureSelector<State>('electivesCatalogs')
 

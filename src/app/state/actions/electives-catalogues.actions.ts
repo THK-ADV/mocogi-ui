@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { ElectivesCatalogue } from "../../types/electivesCatalogues";
+import { ElectivesCatalogue } from '../../types/electivesCatalogues'
 
 export const ElectivesCatalogsPageActions = createActionGroup({
   source: 'Electives Catalogues Page',

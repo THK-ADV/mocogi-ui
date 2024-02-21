@@ -1,4 +1,4 @@
-import { Semester, StudyProgram } from "./module-compendium";
+import { Semester, StudyProgram } from './module-compendium'
 
 export interface ElectivesCatalogue {
   poAbbrev: string,

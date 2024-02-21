@@ -3,7 +3,7 @@ import { Label } from '../types/core/label'
 import { ModuleCore } from '../types/moduleCore'
 import { Show } from './show'
 import { PersonShort } from '../types/module-view'
-import { StudyProgram } from "../types/module-compendium";
+import { StudyProgram } from '../types/module-compendium'
 
 export const showPerson: Show<Identity> = p => {
   switch (p.kind) {

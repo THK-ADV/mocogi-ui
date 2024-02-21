@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
-import { ElectivesCatalogue } from "../../../types/electivesCatalogues";
-import { environment } from "../../../../environments/environment";
+import { ElectivesCatalogue } from '../../../types/electivesCatalogues'
+import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'cops-elective-modules-lists-list',

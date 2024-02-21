@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store'
 import { ModuleCompendiumsFilterComponentActions } from '../../state/actions/module-compendiums-filter.actions'
 import {
   selectSelectedSemester,
-  selectSelectedStudyProgram, selectSemesters, selectStudyPrograms
-} from "../../state/selectors/module-compendiums-filter.selectors";
-import { Semester, StudyProgram } from "../../types/module-compendium";
+  selectSelectedStudyProgram, selectSemesters, selectStudyPrograms,
+} from '../../state/selectors/module-compendiums-filter.selectors'
+import { Semester, StudyProgram } from '../../types/module-compendium'
 // import { StudyProgram } from "../../types/core/study-program";
 
 @Component({

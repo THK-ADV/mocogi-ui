@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
-import { ElectivesCatalogsPageActions } from "../../state/actions/electives-catalogues.actions";
-import { selectElectivesCatalogs } from "../../state/selectors/electives-catalogues.selector";
-import { ElectivesCatalogue } from "../../types/electivesCatalogues";
+import { Observable } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { ElectivesCatalogsPageActions } from '../../state/actions/electives-catalogues.actions'
+import { selectElectivesCatalogs } from '../../state/selectors/electives-catalogues.selector'
+import { ElectivesCatalogue } from '../../types/electivesCatalogues'
 
 @Component({
   selector: 'cops-elective-modules-lists-page',

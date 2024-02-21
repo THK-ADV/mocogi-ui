@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Semester } from "../../types/module-compendium";
+import { Semester } from '../../types/module-compendium'
 
 export const ElectivesCatalogsFilterComponentActions = createActionGroup({
   source: 'Electives Compendiums Filter Component',

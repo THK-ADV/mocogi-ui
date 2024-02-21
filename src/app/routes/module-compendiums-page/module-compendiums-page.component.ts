@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { ModuleCatalog } from '../../types/module-compendium'
-import { Store } from "@ngrx/store";
-import { selectModuleCompendiums } from "../../state/selectors/module-catalogs.selector";
-import { ModuleCatalogsPageActions } from "../../state/actions/module-catalogs.actions";
+import { Store } from '@ngrx/store'
+import { selectModuleCompendiums } from '../../state/selectors/module-catalogs.selector'
+import { ModuleCatalogsPageActions } from '../../state/actions/module-catalogs.actions'
 
 @Component({
   selector: 'cops-module-compendiums-page',

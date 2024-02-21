@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { HttpService } from '../../http/http.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
-import { ModuleCatalogsApiActions, ModuleCatalogsPageActions } from "../actions/module-catalogs.actions";
-import { generateCurrentSemester } from "../../helper/semester.helper";
+import { ModuleCatalogsApiActions, ModuleCatalogsPageActions } from '../actions/module-catalogs.actions'
+import { generateCurrentSemester } from '../../helper/semester.helper'
 
 @Injectable()
 export class ModuleCompendiumEffects {

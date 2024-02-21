@@ -4,10 +4,10 @@ import { exhaustMap, map } from 'rxjs'
 import { HttpService } from '../../http/http.service'
 import {
   ModuleCompendiumsFilterAPIActions,
-  ModuleCompendiumsFilterComponentActions
-} from "../actions/module-compendiums-filter.actions";
-import { ModuleCatalogsApiActions } from "../actions/module-catalogs.actions";
-import { generateCurrentSemester } from "../../helper/semester.helper";
+  ModuleCompendiumsFilterComponentActions,
+} from '../actions/module-compendiums-filter.actions'
+import { ModuleCatalogsApiActions } from '../actions/module-catalogs.actions'
+import { generateCurrentSemester } from '../../helper/semester.helper'
 
 @Injectable()
 export class ModuleCompendiumsFilterEffects {

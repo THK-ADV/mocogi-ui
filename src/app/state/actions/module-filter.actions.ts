@@ -1,7 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
 import { Identity } from '../../types/core/person'
 import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
-import { StudyProgram } from "../../types/module-compendium";
+import { StudyProgram } from '../../types/module-compendium'
 
 export const ModuleFilterPageActions = createActionGroup({
   source: 'Module Filter Page',

@@ -3,7 +3,7 @@ import { HttpService } from '../../http/http.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
 import { ElectivesCatalogsPageActions, ElectivesCatalogsApiActions } from '../actions/electives-catalogues.actions'
-import { generateCurrentSemester } from "../../helper/semester.helper";
+import { generateCurrentSemester } from '../../helper/semester.helper'
 
 @Injectable()
 export class ElectivesCatalogsEffects {

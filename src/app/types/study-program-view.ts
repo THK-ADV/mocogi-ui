@@ -1,4 +1,4 @@
-import { IdLabel } from "./idlabel";
+import { IdLabel } from './idlabel'
 
 export interface SpecializationShort {
   abbrev: string,

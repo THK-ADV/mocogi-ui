@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { Sort } from '@angular/material/sort'
-import { ElectivesCatalogue } from "../../types/electivesCatalogues";
-import { ElectivesCatalogsApiActions, ElectivesCatalogsPageActions } from "../actions/electives-catalogues.actions";
+import { ElectivesCatalogue } from '../../types/electivesCatalogues'
+import { ElectivesCatalogsApiActions, ElectivesCatalogsPageActions } from '../actions/electives-catalogues.actions'
 
 export interface State {
   electivesCatalogs: ReadonlyArray<ElectivesCatalogue>
