@@ -42,7 +42,7 @@ import { ParticipantsComponent } from './form/participants/participants.componen
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
-import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
+import { ModuleRenderedHtmlComponent } from './module-rendered-html/module-rendered-html.component'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { AlertComponent } from './alert/alert.component'
 import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
@@ -84,7 +84,7 @@ import { NewModulePageComponent } from './routes/new-module-page/new-module-page
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
-import { ModuleCompendiumListsPageComponent } from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
 import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
@@ -98,6 +98,16 @@ import { ListOfCommentsComponent } from './components/list-of-comments/list-of-c
 import { PermissionsDialogComponent } from './components/permissions-dialog/permissions-dialog.component'
 import { PermissionsDialogEffects } from './state/effects/permissions-dialog.effects.service'
 import { permissionsDialogReducer } from './state/reducer/permissions-dialog.reducer'
+import { ModuleCompendiumsFilterComponent } from './components/module-compendiums-filter/module-compendiums-filter.component'
+import { moduleCatalogsReducer } from './state/reducer/module-catalogs.reducer'
+import { ModuleCompendiumEffects } from './state/effects/module-catalogs.effects.service'
+import { moduleCompendiumsFilterReducer } from './state/reducer/module-compendiums-filter.reducer'
+import { ModuleCompendiumsFilterEffects } from './state/effects/module-compendiums-filter.service'
+import { ElectivesCatalogsEffects } from './state/effects/electives-catalogues.effects.service'
+import { electiveCatalogsReducer } from './state/reducer/electives-catalogs.reducer'
+import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component'
+import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
+import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
 
 
 @NgModule({
@@ -121,7 +131,7 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
     ModuleRelationComponent,
     ConfirmationDialogComponent,
     PageNotFoundComponent,
-    ModuleCompendiumHtmlComponent,
+    ModuleRenderedHtmlComponent,
     UnsafeHtmlPipe,
     AlertComponent,
     PipelineErrorPipe,
@@ -142,7 +152,7 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
     NewModulePageComponent,
     ModuleApprovalsPageComponent,
     ElectiveModulesListsPageComponent,
-    ModuleCompendiumListsPageComponent,
+    ModuleCompendiumsPageComponent,
     ApprovalsListComponent,
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,
@@ -152,6 +162,8 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
     ModuleReviewActionsComponent,
     ListOfCommentsComponent,
     PermissionsDialogComponent,
+    ModuleCompendiumsFilterComponent,
+    ElectivesCatalogsFilterComponent,
   ],
   imports: [
     MatStepperModule,
@@ -185,6 +197,10 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
       myModules: myModulesReducer,
       updateModule: updateModuleReducer,
       permissionDialog: permissionsDialogReducer,
+      moduleCatalogs: moduleCatalogsReducer,
+      moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
+      electivesCatalogs: electiveCatalogsReducer,
+      electivesCatalogsFilter: electivesCatalogsFilterReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -195,6 +211,10 @@ import { permissionsDialogReducer } from './state/reducer/permissions-dialog.red
       NewModuleEffects,
       ModuleApprovalEffects,
       PermissionsDialogEffects,
+      ModuleCompendiumEffects,
+      ModuleCompendiumsFilterEffects,
+      ElectivesCatalogsEffects,
+      ElectivesCatalogsFilterEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

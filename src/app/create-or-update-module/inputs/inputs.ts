@@ -21,12 +21,12 @@ import { Status } from '../../types/core/status'
 import { AssessmentMethod } from '../../types/core/assessment-method'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
-import { Person } from '../../types/core/person'
+import { Identity } from '../../types/core/person'
 import { POPreview } from '../../types/pos'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
-import { Module } from '../../types/module'
-import { ModuleCompendiumLike } from '../../types/module-compendium'
+import { ModuleCore } from '../../types/moduleCore'
+import { ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
 
 export const requiredLabel = (label: string): string =>
@@ -38,20 +38,20 @@ export const optionalLabel = (label: string): string =>
 export type Lang = 'de' | 'en'
 
 export function inputs(
-  modules: Module[],
+  modules: ModuleCore[],
   moduleTypes: ModuleType[],
   languages: Language[],
   seasons: Season[],
   locations: Location[],
   status: Status[],
-  persons: Person[],
+  persons: Identity[],
   assessmentMethods: AssessmentMethod[],
   pos: POPreview[],
   competences: Competence[],
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => unknown,
-  moduleCompendium?: ModuleCompendiumLike,
+  moduleCompendium?: ModuleLike,
   metadataId?: string,
 ): Section<unknown, unknown>[] {
   const metadata = moduleCompendium?.metadata

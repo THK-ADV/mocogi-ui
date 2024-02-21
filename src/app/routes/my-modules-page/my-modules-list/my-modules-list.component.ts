@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { MatTableDataSource } from '@angular/material/table'
 import { SelectionModel } from '@angular/cdk/collections'
-import { Module } from '../../../types/module'
+import { ModuleCore } from '../../../types/moduleCore'
 import { MyModulesPageActions } from '../../../state/actions/my-modules.action'
 import { ModeratedModule } from '../../../types/moderated.module'
 import { MatDialog } from '@angular/material/dialog'
@@ -17,7 +17,7 @@ export class MyModulesListComponent {
 
   protected dataSource = new MatTableDataSource<ModeratedModule>()
   protected displayedColumns: string[] = ['module', 'status', 'actions']
-  protected selection = new SelectionModel<Module>(true, [])
+  protected selection = new SelectionModel<ModuleCore>(true, [])
 
   @Input() set modules(xs: ReadonlyArray<ModeratedModule> | null) {
     if (xs) {

@@ -6,54 +6,30 @@
     </th>
     <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)">
       <span class="clickable">
-        {{ element.title }} ({{ element.semester }})
+        Wahlmodulkatalog ({{ element.teachingUnit.deLabel }})
       </span>
     </td>
   </ng-container>
-  <!-- Study Program -->
-  <ng-container matColumnDef="study_program">
+  <!-- Semester -->
+  <ng-container matColumnDef="semester">
     <th mat-header-cell *matHeaderCellDef>
-      Studiengang
+      Semester
     </th>
     <td mat-cell *matCellDef="let element">
-      <mat-chip>{{ element.studyProgram }}</mat-chip>
-    </td>
-  </ng-container>
-  <!-- PO -->
-  <ng-container matColumnDef="po">
-    <th mat-header-cell *matHeaderCellDef>
-      Prüfungsordnung
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-chip>{{ element.po }}</mat-chip>
+      {{element.semester.deLabel}} {{element.semester.year}}
     </td>
   </ng-container>
   <!-- Actions -->
   <ng-container matColumnDef="download_de">
     <th mat-header-cell *matHeaderCellDef>
-      Download Deutsch
+      Actions
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
-        <a [href]="element.germanDownloadLink" target="_blank" [class.disabled-link]="!element.germanDownloadLink">
-          <button mat-stroked-button [disabled]="!element.germanDownloadLink">
-            <mat-icon>open_in_new</mat-icon>
-            Deutsch
-          </button>
-        </a>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="download_en">
-    <th mat-header-cell *matHeaderCellDef>
-      Download English
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="inline">
-        <a [href]="element.englishDownloadLin" target="_blank" [class.disabled-link]="!element.englishDownloadLink">
-          <button mat-stroked-button [disabled]="!element.englishDownloadLink">
-            <mat-icon>open_in_new</mat-icon>
-            English
+        <a [href]="absoluteUrl(element.url)" target="_blank" [class.disabled-link]="!element.url">
+          <button mat-stroked-button [disabled]="!element.url">
+            <mat-icon>download</mat-icon>
+            Download
           </button>
         </a>
       </div>

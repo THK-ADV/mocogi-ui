@@ -1,20 +1,34 @@
-import { Metadata, MetadataLike, MetadataProtocol } from './metadata'
-import { Content } from './content'
+import { Degree } from './core/degree'
 
-export interface ModuleCompendiumLike {
-  metadata: MetadataLike
-  deContent: Content
-  enContent: Content
+export interface LocalizedCore {
+  id: string,
+  deLabel: string,
+  enLabel: string,
 }
 
-export interface ModuleCompendium extends ModuleCompendiumLike {
-  metadata: Metadata
-  deContent: Content
-  enContent: Content
+export interface ModuleCatalog {
+  studyProgram: StudyProgram,
+  semester: Semester,
+  deUrl: string,
+  enUrl: string,
+  generated: string
 }
 
-export interface ModuleCompendiumProtocol extends ModuleCompendiumLike {
-  metadata: MetadataProtocol
-  deContent: Content
-  enContent: Content
+export interface POCore {
+  id: string,
+  version: number
+}
+
+export interface StudyProgram extends StudyProgramCore {
+  po: POCore
+  specialization: LocalizedCore
+}
+
+export interface StudyProgramCore extends LocalizedCore {
+  degree: Degree
+}
+
+export interface Semester extends LocalizedCore {
+  year: number,
+  abbrev: string,
 }

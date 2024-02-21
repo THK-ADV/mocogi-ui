@@ -1,5 +1,6 @@
-import { StudyProgram } from './core/study-program'
-import { DefaultPerson } from './core/person'
+// import { StudyProgram } from './core/study-program'
+import { Person } from './core/person'
+import { StudyProgram } from './module-compendium'
 
 export interface TranslatedLabel {
   deLabel: string,
@@ -21,6 +22,6 @@ export type Approval = {
   status: ApprovalStatus
   studyProgram: Partial<StudyProgram>
   comment: string,
-  respondedBy: DefaultPerson,
+  respondedBy: Person,
   respondedAt: string
 }

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core'
 import { HttpService } from '../http/http.service'
 import { map, Observable, Subject, Subscription, tap, zip } from 'rxjs'
-import { Module } from '../types/module'
+import { ModuleCore } from '../types/moduleCore'
 import { UserBranch } from '../types/user-branch'
 import { Either, left, right } from '../types/either'
 import { ModuleDraft } from '../types/module-draft'
@@ -11,14 +11,14 @@ import { Status } from '../types/core/status'
 import { AssessmentMethod } from '../types/core/assessment-method'
 import { ModuleType } from '../types/core/module-type'
 import { Season } from '../types/core/season'
-import { Person } from '../types/core/person'
+import { Identity } from '../types/core/person'
 import { PO } from '../types/core/po'
-import { Grade } from '../types/core/grade'
+import { Degree } from '../types/core/degree'
 import { GlobalCriteria } from '../types/core/global-criteria'
-import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
-import { ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ModuleProtocol } from '../types/moduleCore'
 import { ValidationResult } from '../types/validation-result'
+import { StudyProgram } from '../types/module-compendium'
 
 interface State<A> {
   value: A
@@ -80,19 +80,19 @@ function updateMaybeState<A>(state: MaybeState<A>, force: boolean, update: () =>
 export class AppStateService implements OnDestroy {
   private subs: Subscription[] = []
 
-  private usersModules = createState<ReadonlyArray<Module>>([])
+  private usersModules = createState<ReadonlyArray<ModuleCore>>([])
   private moduleDrafts = createState<ReadonlyArray<ModuleDraft>>([])
   private editMode = createState(false)
-  private allModules = createState<ReadonlyArray<Module>>([])
+  private allModules = createState<ReadonlyArray<ModuleCore>>([])
   private locations = createState<ReadonlyArray<Location>>([])
   private languages = createState<ReadonlyArray<Language>>([])
   private status = createState<ReadonlyArray<Status>>([])
   private assessmentMethods = createState<ReadonlyArray<AssessmentMethod>>([])
   private moduleTypes = createState<ReadonlyArray<ModuleType>>([])
   private seasons = createState<ReadonlyArray<Season>>([])
-  private persons = createState<ReadonlyArray<Person>>([])
+  private persons = createState<ReadonlyArray<Identity>>([])
   private pos = createState<ReadonlyArray<PO>>([])
-  private grades = createState<ReadonlyArray<Grade>>([])
+  private grades = createState<ReadonlyArray<Degree>>([])
   private globalCriteria = createState<ReadonlyArray<GlobalCriteria>>([])
   private studyPrograms = createState<ReadonlyArray<StudyProgram>>([])
   private competences = createState<ReadonlyArray<Competence>>([])
@@ -119,7 +119,7 @@ export class AppStateService implements OnDestroy {
     )
   }
 
-  usersModules$ = (): Observable<ReadonlyArray<Module>> =>
+  usersModules$ = (): Observable<ReadonlyArray<ModuleCore>> =>
     asObservable(this.usersModules)
 
   // Users Branch
@@ -175,7 +175,7 @@ export class AppStateService implements OnDestroy {
     )
   }
 
-  addModuleDraft = (mc: ModuleCompendiumProtocol, id: string | undefined) => {
+  addModuleDraft = (mc: ModuleProtocol, id: string | undefined) => {
     const branch = this.userBranch?.value?.branch
     if (!branch) {
       return
@@ -201,14 +201,14 @@ export class AppStateService implements OnDestroy {
 
   // Users Modules + Drafts
 
-  usersDraftingModules$ = (): Observable<ReadonlyArray<[Module, ModuleDraft | undefined]>> =>
+  usersDraftingModules$ = (): Observable<ReadonlyArray<[ModuleCore, ModuleDraft | undefined]>> =>
     zip(this.usersModules$(), this.moduleDrafts$()).pipe(
       map(([usersModules, drafts]) => {
-        const res: Array<[Module, ModuleDraft | undefined]> = []
+        const res: Array<[ModuleCore, ModuleDraft | undefined]> = []
         usersModules.forEach(m => res.push([m, drafts.find(d => d.module === m.id)]))
         drafts.forEach(draft => {
           if (draft.source === 'added') {
-            const module: Module = {
+            const module: ModuleCore = {
               id: draft.module,
               title: draft.data.metadata.title,
               abbrev: draft.data.metadata.abbrev,
@@ -242,7 +242,7 @@ export class AppStateService implements OnDestroy {
     )
   }
 
-  allModules$ = (): Observable<ReadonlyArray<Module>> =>
+  allModules$ = (): Observable<ReadonlyArray<ModuleCore>> =>
     asObservable(this.allModules)
 
   // All Core Data
@@ -255,7 +255,7 @@ export class AppStateService implements OnDestroy {
       updateArrayState(this.assessmentMethods, () => this.http.allAssessmentMethods()),
       updateArrayState(this.moduleTypes, () => this.http.allModuleTypes()),
       updateArrayState(this.seasons, () => this.http.allSeasons()),
-      updateArrayState(this.persons, () => this.http.allPersons()),
+      updateArrayState(this.persons, () => this.http.allIdentities()),
       updateArrayState(this.pos, () => this.http.allValidPOs()),
       updateArrayState(this.grades, () => this.http.allGrades()),
       updateArrayState(this.globalCriteria, () => this.http.allGlobalCriteria()),
@@ -271,9 +271,9 @@ export class AppStateService implements OnDestroy {
     ReadonlyArray<AssessmentMethod>,
     ReadonlyArray<ModuleType>,
     ReadonlyArray<Season>,
-    ReadonlyArray<Person>,
+    ReadonlyArray<Identity>,
     ReadonlyArray<PO>,
-    ReadonlyArray<Grade>,
+    ReadonlyArray<Degree>,
     ReadonlyArray<GlobalCriteria>,
     ReadonlyArray<StudyProgram>,
     ReadonlyArray<Competence>

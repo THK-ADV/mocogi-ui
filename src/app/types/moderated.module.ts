@@ -1,9 +1,9 @@
-import { Module } from './module'
+import { ModuleCore } from './moduleCore'
 import { ModuleDraft } from './module-draft'
 import { Label } from './core/label'
 
 export type ModeratedModule = {
-  module: Module
+  module: ModuleCore
   moduleDraft: ModuleDraft | undefined
   moduleDraftState: ModuleDraftState
 }

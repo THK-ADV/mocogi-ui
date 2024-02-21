@@ -7,7 +7,7 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-import { ModuleCompendium } from '../../types/module-compendium'
+import { Module } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -26,7 +26,7 @@ export class UpdateModulePageComponent {
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
   approvals: ReadonlyArray<Approval> =  []
-  stagingModuleCompendium?: ModuleCompendium
+  stagingModuleCompendium?: Module
 
   cancel = () => {
     this.store.dispatch(UpdateModulePageActions.cancel())
@@ -42,8 +42,8 @@ export class UpdateModulePageComponent {
   constructor(private route: ActivatedRoute, http: HttpService, dialog: MatDialog, private store: Store) {
     this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
     zip([
-      http.latestModuleCompendiumById(this.moduleId),
-      http.stagingModuleCompendiumById(this.moduleId),
+      http.latestModuleDescriptionById(this.moduleId),
+      http.stagingModuleDescriptionById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),
       http.getApprovals(this.moduleId),
       http.allModules(),
@@ -52,7 +52,7 @@ export class UpdateModulePageComponent {
       http.allLanguages(),
       http.allLocations(),
       http.allStatus(),
-      http.allPersons(),
+      http.allIdentities(),
       http.allAssessmentMethods(),
       http.allValidPOs(),
       http.allCompetences(),

@@ -4,7 +4,7 @@ export interface RestrictedAdmission {
   enReason: string
 }
 
-export interface StudyProgram {
+export interface StudyProgramDeprecated {
   abbrev: string,
   deLabel: string,
   enLabel: string,

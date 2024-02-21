@@ -13,9 +13,9 @@ export const selectSemester = createSelector(
   (state) => state.semester,
 )
 
-export const selectPeople = createSelector(
+export const selectIdentities = createSelector(
   selectModuleFilterState,
-  (state) => state.people,
+  (state) => state.identities,
 )
 
 export const selectSelectedStudyProgramId = createSelector(
@@ -34,7 +34,7 @@ export const selectSelectedCoordinatorId = createSelector(
 )
 
 export const selectSelectedCoordinator = createSelector(
-  selectPeople,
+  selectIdentities,
   selectSelectedCoordinatorId,
   (people, coordinatorId) => {
     if (!coordinatorId) {
@@ -51,11 +51,14 @@ export const selectSelectedStudyProgram = createSelector(
     if (!studyProgramId) {
       return undefined
     }
-    const {poId, specializationId} = studyProgramId
-    return studyPrograms.find(({poAbbrev, specialization}) => {
-      const selectedPo = poAbbrev === poId
+    const { poId, specializationId } = studyProgramId
+    const studyProgramIdPo = poId
+    return studyPrograms.find((sp) => {
+      const poId = sp.po.id
+      const specialization = sp.specialization
+      const selectedPo = poId === studyProgramIdPo
       return specializationId
-        ? selectedPo && specializationId === specialization?.abbrev
+        ? selectedPo && specializationId === specialization?.id
         : selectedPo
     })
   }

@@ -7,33 +7,34 @@ import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../types/metadata-protocol-factory'
 import { POPreview } from '../types/pos'
 import { PO } from '../types/core/po'
-import { Grade } from '../types/core/grade'
-import { StudyProgram } from '../types/core/study-program'
+import { Degree } from '../types/core/degree'
+// import { StudyProgram } from '../types/core/study-program'
 import { AppStateService } from '../state/app-state.service'
 import { mapOpt } from '../ops/undefined-ops'
-import { ModuleCompendiumLike, ModuleCompendiumProtocol } from '../types/module-compendium'
+import { ModuleLike, ModuleProtocol } from '../types/moduleCore'
 import { throwError } from '../types/error'
 import { showLabel } from '../ops/show.instances'
+import { StudyProgram } from '../types/module-compendium'
 
 export function toPOPreview(
   pos: ReadonlyArray<PO>,
   studyPrograms: ReadonlyArray<StudyProgram>,
-  grades: ReadonlyArray<Grade>,
+  degrees: ReadonlyArray<Degree>,
 ): ReadonlyArray<POPreview> {
   const abort = (po: PO) => ({id: po.abbrev, label: `??? - ${po.program}`, abbrev: '???'})
   return pos.map(po => {
-    const sp = studyPrograms.find(s => s.abbrev === po.program)
+    const sp = studyPrograms.find(s => s.id === po.program)
     if (!sp) {
       return abort(po)
     }
-    const grade = grades.find(g => g.abbrev === sp.grade)
-    if (!grade) {
+    const degree = degrees.find(degree => degree.id === sp.degree.id)
+    if (!degree) {
       return abort(po)
     }
     return {
       id: po.abbrev,
-      label: `${showLabel(sp)} PO ${po.version} (${showLabel(grade)})`,
-      abbrev: `${sp.abbrev} PO ${po.version} (${showLabel(grade)})`,
+      label: `${showLabel(sp)} PO ${po.version} (${showLabel(degree)})`,
+      abbrev: `${sp.id} PO ${po.version} (${showLabel(degree)})`,
     }
   })
 }
@@ -63,10 +64,10 @@ export class CreateOrUpdateModuleComponent implements OnInit, OnDestroy {
   ) {
     this.action = route.snapshot.queryParamMap.get('action') ?? throwError('expected action parameter')
     this.id = this.router.getCurrentNavigation()?.extras?.state?.['id']
-    const moduleCompendium: ModuleCompendiumProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
-    const moduleCompendium$: Observable<ModuleCompendiumLike | undefined> =
+    const moduleCompendium: ModuleProtocol | undefined = this.router.getCurrentNavigation()?.extras?.state?.['moduleCompendium']
+    const moduleCompendium$: Observable<ModuleLike | undefined> =
       mapOpt(moduleCompendium, of) ??
-      mapOpt(this.id, this.http.moduleCompendiumById) ??
+      mapOpt(this.id, this.http.moduleDescriptionById) ??
       of(undefined)
     this.sub = zip([
       this.appState.allModules$(),

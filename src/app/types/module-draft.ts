@@ -1,10 +1,10 @@
-import { ModuleCompendiumProtocol } from './module-compendium'
+import { ModuleProtocol } from './moduleCore'
 
 export type ModuleDraftSource = 'added' | 'modified'
 
 export interface ModuleDraft {
   module: string
-  data: ModuleCompendiumProtocol
+  data: ModuleProtocol
   branch: string
   source: ModuleDraftSource,
   keysToBeReviewed: ReadonlyArray<string>

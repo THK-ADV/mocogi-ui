@@ -4,18 +4,18 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { LecturerCallback } from '../callbacks/lecturer-callback'
 import { requiredLabel } from './inputs'
-import { Person } from '../../types/core/person'
+import { Identity } from '../../types/core/person'
 import { showPerson } from '../../ops/show.instances'
 import { Rows } from '../../form/module-form/module-form.component'
 import { FormInput } from '../../form/form-input'
 
 export function responsibilityInput(
   dialog: MatDialog,
-  persons: Person[],
-  currentLecturer: (attr: string) => Person[],
+  persons: Identity[],
+  currentLecturer: (attr: string) => Identity[],
   moduleManagement?: string[],
 ): Rows<unknown, unknown> {
-  function moduleCoordinatorInput(): OptionsInput<Person> {
+  function moduleCoordinatorInput(): OptionsInput<Identity> {
     return {
       kind: 'options',
       label: 'Modulverantwortliche*r',
@@ -28,7 +28,7 @@ export function responsibilityInput(
     }
   }
 
-  function lecturerInput(): ReadOnlyInput<Person, Person> {
+  function lecturerInput(): ReadOnlyInput<Identity, Identity> {
     const attr = 'lecturer'
     const entries = currentLecturer(attr)
     return {
@@ -55,7 +55,7 @@ export function responsibilityInput(
       columns,
       'Dozierende bearbeiten',
       [
-        <OptionsInput<Person>>{
+        <OptionsInput<Identity>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,

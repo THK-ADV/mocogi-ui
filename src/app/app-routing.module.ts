@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { OwnModulesComponent } from './own-modules/own-modules.component'
 import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
-import { ModuleCompendiumHtmlComponent } from './module-compendium-html/module-compendium-html.component'
+import { ModuleRenderedHtmlComponent } from './module-rendered-html/module-rendered-html.component'
 import { ModuleComponent } from './module/module.component'
 import { requireRoles } from './keycloak/auth.guard'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
@@ -13,8 +13,8 @@ import {
   ElectiveModulesListsPageComponent,
 } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import {
-  ModuleCompendiumListsPageComponent,
-} from './routes/module-compendium-lists-page/module-compendium-lists-page.component'
+  ModuleCompendiumsPageComponent,
+} from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
 
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'module-compendium-lists',
-    component: ModuleCompendiumListsPageComponent,
+    component: ModuleCompendiumsPageComponent,
   },
   {
     path: 'module-approvals',
@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'modules/:moduleId',
-    component: ModuleCompendiumHtmlComponent,
+    component: ModuleRenderedHtmlComponent,
   },
   {
     path: 'modules/:moduleId/edit',
@@ -70,7 +70,7 @@ const routes: Routes = [
   },
   {
     path: 'show',
-    component: ModuleCompendiumHtmlComponent,
+    component: ModuleRenderedHtmlComponent,
   },
   {
     path: '**',

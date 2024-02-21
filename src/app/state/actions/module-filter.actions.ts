@@ -1,8 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { Person } from '../../types/core/person'
+import { Identity } from '../../types/core/person'
 import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
-
-import { StudyProgramAtomic } from '../../types/study-program-atomic'
+import { StudyProgram } from '../../types/module-compendium'
 
 export const ModuleFilterPageActions = createActionGroup({
   source: 'Module Filter Page',
@@ -21,7 +20,7 @@ export const ModuleFilterPageActions = createActionGroup({
 export const ModuleFilterAPIActions = createActionGroup({
   source: 'Module Filter API',
   events: {
-    'Retrieved Study Programs Success': props<{ studyPrograms: StudyProgramAtomic[] }>(),
-    'Retrieved People Success': props<{ people: Person[] }>(),
+    'Retrieved Study Programs Success': props<{ studyPrograms: readonly StudyProgram[] }>(),
+    'Retrieved Identities Success': props<{ identities: Identity[] }>(),
   },
 })

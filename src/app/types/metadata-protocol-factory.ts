@@ -4,7 +4,7 @@ import { AssessmentMethodEntry, AssessmentMethods } from './assessment-methods'
 import { POMandatory, POOptional, POs } from './pos'
 import { WorkloadProtocol } from './workload'
 import { MetadataProtocol } from './metadata'
-import { ModuleCompendiumProtocol } from './module-compendium'
+import { ModuleProtocol } from './moduleCore'
 import { Content } from './content'
 import { toNumber, toString } from '../parser/type-conversions'
 import { throwError as throwError_ } from './error'
@@ -240,7 +240,7 @@ export function parseMetadata(record: Record<string, unknown>): MetadataProtocol
   }
 }
 
-export function parseModuleCompendium(value: unknown): ModuleCompendiumProtocol {
+export function parseModuleCompendium(value: unknown): ModuleProtocol {
   const record = asRecord(value)
   return {
     metadata: parseMetadata(record),

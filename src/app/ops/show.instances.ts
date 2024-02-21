@@ -1,14 +1,13 @@
-import { Person } from '../types/core/person'
+import { Identity } from '../types/core/person'
 import { Label } from '../types/core/label'
-import { Module } from '../types/module'
+import { ModuleCore } from '../types/moduleCore'
 import { Show } from './show'
+import { PersonShort } from '../types/module-view'
+import { StudyProgram } from '../types/module-compendium'
 
-import { StudyProgramAtomic } from '../types/study-program-atomic'
-import { PersonShort } from '../types/module-atomic'
-
-export const showPerson: Show<Person> = p => {
+export const showPerson: Show<Identity> = p => {
   switch (p.kind) {
-    case 'default':
+    case 'person':
       return `${p.lastname}, ${p.firstname}`
     case 'group':
       return p.label
@@ -17,32 +16,19 @@ export const showPerson: Show<Person> = p => {
   }
 }
 export const showPersonShort: Show<PersonShort> = p =>
-  p.kind === 'default' ? `${p.lastname}, ${p.firstname}` : p.title
+  p.kind === 'person' ? `${p.lastname}, ${p.firstname}` : p.title
 
-// TODO temporary fix for handling 'flex issue'. see: https://git.st.archi-lab.io/adobryni/modulhandbuecher_test/-/issues/3
-export const showStudyProgramAtomic: Show<StudyProgramAtomic> = (
-  {
-    studyProgramLabel,
-    poAbbrev,
-    grade,
-    version,
-    specialization,
-  },
-) => {
-  if (specialization) { // TODO refactor
-    return poAbbrev.endsWith('flex')
-      ? `${studyProgramLabel}-Flex ${specialization.label} (${grade} - PO ${version})`
-      : `${studyProgramLabel} ${specialization.label} (${grade} - PO ${version})`
+export const showStudyProgram: Show<StudyProgram> = (sp) => {
+  if (sp.specialization) {
+    return `${sp.deLabel} ${sp.specialization.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
   } else {
-    return poAbbrev.endsWith('flex')
-      ? `${studyProgramLabel}-Flex (${grade} - PO ${version})`
-      : `${studyProgramLabel} (${grade} - PO ${version})`
+    return `${sp.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
   }
 }
 
 export const showLabel: Show<Label> = label => label.deLabel
 
-export const showModule: Show<Module> = module => module.title
+export const showModule: Show<ModuleCore> = module => module.title
 
 
 export const showRecommendedSemester: Show<number[]> = semesters =>

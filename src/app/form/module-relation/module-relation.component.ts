@@ -9,7 +9,7 @@ import { mapOpt } from '../../ops/undefined-ops'
 import { ConfirmationDialogComponent } from '../../generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { Subscription } from 'rxjs'
 import { ModuleRelation } from '../../types/module-relation'
-import { Module } from '../../types/module'
+import { ModuleCore } from '../../types/moduleCore'
 import { showModule } from '../../ops/show.instances'
 
 interface ModuleRelationType {
@@ -25,11 +25,11 @@ function showModuleRelationType(t: ModuleRelationType): string {
   }
 }
 
-function unknownModule(id: string): Module {
+function unknownModule(id: string): ModuleCore {
   return {id: id, abbrev: '???', title: '???'}
 }
 
-function modulesOf(moduleRelation: ModuleRelation, modules: Module[]): Module[] {
+function modulesOf(moduleRelation: ModuleRelation, modules: ModuleCore[]): ModuleCore[] {
   switch (moduleRelation.kind) {
     case 'parent':
       return moduleRelation.children.map(id => modules.find(m => m.id === id) ?? unknownModule(id))
@@ -38,7 +38,7 @@ function modulesOf(moduleRelation: ModuleRelation, modules: Module[]): Module[] 
   }
 }
 
-function initialModules(moduleRelation: ModuleRelation | undefined, modules: Module[]): Module[] {
+function initialModules(moduleRelation: ModuleRelation | undefined, modules: ModuleCore[]): ModuleCore[] {
   return moduleRelation ? modulesOf(moduleRelation, modules) : []
 }
 
@@ -51,21 +51,21 @@ export class ModuleRelationComponent implements OnDestroy {
   readonly headerTitle: string
   readonly formGroup: FormGroup
   readonly relationTypeInput: OptionsInput<ModuleRelationType>
-  readonly moduleInputType: OptionsInput<Module>
+  readonly moduleInputType: OptionsInput<ModuleCore>
   readonly columns: TableHeaderColumn[]
   readonly displayedColumns: string[]
-  readonly dataSource: MatTableDataSource<Module>
+  readonly dataSource: MatTableDataSource<ModuleCore>
 
   private currentRelationType: ModuleRelationType | undefined
   private sub?: Subscription
 
   @ViewChild('typeComponent') typeComponent!: OptionsInputComponent<ModuleRelationType>
-  @ViewChild('moduleComponent') moduleComponent!: OptionsInputComponent<Module>
+  @ViewChild('moduleComponent') moduleComponent!: OptionsInputComponent<ModuleCore>
 
   constructor(
     private readonly dialog: MatDialog,
     private dialogRef: MatDialogRef<ModuleRelationComponent, ModuleRelation[]>,
-    @Inject(MAT_DIALOG_DATA) private payload: [ModuleRelation | undefined, Module[]],
+    @Inject(MAT_DIALOG_DATA) private payload: [ModuleRelation | undefined, ModuleCore[]],
   ) {
     const moduleRelation = payload[0]
     const modules = payload[1]
@@ -76,7 +76,7 @@ export class ModuleRelationComponent implements OnDestroy {
       {title: 'Modul', attr: 'module-relation-module'},
     ]
     this.displayedColumns = [...this.columns.map(a => a.attr), 'action']
-    this.dataSource = new MatTableDataSource<Module>(initialModules(moduleRelation, modules))
+    this.dataSource = new MatTableDataSource<ModuleCore>(initialModules(moduleRelation, modules))
     this.headerTitle = 'Modulbeziehungen bearbeiten'
     this.relationTypeInput = {
       kind: 'options',
@@ -106,7 +106,7 @@ export class ModuleRelationComponent implements OnDestroy {
   static instance = (
     dialog: MatDialog,
     moduleRelation: ModuleRelation | undefined,
-    modules: Module[],
+    modules: ModuleCore[],
     self: string | undefined,
   ): MatDialogRef<ModuleRelationComponent> => {
     return dialog.open<ModuleRelationComponent>(
@@ -158,7 +158,7 @@ export class ModuleRelationComponent implements OnDestroy {
     this.moduleComponent.reset()
   }
 
-  delete = (module: Module) => {
+  delete = (module: ModuleCore) => {
     this.dataSource.data = this.dataSource.data.filter(m => m.id !== module.id)
     this.moduleComponent.addOption(module)
     this.moduleComponent.reset()
@@ -178,7 +178,7 @@ export class ModuleRelationComponent implements OnDestroy {
       this.formGroup.valid
   }
 
-  tableContent = (module: Module, attr: string): string => {
+  tableContent = (module: ModuleCore, attr: string): string => {
     switch (attr) {
       case this.columns[0].attr:
         return mapOpt(this.currentRelationType, showModuleRelationType) ?? '???'
@@ -217,7 +217,7 @@ export class ModuleRelationComponent implements OnDestroy {
     this.typeControl().value as ModuleRelationType
 
   private moduleValue = () =>
-    this.moduleControl().value as Module
+    this.moduleControl().value as ModuleCore
 
   deleteAll = () =>
     this.dialogRef.close([])

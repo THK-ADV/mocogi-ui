@@ -1,29 +1,24 @@
-import { SpecializationShort } from './study-program-atomic'
+import { StudyProgram } from './module-compendium'
 
-export type PersonShortKind = 'default' | 'group' | 'unknown'
+export type IdentityKind = 'person' | 'group' | 'unknown'
 
 export interface PersonShort {
   id: string,
   abbrev: string,
-  kind: PersonShortKind,
+  kind: IdentityKind,
   title: string,
   firstname: string,
   lastname: string
 }
 
 export interface StudyProgramModuleAssociation {
-  poAbbrev: string,
-  studyProgramAbbrev: string,
-  studyProgramLabel: string,
-  grade: string,
-  version: number,
-  specialization?: SpecializationShort,
+  studyProgram: StudyProgram
   mandatory: boolean,
   recommendedSemester: number[]
 }
 
 
-export interface ModuleAtomic {
+export interface ModuleView {
   id: string,
   title: string,
   abbrev: string,
