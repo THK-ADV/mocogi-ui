@@ -30,7 +30,7 @@ function titleFilter(filter: string) {
     m.moduleManagement.some(p => {
         switch (p.kind) {
           case 'person':
-            return p.abbrev.toLowerCase().includes(filter) ||
+            return p.id.toLowerCase().includes(filter) ||
               p.lastname.toLowerCase().includes(filter) ||
               p.firstname.toLowerCase().includes(filter)
           default:
