@@ -1,5 +1,5 @@
 export interface Specialization {
-  abbrev: string
+  id: string
   label: string
   po: string
 }

@@ -33,7 +33,7 @@ export function miscellaneousInput(
       required: false,
       options: competences,
       show: showLabel,
-      initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.abbrev)),
+      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
       dialogInstance: () => competenceDialogInstance(attr),
     }
   }

@@ -39,7 +39,7 @@ export function assessmentMethodInput(
       required: kind === 'mandatory',
       options: assessmentMethods,
       show: showAssessmentMethodEntry,
-      initialValue: xs => entries.filter(a => xs.some(m => m.abbrev === a.method)),
+      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.method)),
       dialogInstance: () => dialogInstance(attr, kind),
     }
   }
@@ -91,7 +91,7 @@ export function assessmentMethodInput(
 
   // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
-    return mapOpt(assessmentMethods.find(a => a.abbrev === e.method), showLabel) ?? '???'
+    return mapOpt(assessmentMethods.find(a => a.id === e.method), showLabel) ?? '???'
   }
 
   function label(kind: AssessmentMethodKind): string {

@@ -1,5 +1,5 @@
 export interface Language {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

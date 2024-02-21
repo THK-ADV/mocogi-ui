@@ -33,7 +33,7 @@ export class NewModulePageComponent {
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
-      http.allGrades(),
+      http.allDegrees(),
     ]).subscribe(([
         modules,
         moduleTypes,

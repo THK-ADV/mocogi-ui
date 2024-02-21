@@ -1,5 +1,5 @@
 export interface Status {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

@@ -257,7 +257,7 @@ export class AppStateService implements OnDestroy {
       updateArrayState(this.seasons, () => this.http.allSeasons()),
       updateArrayState(this.persons, () => this.http.allIdentities()),
       updateArrayState(this.pos, () => this.http.allValidPOs()),
-      updateArrayState(this.grades, () => this.http.allGrades()),
+      updateArrayState(this.grades, () => this.http.allDegrees()),
       updateArrayState(this.globalCriteria, () => this.http.allGlobalCriteria()),
       updateArrayState(this.studyPrograms, () => this.http.allStudyPrograms()),
       updateArrayState(this.competences, () => this.http.allCompetences()),

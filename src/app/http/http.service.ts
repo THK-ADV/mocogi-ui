@@ -83,7 +83,7 @@ export class HttpService {
     this.http.get<Module>(`modules/${id}/latest`)
 
   stagingModuleDescriptionById = (id: string): Observable<Module> =>
-    this.http.get<Module>(`modules/${id}/staging`)
+    this.http.get<Module>(`modules/${id}/preview`)
 
   moduleDescriptionHtmlFile = (id: string) =>
     this.http.request('GET', `modules/${id}/file`, { responseType: 'text' })
@@ -115,15 +115,13 @@ export class HttpService {
     this.http.get<PO[]>('pos?valid=true').pipe(
       map(pos => pos.map(po => ({
         ...po,
-        date: new Date(po.date),
         dateFrom: new Date(po.dateFrom),
         dateTo: po.dateTo && new Date(po.dateTo),
-        modificationDates: po.modificationDates.map(d => new Date(d)),
       }))),
     )
 
-  allGrades = (): Observable<Degree[]> =>
-    this.http.get<Degree[]>('grades')
+  allDegrees = (): Observable<Degree[]> =>
+    this.http.get<Degree[]>('degrees')
 
   allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
     this.http.get<GlobalCriteria[]>('globalCriteria')

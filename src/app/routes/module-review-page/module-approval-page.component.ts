@@ -47,7 +47,7 @@ export class ModuleApprovalPageComponent {
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
-      http.allGrades(),
+      http.allDegrees(),
     ]).subscribe(([
                     moduleCompendium,
                     stagingModuleCompendium,
@@ -86,7 +86,7 @@ export class ModuleApprovalPageComponent {
           dialog,
           (attr) => this.moduleFormComponent?.formControl(attr).value,
           moduleCompendium,
-          moduleCompendium.metadata.id,
+          moduleCompendium.id,
         ),
       }
       this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)

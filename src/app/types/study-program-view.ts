@@ -1,7 +1,7 @@
 import { IdLabel } from './idlabel'
 
 export interface SpecializationShort {
-  abbrev: string,
+  id: string,
   label: string
 }
 

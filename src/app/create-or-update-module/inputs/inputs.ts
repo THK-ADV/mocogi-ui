@@ -221,7 +221,7 @@ export function inputs(
   function currentCompetencesSelection(attr: string) {
     return currentMultipleSelectionValue(
       attr,
-      m => competences.filter(c => m.competences.some(x => x === c.abbrev)),
+      m => competences.filter(c => m.competences.some(x => x === c.id)),
     )
   }
 

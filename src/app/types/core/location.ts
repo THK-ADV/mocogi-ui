@@ -1,5 +1,5 @@
 export interface Location {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

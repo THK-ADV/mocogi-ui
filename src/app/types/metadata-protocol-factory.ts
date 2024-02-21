@@ -21,8 +21,8 @@ import {
   parseString,
 } from '../parser/record-parser'
 
-export function parseNestedAbbrev(key: string, record: Record<string, unknown>): string {
-  return parsePeekString([key, 'abbrev'], record)
+export function parseNestedId(key: string, record: Record<string, unknown>): string {
+  return parsePeekString([key, 'id'], record)
 }
 
 export function parseTitle(record: Record<string, unknown>): string {
@@ -34,7 +34,7 @@ export function parseAbbreviation(record: Record<string, unknown>): string {
 }
 
 export function parseModuleType(record: Record<string, unknown>): string {
-  return parseNestedAbbrev('moduleType', record)
+  return parseNestedId('moduleType', record)
 }
 
 export function parseECTS(record: Record<string, unknown>): number {
@@ -42,7 +42,7 @@ export function parseECTS(record: Record<string, unknown>): number {
 }
 
 export function parseLanguage(record: Record<string, unknown>): string {
-  return parseNestedAbbrev('language', record)
+  return parseNestedId('language', record)
 }
 
 export function parseDuration(record: Record<string, unknown>): number {
@@ -50,7 +50,7 @@ export function parseDuration(record: Record<string, unknown>): number {
 }
 
 export function parseSeason(record: Record<string, unknown>): string {
-  return parseNestedAbbrev('season', record)
+  return parseNestedId('season', record)
 }
 
 export function parseWorkload(record: Record<string, unknown>): WorkloadProtocol {
@@ -65,11 +65,11 @@ export function parseWorkload(record: Record<string, unknown>): WorkloadProtocol
 }
 
 export function parseStatus(record: Record<string, unknown>): string {
-  return parseNestedAbbrev('status', record)
+  return parseNestedId('status', record)
 }
 
 export function parseLocation(record: Record<string, unknown>): string {
-  return parseNestedAbbrev('location', record)
+  return parseNestedId('location', record)
 }
 
 export function parseParticipants(record: Record<string, unknown>): Participants | undefined {

@@ -63,7 +63,7 @@ export function simpleInput(
       required: true,
       data: modulesTypes,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.moduleType)),
+      initialValue: metadata && (xs => xs.find(a => a.id === metadata.moduleType)),
     }
   }
 
@@ -88,7 +88,7 @@ export function simpleInput(
       required: true,
       data: languages,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.language)),
+      initialValue: metadata && (xs => xs.find(a => a.id === metadata.language)),
     }
   }
 
@@ -113,7 +113,7 @@ export function simpleInput(
       required: true,
       data: seasons,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.season)),
+      initialValue: metadata && (xs => xs.find(a => a.id === metadata.season)),
     }
   }
 
@@ -126,7 +126,7 @@ export function simpleInput(
       required: true,
       data: locations,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.location)),
+      initialValue: metadata && (xs => xs.find(a => a.id === metadata.location)),
     }
   }
 
@@ -139,7 +139,7 @@ export function simpleInput(
       required: true,
       data: status,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.abbrev === metadata.status)),
+      initialValue: metadata && (xs => xs.find(a => a.id === metadata.status)),
     }
   }
 

@@ -58,7 +58,7 @@ export class UpdateModulePageComponent {
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
-      http.allGrades(),
+      http.allDegrees(),
     ]).subscribe(([
       moduleCompendium,
       stagingModuleCompendium,
@@ -76,9 +76,9 @@ export class UpdateModulePageComponent {
       competencies,
       globalCriteria,
       studyPrograms,
-      grades,
+      degrees,
     ]) => {
-      const poPreviews = toPOPreview(pos, studyPrograms, grades)
+      const poPreviews = toPOPreview(pos, studyPrograms, degrees)
       this.moduleForm = {
         objectName: moduleCompendium.metadata.title,
         editType: 'update',
@@ -97,7 +97,7 @@ export class UpdateModulePageComponent {
           dialog,
           (attr) => this.moduleFormComponent?.formControl(attr).value,
           moduleCompendium,
-          moduleCompendium.metadata.id,
+          moduleCompendium.id,
         ),
       }
       this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
