@@ -14,7 +14,6 @@ export class ModuleCompendiumsPageComponent implements OnInit{
 
   moduleCompendiums$: Observable<ReadonlyArray<ModuleCatalog>>
 
-  // TODO use ngrx
   constructor(private readonly store: Store) {
     this.moduleCompendiums$ = store.select(selectModuleCompendiums)
   }

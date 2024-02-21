@@ -105,6 +105,9 @@ import { moduleCompendiumsFilterReducer } from "./state/reducer/module-compendiu
 import { ModuleCompendiumsFilterEffects } from "./state/effects/module-compendiums-filter.service";
 import { ElectivesCatalogsEffects } from "./state/effects/electives-catalogues.effects.service";
 import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.reducer";
+import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component';
+import { electivesCatalogsFilterReducer } from "./state/reducer/electives-catalogs-filter.reducer";
+import { ElectivesCatalogsFilterEffects } from "./state/effects/electives-catalogs-filter.effects.service";
 
 
 @NgModule({
@@ -160,6 +163,7 @@ import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.redu
     ListOfCommentsComponent,
     PermissionsDialogComponent,
     ModuleCompendiumsFilterComponent,
+    ElectivesCatalogsFilterComponent,
   ],
   imports: [
     MatStepperModule,
@@ -195,7 +199,8 @@ import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.redu
       permissionDialog: permissionsDialogReducer,
       moduleCatalogs: moduleCatalogsReducer,
       moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
-      electivesCatalogues: electiveCatalogsReducer,
+      electivesCatalogs: electiveCatalogsReducer,
+      electivesCatalogsFilter: electivesCatalogsFilterReducer,
     }, {}),
     EffectsModule.forRoot([
       ModuleEffects,
@@ -209,6 +214,7 @@ import { electiveCatalogsReducer } from "./state/reducer/electives-catalogs.redu
       ModuleCompendiumEffects,
       ModuleCompendiumsFilterEffects,
       ElectivesCatalogsEffects,
+      ElectivesCatalogsFilterEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 15,

@@ -9,7 +9,7 @@ import { ElectivesCatalogue } from "../../../types/electivesCatalogues";
 })
 export class ElectiveModulesListsListComponent {
   protected dataSource = new MatTableDataSource<ElectivesCatalogue>()
-  protected displayedColumns: string[] = ['title', 'study_program', 'po', 'download_de', 'download_en']
+  protected displayedColumns: string[] = ['title', 'semester', 'download_de']
 
   @Input() set electiveModulesList(electiveModulesList: ReadonlyArray<ElectivesCatalogue> | null) {
     if (electiveModulesList) {

@@ -1,11 +1,10 @@
 import { createReducer, on } from '@ngrx/store'
-
 import {
   ModuleCompendiumsFilterAPIActions,
   ModuleCompendiumsFilterComponentActions
 } from "../actions/module-compendiums-filter.actions";
 import { Semester, StudyProgram } from "../../types/module-compendium";
-// import { StudyProgram } from "../../types/core/study-program";
+import { generateCurrentSemester } from "../../helper/semester.helper";
 
 export interface SelectedStudyProgramId {
   poId: string
@@ -47,7 +46,6 @@ export const moduleCompendiumsFilterReducer = createReducer(
     return {
       ...state,
       selectedStudyProgramId: undefined,
-      selectedSemester: undefined,
     }
   }),
   on(ModuleCompendiumsFilterComponentActions.deselectStudyProgram, (state): State => {
@@ -59,7 +57,7 @@ export const moduleCompendiumsFilterReducer = createReducer(
   on(ModuleCompendiumsFilterComponentActions.deselectSemester, (state): State => {
     return {
       ...state,
-      selectedSemester: undefined,
+      selectedSemester: generateCurrentSemester(),
     }
   }),
   on(ModuleCompendiumsFilterAPIActions.retrievedStudyProgramsSuccess, (state, {studyPrograms}): State => {
@@ -72,6 +70,7 @@ export const moduleCompendiumsFilterReducer = createReducer(
     return {
       ...state,
       semesters,
+      selectedSemester: generateCurrentSemester()
     }
   }),
 )

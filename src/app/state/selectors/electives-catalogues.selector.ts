@@ -6,7 +6,7 @@ import { ElectivesCatalogue } from "../../types/electivesCatalogues";
 
 export const selectElectivesCatalogsState = createFeatureSelector<State>('electivesCatalogs')
 
-export const selectElectivesCatalogues = createSelector(
+export const selectElectivesCatalogs = createSelector(
   selectElectivesCatalogsState,
   (state) => state.electivesCatalogs,
 )

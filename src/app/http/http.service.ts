@@ -77,16 +77,16 @@ export class HttpService {
   // Module Compendium
 
   moduleDescriptionById = (id: string): Observable<Module> =>
-    this.http.get<Module>(`moduleCompendium/${id}`)
+    this.http.get<Module>(`modules/${id}`)
 
   latestModuleDescriptionById = (id: string): Observable<Module> =>
-    this.http.get<Module>(`moduleCompendium/${id}/latest`)
+    this.http.get<Module>(`modules/${id}/latest`)
 
   stagingModuleDescriptionById = (id: string): Observable<Module> =>
-    this.http.get<Module>(`moduleCompendium/${id}/staging`)
+    this.http.get<Module>(`modules/${id}/staging`)
 
   moduleDescriptionHtmlFile = (id: string) =>
-    this.http.request('GET', `moduleCompendium/${id}/file`, {responseType: 'text'})
+    this.http.request('GET', `modules/${id}/file`, { responseType: 'text' })
 
   // Core Data
 
@@ -230,7 +230,7 @@ export class HttpService {
     this.http.get<ReadonlyArray<StudyProgram>>('studyPrograms?extend=true')
 
   allModuleAtomic = (): Observable<ModuleView[]> =>
-    this.http.get<ModuleView[]>('modules/view')
+    this.http.get<ModuleView[]>('modules?extend=true')
 
   // Review
 
@@ -263,14 +263,14 @@ export class HttpService {
     const currentYear = (new Date()).getFullYear()
     const rangeInYears = 5
     const semesterTypes = [
-      { abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
-      { abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' }
+      { id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
+      { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' }
     ]
     const semesterList: Array<Semester> = []
     for (let i = rangeInYears * -1; i < rangeInYears; i++) {
       semesterTypes.forEach((semesterType) => {
         semesterList.push({
-          id: `${semesterType.abbrev}_${currentYear + i}`,
+          id: `${semesterType.id}_${currentYear + i}`,
           year: currentYear + i,
           abbrev: `${semesterType.abbrev} ${currentYear + i}`,
           deLabel: `${semesterType.deLabel} ${currentYear + i}`,

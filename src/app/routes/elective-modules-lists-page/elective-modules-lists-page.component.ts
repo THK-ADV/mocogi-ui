@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { ElectivesCatalogsPageActions } from "../../state/actions/electives-catalogues.actions";
-import { selectElectivesCatalogues } from "../../state/selectors/electives-catalogues.selector";
+import { selectElectivesCatalogs } from "../../state/selectors/electives-catalogues.selector";
 import { ElectivesCatalogue } from "../../types/electivesCatalogues";
 
 @Component({
@@ -14,7 +14,7 @@ export class ElectiveModulesListsPageComponent implements OnInit{
   electivesCatalogues$: Observable<ReadonlyArray<ElectivesCatalogue>>
 
   constructor(private readonly store: Store) {
-    this.electivesCatalogues$ = store.select(selectElectivesCatalogues)
+    this.electivesCatalogues$ = store.select(selectElectivesCatalogs)
   }
 
   ngOnInit(): void {

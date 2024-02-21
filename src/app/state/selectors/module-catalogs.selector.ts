@@ -1,23 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module-catalogs.reducer'
-import { SelectedStudyProgramId } from '../reducer/module-compendiums-filter.reducer'
-import { ModuleCatalog, Semester } from "../../types/module-compendium";
+import { ModuleCatalog } from "../../types/module-compendium";
+import { selectSelectedStudyProgramId } from "./module-compendiums-filter.selectors";
 
 export const selectModuleCompendiumsState = createFeatureSelector<State>('moduleCatalogs')
 
 export const selectModuleCompendiums = createSelector(
   selectModuleCompendiumsState,
-  (state) => state.moduleCatalogs,
-)
-
-export const selectModuleCompendiumsFilter = createSelector(
-  selectModuleCompendiumsState,
-  (state) => state.moduleFilter,
-)
-
-export const selectSelectedSort = createSelector(
-  selectModuleCompendiumsState,
-  (state) => state.selectedSort,
+  selectSelectedStudyProgramId,
+  (state, studyProgramId) => {
+    if (studyProgramId) return state.moduleCatalogs.filter((c) => c.studyProgram.id === studyProgramId)
+    return state.moduleCatalogs
+  },
 )
 
 function titleFilter(filter: string) {
@@ -27,18 +21,4 @@ function titleFilter(filter: string) {
     moduleCompendium.studyProgram.enLabel.toLowerCase().includes(filter) ||
     moduleCompendium.semester.deLabel.toLowerCase().includes(filter) ||
     moduleCompendium.semester.enLabel.toLowerCase().includes(filter)
-}
-
-function studyProgramFilter(selectedStudyProgramId: SelectedStudyProgramId) {
-  return (m: ModuleCatalog) =>
-    m.studyProgram.id === selectedStudyProgramId.poId
-}
-
-function semesterFilter(semester: Semester) {
-  return (moduleCompendium: ModuleCatalog) =>
-    moduleCompendium.semester.abbrev === semester.abbrev
-}
-
-function studyProgramSemesterFilter(selectedStudyProgramId: SelectedStudyProgramId, semester: Semester) {
-  return (mc: ModuleCatalog) => studyProgramFilter(selectedStudyProgramId)(mc) && semesterFilter(semester)(mc)
 }
