@@ -16,7 +16,7 @@ export class ModuleCompendiumsFilterEffects {
       return this.actions$.pipe(
         ofType(ModuleCompendiumsFilterComponentActions.enter),
         exhaustMap(() =>
-          this.service.allStudyPrograms().pipe(
+          this.service.allStudyProgramCores().pipe(
             map((studyPrograms) => ModuleCompendiumsFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}))
           )
         )

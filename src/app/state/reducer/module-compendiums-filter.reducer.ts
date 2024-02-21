@@ -3,7 +3,7 @@ import {
   ModuleCompendiumsFilterAPIActions,
   ModuleCompendiumsFilterComponentActions,
 } from '../actions/module-compendiums-filter.actions'
-import { Semester, StudyProgram } from '../../types/module-compendium'
+import { Semester, StudyProgram, StudyProgramCore } from '../../types/module-compendium'
 import { generateCurrentSemester } from '../../helper/semester.helper'
 
 export interface SelectedStudyProgramId {
@@ -12,7 +12,7 @@ export interface SelectedStudyProgramId {
 }
 
 export interface State {
-  studyPrograms: ReadonlyArray<StudyProgram>
+  studyPrograms: ReadonlyArray<StudyProgramCore>
   semesters: ReadonlyArray<Semester>
   selectedStudyProgramId?: string
   selectedSemester?: Semester
