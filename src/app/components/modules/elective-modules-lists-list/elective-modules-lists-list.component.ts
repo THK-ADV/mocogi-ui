@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { ElectivesCatalogue } from "../../../types/electivesCatalogues";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'cops-elective-modules-lists-list',
@@ -16,4 +17,7 @@ export class ElectiveModulesListsListComponent {
       this.dataSource.data = [...electiveModulesList]
     }
   }
+
+  absoluteUrl = (url: string) =>
+    `${environment.backendUrl}/${url}`
 }

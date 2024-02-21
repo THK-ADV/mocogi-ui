@@ -1,0 +1,19 @@
+<h2>Electives Filter</h2>
+
+<cops-abstract-module-filter
+  [options]="semesters | async"
+  label="Semester"
+  [selectAction]="selectSemester"
+  [selection]="selectedSemester$ | async"
+  [deselectAction]="deselectSemester"
+  [show]="showSemester"
+>
+</cops-abstract-module-filter>
+
+<button mat-stroked-button
+        color="primary"
+        (click)="onResetFilter()"
+        matTooltip="Filter zurücksetzen"
+        matTooltipPosition="left">
+  Filter zurücksetzen
+</button>
