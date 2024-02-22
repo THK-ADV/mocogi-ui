@@ -78,6 +78,9 @@ export class UpdateModulePageComponent {
       studyPrograms,
       degrees,
     ]) => {
+      console.log(moduleCompendium.metadata.po)
+      console.log(pos)
+      console.log(studyPrograms)
       const poPreviews = toPOPreview(pos, studyPrograms, degrees)
       this.moduleForm = {
         objectName: moduleCompendium.metadata.title,

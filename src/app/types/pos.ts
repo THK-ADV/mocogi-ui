@@ -6,8 +6,7 @@ export interface POs {
 export interface POMandatory {
   po: string,
   specialization?: string,
-  recommendedSemester: number[],
-  recommendedSemesterPartTime: number[]
+  recommendedSemester: number[]
 }
 
 export interface POOptional {

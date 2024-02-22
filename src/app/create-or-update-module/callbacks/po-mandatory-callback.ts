@@ -4,7 +4,6 @@ import { OptionsInput, OptionsInputComponent } from '../../form/options-input/op
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryCommaSeparatedNumber, validMandatoryObject, validOptionalCommaSeparatedNumber } from './callback-validation'
-import { foldOpt } from '../../ops/undefined-ops'
 import { POMandatory, POPreview } from '../../types/pos'
 import { showRecommendedSemester } from '../../ops/show.instances'
 
@@ -49,8 +48,6 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
         return this.lookupLabel(tableEntry.po)
       case 'recommended-semester':
         return showRecommendedSemester(tableEntry.recommendedSemester)
-      case 'recommended-semester-part-time':
-        return showRecommendedSemester(tableEntry.recommendedSemesterPartTime)
       default:
         return '???'
     }
@@ -64,12 +61,10 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
   toTableEntry(controls: { [key: string]: FormControl }): POMandatory {
     const po = this.getPOValue(controls)
     const recommendedSemester = this.getRecommendedSemesterValue(controls)
-    const recommendedSemesterPartTime = this.getRecommendedSemesterPartTimeValue(controls)
 
     return {
       po: po.id,
-      recommendedSemester: recommendedSemester,
-      recommendedSemesterPartTime: recommendedSemesterPartTime,
+      recommendedSemester: recommendedSemester
     }
   }
 
@@ -95,13 +90,6 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     (controls['recommended-semester'].value as string)
       .split(',')
       .map(a => Number(a))
-
-  private getRecommendedSemesterPartTimeValue = (controls: { [p: string]: FormControl }) =>
-    foldOpt(
-      controls['recommended-semester-part-time'].value,
-      value => (value as string).split(',').map(a => Number(a)),
-      () => [],
-    )
 
   private getPOValue = (controls: { [p: string]: FormControl }) =>
     controls['po'].value as POPreview
