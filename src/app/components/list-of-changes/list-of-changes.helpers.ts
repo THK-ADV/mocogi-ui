@@ -10,7 +10,7 @@ export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendiu
   }
 
   return moduleDraftKeys.modifiedKeys.map((modifiedKey) => {
-    const type = getChangeType(modifiedKey.abbrev, moduleCompendium, stagingModuleCompendium)
+    const type = getChangeType(modifiedKey.id, moduleCompendium, stagingModuleCompendium)
     return {
       icon: detailDescriptions[type].icon,
       name: modifiedKey.deLabel,

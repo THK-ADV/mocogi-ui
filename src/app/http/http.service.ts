@@ -8,15 +8,10 @@ import { AssessmentMethod } from '../types/core/assessment-method'
 import { ModuleType } from '../types/core/module-type'
 import { Season } from '../types/core/season'
 import { Identity } from '../types/core/person'
-import { PO } from '../types/core/po'
-import { Degree } from '../types/core/degree'
 import { GlobalCriteria } from '../types/core/global-criteria'
-// import { StudyProgram } from '../types/core/study-program'
 import { Competence } from '../types/core/competence'
-import { ModuleCore } from '../types/moduleCore'
-import { UserBranch } from '../types/user-branch'
+import { Module, ModuleCore, ModuleProtocol } from '../types/moduleCore'
 import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
-import { Module, ModuleProtocol } from '../types/moduleCore'
 import { ValidationResult } from '../types/validation-result'
 import { Metadata } from '../types/metadata'
 import { ModuleView } from '../types/module-view'
@@ -40,7 +35,7 @@ export interface ModuleDraftJson {
 }
 
 export interface ModuleKey {
-  abbrev: string,
+  id: string,
   deLabel: string,
   deDesc: string,
   enLabel: string,
@@ -71,13 +66,7 @@ export class HttpService {
   allModules = (): Observable<ModuleCore[]> =>
     this.http.get<ModuleCore[]>('modules')
 
-  ownModules = (): Observable<ModuleCore[]> =>
-    this.http.get<ModuleCore[]>('modules/own')
-
   // Module Compendium
-
-  moduleDescriptionById = (id: string): Observable<Module> =>
-    this.http.get<Module>(`modules/${id}`)
 
   latestModuleDescriptionById = (id: string): Observable<Module> =>
     this.http.get<Module>(`modules/${id}/latest`)
@@ -86,7 +75,7 @@ export class HttpService {
     this.http.get<Module>(`modules/${id}/preview`)
 
   moduleDescriptionHtmlFile = (id: string) =>
-    this.http.request('GET', `modules/${id}/file`, { responseType: 'text' })
+    this.http.request('GET', `modules/${id}/file`, {responseType: 'text'})
 
   // Core Data
 
@@ -110,18 +99,6 @@ export class HttpService {
 
   allIdentities = (): Observable<Identity[]> =>
     this.http.get<Identity[]>('identities')
-
-  allValidPOs = (): Observable<PO[]> =>
-    this.http.get<PO[]>('pos?valid=true').pipe(
-      map(pos => pos.map(po => ({
-        ...po,
-        dateFrom: new Date(po.dateFrom),
-        dateTo: po.dateTo && new Date(po.dateTo),
-      }))),
-    )
-
-  allDegrees = (): Observable<Degree[]> =>
-    this.http.get<Degree[]>('degrees')
 
   allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
     this.http.get<GlobalCriteria[]>('globalCriteria')
@@ -159,17 +136,7 @@ export class HttpService {
   deleteDraft = (moduleId: string) =>
     this.http.delete(`moduleDrafts/${moduleId}`)
 
-  // Branch
-
-  createBranch = (username: string): Observable<UserBranch> =>
-    this.http.post<UserBranch>('git/branch', {'username': username})
-
   // Module Draft
-
-  moduleDrafts = (branch: string): Observable<ModuleDraft[]> =>
-    this.http.get<ModuleDraftJson[]>(`moduleDrafts/${branch}`).pipe(
-      map(xs => xs.map(this.convertModuleDraft)),
-    )
 
   moduleDraftKeys = (moduleId: string): Observable<ModuleDraftKeys> =>
     this.http.get<ModuleDraftKeys>(`moduleDrafts/${moduleId}/keys`)
@@ -184,22 +151,6 @@ export class HttpService {
       })),
     )
 
-  addToDrafts = (
-    branch: string,
-    mc: ModuleProtocol,
-    id: string | undefined,
-  ): Observable<ModuleDraft> => {
-    const body = {
-      data: mc,
-      branch: branch,
-    }
-    const request = id
-      ? this.http.put<ModuleDraftJson>(`moduleDrafts/${id}`, body)
-      : this.http.post<ModuleDraftJson>('moduleDrafts', body)
-
-    return request.pipe(map(this.convertModuleDraft))
-  }
-
   private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
     const mc: ModuleProtocol = { // TODO improve
       deContent: asRecord(draft.data)['deContent'] as Content,
@@ -213,14 +164,6 @@ export class HttpService {
 
   validate = (branch: string): Observable<ValidationResult> =>
     this.http.get<ValidationResult>(`moduleDrafts/${branch}/validate`)
-
-  // Commit
-
-  commit = (branch: string, username: string): Observable<unknown> =>
-    this.http.put<unknown>(`moduleDrafts/${branch}/commit`, {username})
-
-  revertCommit = (branch: string): Observable<unknown> =>
-    this.http.delete<unknown>(`moduleDrafts/${branch}/revertCommit`)
 
   // View
 
@@ -246,9 +189,6 @@ export class HttpService {
   getApprovals = (moduleId: string): Observable<ReadonlyArray<Approval>> =>
     this.http.get<ReadonlyArray<Approval>>(`moduleApprovals/${moduleId}`)
 
-  getApproval = (moduleId: string, approvalId: string): Observable<unknown> =>
-    this.http.get(`moduleApprovals/${moduleId}/${approvalId}`)
-
   submitApproval = (moduleId: string, approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
     this.http.put(`moduleApprovals/${moduleId}/${approvalId}`, {
       action,
@@ -261,8 +201,8 @@ export class HttpService {
     const currentYear = (new Date()).getFullYear()
     const rangeInYears = 5
     const semesterTypes = [
-      { id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester' },
-      { id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester' },
+      {id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester'},
+      {id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester'},
     ]
     const semesterList: Array<Semester> = []
     for (let i = rangeInYears * -1; i < rangeInYears; i++) {

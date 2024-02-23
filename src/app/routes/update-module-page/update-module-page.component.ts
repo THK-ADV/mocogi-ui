@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute } from '@angular/router'
-import { toPOPreview } from 'src/app/create-or-update-module/create-or-update-module.component'
 import { inputs } from 'src/app/create-or-update-module/inputs/inputs'
 import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module-form.component'
 import { HttpService } from 'src/app/http/http.service'
@@ -13,6 +12,8 @@ import { UpdateModulePageActions } from '../../state/actions/update-module-page.
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
 import { ChangeLogItem } from '../../types/changes'
 import { Approval } from '../../types/approval'
+import { FormGroup } from '@angular/forms'
+import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -25,17 +26,21 @@ export class UpdateModulePageComponent {
   moduleId: string
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
-  approvals: ReadonlyArray<Approval> =  []
+  approvals: ReadonlyArray<Approval> = []
   stagingModuleCompendium?: Module
+  formGroup = new FormGroup({})
+
+  isValid = (): boolean =>
+    this.formGroup.valid ?? false
 
   cancel = () => {
     this.store.dispatch(UpdateModulePageActions.cancel())
   }
 
   save = () => {
-    const moduleCompendiumProtocol = this.moduleFormComponent?.moduleCompendiumProtocol()
-    if(moduleCompendiumProtocol) {
-      this.store.dispatch(UpdateModulePageActions.save({ moduleId: this.moduleId, moduleCompendiumProtocol }))
+    const moduleCompendiumProtocol = parseModuleCompendium(this.formGroup)
+    if (moduleCompendiumProtocol) {
+      this.store.dispatch(UpdateModulePageActions.save({moduleId: this.moduleId, moduleCompendiumProtocol}))
     }
   }
 
@@ -54,34 +59,26 @@ export class UpdateModulePageComponent {
       http.allStatus(),
       http.allIdentities(),
       http.allAssessmentMethods(),
-      http.allValidPOs(),
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
-      http.allDegrees(),
     ]).subscribe(([
-      moduleCompendium,
-      stagingModuleCompendium,
-      moduleDraftKeys,
-      approvals,
-      modules,
-      moduleTypes,
-      seasons,
-      languages,
-      locations,
-      status,
-      persons,
-      assessmentMethods,
-      pos,
-      competencies,
-      globalCriteria,
-      studyPrograms,
-      degrees,
-    ]) => {
-      console.log(moduleCompendium.metadata.po)
-      console.log(pos)
-      console.log(studyPrograms)
-      const poPreviews = toPOPreview(pos, studyPrograms, degrees)
+                    moduleCompendium,
+                    stagingModuleCompendium,
+                    moduleDraftKeys,
+                    approvals,
+                    modules,
+                    moduleTypes,
+                    seasons,
+                    languages,
+                    locations,
+                    status,
+                    persons,
+                    assessmentMethods,
+                    competencies,
+                    globalCriteria,
+                    studyPrograms,
+                  ]) => {
       this.moduleForm = {
         objectName: moduleCompendium.metadata.title,
         editType: 'update',
@@ -94,11 +91,11 @@ export class UpdateModulePageComponent {
           status,
           persons,
           assessmentMethods,
-          [...poPreviews],
+          [...studyPrograms],
           competencies,
           globalCriteria,
           dialog,
-          (attr) => this.moduleFormComponent?.formControl(attr).value,
+          (attr) => this.formGroup.get(attr)?.value,
           moduleCompendium,
           moduleCompendium.id,
         ),

@@ -1,14 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { PipelineError } from '../types/validation-result'
-import { AppStateService } from '../state/app-state.service'
 
 @Pipe({
   name: 'pipelineError',
 })
 export class PipelineErrorPipe implements PipeTransform {
-
-  constructor(private readonly appState: AppStateService) {
-  }
 
   transform(err: PipelineError): unknown {
     switch (err.tag) {
@@ -27,5 +23,5 @@ export class PipelineErrorPipe implements PipeTransform {
   }
 
   headline = (kind: string, metadata: string): string =>
-    `<h3>Fehler beim ${kind} von ${this.appState.moduleDraftForId(metadata)?.data?.metadata?.title}</h3>`
+    `<h3>Fehler beim ${kind} von ${metadata}</h3>`
 }

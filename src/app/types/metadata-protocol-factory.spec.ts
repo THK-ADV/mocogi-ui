@@ -302,7 +302,6 @@ describe('metadata protocol factory', () => {
           {
             'po': 'inf_mi4',
             'recommendedSemester': [3],
-            'recommendedSemesterPartTime': [],
           },
       },
       {
@@ -310,7 +309,6 @@ describe('metadata protocol factory', () => {
           {
             'po': 'inf_inf2',
             'recommendedSemester': [4],
-            'recommendedSemesterPartTime': [],
           },
       },
     ]
@@ -339,12 +337,10 @@ describe('metadata protocol factory', () => {
         {
           'po': 'inf_mi4',
           'recommendedSemester': [3],
-          'recommendedSemesterPartTime': [],
         },
         {
           'po': 'inf_inf2',
           'recommendedSemester': [4],
-          'recommendedSemesterPartTime': [],
         },
       ],
       optional: [
@@ -601,8 +597,6 @@ describe('metadata protocol factory', () => {
                   [
                     3,
                   ],
-                'recommendedSemesterPartTime':
-                  [],
               },
           },
           {
@@ -613,8 +607,6 @@ describe('metadata protocol factory', () => {
                   [
                     4,
                   ],
-                'recommendedSemesterPartTime':
-                  [],
               },
           },
           {
@@ -625,8 +617,6 @@ describe('metadata protocol factory', () => {
                   [
                     3,
                   ],
-                'recommendedSemesterPartTime':
-                  [],
               },
           },
           {
@@ -637,8 +627,6 @@ describe('metadata protocol factory', () => {
                   [
                     3,
                   ],
-                'recommendedSemesterPartTime':
-                  [],
               },
           },
         ],

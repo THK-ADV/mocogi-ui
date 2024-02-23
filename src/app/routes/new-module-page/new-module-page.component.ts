@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component } from '@angular/core'
 import { ModuleProtocol } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
-import { ModuleForm, ModuleFormComponent } from '../../form/module-form/module-form.component'
+import { ModuleForm } from '../../form/module-form/module-form.component'
 import { zip } from 'rxjs'
-import { toPOPreview } from '../../create-or-update-module/create-or-update-module.component'
 import { HttpService } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 import { NewModulePageActions } from '../../state/actions/new-module-page.actions'
+import { FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'cops-new-module-page',
@@ -17,8 +17,8 @@ import { NewModulePageActions } from '../../state/actions/new-module-page.action
 })
 export class NewModulePageComponent {
   moduleForm?: ModuleForm<unknown, unknown>
+  formGroup = new FormGroup({})
 
-  @ViewChild('moduleFormComponent') moduleFormComponent?: ModuleFormComponent<unknown, unknown>
   constructor(private store: Store, private http: HttpService, private dialog: MatDialog) {
     zip([
       http.allModules(),
@@ -29,27 +29,22 @@ export class NewModulePageComponent {
       http.allStatus(),
       http.allIdentities(),
       http.allAssessmentMethods(),
-      http.allValidPOs(),
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
-      http.allDegrees(),
     ]).subscribe(([
-        modules,
-        moduleTypes,
-        seasons,
-        languages,
-        locations,
-        status,
-        persons,
-        assessmentMethods,
-        pos,
-        competencies,
-        globalCriteria,
-        studyPrograms,
-        grades,
-      ]) => {
-      const poPreviews = toPOPreview(pos, studyPrograms, grades)
+                    modules,
+                    moduleTypes,
+                    seasons,
+                    languages,
+                    locations,
+                    status,
+                    persons,
+                    assessmentMethods,
+                    competencies,
+                    globalCriteria,
+                    studyPrograms,
+                  ]) => {
       this.moduleForm = {
         objectName: 'New Module',
         editType: 'create',
@@ -62,28 +57,29 @@ export class NewModulePageComponent {
           status,
           persons,
           assessmentMethods,
-          [...poPreviews],
+          [...studyPrograms],
           competencies,
           globalCriteria,
           dialog,
-          (attr) => this.moduleFormComponent?.formControl(attr).value,
+          (attr) => this.formGroup.get(attr)?.value,
         ),
       }
     })
   }
+
+  isValid = () =>
+    this.formGroup.valid ?? false
 
   cancel = () => {
     this.store.dispatch(NewModulePageActions.cancel())
   }
 
   save = () => {
-    console.log(this.moduleFormComponent?.formGroup.value)
-    const moduleCompendiumProtocol = parseModuleCompendium(this.moduleFormComponent?.formGroup.value)
-    this.submit(moduleCompendiumProtocol)
+    const moduleCompendiumProtocol = parseModuleCompendium(this.formGroup)
+    moduleCompendiumProtocol && this.submit(moduleCompendiumProtocol)
   }
 
   submit = (moduleCompendiumProtocol: ModuleProtocol) => {
-    this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
+    this.store.dispatch(NewModulePageActions.save({moduleCompendiumProtocol}))
   }
-
 }

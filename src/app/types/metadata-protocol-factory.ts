@@ -20,6 +20,7 @@ import {
   parsePeekString,
   parseString,
 } from '../parser/record-parser'
+import { FormGroup } from '@angular/forms'
 
 export function parseNestedId(key: string, record: Record<string, unknown>): string {
   return parsePeekString([key, 'id'], record)
@@ -164,7 +165,7 @@ export function parseEnContent(record: Record<string, unknown>): Content {
 export function parsePrerequisites(record: Record<string, unknown>): PrerequisitesOutput {
   function go(prefix: string): PrerequisiteEntry | undefined {
     const text = parseOptional(`${prefix}-prerequisites-text`, record, v => toString(v)) ?? ''
-    const pos = parsePeekArray([`${prefix}-prerequisites-po`, 'value', 'id'], record)
+    const pos = parsePeekArray([`${prefix}-prerequisites-po`, 'value', 'po', 'id'], record)
     const modules = parsePeekArray([`${prefix}-prerequisites-modules`, 'value', 'id'], record)
     if (text === '' && pos.length === 0 && modules.length === 0) {
       return undefined
@@ -185,7 +186,6 @@ export function parsePo(record: Record<string, unknown>): POs {
       return {
         po: parseString('po', poRecord),
         recommendedSemester: parseArray('recommendedSemester', poRecord, v => toNumber(v)),
-        recommendedSemesterPartTime: parseArray('recommendedSemesterPartTime', poRecord, v => toNumber(v)),
       }
     })
   })
@@ -204,11 +204,11 @@ export function parsePo(record: Record<string, unknown>): POs {
 }
 
 export function parseCompetences(record: Record<string, unknown>): string[] {
-  return parsePeekArray(['competences', 'value', 'abbrev'], record)
+  return parsePeekArray(['competences', 'value', 'id'], record)
 }
 
 export function parseGlobalCriteria(record: Record<string, unknown>): string[] {
-  return parsePeekArray(['global-criteria', 'value', 'abbrev'], record)
+  return parsePeekArray(['global-criteria', 'value', 'id'], record)
 }
 
 export function parseTaughtWith(record: Record<string, unknown>): string[] {
@@ -240,8 +240,11 @@ export function parseMetadata(record: Record<string, unknown>): MetadataProtocol
   }
 }
 
-export function parseModuleCompendium(value: unknown): ModuleProtocol {
-  const record = asRecord(value)
+export function parseModuleCompendium(formGroup: FormGroup): ModuleProtocol | undefined {
+  if (!formGroup.value) {
+    return undefined
+  }
+  const record = asRecord(formGroup.value)
   return {
     metadata: parseMetadata(record),
     deContent: parseDeContent(record),

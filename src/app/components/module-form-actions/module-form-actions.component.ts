@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { ModuleFormComponent } from '../../form/module-form/module-form.component'
 
 @Component({
   selector: 'cops-module-form-actions',
@@ -9,7 +8,5 @@ import { ModuleFormComponent } from '../../form/module-form/module-form.componen
 export class ModuleFormActionsComponent {
   @Input() cancelAction!: () => void
   @Input() saveAction!: () => void
-  @Input() moduleFormComponent?: ModuleFormComponent<unknown, unknown>
-
-  isValid = () => this.moduleFormComponent?.formGroup?.valid ?? false
+  @Input() isValid!: () => boolean
 }

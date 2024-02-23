@@ -16,9 +16,3 @@ export interface POOptional {
   partOfCatalog: boolean,
   recommendedSemester: number[]
 }
-
-export interface POPreview {
-  id: string
-  label: string
-  abbrev: string
-}

@@ -4,24 +4,26 @@ import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/mul
 import { optionalLabel, requiredLabel } from './inputs'
 import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
 import { PoOptionalCallback } from '../callbacks/po-optional-callback'
-import { POMandatory, POOptional, POPreview } from '../../types/pos'
+import { POMandatory, POOptional } from '../../types/pos'
 import { ModuleCore } from '../../types/moduleCore'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { Rows } from '../../form/module-form/module-form.component'
+import { StudyProgram } from '../../types/module-compendium'
+import { showStudyProgram } from '../../ops/show.instances'
 
-export function poInput(
+export function studyProgramInput(
   dialog: MatDialog,
-  allPOs: POPreview[],
+  studyPrograms: StudyProgram[],
   genericModules: ModuleCore[],
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
 ): Rows<unknown, unknown> {
 
   const dialogTitle = 'Zugehörigkeit zu Studiengängen bearbeiten'
-  const poColumn = {attr: 'po', title: 'Studiengang'}
+  const studyProgramColumn = {attr: 'po', title: 'Studiengang'}
 
-  function mandatory(): ReadOnlyInput<POPreview, POMandatory> {
+  function mandatory(): ReadOnlyInput<StudyProgram, POMandatory> {
     const attr = 'po-mandatory'
     const entries = currentMandatoryEntries(attr)
     return {
@@ -30,14 +32,14 @@ export function poInput(
       attr: attr,
       disabled: false,
       required: true,
-      options: allPOs,
+      options: studyPrograms,
       show: showPOMandatory,
-      initialValue: xs => entries.filter(e => xs.some(x => x.id === e.po)),
+      initialValue: sps => entries.filter(({po}) => sps.some(sp => sp.po.id === po)),
       dialogInstance: () => mandatoryDialogInstance(attr),
     }
   }
 
-  function optional(): ReadOnlyInput<POPreview, POOptional> {
+  function optional(): ReadOnlyInput<StudyProgram, POOptional> {
     const attr = 'po-optional'
     const entries = currentOptionalEntries(attr)
     return {
@@ -46,32 +48,31 @@ export function poInput(
       attr: attr,
       disabled: false,
       required: false,
-      options: allPOs,
+      options: studyPrograms,
       show: showPOOptional,
-      initialValue: xs => entries.filter(e => xs.some(x => x.id === e.po)),
+      initialValue: sps => entries.filter(({po}) => sps.some(sp => sp.po.id === po)),
       dialogInstance: () => optionalDialogInstance(attr),
     }
   }
 
-  function poPreviewOptionsInput(): OptionsInput<POPreview> {
+  function studyProgramOptionsInput(): OptionsInput<StudyProgram> {
     return {
       kind: 'options',
-      label: requiredLabel(poColumn.title),
-      attr: poColumn.attr,
+      label: requiredLabel(studyProgramColumn.title),
+      attr: studyProgramColumn.attr,
       disabled: false,
       required: false,
-      data: allPOs,
-      show: (a) => a.label,
+      data: studyPrograms,
+      show: showStudyProgram,
     }
   }
 
   function mandatoryDialogInstance(attr: string) {
     const entries = currentMandatoryEntries(attr)
-    const callback = new PoMandatoryCallback(allPOs, entries)
+    const callback = new PoMandatoryCallback(studyPrograms, entries)
     const columns = [
-      poColumn,
+      studyProgramColumn,
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
-      {attr: 'recommended-semester-part-time', title: 'Empfohlene Studiensemester für Teilzeit Studium (kommasepariert)'},
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -79,18 +80,11 @@ export function poInput(
       columns,
       dialogTitle,
       [
-        poPreviewOptionsInput(),
+        studyProgramOptionsInput(),
         {
           kind: 'text',
           label: requiredLabel(columns[1].title),
           attr: columns[1].attr,
-          disabled: false,
-          required: false,
-        },
-        {
-          kind: 'text',
-          label: optionalLabel(columns[2].title),
-          attr: columns[2].attr,
           disabled: false,
           required: false,
         },
@@ -101,9 +95,9 @@ export function poInput(
 
   function optionalDialogInstance(attr: string) {
     const entries = currentOptionalEntries(attr)
-    const callback = new PoOptionalCallback(allPOs, entries, genericModules)
+    const callback = new PoOptionalCallback(studyPrograms, entries, genericModules)
     const columns = [
-      poColumn,
+      studyProgramColumn,
       {attr: 'instance-of', title: 'Instanz von'},
       {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
@@ -114,7 +108,7 @@ export function poInput(
       columns,
       dialogTitle,
       [
-        poPreviewOptionsInput(),
+        studyProgramOptionsInput(),
         <OptionsInput<ModuleCore>>{
           kind: 'options',
           label: requiredLabel(columns[1].title),
@@ -133,7 +127,7 @@ export function poInput(
         },
         {
           kind: 'text',
-          label: optionalLabel(columns[3].title),
+          label: requiredLabel(columns[3].title),
           attr: columns[3].attr,
           disabled: false,
           required: false,
@@ -143,16 +137,21 @@ export function poInput(
     )
   }
 
-  function showPOMandatory(po: POMandatory): string {
-    return allPOs.find(p => p.id === po.po)?.abbrev ?? '???'
+  function showStudyProgram_(po: string): string {
+    const sp = studyPrograms.find(sp => sp.po.id === po)
+    return sp ? showStudyProgram(sp) : po
   }
 
-  function showPOOptional(po: POOptional): string {
-    return allPOs.find(p => p.id === po.po)?.abbrev ?? '???'
+  function showPOMandatory({po}: POMandatory): string {
+    return showStudyProgram_(po)
+  }
+
+  function showPOOptional({po}: POOptional): string {
+    return showStudyProgram_(po)
   }
 
   return {
-    'mandatory-po': [{ input: mandatory() as FormInput<unknown, unknown> }],
-    'optional-po': [{ input: optional() as FormInput<unknown, unknown> }],
+    'mandatory-po': [{input: mandatory() as FormInput<unknown, unknown>}],
+    'optional-po': [{input: optional() as FormInput<unknown, unknown>}],
   }
 }

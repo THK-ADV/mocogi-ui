@@ -1,23 +1,24 @@
-<main>
-  <cops-module-form
-    #moduleFormComponent
-    *ngIf="moduleForm"
-    [moduleForm]="moduleForm"
-  ></cops-module-form>
-</main>
-<aside>
-  <mat-tab-group>
-    <mat-tab label="Änderungen">
-      <cops-list-of-changes [changedKeys]="modifiedKeys"></cops-list-of-changes>
-    </mat-tab>
-    <mat-tab label="Kommentare">
-      <cops-list-of-comments [approvals]="approvals"></cops-list-of-comments>
-    </mat-tab>
-  </mat-tab-group>
+<ng-container *ngIf="moduleForm">
+  <main>
+    <cops-module-form
+      [moduleForm]="moduleForm"
+      [formGroup]="formGroup"
+    ></cops-module-form>
+  </main>
+  <aside>
+    <mat-tab-group>
+      <mat-tab label="Änderungen">
+        <cops-list-of-changes [changedKeys]="modifiedKeys"></cops-list-of-changes>
+      </mat-tab>
+      <mat-tab label="Kommentare">
+        <cops-list-of-comments [approvals]="approvals"></cops-list-of-comments>
+      </mat-tab>
+    </mat-tab-group>
 
-  <cops-module-form-actions
-    [saveAction]="save"
-    [cancelAction]="cancel"
-    [moduleFormComponent]="moduleFormComponent"
-  ></cops-module-form-actions>
-</aside>
+    <cops-module-form-actions
+      [saveAction]="save"
+      [cancelAction]="cancel"
+      [isValid]="isValid"
+    ></cops-module-form-actions>
+  </aside>
+</ng-container>

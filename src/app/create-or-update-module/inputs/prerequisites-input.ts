@@ -4,14 +4,14 @@ import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.compon
 import { MatDialog } from '@angular/material/dialog'
 import { MultipleEditDialogComponent } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { ModuleCallback } from '../callbacks/module-callback'
-import { PrerequisitesPoCallback } from '../callbacks/prerequisites-po-callback'
-import { POPreview } from '../../types/pos'
+import { PrerequisitesStudyProgramCallback } from '../callbacks/prerequisites-study-program-callback'
 import { ModuleCore } from '../../types/moduleCore'
 import { PrerequisitesOutput } from '../../types/prerequisites'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
-import { showModule } from '../../ops/show.instances'
-import {Rows} from '../../form/module-form/module-form.component'
+import { showModule, showStudyProgram } from '../../ops/show.instances'
+import { Rows } from '../../form/module-form/module-form.component'
+import { StudyProgram } from '../../types/module-compendium'
 
 export type PrerequisitesKind = 'required' | 'recommended'
 
@@ -19,8 +19,8 @@ export function prerequisitesInputs(
   dialog: MatDialog,
   allModules: ModuleCore[],
   currentModules: (attr: string, kind: PrerequisitesKind) => ModuleCore[],
-  allPOs: POPreview[],
-  currentPOs: (attr: string, kind: PrerequisitesKind) => POPreview[],
+  studyPrograms: StudyProgram[],
+  currentStudyProgram: (attr: string, kind: PrerequisitesKind) => StudyProgram[],
   prerequisites?: PrerequisitesOutput,
 ): Rows<unknown, unknown> {
   function requiredPrerequisitesText(): TextAreaInput {
@@ -39,12 +39,12 @@ export function prerequisitesInputs(
     return modules('recommended')
   }
 
-  function requiredPrerequisitesPOs(): ReadOnlyInput<POPreview, POPreview> {
-    return studyPrograms('required')
+  function requiredPrerequisitesPOs(): ReadOnlyInput<StudyProgram, StudyProgram> {
+    return studyProgramsInput('required')
   }
 
-  function recommendedPrerequisitesPOs(): ReadOnlyInput<POPreview, POPreview> {
-    return studyPrograms('recommended')
+  function recommendedPrerequisitesPOs(): ReadOnlyInput<StudyProgram, StudyProgram> {
+    return studyProgramsInput('recommended')
   }
 
   function text(kind: PrerequisitesKind, initialValue?: string): TextAreaInput {
@@ -74,19 +74,19 @@ export function prerequisitesInputs(
     }
   }
 
-  function studyPrograms(kind: PrerequisitesKind): ReadOnlyInput<POPreview, POPreview> {
+  function studyProgramsInput(kind: PrerequisitesKind): ReadOnlyInput<StudyProgram, StudyProgram> {
     const attr = `${kind}-prerequisites-po`
-    const entries = currentPOs(attr, kind)
+    const entries = currentStudyProgram(attr, kind)
     return {
       kind: 'read-only',
       label: optionalLabel(`${labelPrefix(kind)} Studiengänge`),
       attr: attr,
       disabled: false,
       required: false,
-      options: allPOs,
-      show: showPO,
-      initialValue: xs => xs.filter(x => entries.some(e => e.id === x.id)),
-      dialogInstance: () => poDialogInstance(attr, kind),
+      options: studyPrograms,
+      show: showStudyProgram,
+      initialValue: sps => sps.filter(sp => entries.some(({po}) => po.id === sp.po.id)),
+      dialogInstance: () => studyProgramDialogInstance(attr, kind),
     }
   }
 
@@ -115,10 +115,10 @@ export function prerequisitesInputs(
     )
   }
 
-  function poDialogInstance(attr: string, kind: PrerequisitesKind) {
+  function studyProgramDialogInstance(attr: string, kind: PrerequisitesKind) {
     const columns = [{attr: 'po', title: 'Studiengang mit PO'}]
-    const entries = currentPOs(attr, kind)
-    const callback = new PrerequisitesPoCallback(allPOs, entries, columns[0].attr, showPO)
+    const entries = currentStudyProgram(attr, kind)
+    const callback = new PrerequisitesStudyProgramCallback(studyPrograms, entries, columns[0].attr, showStudyProgram)
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -126,14 +126,14 @@ export function prerequisitesInputs(
       columns,
       'Studiengänge bearbeiten',
       [
-        <OptionsInput<POPreview>>{
+        <OptionsInput<StudyProgram>>{
           kind: 'options',
           label: requiredLabel(columns[0].title),
           attr: columns[0].attr,
           disabled: false,
           required: false,
-          data: allPOs,
-          show: showPO,
+          data: studyPrograms,
+          show: showStudyProgram,
         },
       ],
       entries,
@@ -149,16 +149,12 @@ export function prerequisitesInputs(
     }
   }
 
-  function showPO(po: POPreview): string {
-    return po.label
-  }
-
   return {
-    'required-prerequisites-text': [{ input: requiredPrerequisitesText() as FormInput<unknown, unknown> }],
-    'required-prerequisites-modules': [{ input: requiredPrerequisitesModules() as FormInput<unknown, unknown> }],
-    'required-prerequisites-pos': [{ input: requiredPrerequisitesPOs() as FormInput<unknown, unknown> }],
-    'recommended-prerequisites-text': [{ input: recommendedPrerequisitesText() as FormInput<unknown, unknown> }],
-    'recommended-prerequisites-modules': [{ input: recommendedPrerequisitesModules() as FormInput<unknown, unknown> }],
-    'recommended-prerequisites-pos': [{ input: recommendedPrerequisitesPOs() as FormInput<unknown, unknown> }],
+    'required-prerequisites-text': [{input: requiredPrerequisitesText() as FormInput<unknown, unknown>}],
+    'required-prerequisites-modules': [{input: requiredPrerequisitesModules() as FormInput<unknown, unknown>}],
+    'required-prerequisites-pos': [{input: requiredPrerequisitesPOs() as FormInput<unknown, unknown>}],
+    'recommended-prerequisites-text': [{input: recommendedPrerequisitesText() as FormInput<unknown, unknown>}],
+    'recommended-prerequisites-modules': [{input: recommendedPrerequisitesModules() as FormInput<unknown, unknown>}],
+    'recommended-prerequisites-pos': [{input: recommendedPrerequisitesPOs() as FormInput<unknown, unknown>}],
   }
 }

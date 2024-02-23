@@ -4,26 +4,27 @@ import { OptionsInput, OptionsInputComponent } from '../../form/options-input/op
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
-import { POOptional, POPreview } from '../../types/pos'
+import { POOptional } from '../../types/pos'
 import { ModuleCore } from '../../types/moduleCore'
-import { showRecommendedSemester } from '../../ops/show.instances'
+import { showRecommendedSemester, showStudyProgram } from '../../ops/show.instances'
+import { StudyProgram } from '../../types/module-compendium'
 
-export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, POPreview> {
-  readonly all: { [id: string]: POPreview } = {}
+export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, StudyProgram> {
+  readonly all: { [id: string]: StudyProgram } = {}
   readonly selected: { [id: string]: POOptional } = {}
   readonly genericModules: { [id: string]: ModuleCore } = {}
 
   constructor(
-    all: Readonly<POPreview[]>,
+    all: Readonly<StudyProgram[]>,
     selected: Readonly<POOptional[]>,
     genericModules: Readonly<ModuleCore>[],
   ) {
-    this.all = arrayToObject(all, a => a.id)
+    this.all = arrayToObject(all, a => a.po.id)
     this.selected = arrayToObject(selected, a => a.po)
     this.genericModules = arrayToObject(genericModules, a => a.id)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<POPreview>): POPreview[] {
+  filterInitialOptionsForComponent(optionsInput: OptionsInput<StudyProgram>): StudyProgram[] {
     const data = optionsInput.data
     if (!Array.isArray(data)) {
       return []
@@ -36,16 +37,16 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   }
 
   addOptionToOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const po = this.lookup(option.po)
+    const studyProgram = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
-    po && component && component.addOption(po)
+    studyProgram && component && component.addOption(studyProgram)
     component?.reset()
   }
 
   removeOptionFromOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const po = this.lookup(option.po)
+    const studyProgram = this.lookup(option.po)
     const component = components.find(a => a.input.attr === 'po')
-    po && component && component.removeOption(po)
+    studyProgram && component && component.removeOption(studyProgram)
     component?.reset()
   }
 
@@ -65,26 +66,29 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   }
 
   tableEntryAlreadyExists(controls: { [key: string]: FormControl }): (e: POOptional) => boolean {
-    const po = this.getPOValue(controls)
-    return (entry) => entry.po === po.id
+    const studyProgram = this.getStudyProgramValue(controls)
+    return ({po}) => po === studyProgram.po.id
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): POOptional {
-    const po = this.getPOValue(controls)
+    const studyProgram = this.getStudyProgramValue(controls)
     const instanceOf = this.getInstanceOfValue(controls)
     const partOfCatalog = this.getPartOfCatalogValue(controls)
     const recommendedSemester = this.getRecommendedSemesterValue(controls)
 
     return {
-      po: po.id,
+      po: studyProgram.po.id,
       instanceOf: instanceOf.id,
       partOfCatalog: partOfCatalog,
       recommendedSemester: recommendedSemester,
+      specialization: studyProgram.specialization?.id,
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void { return }
+  onValidate(_controls: { [key: string]: FormControl }): void {
+    return
+  }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return !this.validPO(controls['po'].value) ||
@@ -110,8 +114,8 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       .split(',')
       .map(a => Number(a))
 
-  private getPOValue = (controls: { [p: string]: FormControl }) =>
-    controls['po'].value as POPreview
+  private getStudyProgramValue = (controls: { [p: string]: FormControl }) =>
+    controls['po'].value as StudyProgram
 
   private getInstanceOfValue = (controls: { [p: string]: FormControl }) =>
     controls['instance-of'].value as ModuleCore
@@ -119,9 +123,11 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   private getPartOfCatalogValue = (controls: { [p: string]: FormControl }) =>
     controls['part-of-catalog'].value as boolean
 
-  private lookup = (id: string): POPreview | undefined =>
+  private lookup = (id: string): StudyProgram | undefined =>
     this.all[id]
 
-  private lookupLabel = (id: string): string =>
-    this.lookup(id)?.label ?? '???'
+  private lookupLabel = (id: string): string => {
+    const sp = this.lookup(id)
+    return sp ? showStudyProgram(sp) : id
+  }
 }

@@ -4,7 +4,7 @@ import { assessmentMethodInput, AssessmentMethodKind } from './assessment-method
 import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
-import { poInput } from './po-input'
+import { studyProgramInput } from './study-program-input'
 import { miscellaneousInput } from './miscellaneous-input'
 import { mapOpt } from '../../ops/undefined-ops'
 import { moduleContent } from './module-content-input'
@@ -22,12 +22,11 @@ import { AssessmentMethod } from '../../types/core/assessment-method'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Identity } from '../../types/core/person'
-import { POPreview } from '../../types/pos'
 import { GlobalCriteria } from '../../types/core/global-criteria'
 import { Competence } from '../../types/core/competence'
-import { ModuleCore } from '../../types/moduleCore'
-import { ModuleLike } from '../../types/moduleCore'
+import { ModuleCore, ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
+import { StudyProgram } from '../../types/module-compendium'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -46,7 +45,7 @@ export function inputs(
   status: Status[],
   persons: Identity[],
   assessmentMethods: AssessmentMethod[],
-  pos: POPreview[],
+  studyPrograms: StudyProgram[],
   competences: Competence[],
   globalCriteria: GlobalCriteria[],
   dialog: MatDialog,
@@ -105,19 +104,19 @@ export function inputs(
         dialog,
         modules,
         currentPrerequisitesModulesSelection,
-        pos,
-        currentPrerequisitesPOsSelection,
+        studyPrograms,
+        currentPrerequisitesStudyProgramSelection,
         metadata?.prerequisites,
       ),
     }
   }
 
-  function poSection() {
+  function studyProgramSelection() {
     return {
       header: 'Verwendung des Moduls in weiteren Studiengängen',
-      rows: poInput(
+      rows: studyProgramInput(
         dialog,
-        pos,
+        studyPrograms,
         modules, // TODO generic modules only
         attr => currentMultipleSelectionValue(attr, m => m.po.mandatory),
         attr => currentMultipleSelectionValue(attr, m => m.po.optional),
@@ -206,14 +205,14 @@ export function inputs(
     )
   }
 
-  function currentPrerequisitesPOsSelection(attr: string, kind: PrerequisitesKind) {
+  function currentPrerequisitesStudyProgramSelection(attr: string, kind: PrerequisitesKind) {
     return currentMultipleSelectionValue(
       attr,
-      m => pos.filter(x => {
+      m => studyPrograms.filter(sp => {
         const pos = kind === 'required'
           ? m.prerequisites.required?.pos
           : m.prerequisites.recommended?.pos
-        return pos?.some(y => y === x.id)
+        return pos?.some(po => po === sp.po.id)
       }),
     )
   }
@@ -255,7 +254,7 @@ export function inputs(
     assessmentMethodsSection(),
     workloadSection(),
     prerequisitesSection(),
-    poSection(),
+    studyProgramSelection(),
     miscellaneousSection(),
     learningOutcomeContentSection(),
     moduleContentSection(),
