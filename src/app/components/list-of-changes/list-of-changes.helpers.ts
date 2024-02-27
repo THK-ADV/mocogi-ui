@@ -27,7 +27,7 @@ function accessObject<T>(item: T, property: string) {
       .reduce((object, key) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return object[key]
+        return {...object}[key]
       }, item)
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
