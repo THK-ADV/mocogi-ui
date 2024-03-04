@@ -190,6 +190,7 @@ import { StudyProgramPipe } from './pipe/study-program.pipe'
     MatCheckboxModule,
     MatCardModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
     StoreModule.forRoot({
       module: moduleReducer,
       moduleFilter: moduleFilterReducer,

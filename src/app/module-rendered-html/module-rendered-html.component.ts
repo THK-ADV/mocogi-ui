@@ -10,17 +10,32 @@ import { Location as AngularLocation } from '@angular/common'
 })
 export class ModuleRenderedHtmlComponent {
   @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef
+  source = 'Live'
+  loading = false
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly http: HttpService,
     private readonly location: AngularLocation,
   ) {
-    const moduleId: string | null | undefined = this.route.snapshot.paramMap.get('moduleId')
+    const sourceParam = route.snapshot.queryParamMap.get('source')
+    if (sourceParam && sourceParam === 'latest') {
+      this.loading = true
+      this.source = 'Preview'
+    }
+
+    const moduleId: string | null = route.snapshot.paramMap.get('moduleId')
     if (moduleId) {
-      http.moduleDescriptionHtmlFile(moduleId).subscribe((value) => {
-        (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML = value
-      })
+      const moduleHtmlFile$ =
+        this.source === 'Preview'
+          ? http.latestModuleHtmlFile(moduleId)
+          : http.moduleHtmlFile(moduleId)
+      moduleHtmlFile$.subscribe(
+        (value) => {
+          this.loading = false;
+          (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML = value
+        }
+      )
     } else {
       location.back()
     }

@@ -6,7 +6,7 @@ export const MyModulesPageActions = createActionGroup({
   events: {
     'Enter': emptyProps(),
     'Create Module': emptyProps(),
-    'Show Module': props<{ moduleId: string }>(),
+    'Show Latest Module': props<{ moduleId: string }>(),
     'Edit Module': props<{ moduleId: string }>(),
     'Discard Changes': props<{ moduleId: string }>(),
     'Request Review': props<{ moduleId: string }>(),

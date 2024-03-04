@@ -54,10 +54,6 @@ const routes: Routes = [
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
-    path: 'show',
-    component: ModuleRenderedHtmlComponent,
-  },
-  {
     path: '**',
     component: PageNotFoundComponent,
   },

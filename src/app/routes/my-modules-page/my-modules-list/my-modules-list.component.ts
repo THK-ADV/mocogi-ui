@@ -27,8 +27,8 @@ export class MyModulesListComponent {
 
   constructor(private readonly store: Store, private dialog: MatDialog) {}
 
-  showModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.showModule({moduleId}))
+  showLatestModule(moduleId: string) {
+    this.store.dispatch(MyModulesPageActions.showLatestModule({moduleId}))
   }
 
   editModule(moduleId: string) {

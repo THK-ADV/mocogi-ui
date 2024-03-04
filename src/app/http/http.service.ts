@@ -74,8 +74,11 @@ export class HttpService {
   stagingModuleDescriptionById = (id: string): Observable<Module> =>
     this.http.get<Module>(`modules/${id}/preview`)
 
-  moduleDescriptionHtmlFile = (id: string) =>
+  moduleHtmlFile = (id: string) =>
     this.http.request('GET', `modules/${id}/file`, {responseType: 'text'})
+
+  latestModuleHtmlFile = (id: string) =>
+    this.http.request('GET', `modules/${id}/latest/file`, {responseType: 'text'})
 
   // Core Data
 
