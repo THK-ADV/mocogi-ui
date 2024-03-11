@@ -1,6 +1,5 @@
-// import { StudyProgram } from './core/study-program'
 import { Person } from './core/person'
-import { IdLabel } from "./idlabel";
+import { IdLabel } from './idlabel'
 
 export interface TranslatedLabel {
   deLabel: string,
