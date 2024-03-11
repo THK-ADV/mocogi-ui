@@ -29,7 +29,6 @@ export interface MetadataLike {
 }
 
 export interface Metadata extends MetadataLike {
-  id: string,
   title: string,
   abbrev: string,
   moduleType: string,

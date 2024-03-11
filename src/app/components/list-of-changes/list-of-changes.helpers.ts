@@ -10,7 +10,7 @@ export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendiu
   }
 
   return moduleDraftKeys.modifiedKeys.map((modifiedKey) => {
-    const type = getChangeType(modifiedKey.abbrev, moduleCompendium, stagingModuleCompendium)
+    const type = getChangeType(modifiedKey.id, moduleCompendium, stagingModuleCompendium)
     return {
       icon: detailDescriptions[type].icon,
       name: modifiedKey.deLabel,
@@ -27,7 +27,7 @@ function accessObject<T>(item: T, property: string) {
       .reduce((object, key) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return object[key]
+        return {...object}[key]
       }, item)
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

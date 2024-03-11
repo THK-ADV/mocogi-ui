@@ -65,7 +65,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
       attr: this.columns[0].attr,
       disabled: false,
       required: false,
-      data: data[0].filter(d => !data[1].some(dd => dd.method === d.abbrev)),
+      data: data[0].filter(d => !data[1].some(dd => dd.method === d.id)),
       show: showLabel,
     }
     this.percentageInput = {
@@ -134,14 +134,14 @@ export class AssessmentMethodDialogComponent implements OnInit {
     const percentage = this.percentageFormControl.value as number | undefined
     const precondition = this.preconditionFormControl.value as AssessmentMethod | undefined
 
-    if (this.dataSource.data.some(a => a.entry.method === assessmentMethod.abbrev)) {
+    if (this.dataSource.data.some(a => a.entry.method === assessmentMethod.id)) {
       return
     }
 
     const tableContent = this.toTableContent({
-      method: assessmentMethod.abbrev,
+      method: assessmentMethod.id,
       percentage: percentage,
-      precondition: precondition ? [precondition.abbrev] : [],
+      precondition: precondition ? [precondition.id] : [],
     })
 
     this.dataSource.data = [...this.dataSource.data, tableContent]
@@ -151,7 +151,7 @@ export class AssessmentMethodDialogComponent implements OnInit {
 
   delete = (e: TableContent) => {
     this.dataSource.data = this.dataSource.data.filter(a => a.entry.method !== e.entry.method)
-    const am = this.data[0].find(a => a.abbrev === e.entry.method)
+    const am = this.data[0].find(a => a.id === e.entry.method)
     am && this.addOption(am)
   }
 
@@ -203,5 +203,5 @@ export class AssessmentMethodDialogComponent implements OnInit {
     })
 
   lookup = (method: string) =>
-    mapOpt(this.data[0].find(d => d.abbrev === method), showLabel) ?? '???'
+    mapOpt(this.data[0].find(d => d.id === method), showLabel) ?? '???'
 }

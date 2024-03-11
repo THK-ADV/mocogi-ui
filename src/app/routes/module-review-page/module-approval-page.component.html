@@ -1,8 +1,8 @@
 <main>
   <cops-module-form
-    #moduleFormComponent
     *ngIf="moduleForm"
     [moduleForm]="moduleForm"
+    [formGroup]="formGroup"
     mode="REVIEW"
   ></cops-module-form>
 </main>
@@ -11,7 +11,6 @@
     <mat-tab label="Änderungen"><cops-list-of-changes [changedKeys]="modifiedKeys"></cops-list-of-changes></mat-tab>
     <mat-tab label="Kommentare"><cops-list-of-comments [approvals]="approvals"></cops-list-of-comments></mat-tab>
   </mat-tab-group>
-
 
   <cops-module-review-actions
     [approveAction]="approve"

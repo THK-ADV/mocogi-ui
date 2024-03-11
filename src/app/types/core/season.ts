@@ -1,5 +1,5 @@
 export interface Season {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { HttpService } from '../http/http.service'
-import { Observable } from 'rxjs'
 import { Location as AngularLocation } from '@angular/common'
-import { Module } from '../types/moduleCore'
 
 @Component({
   selector: 'cops-module-rendered-html',
@@ -12,21 +10,32 @@ import { Module } from '../types/moduleCore'
 })
 export class ModuleRenderedHtmlComponent {
   @ViewChild('shadowRootContainer') shadowRootDiv?: ElementRef
-  moduleCompendiumHtml?: Observable<string>
-  moduleCompendium?: Observable<Module>
+  source = 'Live'
+  loading = false
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly http: HttpService,
     private readonly location: AngularLocation,
   ) {
-    // TODO: Use ngrx?
-    const moduleId: string | null | undefined = this.route.snapshot.paramMap.get('moduleId')
+    const sourceParam = route.snapshot.queryParamMap.get('source')
+    if (sourceParam && sourceParam === 'latest') {
+      this.loading = true
+      this.source = 'Preview'
+    }
+
+    const moduleId: string | null = route.snapshot.paramMap.get('moduleId')
     if (moduleId) {
-      http.moduleDescriptionHtmlFile(moduleId).subscribe((value) => {
-        (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML= value
-      })
-      this.moduleCompendium = http.moduleDescriptionById(moduleId)
+      const moduleHtmlFile$ =
+        this.source === 'Preview'
+          ? http.latestModuleHtmlFile(moduleId)
+          : http.moduleHtmlFile(moduleId)
+      moduleHtmlFile$.subscribe(
+        (value) => {
+          this.loading = false;
+          (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML = value
+        }
+      )
     } else {
       location.back()
     }

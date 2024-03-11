@@ -8,10 +8,10 @@ import { Router } from '@angular/router'
 @Injectable()
 export class MyModuleEffects {
 
-  showModule$ = createEffect(() => {
+  showLatestModule$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(MyModulesPageActions.showModule),
-        tap(({moduleId}) => this.router.navigate([ '/modules', moduleId ]))
+        ofType(MyModulesPageActions.showLatestModule),
+        tap(({moduleId}) => this.router.navigate(['/modules', moduleId], {queryParams: {source: 'latest'}}))
       )
     },
     {dispatch: false}
@@ -20,14 +20,14 @@ export class MyModuleEffects {
   editModule$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MyModulesPageActions.editModule),
-      tap(({moduleId}) => this.router.navigate([ '/modules', moduleId, 'edit' ]))
+      tap(({moduleId}) => this.router.navigate(['/modules', moduleId, 'edit']))
     )
-  },{ dispatch: false })
+  }, {dispatch: false})
 
   requestReview = createEffect(() => {
     return this.actions$.pipe(
       ofType(MyModulesPageActions.requestReview, MyModulesPageActions.publishModule),
-      exhaustMap(({ moduleId }) => this.service.requestReview(moduleId).pipe(
+      exhaustMap(({moduleId}) => this.service.requestReview(moduleId).pipe(
         map(() => MyModulesPageActions.enter()))
       )
     )
@@ -36,18 +36,18 @@ export class MyModuleEffects {
   cancelReview = createEffect(() => {
     return this.actions$.pipe(
       ofType(MyModulesPageActions.cancelReview),
-      exhaustMap(({ moduleId }) => this.service.cancelReview(moduleId).pipe(
+      exhaustMap(({moduleId}) => this.service.cancelReview(moduleId).pipe(
         map(() => MyModulesPageActions.enter()))
       )
     )
   })
 
   discardChanges = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(MyModulesPageActions.discardChanges),
-      exhaustMap(({ moduleId }) => this.service.deleteDraft(moduleId).pipe(
-        map(() => MyModulesPageActions.enter()))
-      ))
+      return this.actions$.pipe(
+        ofType(MyModulesPageActions.discardChanges),
+        exhaustMap(({moduleId}) => this.service.deleteDraft(moduleId).pipe(
+          map(() => MyModulesPageActions.enter()))
+        ))
     }
   )
 

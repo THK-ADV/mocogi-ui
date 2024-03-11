@@ -19,7 +19,7 @@ export const myModulesReducer = createReducer(
       ...state,
     }
   }),
-  on(MyModulesPageActions.showModule, (state): State => {
+  on(MyModulesPageActions.showLatestModule, (state): State => {
     return {
       ...state,
     }

@@ -1,5 +1,5 @@
 export interface AssessmentMethod {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

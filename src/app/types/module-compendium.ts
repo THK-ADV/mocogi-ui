@@ -21,7 +21,7 @@ export interface POCore {
 
 export interface StudyProgram extends StudyProgramCore {
   po: POCore
-  specialization: LocalizedCore
+  specialization?: LocalizedCore
 }
 
 export interface StudyProgramCore extends LocalizedCore {

@@ -14,6 +14,7 @@ export interface ModuleLike {
 }
 
 export interface Module extends ModuleLike {
+  id: string
   metadata: Metadata
   deContent: Content
   enContent: Content

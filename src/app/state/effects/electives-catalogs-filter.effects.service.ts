@@ -3,23 +3,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { exhaustMap, map } from 'rxjs'
 import { HttpService } from '../../http/http.service'
 import { generateCurrentSemester } from '../../helper/semester.helper'
-import {
-  ElectivesCatalogsFilterAPIActions,
-  ElectivesCatalogsFilterComponentActions,
-} from '../actions/electives-catalogs-filter.actions'
+import { ElectivesCatalogsFilterAPIActions, ElectivesCatalogsFilterComponentActions } from '../actions/electives-catalogs-filter.actions'
 import { ElectivesCatalogsApiActions } from '../actions/electives-catalogues.actions'
 
 @Injectable()
 export class ElectivesCatalogsFilterEffects {
-    fetchSemesters$ = createEffect(() => {
+  fetchSemesters$ = createEffect(() => {
       return this.actions$.pipe(
         ofType(ElectivesCatalogsFilterComponentActions.enter),
         exhaustMap(() => {
-          console.log('PINGPONG')
-          return this.service.getSemesters().pipe(
-            map((semesters) => ElectivesCatalogsFilterAPIActions.retrievedSemestersSuccess({ semesters }))
-          )
-        }
+            return this.service.getSemesters().pipe(
+              map((semesters) => ElectivesCatalogsFilterAPIActions.retrievedSemestersSuccess({semesters}))
+            )
+          }
         )
       )
     }
@@ -28,7 +24,7 @@ export class ElectivesCatalogsFilterEffects {
   updateSelectedSemester$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ElectivesCatalogsFilterComponentActions.selectSemester),
-      exhaustMap(({ semester }) => this.service.allElectivesCatalogues(semester.id).pipe(map((electivesCatalogues) => ElectivesCatalogsApiActions.retrievedElectivesCatalogsSuccess({ electivesCatalogues }))
+      exhaustMap(({semester}) => this.service.allElectivesCatalogues(semester.id).pipe(map((electivesCatalogues) => ElectivesCatalogsApiActions.retrievedElectivesCatalogsSuccess({electivesCatalogues}))
       )))
   })
 

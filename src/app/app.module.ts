@@ -4,7 +4,6 @@ import { AppComponent } from './app.component'
 import { ModuleComponent } from './module/module.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
-import { OwnModulesComponent } from './own-modules/own-modules.component'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
 import { MatInputModule } from '@angular/material/input'
@@ -25,7 +24,6 @@ import { PlainInputComponent } from './form/plain-input/plain-input.component'
 import { ModuleFormComponent } from './form/module-form/module-form.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module'
-import { CreateOrUpdateModuleComponent } from './create-or-update-module/create-or-update-module.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { OptionsInputComponent } from './form/options-input/options-input.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
@@ -86,7 +84,9 @@ import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/modul
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
-import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
+import {
+  ModuleCompendiumListsListComponent,
+} from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
@@ -108,19 +108,17 @@ import { electiveCatalogsReducer } from './state/reducer/electives-catalogs.redu
 import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component'
 import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
 import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
-
+import { StudyProgramPipe } from './pipe/study-program.pipe'
 
 @NgModule({
   declarations: [
     AppComponent,
     ModuleComponent,
-    OwnModulesComponent,
     NavComponent,
     HeaderComponent,
     LineComponent,
     PlainInputComponent,
     ModuleFormComponent,
-    CreateOrUpdateModuleComponent,
     OptionsInputComponent,
     MultipleOptionsInputComponent,
     ReadOnlyInputComponent,
@@ -164,6 +162,7 @@ import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalo
     PermissionsDialogComponent,
     ModuleCompendiumsFilterComponent,
     ElectivesCatalogsFilterComponent,
+    StudyProgramPipe,
   ],
   imports: [
     MatStepperModule,
@@ -191,6 +190,7 @@ import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalo
     MatCheckboxModule,
     MatCardModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
     StoreModule.forRoot({
       module: moduleReducer,
       moduleFilter: moduleFilterReducer,

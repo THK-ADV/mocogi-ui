@@ -14,7 +14,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
   readonly selected: { [id: string]: AssessmentMethodEntry } = {}
 
   constructor(all: Readonly<AssessmentMethod[]>, selected: Readonly<AssessmentMethodEntry[]>) {
-    this.all = arrayToObject(all, a => a.abbrev)
+    this.all = arrayToObject(all, a => a.id)
     this.selected = arrayToObject(selected, a => a.method)
   }
 
@@ -24,7 +24,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
       return []
     }
     if (optionsInput.attr === 'method') {
-      return data.filter(d => !this.selected[d.abbrev])
+      return data.filter(d => !this.selected[d.id])
     } else {
       return data
     }
@@ -59,7 +59,7 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
 
   tableEntryAlreadyExists(controls: { [key: string]: FormControl }): (e: AssessmentMethodEntry) => boolean {
     const assessmentMethod = this.getAssessmentMethodValue(controls)
-    return (entry) => entry.method === assessmentMethod.abbrev
+    return (entry) => entry.method === assessmentMethod.id
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): AssessmentMethodEntry {
@@ -68,9 +68,9 @@ export class AssessmentMethodCallback implements MultipleEditDialogComponentCall
     const precondition = this.getPreconditionValue(controls)
 
     return {
-      method: assessmentMethod.abbrev,
+      method: assessmentMethod.id,
       percentage: percentage,
-      precondition: precondition ? [precondition.abbrev] : [],
+      precondition: precondition ? [precondition.id] : [],
     }
   }
 

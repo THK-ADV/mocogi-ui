@@ -5,14 +5,12 @@ import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { BooleanInput } from '../boolean-input/boolean-input.component'
 import { throwError } from '../../types/error'
 import { NonEmptyArray } from 'src/app/types/non-empty-array'
-import { ModuleProtocol } from '../../types/moduleCore'
-import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 
 export type Language = 'de' | 'en'
 
-export type LocalizedInput<A, B> = { input: FormInput<A, B>, language?: Language}
+export type LocalizedInput<A, B> = { input: FormInput<A, B>, language?: Language }
 
-export type Section<A,B> = {
+export type Section<A, B> = {
   header: string,
   rows: Rows<A, B>
 }
@@ -39,11 +37,10 @@ export class ModuleFormComponent<A, B> implements OnInit {
   @Input() moduleForm!: ModuleForm<A, B>
   @Input() mode!: 'CREATE' | 'UPDATE' | 'REVIEW'
   @Input() onCancel?: () => void
-  @Input() onSubmit?: (moduleCompendiumProtocol: ModuleProtocol) => void
+  @Input() formGroup!: FormGroup
 
   title = ''
   buttonTitle = ''
-  formGroup = new FormGroup({})
 
   ngOnInit() {
     this.buttonTitle = this.moduleForm.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
@@ -52,15 +49,14 @@ export class ModuleFormComponent<A, B> implements OnInit {
       Object.values(section.rows).forEach(row =>
         row.forEach(({input}) => {
           const fc = formControlForInput(input)
-          if (input.disabled || this.mode === 'REVIEW') fc.disable()
+          if (input.disabled || this.mode === 'REVIEW') {
+            fc.disable()
+          }
           this.formGroup.addControl(input.attr, fc)
         })
       )
     )
   }
-
-  moduleCompendiumProtocol = () =>
-    !this.formGroup.valid ? undefined : parseModuleCompendium(this.formGroup.value)
 
   cancel = () =>
     this.onCancel?.()

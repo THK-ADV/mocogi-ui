@@ -1,6 +1,5 @@
-// import { StudyProgram } from './core/study-program'
 import { Person } from './core/person'
-import { StudyProgram } from './module-compendium'
+import { IdLabel } from './idlabel'
 
 export interface TranslatedLabel {
   deLabel: string,
@@ -20,7 +19,7 @@ export type Approval = {
   moduleDraft: string
   role: Role
   status: ApprovalStatus
-  studyProgram: Partial<StudyProgram>
+  studyProgram: IdLabel,
   comment: string,
   respondedBy: Person,
   respondedAt: string

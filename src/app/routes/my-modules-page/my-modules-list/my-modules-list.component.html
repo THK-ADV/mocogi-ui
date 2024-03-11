@@ -4,7 +4,7 @@
     <th mat-header-cell *matHeaderCellDef>
       Modul
     </th>
-    <td mat-cell *matCellDef="let element" (click)="showModule(element.module.id)" [style.color]="tableColor(element)">
+    <td mat-cell *matCellDef="let element" (click)="showLatestModule(element.module.id)" [style.color]="tableColor(element)">
       <span class="clickable">
         {{title(element)}}
       </span>

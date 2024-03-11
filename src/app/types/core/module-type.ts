@@ -1,5 +1,5 @@
 export interface ModuleType {
-  abbrev: string
+  id: string
   deLabel: string
   enLabel: string
 }

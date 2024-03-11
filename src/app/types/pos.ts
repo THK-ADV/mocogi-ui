@@ -6,8 +6,7 @@ export interface POs {
 export interface POMandatory {
   po: string,
   specialization?: string,
-  recommendedSemester: number[],
-  recommendedSemesterPartTime: number[]
+  recommendedSemester: number[]
 }
 
 export interface POOptional {
@@ -16,10 +15,4 @@ export interface POOptional {
   instanceOf: string,
   partOfCatalog: boolean,
   recommendedSemester: number[]
-}
-
-export interface POPreview {
-  id: string
-  label: string
-  abbrev: string
 }
