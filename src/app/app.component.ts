@@ -25,7 +25,7 @@ export class AppComponent {
     { type: 'LINK', text: 'Exams', image: '/assets/icons/exams.svg', url: '', disabled: true },
     { type: 'DIVIDER' },
     { type: 'SPACER' },
-    { type: 'LINK', text: 'Feedback', icon: 'feedback', url: '#', disabled: true },
+    { type: 'LINK', text: 'Feedback', icon: 'feedback', url: 'mailto:schedule-dev@gm.fh-koeln.de?subject=Feedback für COPS (Modules)', disabled: false },
     { type: 'LINK', text: 'Impressum', icon: 'info', url: 'https://www.th-koeln.de/hochschule/impressum_8159.php', disabled: false },
   ]
 }
