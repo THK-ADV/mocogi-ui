@@ -11,6 +11,7 @@ import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lis
 import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
+import { ErrorPageComponent } from "./routes/error-page/error-page.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: 'module-approvals',
     component: ModuleApprovalsPageComponent,
+    ...requireRoles(['professor'], 'any'),
   },
   {
     path: 'modules/:moduleId/approvals/:approvalId',
@@ -52,6 +54,10 @@ const routes: Routes = [
     path: 'modules/:moduleId/edit',
     component: UpdateModulePageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
+  },
+  {
+    path: 'error/:error',
+    component: ErrorPageComponent,
   },
   {
     path: '**',

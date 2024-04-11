@@ -47,7 +47,7 @@ class AuthGuard extends KeycloakAuthGuard {
     }
 
     const condition: RoleCheckingCondition = route.data['condition']
-    return this.checkRoles(requiredRoles, condition)
+    return this.checkRoles(requiredRoles, condition) || this.router.parseUrl('/error/Insufficient permissions')
   }
 
   private checkRoles = (roles: AuthRole[], condition: RoleCheckingCondition): boolean => {

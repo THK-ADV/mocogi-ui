@@ -108,7 +108,8 @@ import { electiveCatalogsReducer } from './state/reducer/electives-catalogs.redu
 import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component'
 import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
 import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
-import { StudyProgramPipe } from './pipe/study-program.pipe'
+import { StudyProgramPipe } from './pipe/study-program.pipe';
+import { ErrorPageComponent } from './routes/error-page/error-page.component'
 
 @NgModule({
   declarations: [
@@ -163,6 +164,7 @@ import { StudyProgramPipe } from './pipe/study-program.pipe'
     ModuleCompendiumsFilterComponent,
     ElectivesCatalogsFilterComponent,
     StudyProgramPipe,
+    ErrorPageComponent,
   ],
   imports: [
     MatStepperModule,
