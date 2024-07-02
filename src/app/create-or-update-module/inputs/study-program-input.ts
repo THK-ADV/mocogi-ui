@@ -31,7 +31,7 @@ export function studyProgramInput(
       label: 'Verwendung in Studiengängen als Pflicht Modul',
       attr: attr,
       disabled: false,
-      required: true,
+      required: false,
       options: studyPrograms,
       show: showPOMandatory,
       initialValue: sps => entries.filter(({po}) => sps.some(sp => sp.po.id === po)),
