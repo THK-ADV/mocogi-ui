@@ -9,7 +9,7 @@ import { AssessmentMethod } from '../../types/core/assessment-method'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { showLabel } from '../../ops/show.instances'
-import {Rows} from '../../form/module-form/module-form.component'
+import { Rows } from '../../form/module-form/module-form.component'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -36,7 +36,7 @@ export function assessmentMethodInput(
       label: label(kind),
       attr: attr,
       disabled: false,
-      required: kind === 'mandatory',
+      required: false,
       options: assessmentMethods,
       show: showAssessmentMethodEntry,
       initialValue: xs => entries.filter(a => xs.some(m => m.id === a.method)),
@@ -97,14 +97,14 @@ export function assessmentMethodInput(
   function label(kind: AssessmentMethodKind): string {
     switch (kind) {
       case 'mandatory':
-        return 'Prüfungsformen für alle Pflicht Studiengänge'
+        return optionalLabel('Prüfungsformen für alle Pflicht Studiengänge')
       case 'optional':
         return optionalLabel('Prüfungsformen für alle als WPF belegbare Studiengänge')
     }
   }
 
   return {
-    'assessment-methods': [{ input: assessmentMethodsMandatoryInput() as FormInput<unknown,unknown> }],
-    'assessment-methods-optional': [{ input: assessmentMethodsOptionalInput() as FormInput<unknown,unknown> }],
+    'assessment-methods': [{input: assessmentMethodsMandatoryInput() as FormInput<unknown, unknown>}],
+    'assessment-methods-optional': [{input: assessmentMethodsOptionalInput() as FormInput<unknown, unknown>}],
   }
 }
