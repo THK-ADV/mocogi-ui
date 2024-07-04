@@ -1,10 +1,17 @@
 <div class="actions">
-  <button type="button" mat-button (click)="cancelAction()">Cancel</button>
-  <button
-    mat-flat-button
-    color="primary"
-    (click)="saveAction()"
-    [disabled]="!isValid()">
-    Save
-  </button>
+  <button #cancelButton type="button" mat-button (click)="cancelAction()">Cancel</button>
+  <mat-spinner
+    *ngIf="updateInProcess_; else showButton"
+    [diameter]="spinnerDiameter"
+    strokeWidth="2">
+  </mat-spinner>
+  <ng-template #showButton>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="saveAction()"
+      [disabled]="!isValid()">
+      Save
+    </button>
+  </ng-template>
 </div>

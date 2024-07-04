@@ -109,6 +109,8 @@ import { ElectivesCatalogsFilterComponent } from './components/electives-catalog
 import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
 import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
 import { StudyProgramPipe } from './pipe/study-program.pipe'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { newModuleReducer } from './state/reducer/new-module.reducer'
 
 @NgModule({
   declarations: [
@@ -196,6 +198,7 @@ import { StudyProgramPipe } from './pipe/study-program.pipe'
       moduleFilter: moduleFilterReducer,
       myModules: myModulesReducer,
       updateModule: updateModuleReducer,
+      newModule: newModuleReducer,
       permissionDialog: permissionsDialogReducer,
       moduleCatalogs: moduleCatalogsReducer,
       moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
@@ -228,6 +231,7 @@ import { StudyProgramPipe } from './pipe/study-program.pipe'
     MatSidenavModule,
     MatMenuModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {
