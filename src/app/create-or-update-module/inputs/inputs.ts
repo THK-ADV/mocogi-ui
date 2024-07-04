@@ -227,7 +227,7 @@ export function inputs(
   function currentGlobalCriteriaSelection(attr: string) {
     return currentMultipleSelectionValue(
       attr,
-      m => globalCriteria.filter(g => m.globalCriteria.some(x => x === g.abbrev)),
+      m => globalCriteria.filter(g => m.globalCriteria.some(x => x === g.id)),
     )
   }
 
