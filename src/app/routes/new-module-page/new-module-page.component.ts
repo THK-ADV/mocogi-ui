@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ModuleProtocol } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
@@ -9,15 +9,17 @@ import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
 import { NewModulePageActions } from '../../state/actions/new-module-page.actions'
 import { FormGroup } from '@angular/forms'
+import { selectUpdateInProcess } from '../../state/selectors/new-module.selector'
 
 @Component({
   selector: 'cops-new-module-page',
   templateUrl: './new-module-page.component.html',
   styleUrls: ['./new-module-page.component.css'],
 })
-export class NewModulePageComponent {
+export class NewModulePageComponent implements OnInit {
   moduleForm?: ModuleForm<unknown, unknown>
   formGroup = new FormGroup({})
+  updateInProcess$ = this.store.select(selectUpdateInProcess)
 
   constructor(private store: Store, private http: HttpService, private dialog: MatDialog) {
     zip([
@@ -65,6 +67,10 @@ export class NewModulePageComponent {
         ),
       }
     })
+  }
+
+  ngOnInit() {
+    this.store.dispatch(NewModulePageActions.enter())
   }
 
   isValid = () =>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { catchError, EMPTY, Observable } from 'rxjs'
+import { catchError, Observable } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { AlertService } from '../alert/alert.service'
 import { Alert } from '../alert/alert'
@@ -14,11 +14,6 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.handleError(next.handle(this.prefixBackendUrl(request)))
   }
-
-  // private log = (request: HttpRequest<unknown>): HttpRequest<unknown> => {
-  //   console.log(request.url)
-  //   return request
-  // }
 
   private prefixBackendUrl = (request: HttpRequest<unknown>): HttpRequest<unknown> =>
     request.clone({
@@ -51,6 +46,6 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
         console.error(`Backend returned code ${error.status}, body was: `, error.error)
       }
     }
-    return EMPTY
+    throw error
   }
 }

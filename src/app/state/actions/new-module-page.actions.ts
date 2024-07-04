@@ -10,7 +10,7 @@ export const NewModulePageActions = createActionGroup({
   },
 })
 
-export const UpdateModuleApiActions = createActionGroup({
+export const NewModuleApiActions = createActionGroup({
   source: 'New Module API',
   events: {
     'Saved Changes Success': emptyProps(),
