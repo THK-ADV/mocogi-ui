@@ -28,7 +28,7 @@ export function studyProgramInput(
     const entries = currentMandatoryEntries(attr)
     return {
       kind: 'read-only',
-      label: 'Verwendung in Studiengängen als Pflicht Modul',
+      label: optionalLabel('Verwendung in Studiengängen als Pflicht Modul'),
       attr: attr,
       disabled: false,
       required: false,
