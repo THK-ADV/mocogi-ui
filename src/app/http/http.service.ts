@@ -22,6 +22,7 @@ import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
 import { ModuleCatalog, Semester, StudyProgram, StudyProgramCore } from '../types/module-compendium'
 import { ElectivesCatalogue } from '../types/electivesCatalogues'
+import { GenericModuleCore } from '../types/genericModuleCore'
 
 export interface ModuleDraftJson {
   module: string
@@ -65,6 +66,9 @@ export class HttpService {
 
   allModules = (): Observable<ModuleCore[]> =>
     this.http.get<ModuleCore[]>('modules')
+
+  allGenericModules = (): Observable<GenericModuleCore[]> =>
+    this.http.get<GenericModuleCore[]>('modules?type=generic')
 
   // Module Compendium
 

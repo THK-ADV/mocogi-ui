@@ -22,6 +22,7 @@ export class NewModulePageComponent {
   constructor(private store: Store, private http: HttpService, private dialog: MatDialog) {
     zip([
       http.allModules(),
+      http.allGenericModules(),
       http.allModuleTypes(),
       http.allSeasons(),
       http.allLanguages(),
@@ -34,6 +35,7 @@ export class NewModulePageComponent {
       http.allStudyPrograms(),
     ]).subscribe(([
                     modules,
+                    genericModules,
                     moduleTypes,
                     seasons,
                     languages,
@@ -50,6 +52,7 @@ export class NewModulePageComponent {
         editType: 'create',
         sections: inputs(
           modules,
+          genericModules,
           moduleTypes,
           languages,
           seasons,

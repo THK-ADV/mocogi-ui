@@ -5,19 +5,19 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
 import { POOptional } from '../../types/pos'
-import { ModuleCore } from '../../types/moduleCore'
 import { showRecommendedSemester, showStudyProgram } from '../../ops/show.instances'
 import { StudyProgram } from '../../types/module-compendium'
+import { GenericModuleCore } from '../../types/genericModuleCore'
 
 export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, StudyProgram> {
   readonly all: { [id: string]: StudyProgram } = {}
   readonly selected: { [id: string]: POOptional } = {}
-  readonly genericModules: { [id: string]: ModuleCore } = {}
+  readonly genericModules: { [id: string]: GenericModuleCore } = {}
 
   constructor(
     all: Readonly<StudyProgram[]>,
     selected: Readonly<POOptional[]>,
-    genericModules: Readonly<ModuleCore>[],
+    genericModules: Readonly<GenericModuleCore>[],
   ) {
     this.all = arrayToObject(all, a => a.po.id)
     this.selected = arrayToObject(selected, a => a.po)
@@ -86,22 +86,42 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void {
+  onValidate(controls: { [key: string]: FormControl }): void {
     return
   }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
-    return !this.validPO(controls['po'].value) ||
-      !this.validInstanceOf(controls['instance-of'].value) ||
-      !this.validPartOfCatalog(controls['part-of-catalog'].value) ||
-      !this.validRecommendedSemester(controls['recommended-semester'].value)
+    const isValidPO = this.validPO(controls['po'].value)
+    const isValidInstanceOf = this.validInstanceOf(controls['instance-of'].value)
+    let isMatchingPO = false
+
+    if (isValidPO && isValidInstanceOf) {
+      const {po} = this.getStudyProgramValue(controls)
+      const {pos} = this.getInstanceOfValue(controls)
+      isMatchingPO = pos.some(p => po.id === p)
+      if (!isMatchingPO) {
+        const error = {nonMatchingPO: 'Studiengang stimmt nicht mit gewählter Instanz überein'}
+        controls['po'].setErrors(error, {emitEvent: true})
+        controls['instance-of'].setErrors(error, {emitEvent: true})
+      } else {
+        controls['po'].setErrors(null, {emitEvent: true})
+        controls['instance-of'].setErrors(null, {emitEvent: true})
+      }
+    }
+
+    const isInvalid = !isValidPO ||
+      !isValidInstanceOf ||
+    !this.validPartOfCatalog(controls['part-of-catalog'].value) ||
+    !this.validRecommendedSemester(controls['recommended-semester'].value)
+
+    return isInvalid || !isMatchingPO
   }
 
   private validPO = (value: unknown) =>
-    validMandatoryObject(value)
+    validMandatoryObject(value) && typeof value === 'object'
 
   private validInstanceOf = (value: unknown) =>
-    validMandatoryObject(value)
+    validMandatoryObject(value) && typeof value === 'object'
 
   private validPartOfCatalog = (value: unknown) =>
     validMandatoryBoolean(value)
@@ -118,7 +138,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     controls['po'].value as StudyProgram
 
   private getInstanceOfValue = (controls: { [p: string]: FormControl }) =>
-    controls['instance-of'].value as ModuleCore
+    controls['instance-of'].value as GenericModuleCore
 
   private getPartOfCatalogValue = (controls: { [p: string]: FormControl }) =>
     controls['part-of-catalog'].value as boolean
