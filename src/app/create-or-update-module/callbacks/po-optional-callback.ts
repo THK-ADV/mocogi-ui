@@ -10,8 +10,8 @@ import { StudyProgram } from '../../types/module-compendium'
 import { GenericModuleCore } from '../../types/genericModuleCore'
 
 export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, StudyProgram> {
-  readonly all: { [id: string]: StudyProgram } = {}
-  readonly selected: { [id: string]: POOptional } = {}
+  readonly all: Readonly<StudyProgram[]>
+  readonly selected: Readonly<POOptional[]>
   readonly genericModules: { [id: string]: GenericModuleCore } = {}
 
   constructor(
@@ -19,9 +19,18 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     selected: Readonly<POOptional[]>,
     genericModules: Readonly<GenericModuleCore>[],
   ) {
-    this.all = arrayToObject(all, a => a.po.id)
-    this.selected = arrayToObject(selected, a => a.po)
+    this.all = all
+    this.selected = selected
     this.genericModules = arrayToObject(genericModules, a => a.id)
+  }
+
+  isSamePOEntry(sp: StudyProgram, poOptional: POOptional): boolean {
+    const samePO = sp.po.id === poOptional.po
+    if (sp.specialization && poOptional.specialization) {
+      return samePO && sp.specialization.id === poOptional.specialization
+    } else {
+      return samePO
+    }
   }
 
   filterInitialOptionsForComponent(optionsInput: OptionsInput<StudyProgram>): StudyProgram[] {
@@ -30,21 +39,21 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       return []
     }
     if (optionsInput.attr === 'po') {
-      return data.filter(d => !this.selected[d.id])
+      return data.filter(sp => !this.selected.some(po => this.isSamePOEntry(sp, po)))
     } else {
       return data
     }
   }
 
   addOptionToOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find(a => a.input.attr === 'po')
     studyProgram && component && component.addOption(studyProgram)
     component?.reset()
   }
 
   removeOptionFromOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find(a => a.input.attr === 'po')
     studyProgram && component && component.removeOption(studyProgram)
     component?.reset()
@@ -53,7 +62,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   tableContent(tableEntry: POOptional, attr: string): string {
     switch (attr) {
       case 'po':
-        return this.lookupLabel(tableEntry.po)
+        return this.lookupLabel(tableEntry)
       case 'instance-of':
         return this.genericModules[tableEntry.instanceOf].title
       case 'part-of-catalog':
@@ -67,7 +76,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
 
   tableEntryAlreadyExists(controls: { [key: string]: FormControl }): (e: POOptional) => boolean {
     const studyProgram = this.getStudyProgramValue(controls)
-    return ({po}) => po === studyProgram.po.id
+    return (po) => this.isSamePOEntry(studyProgram, po)
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): POOptional {
@@ -143,11 +152,11 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   private getPartOfCatalogValue = (controls: { [p: string]: FormControl }) =>
     controls['part-of-catalog'].value as boolean
 
-  private lookup = (id: string): StudyProgram | undefined =>
-    this.all[id]
+  private lookup = (option: POOptional): StudyProgram | undefined =>
+    this.all.find((sp => this.isSamePOEntry(sp, option)))
 
-  private lookupLabel = (id: string): string => {
-    const sp = this.lookup(id)
-    return sp ? showStudyProgram(sp) : id
+  private lookupLabel = (po: POOptional): string => {
+    const sp = this.lookup(po)
+    return sp ? showStudyProgram(sp) : po.po
   }
 }
