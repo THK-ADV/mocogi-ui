@@ -3,7 +3,7 @@ import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { FormControl, FormGroup } from '@angular/forms'
 import { MatTableDataSource } from '@angular/material/table'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { asOptionsInput, formControlForInput, FormInput, FormInputLike, isOptionsInput } from '../form-input'
+import { asOptionsInput, formControlForInput, FormInput, FormInputLike, isBooleanInput, isOptionsInput } from '../form-input'
 import { NonEmptyArray } from '../../types/non-empty-array'
 import { NumberInput, TextInput } from '../plain-input/plain-input.component'
 import { OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
@@ -164,8 +164,11 @@ export class MultipleEditDialogComponent<TableEntry, A, B> implements OnDestroy 
       return
     }
     for (const key in this.inputs) {
-      const [, fc] = this.inputs[key]
-      fc.setValue('', {emitEvent: true})
+      const [i, fc] = this.inputs[key]
+      fc.reset('', {emitEvent: true})
+      if (isBooleanInput(i)) {
+        fc.setValue(false, {emitEvent: true})
+      }
     }
   }
 }

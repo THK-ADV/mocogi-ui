@@ -111,8 +111,8 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
 
     const isInvalid = !isValidPO ||
       !isValidInstanceOf ||
-    !this.validPartOfCatalog(controls['part-of-catalog'].value) ||
-    !this.validRecommendedSemester(controls['recommended-semester'].value)
+      !this.validPartOfCatalog(controls['part-of-catalog'].value) ||
+      !this.validRecommendedSemester(controls['recommended-semester'].value)
 
     return isInvalid || !isMatchingPO
   }

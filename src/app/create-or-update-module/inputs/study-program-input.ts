@@ -100,8 +100,8 @@ export function studyProgramInput(
     const columns = [
       studyProgramColumn,
       {attr: 'instance-of', title: 'Instanz von'},
-      {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
+      {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -118,21 +118,21 @@ export function studyProgramInput(
           required: false,
           data: genericModules,
           show: ({title, pos}) => {
-              const poStr = pos
-                .map(po => mapOpt(studyPrograms.find(sp => sp.po.id === po), showStudyProgram) ?? po)
-                .join(', ')
+            const poStr = pos
+              .map(po => mapOpt(studyPrograms.find(sp => sp.po.id === po), showStudyProgram) ?? po)
+              .join(', ')
             return `${title} (${poStr})`
           },
         },
         {
-          kind: 'boolean',
+          kind: 'text',
           label: requiredLabel(columns[2].title),
           attr: columns[2].attr,
           disabled: false,
           required: false,
         },
         {
-          kind: 'text',
+          kind: 'boolean',
           label: requiredLabel(columns[3].title),
           attr: columns[3].attr,
           disabled: false,
