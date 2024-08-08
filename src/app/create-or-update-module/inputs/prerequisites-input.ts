@@ -1,4 +1,4 @@
-import { TextAreaInput } from '../../form/plain-input/plain-input.component'
+import {  TextInput } from '../../form/plain-input/plain-input.component'
 import { optionalLabel, requiredLabel } from './inputs'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -23,11 +23,11 @@ export function prerequisitesInputs(
   currentStudyProgram: (attr: string, kind: PrerequisitesKind) => StudyProgram[],
   prerequisites?: PrerequisitesOutput,
 ): Rows<unknown, unknown> {
-  function requiredPrerequisitesText(): TextAreaInput {
+  function requiredPrerequisitesText(): TextInput {
     return text('required', prerequisites?.required?.text)
   }
 
-  function recommendedPrerequisitesText(): TextAreaInput {
+  function recommendedPrerequisitesText(): TextInput {
     return text('recommended', prerequisites?.recommended?.text)
   }
 
@@ -47,9 +47,9 @@ export function prerequisitesInputs(
     return studyProgramsInput('recommended')
   }
 
-  function text(kind: PrerequisitesKind, initialValue?: string): TextAreaInput {
+  function text(kind: PrerequisitesKind, initialValue?: string): TextInput {
     return {
-      kind: 'text-area',
+      kind: 'text',
       label: optionalLabel(`${labelPrefix(kind)} Freitext`),
       attr: `${kind}-prerequisites-text`,
       disabled: false,
