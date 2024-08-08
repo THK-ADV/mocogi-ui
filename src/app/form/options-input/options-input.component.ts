@@ -85,8 +85,15 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
   displayFn = (value?: A): string =>
     (value && this.input.show(value)) ?? ''
 
-  getErrorMessage = () =>
-    requiredError(this.formControl, this.input) ?? optionsError(this.formControl)
+  getErrorMessage = (): string | undefined => {
+    if (!this.formControl.errors) {
+      return undefined
+    }
+    return requiredError(this.formControl, this.input) ??
+      optionsError(this.formControl) ??
+      Object.values(this.formControl.errors).join('. ')
+  }
+
 
   // Public API
 

@@ -5,23 +5,32 @@ import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { validMandatoryBoolean, validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
 import { POOptional } from '../../types/pos'
-import { ModuleCore } from '../../types/moduleCore'
 import { showRecommendedSemester, showStudyProgram } from '../../ops/show.instances'
 import { StudyProgram } from '../../types/module-compendium'
+import { GenericModuleCore } from '../../types/genericModuleCore'
 
 export class PoOptionalCallback implements MultipleEditDialogComponentCallback<POOptional, StudyProgram> {
-  readonly all: { [id: string]: StudyProgram } = {}
-  readonly selected: { [id: string]: POOptional } = {}
-  readonly genericModules: { [id: string]: ModuleCore } = {}
+  readonly all: Readonly<StudyProgram[]>
+  readonly selected: Readonly<POOptional[]>
+  readonly genericModules: { [id: string]: GenericModuleCore } = {}
 
   constructor(
     all: Readonly<StudyProgram[]>,
     selected: Readonly<POOptional[]>,
-    genericModules: Readonly<ModuleCore>[],
+    genericModules: Readonly<GenericModuleCore>[],
   ) {
-    this.all = arrayToObject(all, a => a.po.id)
-    this.selected = arrayToObject(selected, a => a.po)
+    this.all = all
+    this.selected = selected
     this.genericModules = arrayToObject(genericModules, a => a.id)
+  }
+
+  isSamePOEntry(sp: StudyProgram, poOptional: POOptional): boolean {
+    const samePO = sp.po.id === poOptional.po
+    if (sp.specialization && poOptional.specialization) {
+      return samePO && sp.specialization.id === poOptional.specialization
+    } else {
+      return samePO
+    }
   }
 
   filterInitialOptionsForComponent(optionsInput: OptionsInput<StudyProgram>): StudyProgram[] {
@@ -30,21 +39,21 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       return []
     }
     if (optionsInput.attr === 'po') {
-      return data.filter(d => !this.selected[d.id])
+      return data.filter(sp => !this.selected.some(po => this.isSamePOEntry(sp, po)))
     } else {
       return data
     }
   }
 
   addOptionToOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find(a => a.input.attr === 'po')
     studyProgram && component && component.addOption(studyProgram)
     component?.reset()
   }
 
   removeOptionFromOptionsInputComponent(option: POOptional, components: QueryList<OptionsInputComponent<unknown>>): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find(a => a.input.attr === 'po')
     studyProgram && component && component.removeOption(studyProgram)
     component?.reset()
@@ -53,7 +62,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   tableContent(tableEntry: POOptional, attr: string): string {
     switch (attr) {
       case 'po':
-        return this.lookupLabel(tableEntry.po)
+        return this.lookupLabel(tableEntry)
       case 'instance-of':
         return this.genericModules[tableEntry.instanceOf].title
       case 'part-of-catalog':
@@ -67,7 +76,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
 
   tableEntryAlreadyExists(controls: { [key: string]: FormControl }): (e: POOptional) => boolean {
     const studyProgram = this.getStudyProgramValue(controls)
-    return ({po}) => po === studyProgram.po.id
+    return (po) => this.isSamePOEntry(studyProgram, po)
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): POOptional {
@@ -86,22 +95,42 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void {
+  onValidate(controls: { [key: string]: FormControl }): void {
     return
   }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
-    return !this.validPO(controls['po'].value) ||
-      !this.validInstanceOf(controls['instance-of'].value) ||
+    const isValidPO = this.validPO(controls['po'].value)
+    const isValidInstanceOf = this.validInstanceOf(controls['instance-of'].value)
+    let isMatchingPO = false
+
+    if (isValidPO && isValidInstanceOf) {
+      const {po} = this.getStudyProgramValue(controls)
+      const {pos} = this.getInstanceOfValue(controls)
+      isMatchingPO = pos.some(p => po.id === p)
+      if (!isMatchingPO) {
+        const error = {nonMatchingPO: 'Studiengang stimmt nicht mit gewählter Instanz überein'}
+        controls['po'].setErrors(error, {emitEvent: true})
+        controls['instance-of'].setErrors(error, {emitEvent: true})
+      } else {
+        controls['po'].setErrors(null, {emitEvent: true})
+        controls['instance-of'].setErrors(null, {emitEvent: true})
+      }
+    }
+
+    const isInvalid = !isValidPO ||
+      !isValidInstanceOf ||
       !this.validPartOfCatalog(controls['part-of-catalog'].value) ||
       !this.validRecommendedSemester(controls['recommended-semester'].value)
+
+    return isInvalid || !isMatchingPO
   }
 
   private validPO = (value: unknown) =>
-    validMandatoryObject(value)
+    validMandatoryObject(value) && typeof value === 'object'
 
   private validInstanceOf = (value: unknown) =>
-    validMandatoryObject(value)
+    validMandatoryObject(value) && typeof value === 'object'
 
   private validPartOfCatalog = (value: unknown) =>
     validMandatoryBoolean(value)
@@ -118,16 +147,16 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
     controls['po'].value as StudyProgram
 
   private getInstanceOfValue = (controls: { [p: string]: FormControl }) =>
-    controls['instance-of'].value as ModuleCore
+    controls['instance-of'].value as GenericModuleCore
 
   private getPartOfCatalogValue = (controls: { [p: string]: FormControl }) =>
     controls['part-of-catalog'].value as boolean
 
-  private lookup = (id: string): StudyProgram | undefined =>
-    this.all[id]
+  private lookup = (option: POOptional): StudyProgram | undefined =>
+    this.all.find((sp => this.isSamePOEntry(sp, option)))
 
-  private lookupLabel = (id: string): string => {
-    const sp = this.lookup(id)
-    return sp ? showStudyProgram(sp) : id
+  private lookupLabel = (po: POOptional): string => {
+    const sp = this.lookup(po)
+    return sp ? showStudyProgram(sp) : po.po
   }
 }

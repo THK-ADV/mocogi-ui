@@ -27,6 +27,7 @@ import { Competence } from '../../types/core/competence'
 import { ModuleCore, ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
+import { GenericModuleCore } from '../../types/genericModuleCore'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -38,6 +39,7 @@ export type Lang = 'de' | 'en'
 
 export function inputs(
   modules: ModuleCore[],
+  genericModules: GenericModuleCore[],
   moduleTypes: ModuleType[],
   languages: Language[],
   seasons: Season[],
@@ -117,7 +119,7 @@ export function inputs(
       rows: studyProgramInput(
         dialog,
         studyPrograms,
-        modules, // TODO generic modules only
+        genericModules,
         attr => currentMultipleSelectionValue(attr, m => m.po.mandatory),
         attr => currentMultipleSelectionValue(attr, m => m.po.optional),
       ),

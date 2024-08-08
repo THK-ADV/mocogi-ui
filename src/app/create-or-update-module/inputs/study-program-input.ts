@@ -5,17 +5,18 @@ import { optionalLabel, requiredLabel } from './inputs'
 import { PoMandatoryCallback } from '../callbacks/po-mandatory-callback'
 import { PoOptionalCallback } from '../callbacks/po-optional-callback'
 import { POMandatory, POOptional } from '../../types/pos'
-import { ModuleCore } from '../../types/moduleCore'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { Rows } from '../../form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
 import { showStudyProgram } from '../../ops/show.instances'
+import { GenericModuleCore } from '../../types/genericModuleCore'
+import { mapOpt } from '../../ops/undefined-ops'
 
 export function studyProgramInput(
   dialog: MatDialog,
   studyPrograms: StudyProgram[],
-  genericModules: ModuleCore[],
+  genericModules: GenericModuleCore[],
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
 ): Rows<unknown, unknown> {
@@ -99,8 +100,8 @@ export function studyProgramInput(
     const columns = [
       studyProgramColumn,
       {attr: 'instance-of', title: 'Instanz von'},
-      {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
       {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
+      {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -109,24 +110,29 @@ export function studyProgramInput(
       dialogTitle,
       [
         studyProgramOptionsInput(),
-        <OptionsInput<ModuleCore>>{
+        <OptionsInput<GenericModuleCore>>{
           kind: 'options',
           label: requiredLabel(columns[1].title),
           attr: columns[1].attr,
           disabled: false,
           required: false,
           data: genericModules,
-          show: (a) => a.title,
+          show: ({title, pos}) => {
+            const poStr = pos
+              .map(po => mapOpt(studyPrograms.find(sp => sp.po.id === po), showStudyProgram) ?? po)
+              .join(', ')
+            return `${title} (${poStr})`
+          },
         },
         {
-          kind: 'boolean',
+          kind: 'text',
           label: requiredLabel(columns[2].title),
           attr: columns[2].attr,
           disabled: false,
           required: false,
         },
         {
-          kind: 'text',
+          kind: 'boolean',
           label: requiredLabel(columns[3].title),
           attr: columns[3].attr,
           disabled: false,

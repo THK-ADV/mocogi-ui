@@ -52,6 +52,7 @@ export class UpdateModulePageComponent {
       http.moduleDraftKeys(this.moduleId),
       http.getApprovals(this.moduleId),
       http.allModules(),
+      http.allGenericModules(),
       http.allModuleTypes(),
       http.allSeasons(),
       http.allLanguages(),
@@ -68,6 +69,7 @@ export class UpdateModulePageComponent {
                     moduleDraftKeys,
                     approvals,
                     modules,
+                    genericModules,
                     moduleTypes,
                     seasons,
                     languages,
@@ -84,6 +86,7 @@ export class UpdateModulePageComponent {
         editType: 'update',
         sections: inputs(
           modules,
+          genericModules,
           moduleTypes,
           languages,
           seasons,

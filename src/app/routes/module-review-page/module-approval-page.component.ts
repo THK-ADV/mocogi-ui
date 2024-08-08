@@ -36,6 +36,7 @@ export class ModuleApprovalPageComponent {
       http.moduleDraftKeys(this.moduleId),
       http.getApprovals(this.moduleId),
       http.allModules(),
+      http.allGenericModules(),
       http.allModuleTypes(),
       http.allSeasons(),
       http.allLanguages(),
@@ -52,6 +53,7 @@ export class ModuleApprovalPageComponent {
                     moduleDraftKeys,
                     approvals,
                     modules,
+                    genericModules,
                     moduleTypes,
                     seasons,
                     languages,
@@ -68,6 +70,7 @@ export class ModuleApprovalPageComponent {
         editType: 'update',
         sections: inputs(
           modules,
+          genericModules,
           moduleTypes,
           languages,
           seasons,
