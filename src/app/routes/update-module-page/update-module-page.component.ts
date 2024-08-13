@@ -6,7 +6,6 @@ import { ModuleForm, ModuleFormComponent } from 'src/app/form/module-form/module
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
 import { zip } from 'rxjs'
-import { Module } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -14,6 +13,7 @@ import { ChangeLogItem } from '../../types/changes'
 import { Approval } from '../../types/approval'
 import { FormGroup } from '@angular/forms'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
+import { selectUpdateInProcess } from '../../state/selectors/update-module.selector'
 
 @Component({
   selector: 'cops-update-module-page',
@@ -27,8 +27,8 @@ export class UpdateModulePageComponent {
   moduleForm?: ModuleForm<unknown, unknown>
   modifiedKeys: Array<ChangeLogItem> = []
   approvals: ReadonlyArray<Approval> = []
-  stagingModuleCompendium?: Module
   formGroup = new FormGroup({})
+  updateInProcess$ = this.store.select(selectUpdateInProcess)
 
   isValid = (): boolean =>
     this.formGroup.valid ?? false
