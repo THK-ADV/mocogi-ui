@@ -35,6 +35,7 @@ export class NewModulePageComponent implements OnInit {
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
+      http.allExamPhases(),
     ]).subscribe(([
                     modules,
                     genericModules,
@@ -48,6 +49,7 @@ export class NewModulePageComponent implements OnInit {
                     competencies,
                     globalCriteria,
                     studyPrograms,
+                    examPhases,
                   ]) => {
       this.moduleForm = {
         objectName: 'New Module',
@@ -65,6 +67,7 @@ export class NewModulePageComponent implements OnInit {
           [...studyPrograms],
           competencies,
           globalCriteria,
+          examPhases,
           dialog,
           (attr) => this.formGroup.get(attr)?.value,
         ),

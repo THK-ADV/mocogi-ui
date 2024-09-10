@@ -21,6 +21,7 @@ import {
   parseString,
 } from '../parser/record-parser'
 import { FormGroup } from '@angular/forms'
+import { Examiner } from './examiner'
 
 export function parseNestedId(key: string, record: Record<string, unknown>): string {
   return parsePeekString([key, 'id'], record)
@@ -215,6 +216,17 @@ export function parseTaughtWith(record: Record<string, unknown>): string[] {
   return parsePeekArray(['taught-with', 'value', 'id'], record)
 }
 
+export function parseExamPhases(record: Record<string, unknown>): string[] {
+  return parsePeekArray(['exam-phases', 'value', 'id'], record)
+}
+
+export function parseExaminer(record: Record<string, unknown>): Examiner {
+  return {
+    first: parseNestedId('first-examiner', record),
+    second: parseNestedId('second-examiner', record),
+  }
+}
+
 export function parseMetadata(record: Record<string, unknown>): MetadataProtocol {
   return {
     title: parseTitle(record),
@@ -237,6 +249,8 @@ export function parseMetadata(record: Record<string, unknown>): MetadataProtocol
     competences: parseCompetences(record),
     globalCriteria: parseGlobalCriteria(record),
     taughtWith: parseTaughtWith(record),
+    examPhases: parseExamPhases(record),
+    examiner: parseExaminer(record),
   }
 }
 

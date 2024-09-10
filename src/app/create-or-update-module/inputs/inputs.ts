@@ -1,6 +1,6 @@
 import { simpleInput } from './simple-inputs'
 import { responsibilityInput } from './responsibility-input'
-import { assessmentMethodInput, AssessmentMethodKind } from './assessment-method-input'
+import { assessmentInput, AssessmentMethodKind } from './assessment-input'
 import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
@@ -28,6 +28,7 @@ import { ModuleCore, ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
 import { GenericModuleCore } from '../../types/genericModuleCore'
+import { ExamPhase } from '../../types/core/exam-phase'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -45,11 +46,12 @@ export function inputs(
   seasons: Season[],
   locations: Location[],
   status: Status[],
-  persons: Identity[],
+  identities: Identity[],
   assessmentMethods: AssessmentMethod[],
   studyPrograms: StudyProgram[],
   competences: Competence[],
   globalCriteria: GlobalCriteria[],
+  examPhases: ExamPhase[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => unknown,
   moduleCompendium?: ModuleLike,
@@ -81,14 +83,22 @@ export function inputs(
   function responsibilitySection() {
     return {
       header: 'Verantwortliche',
-      rows: responsibilityInput(dialog, persons, currentLecturerSelection, metadata?.moduleManagement),
+      rows: responsibilityInput(dialog, identities, currentLecturerSelection, metadata?.moduleManagement),
     }
   }
 
-  function assessmentMethodsSection(): Section<unknown, unknown> {
+  function assessmentSection() {
     return {
-      header: 'Prüfungsformen',
-      rows: assessmentMethodInput(dialog, assessmentMethods, currentAssessmentMethodEntrySelection),
+      header: 'Prüfungsleistungen',
+      rows: assessmentInput(
+        dialog,
+        assessmentMethods,
+        currentAssessmentMethodEntrySelection,
+        examPhases,
+        currentExamPhasesSelection,
+        identities,
+        metadata
+      ),
     }
   }
 
@@ -191,7 +201,14 @@ export function inputs(
   function currentLecturerSelection(attr: string) {
     return currentMultipleSelectionValue(
       attr,
-      m => persons.filter(p => m.lecturers.some(l => l === p.id)),
+      m => identities.filter(p => m.lecturers.some(l => l === p.id)),
+    )
+  }
+
+  function currentExamPhasesSelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      m => examPhases.filter(p => m.examPhases.includes(p.id)),
     )
   }
 
@@ -253,7 +270,7 @@ export function inputs(
   return [
     generalInformationSection(),
     responsibilitySection(),
-    assessmentMethodsSection(),
+    assessmentSection(),
     workloadSection(),
     prerequisitesSection(),
     studyProgramSelection(),
