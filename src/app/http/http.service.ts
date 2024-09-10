@@ -23,6 +23,7 @@ import { Approval } from '../types/approval'
 import { ModuleCatalog, Semester, StudyProgram, StudyProgramCore } from '../types/module-compendium'
 import { ElectivesCatalogue } from '../types/electivesCatalogues'
 import { GenericModuleCore } from '../types/genericModuleCore'
+import { ExamPhase } from '../types/core/exam-phase'
 
 export interface ModuleDraftJson {
   module: string
@@ -115,6 +116,9 @@ export class HttpService {
 
   allCompetences = (): Observable<Competence[]> =>
     this.http.get<Competence[]>('competences')
+
+  allExamPhases = (): Observable<ExamPhase[]> =>
+    this.http.get<ExamPhase[]>('examPhases')
 
   // Draft
 

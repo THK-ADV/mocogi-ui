@@ -47,6 +47,7 @@ export class ModuleApprovalPageComponent {
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
+      http.allExamPhases(),
     ]).subscribe(([
                     moduleCompendium,
                     stagingModuleCompendium,
@@ -64,6 +65,7 @@ export class ModuleApprovalPageComponent {
                     competencies,
                     globalCriteria,
                     studyPrograms,
+                    examPhases,
                   ]) => {
       this.moduleForm = {
         objectName: moduleCompendium.metadata.title,
@@ -81,6 +83,7 @@ export class ModuleApprovalPageComponent {
           [...studyPrograms],
           competencies,
           globalCriteria,
+          examPhases,
           dialog,
           (attr) => this.formGroup.get(attr)?.value,
           moduleCompendium,

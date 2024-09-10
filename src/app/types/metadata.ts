@@ -4,6 +4,7 @@ import { ModuleRelation } from './module-relation'
 import { AssessmentMethods } from './assessment-methods'
 import { PrerequisitesOutput } from './prerequisites'
 import { POs } from './pos'
+import { Examiner } from './examiner'
 
 export interface MetadataLike {
   title: string,
@@ -26,6 +27,8 @@ export interface MetadataLike {
   competences: string[],
   globalCriteria: string[],
   taughtWith: string[]
+  examPhases: string[]
+  examiner: Examiner
 }
 
 export interface Metadata extends MetadataLike {
@@ -49,6 +52,8 @@ export interface Metadata extends MetadataLike {
   competences: string[],
   globalCriteria: string[],
   taughtWith: string[]
+  examPhases: string[]
+  examiner: Examiner
 }
 
 export interface MetadataProtocol extends MetadataLike {
@@ -72,4 +77,6 @@ export interface MetadataProtocol extends MetadataLike {
   competences: string[],
   globalCriteria: string[],
   taughtWith: string[]
+  examPhases: string[]
+  examiner: Examiner
 }
