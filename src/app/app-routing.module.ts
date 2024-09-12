@@ -28,6 +28,7 @@ const routes: Routes = [
   {
     path: 'module-approvals',
     component: ModuleApprovalsPageComponent,
+    ...requireRoles(['professor', 'employee'], 'any'),
   },
   {
     path: 'modules/:moduleId/approvals/:approvalId',
