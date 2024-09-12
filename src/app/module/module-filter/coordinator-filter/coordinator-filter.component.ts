@@ -13,7 +13,7 @@ import { showPerson } from '../../../ops/show.instances'
 export class CoordinatorFilterComponent {
   attr = 'coordinator'
 
-  label = 'Modulverantwortlicher'
+  label = $localize`Modulverantwortlicher`
 
   options$ = this.store.select(selectIdentities)
 

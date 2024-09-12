@@ -1,8 +1,20 @@
 <div>
   <mat-form-field>
-    <mat-label>Leave a comment</mat-label>
+    <mat-label i18n>Kommentar verfassen</mat-label>
     <textarea matInput name="comment" [(ngModel)]="comment"></textarea>
   </mat-form-field>
-  <button mat-stroked-button color="primary" (click)="approveAction(comment)">Accept</button>
-  <button mat-stroked-button color="accent" (click)="rejectAction(comment)">Request Changes</button>
+  <button
+    i18n
+    i18n-matTooltip
+    mat-stroked-button
+    color="primary"
+    (click)="approveAction(comment)"
+    matTooltip="Änderungen akzeptieren und Review abschließen">Akzeptieren</button>
+  <button
+    i18n
+    i18n-matTooltip
+    mat-stroked-button
+    color="accent"
+    (click)="rejectAction(comment)"
+    matTooltip="Änderungen ablehnen und Überarbeitung anfordern">Überarbeitung anfordern</button>
 </div>

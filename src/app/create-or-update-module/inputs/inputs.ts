@@ -63,7 +63,7 @@ export function inputs(
 
   function generalInformationSection(): Section<unknown, unknown> {
     return {
-      header: 'Allgemeine Informationen',
+      header: $localize`Allgemeine Informationen`,
       rows: simpleInput(
         dialog,
         moduleTypes,
@@ -82,14 +82,14 @@ export function inputs(
 
   function responsibilitySection() {
     return {
-      header: 'Verantwortliche',
+      header: $localize`Verantwortliche`,
       rows: responsibilityInput(dialog, identities, currentLecturerSelection, metadata?.moduleManagement),
     }
   }
 
   function assessmentSection() {
     return {
-      header: 'Prüfungsleistungen',
+      header: $localize`Prüfungsleistungen`,
       rows: assessmentInput(
         dialog,
         assessmentMethods,
@@ -104,14 +104,14 @@ export function inputs(
 
   function workloadSection() {
     return {
-      header: 'Workload',
+      header: $localize`Workload`,
       rows: workloadInput(metadata?.workload),
     }
   }
 
   function prerequisitesSection() {
     return {
-      header: 'Voraussetzungen',
+      header: $localize`Voraussetzungen`,
       rows: prerequisitesInputs(
         dialog,
         modules,
@@ -125,7 +125,7 @@ export function inputs(
 
   function studyProgramSelection() {
     return {
-      header: 'Verwendung des Moduls in weiteren Studiengängen',
+      header: $localize`Verwendung des Moduls in weiteren Studiengängen`,
       rows: studyProgramInput(
         dialog,
         studyPrograms,
@@ -138,7 +138,7 @@ export function inputs(
 
   function miscellaneousSection() {
     return {
-      header: 'Sonstige Informationen',
+      header: $localize`Sonstige Informationen`,
       rows: miscellaneousInput(
         dialog,
         competences,
@@ -153,35 +153,35 @@ export function inputs(
 
   function learningOutcomeContentSection() {
     return {
-      header: 'Angestrebte Lernergebnisse',
+      header: $localize`Angestrebte Lernergebnisse`,
       rows: learningOutcomeContent(deContent, enContent),
     }
   }
 
   function moduleContentSection() {
     return {
-      header: 'Modulinhalte',
+      header: $localize`Modulinhalte`,
       rows: moduleContent(deContent, enContent),
     }
   }
 
   function learningMethodsContentSection() {
     return {
-      header: 'Lehr- und Lernmethoden',
+      header: $localize`Lehr- und Lernmethoden`,
       rows: learningMethodsContent(deContent, enContent),
     }
   }
 
   function literatureContentSection() {
     return {
-      header: 'Empfohlene Literatur',
+      header: $localize`Empfohlene Literatur`,
       rows: literatureContent(deContent, enContent),
     }
   }
 
   function particularitiesContentSection() {
     return {
-      header: 'Besonderheiten',
+      header: $localize`Besonderheiten`,
       rows: particularitiesContent(deContent, enContent),
     }
   }

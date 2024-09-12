@@ -1,5 +1,10 @@
 <div class="actions">
-  <button #cancelButton type="button" mat-button (click)="cancelAction()">Cancel</button>
+  <button
+    i18n
+    #cancelButton
+    type="button"
+    mat-button
+    (click)="cancelAction()">Abbrechen</button>
   <button
     mat-flat-button
     color="primary"
@@ -11,7 +16,7 @@
       strokeWidth="2">
     </mat-spinner>
     <ng-template #showButton>
-      Save
+      <span i18n>Speichern</span>
     </ng-template>
   </button>
 </div>

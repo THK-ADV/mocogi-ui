@@ -43,7 +43,7 @@ export class ModuleFormComponent<A, B> implements OnInit {
   buttonTitle = ''
 
   ngOnInit() {
-    this.buttonTitle = this.moduleForm.editType === 'create' ? 'Erstellen' : 'Aktualisieren'
+    this.buttonTitle = this.moduleForm.editType === 'create' ? $localize`Erstellen` : $localize`Aktualisieren`
     this.title = `${this.moduleForm.objectName} ${this.buttonTitle.toLowerCase()}`
     this.moduleForm.sections.forEach(section =>
       Object.values(section.rows).forEach(row =>

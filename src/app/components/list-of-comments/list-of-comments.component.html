@@ -1,15 +1,15 @@
 <div class="container">
-  <mat-card  *ngFor="let reply of replies()">
+  <mat-card *ngFor="let reply of replies()">
     <mat-card-header>
       <mat-card-title>{{reply.respondedBy.firstname}} {{reply.respondedBy.lastname}}</mat-card-title>
-      <mat-card-subtitle>{{reply.role.deLabel}} {{reply.studyProgram.deLabel}} <!--{{reply.grade.deLabel}}--></mat-card-subtitle>
+      <mat-card-subtitle>{{reply.role.deLabel}} {{reply.studyProgram.deLabel}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div class="status">
         {{reply.status.deLabel}}
       </div>
       <br>
-      Kommentar:
+      <span i18n>Kommentar:</span>
       <blockquote>
         {{reply.comment}}
       </blockquote>

@@ -18,7 +18,7 @@ export function responsibilityInput(
   function moduleCoordinatorInput(): OptionsInput<Identity> {
     return {
       kind: 'options',
-      label: 'Modulverantwortliche*r',
+      label: $localize`Modulverantwortliche*r`,
       attr: 'moduleCoordinator',
       disabled: false,
       required: true,
@@ -33,7 +33,7 @@ export function responsibilityInput(
     const entries = currentLecturer(attr)
     return {
       kind: 'read-only',
-      label: 'Dozierende',
+      label: $localize`Dozierende`,
       attr: attr,
       disabled: false,
       required: true,
@@ -45,7 +45,7 @@ export function responsibilityInput(
   }
 
   function dialogInstance(attr: string) {
-    const columns = [{attr: 'person', title: 'Dozierende'}]
+    const columns = [{attr: 'person', title: $localize`Dozierende`}]
     const entries = currentLecturer(attr)
     const callback = new LecturerCallback(persons, entries, columns[0].attr, showPerson)
 
@@ -53,7 +53,7 @@ export function responsibilityInput(
       dialog,
       callback,
       columns,
-      'Dozierende bearbeiten',
+      $localize`Dozierende bearbeiten`,
       [
         <OptionsInput<Identity>>{
           kind: 'options',
@@ -70,8 +70,8 @@ export function responsibilityInput(
   }
 
   return {
-    'moduleCoordinator': [{ input: moduleCoordinatorInput() as FormInput<unknown,unknown> }],
-    'lecturer': [{ input: lecturerInput() as FormInput<unknown,unknown> }],
+    'moduleCoordinator': [{input: moduleCoordinatorInput() as FormInput<unknown, unknown>}],
+    'lecturer': [{input: lecturerInput() as FormInput<unknown, unknown>}],
   }
 }
 

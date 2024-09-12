@@ -1,23 +1,23 @@
-import {NumberInput, TextInput} from '../../form/plain-input/plain-input.component'
-import {OptionsInput} from '../../form/options-input/options-input.component'
-import {FormInput} from '../../form/form-input'
-import {ReadOnlyInput} from '../../form/read-only-input/read-only-input.component'
-import {optionalLabel} from './inputs'
-import {mapOpt} from '../../ops/undefined-ops'
-import {ParticipantsComponent} from '../../form/participants/participants.component'
-import {MatDialog} from '@angular/material/dialog'
-import {ModuleRelationComponent} from '../../form/module-relation/module-relation.component'
-import {Participants} from '../../types/participants'
-import {ModuleRelation} from '../../types/module-relation'
-import {MetadataLike} from '../../types/metadata'
-import {Location} from '../../types/core/location'
-import {Language} from '../../types/core/language'
-import {Status} from '../../types/core/status'
-import {ModuleType} from '../../types/core/module-type'
-import {Season} from '../../types/core/season'
-import {ModuleCore} from '../../types/moduleCore'
-import {showLabel} from '../../ops/show.instances'
-import {Rows} from 'src/app/form/module-form/module-form.component'
+import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
+import { OptionsInput } from '../../form/options-input/options-input.component'
+import { FormInput } from '../../form/form-input'
+import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
+import { optionalLabel } from './inputs'
+import { mapOpt } from '../../ops/undefined-ops'
+import { ParticipantsComponent } from '../../form/participants/participants.component'
+import { MatDialog } from '@angular/material/dialog'
+import { ModuleRelationComponent } from '../../form/module-relation/module-relation.component'
+import { Participants } from '../../types/participants'
+import { ModuleRelation } from '../../types/module-relation'
+import { MetadataLike } from '../../types/metadata'
+import { Location } from '../../types/core/location'
+import { Language } from '../../types/core/language'
+import { Status } from '../../types/core/status'
+import { ModuleType } from '../../types/core/module-type'
+import { Season } from '../../types/core/season'
+import { ModuleCore } from '../../types/moduleCore'
+import { showLabel } from '../../ops/show.instances'
+import { Rows } from 'src/app/form/module-form/module-form.component'
 
 export function simpleInput(
   dialog: MatDialog,
@@ -35,7 +35,7 @@ export function simpleInput(
   function titleInput(): TextInput {
     return {
       kind: 'text',
-      label: 'Modulbezeichnung',
+      label: $localize`Modulbezeichnung`,
       attr: 'title',
       disabled: false,
       required: true,
@@ -46,7 +46,7 @@ export function simpleInput(
   function abbreviationInput(): TextInput {
     return {
       kind: 'text',
-      label: 'Modulabkürzung',
+      label: $localize`Modulabkürzung`,
       attr: 'abbreviation',
       disabled: false,
       required: true,
@@ -57,7 +57,7 @@ export function simpleInput(
   function moduleTypesInput(): OptionsInput<ModuleType> {
     return {
       kind: 'options',
-      label: 'Art des Moduls',
+      label: $localize`Art des Moduls`,
       attr: 'moduleType',
       disabled: false,
       required: true,
@@ -70,7 +70,7 @@ export function simpleInput(
   function creditsInput(): NumberInput {
     return {
       kind: 'number',
-      label: 'ECTS credits',
+      label: $localize`ECTS credits`,
       attr: 'ects',
       disabled: false,
       required: true,
@@ -82,7 +82,7 @@ export function simpleInput(
   function languagesInput(): OptionsInput<Language> {
     return {
       kind: 'options',
-      label: 'Sprache',
+      label: $localize`Sprache`,
       attr: 'language',
       disabled: false,
       required: true,
@@ -95,7 +95,7 @@ export function simpleInput(
   function durationInput(): NumberInput {
     return {
       kind: 'number',
-      label: 'Dauer des Moduls',
+      label: $localize`Dauer des Moduls`,
       attr: 'duration',
       disabled: false,
       required: true,
@@ -107,7 +107,7 @@ export function simpleInput(
   function frequencyInput(): OptionsInput<Season> {
     return {
       kind: 'options',
-      label: 'Häufigkeit des Angebots',
+      label: $localize`Häufigkeit des Angebots`,
       attr: 'season',
       disabled: false,
       required: true,
@@ -120,7 +120,7 @@ export function simpleInput(
   function locationsInput(): OptionsInput<Location> {
     return {
       kind: 'options',
-      label: 'Angeboten am Standort',
+      label: $localize`Angeboten am Standort`,
       attr: 'location',
       disabled: false,
       required: true,
@@ -133,7 +133,7 @@ export function simpleInput(
   function statusInput(): OptionsInput<Status> {
     return {
       kind: 'options',
-      label: 'Status',
+      label: $localize`Status`,
       attr: 'status',
       disabled: false,
       required: true,
@@ -148,7 +148,7 @@ export function simpleInput(
     const entries = currentParticipants(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Teilnehmerbegrenzung'),
+      label: optionalLabel($localize`Teilnehmerbegrenzung`),
       attr: attr,
       disabled: false,
       required: false,
@@ -164,7 +164,7 @@ export function simpleInput(
   }
 
   function showParticipants(p: Participants): string {
-    return `${p.min} - ${p.max} Teilnehmer`
+    return $localize`${p.min} - ${p.max} Teilnehmer`
   }
 
   function moduleRelationInput(): ReadOnlyInput<ModuleRelation, ModuleRelation> {
@@ -172,7 +172,7 @@ export function simpleInput(
     const entries = currentModuleRelation(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Modulbeziehung'),
+      label: optionalLabel($localize`Modulbeziehung`),
       attr: attr,
       disabled: false,
       required: false,
@@ -187,7 +187,7 @@ export function simpleInput(
     switch (m.kind) {
       case 'parent':
         // eslint-disable-next-line no-case-declarations
-        let parent = 'Hat Submodule: '
+        let parent = $localize`Hat Submodule: `
         m.children.forEach((id, index) => {
           const module = modules.find(m => m.id === id)
           if (module) {
@@ -200,7 +200,7 @@ export function simpleInput(
         return parent
       case 'child':
         // eslint-disable-next-line no-case-declarations
-        let child = 'Gehört zum Modul: '
+        let child = $localize`Gehört zum Modul: `
         // eslint-disable-next-line no-case-declarations
         const module = modules.find(m => m.id === m.id)
         if (module) {
@@ -224,7 +224,7 @@ export function simpleInput(
     'frequency': [{input: frequencyInput() as FormInput<unknown, unknown>}],
     'locations': [{input: locationsInput() as FormInput<unknown, unknown>}],
     'status': [{input: statusInput() as FormInput<unknown, unknown>}],
-    'participants': [{ input: participantsInput() as FormInput<unknown, unknown> }],
-    'module-relation': [{ input: moduleRelationInput() as FormInput<unknown, unknown> }],
+    'participants': [{input: participantsInput() as FormInput<unknown, unknown>}],
+    'module-relation': [{input: moduleRelationInput() as FormInput<unknown, unknown>}],
   }
 }

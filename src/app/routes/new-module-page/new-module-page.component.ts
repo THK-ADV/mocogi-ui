@@ -52,7 +52,7 @@ export class NewModulePageComponent implements OnInit {
                     examPhases,
                   ]) => {
       this.moduleForm = {
-        objectName: 'New Module',
+        objectName: $localize`Neues Modul`,
         editType: 'create',
         sections: inputs(
           modules,

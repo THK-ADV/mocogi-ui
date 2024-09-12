@@ -109,7 +109,7 @@ export class PoOptionalCallback implements MultipleEditDialogComponentCallback<P
       const {pos} = this.getInstanceOfValue(controls)
       isMatchingPO = pos.some(p => po.id === p)
       if (!isMatchingPO) {
-        const error = {nonMatchingPO: 'Studiengang stimmt nicht mit gewählter Instanz überein'}
+        const error = {nonMatchingPO: $localize`Studiengang stimmt nicht mit gewählter Instanz überein`}
         controls['po'].setErrors(error, {emitEvent: true})
         controls['instance-of'].setErrors(error, {emitEvent: true})
       } else {

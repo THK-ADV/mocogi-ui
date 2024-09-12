@@ -31,7 +31,6 @@ import { MultipleOptionsInputComponent } from './form/multiple-options-input/mul
 import { MatSelectModule } from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { ReadOnlyInputComponent } from './form/read-only-input/read-only-input.component'
-import { AssessmentMethodDialogComponent } from './form/assessment-method-dialog/assessment-method-dialog.component'
 import { MatCardModule } from '@angular/material/card'
 import { MultipleEditDialogComponent } from './form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { BooleanInputComponent } from './form/boolean-input/boolean-input.component'
@@ -41,9 +40,7 @@ import { ModuleRelationComponent } from './form/module-relation/module-relation.
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ModuleRenderedHtmlComponent } from './module-rendered-html/module-rendered-html.component'
-import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { AlertComponent } from './alert/alert.component'
-import { PipelineErrorPipe } from './pipe/pipeline-error.pipe'
 import { ModuleListComponent } from './module/module-list/module-list.component'
 import { StoreModule } from '@ngrx/store'
 import { moduleReducer } from './state/reducer/module.reducer'
@@ -108,9 +105,10 @@ import { electiveCatalogsReducer } from './state/reducer/electives-catalogs.redu
 import { ElectivesCatalogsFilterComponent } from './components/electives-catalogs-filter/electives-catalogs-filter.component'
 import { electivesCatalogsFilterReducer } from './state/reducer/electives-catalogs-filter.reducer'
 import { ElectivesCatalogsFilterEffects } from './state/effects/electives-catalogs-filter.effects.service'
-import { StudyProgramPipe } from './pipe/study-program.pipe'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { newModuleReducer } from './state/reducer/new-module.reducer'
+import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
+import { StudyProgramPipe } from './pipe/study-program.pipe'
 
 @NgModule({
   declarations: [
@@ -124,7 +122,6 @@ import { newModuleReducer } from './state/reducer/new-module.reducer'
     OptionsInputComponent,
     MultipleOptionsInputComponent,
     ReadOnlyInputComponent,
-    AssessmentMethodDialogComponent,
     MultipleEditDialogComponent,
     BooleanInputComponent,
     ParticipantsComponent,
@@ -134,7 +131,6 @@ import { newModuleReducer } from './state/reducer/new-module.reducer'
     ModuleRenderedHtmlComponent,
     UnsafeHtmlPipe,
     AlertComponent,
-    PipelineErrorPipe,
     ModuleListComponent,
     ModuleFilterComponent,
     StudyProgramFilterComponent,

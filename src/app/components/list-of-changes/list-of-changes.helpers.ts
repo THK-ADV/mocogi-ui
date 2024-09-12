@@ -1,19 +1,21 @@
 import { ModuleDraftKeys } from '../../http/http.service'
 import { Module } from '../../types/moduleCore'
 
+type ChangeType = 'add' | 'clear' | 'update' | 'unchanged'
+
 export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendium: Module, stagingModuleCompendium: Module) {
-  const detailDescriptions = {
-    'add': { message: 'was added', icon: 'add' },
-    'clear': { message: 'was cleared', icon:  'remove' },
-    'update': { message: 'was updated', icon:  'edit' },
-    'unchanged': { message: 'remains unchanged', icon:  'home' },
+  const detailDescriptions: { [key in ChangeType]: { message: string, icon: string } } = {
+    'add': {message: $localize`wurde hinzugefügt`, icon: 'add'},
+    'clear': {message: $localize`wurde entfernt`, icon: 'remove'},
+    'update': {message: $localize`wurde aktualisiert`, icon: 'edit'},
+    'unchanged': {message: $localize`unverändert`, icon: 'home'},
   }
 
   return moduleDraftKeys.modifiedKeys.map((modifiedKey) => {
     const type = getChangeType(modifiedKey.id, moduleCompendium, stagingModuleCompendium)
     return {
       icon: detailDescriptions[type].icon,
-      name: modifiedKey.deLabel,
+      name: modifiedKey.label,
       details: detailDescriptions[type].message,
       toBeReviewed: moduleDraftKeys.keysToBeReviewed.includes(modifiedKey),
     }
@@ -36,11 +38,17 @@ function accessObject<T>(item: T, property: string) {
 }
 
 
-function getChangeType(modifiedKey: string, updatedModuleCompendium: Module, initialModuleCompendium: Module) {
+function getChangeType(modifiedKey: string, updatedModuleCompendium: Module, initialModuleCompendium: Module): ChangeType {
   const updatedValue = JSON.stringify(accessObject(updatedModuleCompendium, modifiedKey))
   const initialValue = JSON.stringify(accessObject(initialModuleCompendium, modifiedKey))
-  if (updatedValue === '""') return 'clear'
-  if (initialValue === '""') return 'add'
-  if (initialValue !== updatedValue) return 'update'
+  if (updatedValue === '""') {
+    return 'clear'
+  }
+  if (initialValue === '""') {
+    return 'add'
+  }
+  if (initialValue !== updatedValue) {
+    return 'update'
+  }
   return 'unchanged'
 }

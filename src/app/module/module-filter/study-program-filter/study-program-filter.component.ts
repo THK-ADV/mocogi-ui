@@ -12,7 +12,7 @@ import { StudyProgram } from '../../../types/module-compendium'
 })
 export class StudyProgramFilterComponent {
 
-  label = 'Studiengang'
+  label = $localize`Studiengang`
 
   options$ = this.store.select(selectStudyPrograms)
 
@@ -21,7 +21,7 @@ export class StudyProgramFilterComponent {
   show = showStudyProgram
 
   selectAction = ({po, specialization}: StudyProgram) => ModuleFilterPageActions.selectStudyProgram({
-    selectedStudyProgramId: { poId: po.id, specializationId: specialization?.id },
+    selectedStudyProgramId: {poId: po.id, specializationId: specialization?.id},
   })
 
   deselectAction = ModuleFilterPageActions.deselectStudyProgram

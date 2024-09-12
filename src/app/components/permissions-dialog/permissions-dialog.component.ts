@@ -17,13 +17,15 @@ export class PermissionsDialogComponent implements OnInit {
   permissions$: Observable<ReadonlyArray<string>>
   public permissions: Array<string> = []
   public moduleId: string
+  moduleTitle: string
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { moduleId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { moduleId: string, moduleTitle: string },
     private store: Store
   ) {
     this.permissions$ = store.select(selectPermissions)
     this.moduleId = data.moduleId
+    this.moduleTitle = data.moduleTitle
   }
 
   ngOnInit() {
@@ -32,13 +34,15 @@ export class PermissionsDialogComponent implements OnInit {
 
   add = (event: MatChipInputEvent) => {
     const campusId = (event.value || '').trim()
-    if(!campusId) return
-    this.store.dispatch(PermissionsDialogActions.add({ campusId }))
+    if (!campusId) {
+      return
+    }
+    this.store.dispatch(PermissionsDialogActions.add({campusId}))
     event.chipInput?.clear()
   }
 
   remove = (campusId: string) => {
-    this.store.dispatch(PermissionsDialogActions.remove({ campusId }))
+    this.store.dispatch(PermissionsDialogActions.remove({campusId}))
   }
 
   edit(campusId: string, event: MatChipEditedEvent) {
@@ -49,11 +53,13 @@ export class PermissionsDialogComponent implements OnInit {
       return
     }
 
-    this.store.dispatch(PermissionsDialogActions.edit({ changedCampusId: campusId, newValue: newCampusId }))
+    this.store.dispatch(PermissionsDialogActions.edit({changedCampusId: campusId, newValue: newCampusId}))
   }
 
   save = () => {
-    if(!this.moduleId) return
+    if (!this.moduleId) {
+      return
+    }
     this.store.dispatch(PermissionsDialogActions.save({moduleId: this.moduleId}))
   }
   protected readonly COMMA = COMMA

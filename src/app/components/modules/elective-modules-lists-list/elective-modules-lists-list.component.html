@@ -1,36 +1,23 @@
 <table mat-table [dataSource]="dataSource">
   <!-- Name -->
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>
-      Semester
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef>Semester</th>
     <td mat-cell *matCellDef="let element" ng-click="showModule(element.module.id)">
-      <span class="clickable">
-        Wahlmodulkatalog ({{ element.teachingUnit.deLabel }})
-      </span>
+      <span i18n class="clickable">Wahlmodulkatalog ({{ element.teachingUnit.deLabel }})</span>
     </td>
   </ng-container>
   <!-- Semester -->
   <ng-container matColumnDef="semester">
-    <th mat-header-cell *matHeaderCellDef>
-      Semester
-    </th>
-    <td mat-cell *matCellDef="let element">
-      {{element.semester.deLabel}} {{element.semester.year}}
-    </td>
+    <th i18n mat-header-cell *matHeaderCellDef>Semester</th>
+    <td mat-cell *matCellDef="let element">{{element.semester.deLabel}} {{element.semester.year}}</td>
   </ng-container>
   <!-- Actions -->
   <ng-container matColumnDef="download_de">
-    <th mat-header-cell *matHeaderCellDef>
-      Actions
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef>Aktionen</th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
         <a [href]="absoluteUrl(element.url)" target="_blank" [class.disabled-link]="!element.url">
-          <button mat-stroked-button [disabled]="!element.url">
-            <mat-icon>download</mat-icon>
-            Download
-          </button>
+          <button i18n mat-stroked-button [disabled]="!element.url"><mat-icon>download</mat-icon>Download</button>
         </a>
       </div>
     </td>

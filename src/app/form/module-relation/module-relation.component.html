@@ -18,13 +18,13 @@
       </cops-options-input>
     </mat-card-content>
     <mat-card-actions>
-      <button type="button"
-              mat-flat-button
-              color="primary"
-              [disabled]="!isValid()"
-              (click)="add()">
-        Hinzufügen
-      </button>
+      <button
+        i18n
+        type="button"
+        mat-flat-button
+        color="primary"
+        [disabled]="!isValid()"
+        (click)="add()">Hinzufügen</button>
     </mat-card-actions>
   </mat-card>
 
@@ -41,9 +41,7 @@
           <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
             <button mat-stroked-button
                     color="warn"
-                    (click)="delete(element)"
-                    matTooltip="Löschen"
-                    matTooltipPosition="right">
+                    (click)="delete(element)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -56,22 +54,23 @@
   </ng-container>
 
   <mat-dialog-actions>
-    <button type="button"
-            mat-flat-button
-            (click)="applyChanges()"
-            color="primary"
-            cdkFocusInitial>Änderungen Übernehmen
-    </button>
-    <button type="button"
-            mat-flat-button
-            (click)="deleteAll()"
-            color="warn">
-      Löschen
-    </button>
-    <button type="button"
-            mat-flat-button
-            (click)="cancel()">
-      Schließen
-    </button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      (click)="applyChanges()"
+      color="primary">Änderungen Übernehmen</button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      (click)="deleteAll()"
+      color="warn">Löschen</button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      cdkFocusInitial
+      (click)="cancel()">Schließen</button>
   </mat-dialog-actions>
 </div>

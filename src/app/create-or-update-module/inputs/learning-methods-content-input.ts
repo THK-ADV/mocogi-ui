@@ -2,7 +2,7 @@ import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
 import { Content } from '../../types/content'
-import {Rows} from '../../form/module-form/module-form.component'
+import { Rows } from '../../form/module-form/module-form.component'
 
 export function learningMethodsContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
   function go(lang: Lang): TextAreaInput {
@@ -19,9 +19,9 @@ export function learningMethodsContent(deContent?: Content, enContent?: Content)
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
-        return 'Lehr- und Lernmethoden (deutsch)'
+        return $localize`Lehr- und Lernmethoden (deutsch)`
       case 'en':
-        return 'Teaching and Learning Methods (english)'
+        return $localize`Teaching and Learning Methods (english)`
     }
   }
 
@@ -36,8 +36,8 @@ export function learningMethodsContent(deContent?: Content, enContent?: Content)
 
   return {
     'learning-methods': [
-      { input: go('de') as FormInput<unknown, unknown>, language: 'de' },
-      { input: go('en') as FormInput<unknown, unknown>, language: 'en' },
+      {input: go('de') as FormInput<unknown, unknown>, language: 'de'},
+      {input: go('en') as FormInput<unknown, unknown>, language: 'en'},
     ],
   }
 }

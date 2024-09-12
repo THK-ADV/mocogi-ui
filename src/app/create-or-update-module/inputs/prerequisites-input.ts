@@ -1,4 +1,4 @@
-import {  TextInput } from '../../form/plain-input/plain-input.component'
+import { TextInput } from '../../form/plain-input/plain-input.component'
 import { optionalLabel, requiredLabel } from './inputs'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -50,7 +50,7 @@ export function prerequisitesInputs(
   function text(kind: PrerequisitesKind, initialValue?: string): TextInput {
     return {
       kind: 'text',
-      label: optionalLabel(`${labelPrefix(kind)} Freitext`),
+      label: optionalLabel($localize`${labelPrefix(kind)} Freitext`),
       attr: `${kind}-prerequisites-text`,
       disabled: false,
       required: false,
@@ -63,7 +63,7 @@ export function prerequisitesInputs(
     const entries = currentModules(attr, kind)
     return {
       kind: 'read-only',
-      label: optionalLabel(`${labelPrefix(kind)} Module`),
+      label: optionalLabel($localize`${labelPrefix(kind)} Module`),
       attr: attr,
       disabled: false,
       required: false,
@@ -79,7 +79,7 @@ export function prerequisitesInputs(
     const entries = currentStudyProgram(attr, kind)
     return {
       kind: 'read-only',
-      label: optionalLabel(`${labelPrefix(kind)} Studiengänge`),
+      label: optionalLabel($localize`${labelPrefix(kind)} Studiengänge`),
       attr: attr,
       disabled: false,
       required: false,
@@ -91,7 +91,7 @@ export function prerequisitesInputs(
   }
 
   function moduleDialogInstance(attr: string, kind: PrerequisitesKind) {
-    const columns = [{attr: 'module', title: 'Modul'}]
+    const columns = [{attr: 'module', title: $localize`Modul`}]
     const entries = currentModules(attr, kind)
     const callback = new ModuleCallback(allModules, entries, columns[0].attr, showModule)
 
@@ -116,7 +116,7 @@ export function prerequisitesInputs(
   }
 
   function studyProgramDialogInstance(attr: string, kind: PrerequisitesKind) {
-    const columns = [{attr: 'po', title: 'Studiengang mit PO'}]
+    const columns = [{attr: 'po', title: $localize`Studiengang mit PO`}]
     const entries = currentStudyProgram(attr, kind)
     const callback = new PrerequisitesStudyProgramCallback(studyPrograms, entries, columns[0].attr, showStudyProgram)
 
@@ -124,7 +124,7 @@ export function prerequisitesInputs(
       dialog,
       callback,
       columns,
-      'Studiengänge bearbeiten',
+      '$localize`Studiengänge bearbeiten`',
       [
         <OptionsInput<StudyProgram>>{
           kind: 'options',
@@ -143,9 +143,9 @@ export function prerequisitesInputs(
   function labelPrefix(kind: PrerequisitesKind): string {
     switch (kind) {
       case 'required':
-        return 'Zwingende Voraussetzungen'
+        return $localize`Zwingende Voraussetzungen`
       case 'recommended':
-        return 'Empfohlene Voraussetzungen'
+        return $localize`Empfohlene Voraussetzungen`
     }
   }
 
