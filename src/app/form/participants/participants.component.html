@@ -17,23 +17,24 @@
   </mat-card>
 
   <mat-dialog-actions>
-    <button type="button"
-            mat-flat-button
-            (click)="applyChanges()"
-            [disabled]="!isValid()"
-            color="primary">
-      Änderungen Übernehmen
-    </button>
-    <button type="button"
-            mat-flat-button
-            (click)="delete()"
-            color="warn">
-      Löschen
-    </button>
-    <button type="button"
-            mat-flat-button
-            (click)="cancel()">
-      Schließen
-    </button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      (click)="applyChanges()"
+      [disabled]="!isValid()"
+      color="primary">Änderungen Übernehmen</button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      (click)="delete()"
+      color="warn">Löschen</button>
+    <button
+      i18n
+      type="button"
+      mat-flat-button
+      cdkFocusInitial
+      (click)="cancel()">Schließen</button>
   </mat-dialog-actions>
 </div>

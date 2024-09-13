@@ -28,10 +28,10 @@ export class ParticipantsComponent {
     private dialogRef: MatDialogRef<ParticipantsComponent, Participants[]>,
     @Inject(MAT_DIALOG_DATA) participants: Participants | undefined,
   ) {
-    this.headerTitle = 'Teilnehmerbegrenzung bearbeiten'
+    this.headerTitle = $localize`Teilnehmerbegrenzung bearbeiten`
     this.minInput = {
       kind: 'number',
-      label: 'Min',
+      label: $localize`Min`,
       attr: 'participants-min',
       disabled: false,
       required: true,
@@ -40,7 +40,7 @@ export class ParticipantsComponent {
     }
     this.maxInput = {
       kind: 'number',
-      label: 'Max',
+      label: $localize`Max`,
       attr: 'participants-max',
       disabled: false,
       required: true,

@@ -1,19 +1,13 @@
-<h2>Electives Filter</h2>
+<h2 i18n>WPF Filter</h2>
 
 <cops-abstract-module-filter
+  i18n-label
   [options]="semesters | async"
   label="Semester"
   [selectAction]="selectSemester"
   [selection]="selectedSemester$ | async"
   [deselectAction]="deselectSemester"
-  [show]="showSemester"
->
+  [show]="showSemester">
 </cops-abstract-module-filter>
 
-<button mat-stroked-button
-        color="primary"
-        (click)="onResetFilter()"
-        matTooltip="Filter zurücksetzen"
-        matTooltipPosition="left">
-  Filter zurücksetzen
-</button>
+<button i18n mat-stroked-button color="primary" (click)="onResetFilter()">Filter zurücksetzen</button>

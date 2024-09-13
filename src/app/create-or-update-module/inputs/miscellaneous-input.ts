@@ -27,7 +27,7 @@ export function miscellaneousInput(
     const entries = currentCompetences(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Kompetenzen'),
+      label: optionalLabel($localize`Kompetenzen`),
       attr: attr,
       disabled: false,
       required: false,
@@ -43,7 +43,7 @@ export function miscellaneousInput(
     const entries = currentGlobalCriteria(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Globale Kriterien'),
+      label: optionalLabel($localize`Globale Kriterien`),
       attr: attr,
       disabled: false,
       required: false,
@@ -59,7 +59,7 @@ export function miscellaneousInput(
     const entries = currentTaughtWith(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Wird gelehrt mit'),
+      label: optionalLabel($localize`Wird gelehrt mit`),
       attr: attr,
       disabled: false,
       required: false,
@@ -71,7 +71,7 @@ export function miscellaneousInput(
   }
 
   function competenceDialogInstance(attr: string) {
-    const columns = [{attr: 'competence', title: 'Kompetenzen'}]
+    const columns = [{attr: 'competence', title: $localize`Kompetenzen`}]
     const entries = currentCompetences(attr)
     const callback = new CompetenceCallback(competences, entries, columns[0].attr, showLabel)
 
@@ -79,7 +79,7 @@ export function miscellaneousInput(
       dialog,
       callback,
       columns,
-      'Kompetenzen bearbeiten',
+      $localize`Kompetenzen bearbeiten`,
       [
         <OptionsInput<Competence>>{
           kind: 'options',
@@ -96,7 +96,7 @@ export function miscellaneousInput(
   }
 
   function globalCriteriaDialogInstance(attr: string) {
-    const columns = [{attr: 'global-criteria', title: 'Globale Kriterien'}]
+    const columns = [{attr: 'global-criteria', title: $localize`Globale Kriterien`}]
     const entries = currentGlobalCriteria(attr)
     const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, showLabel)
 
@@ -104,7 +104,7 @@ export function miscellaneousInput(
       dialog,
       callback,
       columns,
-      'Globale Kriterien bearbeiten',
+      $localize`Globale Kriterien bearbeiten`,
       [
         <OptionsInput<GlobalCriteria>>{
           kind: 'options',
@@ -121,7 +121,7 @@ export function miscellaneousInput(
   }
 
   function taughtWithDialogInstance(attr: string) {
-    const columns = [{attr: 'module', title: 'Modul'}]
+    const columns = [{attr: 'module', title: $localize`Modul`}]
     const entries = currentTaughtWith(attr)
     const callback = new ModuleCallback(modules, entries, columns[0].attr, showModule)
 
@@ -129,7 +129,7 @@ export function miscellaneousInput(
       dialog,
       callback,
       columns,
-      'Zusammen gelehrte Module bearbeiten',
+      $localize`Zusammen gelehrte Module bearbeiten`,
       [
         <OptionsInput<ModuleCore>>{
           kind: 'options',
@@ -146,8 +146,8 @@ export function miscellaneousInput(
   }
 
   return {
-    'competenceInput': [{ input: competenceInput() as FormInput<unknown, unknown> }],
-    'globalCriteriaInput': [{ input: globalCriteriaInput() as FormInput<unknown, unknown> }],
-    'taughtWithInput': [{ input: taughtWithInput() as FormInput<unknown, unknown> }],
+    'competenceInput': [{input: competenceInput() as FormInput<unknown, unknown>}],
+    'globalCriteriaInput': [{input: globalCriteriaInput() as FormInput<unknown, unknown>}],
+    'taughtWithInput': [{input: taughtWithInput() as FormInput<unknown, unknown>}],
   }
 }

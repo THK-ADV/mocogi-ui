@@ -5,27 +5,27 @@ import { Rows } from '../../form/module-form/module-form.component'
 
 export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
   function lectureInput(): NumberInput {
-    return go('Vorlesung', 'lecture', workload?.lecture)
+    return go($localize`Vorlesung`, 'lecture', workload?.lecture)
   }
 
   function seminarInput(): NumberInput {
-    return go('Seminar', 'seminar', workload?.seminar)
+    return go($localize`Seminar`, 'seminar', workload?.seminar)
   }
 
   function practicalInput(): NumberInput {
-    return go('Praktikum', 'practical', workload?.practical)
+    return go($localize`Praktikum`, 'practical', workload?.practical)
   }
 
   function exerciseInput(): NumberInput {
-    return go('Übung', 'exercise', workload?.exercise)
+    return go($localize`Übung`, 'exercise', workload?.exercise)
   }
 
   function projectWorkInput(): NumberInput {
-    return go('Projektarbeit', 'projectWork', workload?.projectWork)
+    return go($localize`Projektarbeit`, 'projectWork', workload?.projectWork)
   }
 
   function projectSupervisionInput(): NumberInput {
-    return go('Projektbetreuung', 'projectSupervision', workload?.projectSupervision)
+    return go($localize`Projektbetreuung`, 'projectSupervision', workload?.projectSupervision)
   }
 
   function go(label: string, attr: string, initialValue?: number): NumberInput {
@@ -41,11 +41,11 @@ export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
   }
 
   return {
-    'lecture': [{ input: lectureInput() as FormInput<unknown, unknown> }],
-    'seminar': [{ input: seminarInput() as FormInput<unknown, unknown> }],
-    'practical': [{ input: practicalInput() as FormInput<unknown, unknown> }],
-    'exercise': [{ input: exerciseInput() as FormInput<unknown, unknown> }],
-    'project-work': [{ input: projectWorkInput() as FormInput<unknown, unknown> }],
-    'project-supervision': [{ input: projectSupervisionInput() as FormInput<unknown, unknown> }],
+    'lecture': [{input: lectureInput() as FormInput<unknown, unknown>}],
+    'seminar': [{input: seminarInput() as FormInput<unknown, unknown>}],
+    'practical': [{input: practicalInput() as FormInput<unknown, unknown>}],
+    'exercise': [{input: exerciseInput() as FormInput<unknown, unknown>}],
+    'project-work': [{input: projectWorkInput() as FormInput<unknown, unknown>}],
+    'project-supervision': [{input: projectSupervisionInput() as FormInput<unknown, unknown>}],
   }
 }

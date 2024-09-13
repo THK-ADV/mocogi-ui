@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store'
 import { ModuleCompendiumsFilterComponentActions } from '../../state/actions/module-compendiums-filter.actions'
 import {
   selectSelectedSemester,
-  selectSelectedStudyProgram, selectSemesters, selectStudyPrograms,
+  selectSelectedStudyProgram,
+  selectSemesters,
+  selectStudyPrograms,
 } from '../../state/selectors/module-compendiums-filter.selectors'
 import { Semester, StudyProgramCore } from '../../types/module-compendium'
-// import { StudyProgram } from "../../types/core/study-program";
 
 @Component({
   selector: 'cops-module-compendiums-filter',
@@ -29,9 +30,9 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectedSemester$ = this.store.select(selectSelectedSemester)
 
-  selectSemester = (semester: Semester) => ModuleCompendiumsFilterComponentActions.selectSemester({ semester })
+  selectSemester = (semester: Semester) => ModuleCompendiumsFilterComponentActions.selectSemester({semester})
 
-  deselectSemester = ( ) => ModuleCompendiumsFilterComponentActions.deselectSemester()
+  deselectSemester = () => ModuleCompendiumsFilterComponentActions.deselectSemester()
 
   showSemester = (semester: Semester) => semester.deLabel
 
@@ -39,7 +40,7 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectedStudyProgram$ = this.store.select(selectSelectedStudyProgram)
 
-  selectStudyProgram = (selectedStudyProgram: StudyProgramCore) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({ selectedStudyProgramId: selectedStudyProgram.id })
+  selectStudyProgram = (selectedStudyProgram: StudyProgramCore) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({selectedStudyProgramId: selectedStudyProgram.id})
 
   deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram()
 

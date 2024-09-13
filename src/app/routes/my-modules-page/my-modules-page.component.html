@@ -1,10 +1,16 @@
 <main>
-  <h2>Meine Module</h2>
   <div>
-    <button mat-stroked-button color="primary" (click)="navigateTo(['modules', 'new'])">
-      <mat-icon>add</mat-icon>
-      New Module
-    </button>
+    <h2 i18n>Meine Module</h2>
+    <div>
+      <button
+        i18n
+        mat-stroked-button
+        color="primary"
+        (click)="navigateTo(['modules', 'new'])">
+        <mat-icon>add</mat-icon>
+        Neues Modul erzeugen
+      </button>
+    </div>
   </div>
   <cops-my-modules-list [modules]="modules$ | async"></cops-my-modules-list>
 </main>

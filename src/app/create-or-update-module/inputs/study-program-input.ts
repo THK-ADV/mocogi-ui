@@ -21,15 +21,15 @@ export function studyProgramInput(
   currentOptionalEntries: (attr: string) => POOptional[],
 ): Rows<unknown, unknown> {
 
-  const dialogTitle = 'Zugehörigkeit zu Studiengängen bearbeiten'
-  const studyProgramColumn = {attr: 'po', title: 'Studiengang'}
+  const dialogTitle = $localize`Zugehörigkeit zu Studiengängen bearbeiten`
+  const studyProgramColumn = {attr: 'po', title: $localize`Studiengang`}
 
   function mandatory(): ReadOnlyInput<StudyProgram, POMandatory> {
     const attr = 'po-mandatory'
     const entries = currentMandatoryEntries(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Verwendung in Studiengängen als Pflicht Modul'),
+      label: optionalLabel($localize`Verwendung in Studiengängen als Pflicht Modul`),
       attr: attr,
       disabled: false,
       required: false,
@@ -45,7 +45,7 @@ export function studyProgramInput(
     const entries = currentOptionalEntries(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel('Verwendung in Studiengängen als WPF'),
+      label: optionalLabel($localize`Verwendung in Studiengängen als WPF`),
       attr: attr,
       disabled: false,
       required: false,
@@ -73,7 +73,7 @@ export function studyProgramInput(
     const callback = new PoMandatoryCallback(studyPrograms, entries)
     const columns = [
       studyProgramColumn,
-      {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
+      {attr: 'recommended-semester', title: $localize`Empfohlene Studiensemester (kommasepariert)`},
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -99,9 +99,9 @@ export function studyProgramInput(
     const callback = new PoOptionalCallback(studyPrograms, entries, genericModules)
     const columns = [
       studyProgramColumn,
-      {attr: 'instance-of', title: 'Instanz von'},
-      {attr: 'recommended-semester', title: 'Empfohlene Studiensemester (kommasepariert)'},
-      {attr: 'part-of-catalog', title: 'Teil des Modulverzeichnisses'},
+      {attr: 'instance-of', title: $localize`Instanz von`},
+      {attr: 'recommended-semester', title: $localize`Empfohlene Studiensemester (kommasepariert)`},
+      {attr: 'part-of-catalog', title: $localize`Teil des Modulverzeichnisses`},
     ]
     return MultipleEditDialogComponent.instance(
       dialog,

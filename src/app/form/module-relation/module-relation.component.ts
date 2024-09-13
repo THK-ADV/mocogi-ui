@@ -19,9 +19,9 @@ interface ModuleRelationType {
 function showModuleRelationType(t: ModuleRelationType): string {
   switch (t.label) {
     case 'parent':
-      return 'Parent'
+      return $localize`Parent`
     case 'child':
-      return 'Child'
+      return $localize`Child`
   }
 }
 
@@ -72,12 +72,12 @@ export class ModuleRelationComponent implements OnDestroy {
     this.currentRelationType = mapOpt(moduleRelation, m => ({label: m.kind}))
     this.formGroup = new FormGroup({})
     this.columns = [
-      {title: 'Art der Beziehung', attr: 'module-relation-type'},
-      {title: 'Modul', attr: 'module-relation-module'},
+      {title: $localize`Art der Beziehung`, attr: 'module-relation-type'},
+      {title: $localize`Modul`, attr: 'module-relation-module'},
     ]
     this.displayedColumns = [...this.columns.map(a => a.attr), 'action']
     this.dataSource = new MatTableDataSource<ModuleCore>(initialModules(moduleRelation, modules))
-    this.headerTitle = 'Modulbeziehungen bearbeiten'
+    this.headerTitle = $localize`Modulbeziehungen bearbeiten`
     this.relationTypeInput = {
       kind: 'options',
       label: this.columns[0].title,
@@ -194,8 +194,8 @@ export class ModuleRelationComponent implements OnDestroy {
       this.sub = ConfirmationDialogComponent.instance(
         this.dialog,
         {
-          title: 'Auswahl verwerfen',
-          value: 'Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?',
+          title: $localize`Auswahl verwerfen`,
+          value: $localize`Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?`,
         },
       )
         .afterClosed()

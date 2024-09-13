@@ -20,10 +20,11 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCatalog, Semester, StudyProgram, StudyProgramCore } from '../types/module-compendium'
+import { ModuleCatalog, StudyProgram, StudyProgramCore } from '../types/module-compendium'
 import { ElectivesCatalogue } from '../types/electivesCatalogues'
 import { GenericModuleCore } from '../types/genericModuleCore'
 import { ExamPhase } from '../types/core/exam-phase'
+import { generateSemestersAroundYear } from '../helper/semester.helper'
 
 export interface ModuleDraftJson {
   module: string
@@ -38,10 +39,8 @@ export interface ModuleDraftJson {
 
 export interface ModuleKey {
   id: string,
-  deLabel: string,
-  deDesc: string,
-  enLabel: string,
-  enDesc: string,
+  label: string,
+  desc: string,
 }
 
 export type ModuleDraftKeys = {
@@ -211,23 +210,7 @@ export class HttpService {
   getSemesters = () => {
     const currentYear = (new Date()).getFullYear()
     const rangeInYears = 5
-    const semesterTypes = [
-      {id: 'wise', abbrev: 'WiSe', deLabel: 'Wintersemester', enLabel: 'Winter Semester'},
-      {id: 'sose', abbrev: 'SoSe', deLabel: 'Sommersemester', enLabel: 'Summer Semester'},
-    ]
-    const semesterList: Array<Semester> = []
-    for (let i = rangeInYears * -1; i < rangeInYears; i++) {
-      semesterTypes.forEach((semesterType) => {
-        semesterList.push({
-          id: `${semesterType.id}_${currentYear + i}`,
-          year: currentYear + i,
-          abbrev: `${semesterType.abbrev} ${currentYear + i}`,
-          deLabel: `${semesterType.deLabel} ${currentYear + i}`,
-          enLabel: `${semesterType.enLabel} ${currentYear + i}`,
-        })
-      })
-    }
-    const semesters: ReadonlyArray<Semester> = semesterList
+    const semesters = generateSemestersAroundYear(currentYear, rangeInYears)
     return of(semesters)
   }
 

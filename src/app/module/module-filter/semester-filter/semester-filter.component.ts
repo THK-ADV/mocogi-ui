@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store'
 export class SemesterFilterComponent {
   attr = 'semester'
 
-  label = 'Semester'
+  label = $localize`Semester`
 
   options$ = this.store.select(selectSemester)
 

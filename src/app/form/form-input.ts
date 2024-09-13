@@ -78,7 +78,7 @@ const invalidOptionKey = 'invalidObject'
 export const isJSON = (value: unknown): boolean =>
   typeof value !== 'string'
 
-const error = () => ({[invalidOptionKey]: 'Invalide Auswahl'})
+const error = () => ({[invalidOptionKey]: $localize`Invalide Auswahl`})
 
 export const mandatoryOptionsValidator = (): ValidatorFn =>
   (ctl: AbstractControl): ValidationErrors | null =>
@@ -99,5 +99,5 @@ export const optionsError = (formControl: FormControl): string | undefined =>
 
 export const requiredError = (formControl: FormControl, input: FormInputLike): string | undefined =>
   formControl.hasError('required')
-    ? `${input.label} erforderlich`
+    ? $localize`${input.label} erforderlich`
     : undefined

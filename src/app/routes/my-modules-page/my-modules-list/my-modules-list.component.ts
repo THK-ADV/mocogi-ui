@@ -94,11 +94,11 @@ export class MyModulesListComponent {
     moduleDraftState.id === 'valid_for_publication' ||
     moduleDraftState.id === 'waiting_for_changes'
 
-  openDialog = (moduleId: string) => {
+  openDialog = (module: ModuleCore) => {
     this.dialog.open(PermissionsDialogComponent, {
       width: '600px',
       disableClose: true,
-      data: { moduleId },
+      data: { moduleId: module.id, moduleTitle: module.title },
     })
   }
 }

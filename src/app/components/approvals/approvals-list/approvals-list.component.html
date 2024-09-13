@@ -1,38 +1,24 @@
 <table mat-table [dataSource]="dataSource">
   <!-- Name -->
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>
-      Title
-    </th>
-    <td mat-cell *matCellDef="let element">
-      {{element.moduleTitle}} ({{element.moduleAbbrev}})
-    </td>
+    <th i18n mat-header-cell *matHeaderCellDef>Modulbezeichnung</th>
+    <td mat-cell *matCellDef="let element">{{element.moduleTitle}} ({{element.moduleAbbrev}})</td>
   </ng-container>
   <!-- Status -->
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>
-      Status
-    </th>
-    <td mat-cell *matCellDef="let element">
-      {{element.status.deLabel}}
-    </td>
+    <th i18n mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let element">{{element.status.deLabel}}</td>
   </ng-container>
   <!-- Requested by -->
   <ng-container matColumnDef="requester">
-    <th mat-header-cell *matHeaderCellDef class="align-right">
-      Requested by
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef class="align-right">Angefordert von</th>
     <td mat-cell *matCellDef="let element" class="align-right">
-      <mat-chip>
-        {{element.author.firstname}} {{element.author.lastname}}
-      </mat-chip>
+      <mat-chip>{{element.author.firstname}} {{element.author.lastname}}</mat-chip>
     </td>
   </ng-container>
   <!-- Role -->
   <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef class="align-right">
-      Genehmigung in der Rolle als
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef class="align-right">Genehmigung in der Rolle als</th>
     <td mat-cell *matCellDef="let element" class="align-right">
       <mat-chip>
         {{element.role.deLabel}} der {{element.studyProgram.deLabel}} ({{element.degree.deLabel}})
@@ -40,5 +26,7 @@
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.canReview ? selectRow(row.moduleId, row.reviewId) : undefined" [class.clickable]="row.canReview" [class.disabled]="!row.canReview">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="row.canReview ? selectRow(row.moduleId, row.reviewId) : undefined" [class.clickable]="row.canReview"
+      [class.disabled]="!row.canReview">
 </table>

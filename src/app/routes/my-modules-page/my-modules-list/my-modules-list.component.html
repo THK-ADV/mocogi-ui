@@ -1,67 +1,55 @@
 <table mat-table [dataSource]="dataSource">
   <!-- Name -->
   <ng-container matColumnDef="module">
-    <th mat-header-cell *matHeaderCellDef>
-      Modul
-    </th>
-    <td mat-cell *matCellDef="let element" (click)="showLatestModule(element.module.id)" [style.color]="tableColor(element)">
-      <span class="clickable">
-        {{title(element)}}
-      </span>
+    <th i18n mat-header-cell *matHeaderCellDef>Modulbezeichnung</th>
+    <td mat-cell *matCellDef="let element" (click)="showLatestModule(element.module.id)"
+        [style.color]="tableColor(element)">
+      <span class="clickable">{{title(element)}}</span>
     </td>
   </ng-container>
   <!-- Status -->
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>
-      Status
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef>Status</th>
     <td mat-cell *matCellDef="let element">
       <mat-chip disabled>{{status(element)}}</mat-chip>
     </td>
   </ng-container>
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef class="align-right">
-      Actions
-    </th>
+    <th i18n mat-header-cell *matHeaderCellDef class="align-right">Aktionen</th>
     <td mat-cell *matCellDef="let element">
       <div class="inline">
         <button
+          i18n
           mat-stroked-button
           *ngIf="canEdit(element)"
           (click)="editModule(element.module.id)">
-          <mat-icon>edit</mat-icon>
-          Edit
-        </button>
+          <mat-icon>edit</mat-icon>Bearbeiten</button>
         <button
+          i18n
           mat-stroked-button
           *ngIf="canPublish(element)"
           (click)="publishModule(element.module.id)">
-          <mat-icon>publish</mat-icon>
-          Publish
-        </button>
+          <mat-icon>publish</mat-icon>Veröffentlichen</button>
         <button
+          i18n
           mat-stroked-button
           *ngIf="canRequestReview(element)"
           (click)="requestReview(element.module.id)">
-          <mat-icon>approval</mat-icon>
-          Request review
-        </button>
+          <mat-icon>approval</mat-icon>Review anfragen</button>
         <button
+          i18n
           mat-stroked-button
           *ngIf="canCancelReview(element)"
           (click)="cancelReview(element.module.id)">
-          <mat-icon>pause</mat-icon>
-          Cancel review
-        </button>
+          <mat-icon>pause</mat-icon>Review zurückziehen</button>
         <button
+          i18n
           mat-stroked-button
           color="warn"
           *ngIf="canDiscardChanges(element)"
           (click)="discardChanges(element.module.id)">
-          <mat-icon>undo</mat-icon>
-          Discard changes
-        </button>
+          <mat-icon>undo</mat-icon>Änderungen verwerfen</button>
         <button
           mat-icon-button
           aria-label="Icon button with a vertical three dot icon"
@@ -69,7 +57,11 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button [disabled]="!element.privilegedForModule" mat-menu-item (click)="openDialog(element.module.id)">Change permissions</button>
+          <button
+            i18n
+            [disabled]="!element.privilegedForModule"
+            mat-menu-item
+            (click)="openDialog(element.module)">Modulberechtigungen setzen</button>
         </mat-menu>
       </div>
     </td>

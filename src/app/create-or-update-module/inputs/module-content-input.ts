@@ -2,7 +2,7 @@ import { FormInput } from '../../form/form-input'
 import { TextAreaInput } from '../../form/plain-input/plain-input.component'
 import { Lang } from './inputs'
 import { Content } from '../../types/content'
-import {Rows} from '../../form/module-form/module-form.component'
+import { Rows } from '../../form/module-form/module-form.component'
 
 export function moduleContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
   function go(lang: Lang): TextAreaInput {
@@ -19,9 +19,9 @@ export function moduleContent(deContent?: Content, enContent?: Content): Rows<un
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
-        return 'Modulinhalte (deutsch)'
+        return $localize`Modulinhalte (deutsch)`
       case 'en':
-        return 'Module Content (english)'
+        return $localize`Module Content (english)`
     }
   }
 
@@ -36,8 +36,8 @@ export function moduleContent(deContent?: Content, enContent?: Content): Rows<un
 
   return {
     'module-content': [
-      { input: go('de') as FormInput<unknown, unknown>, language: 'de' },
-      { input: go('en') as FormInput<unknown, unknown>, language: 'en' },
+      {input: go('de') as FormInput<unknown, unknown>, language: 'de'},
+      {input: go('en') as FormInput<unknown, unknown>, language: 'en'},
     ],
   }
 }

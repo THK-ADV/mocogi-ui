@@ -41,12 +41,12 @@ export const formControlForNumberInput = (i: NumberInput): FormControl<number | 
 
 export const minError = (formControl: FormControl): string | undefined =>
   formControl.hasError('min')
-    ? `Minimum von ${formControl.getError('min').min} erforderlich`
+    ? $localize`Minimum von ${formControl.getError('min').min} erforderlich`
     : undefined
 
 export const maxError = (formControl: FormControl): string | undefined =>
   formControl.hasError('max')
-    ? `Maximum von ${formControl.getError('max').max} erforderlich`
+    ? $localize`Maximum von ${formControl.getError('max').max} erforderlich`
     : undefined
 
 @Component({

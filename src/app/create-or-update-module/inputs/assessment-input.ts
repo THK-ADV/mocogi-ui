@@ -12,8 +12,8 @@ import { showLabel, showPerson } from '../../ops/show.instances'
 import { Rows } from '../../form/module-form/module-form.component'
 import { Identity } from '../../types/core/person'
 import { ExamPhase } from '../../types/core/exam-phase'
-import { ExamPhasesCallback } from '../callbacks/ExamPhasesCallback'
 import { MetadataLike } from '../../types/metadata'
+import { ExamPhasesCallback } from '../callbacks/exam-phases-callback'
 
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
@@ -42,7 +42,7 @@ export function assessmentInput(
     const entries = currentExamPhases(attr)
     return {
       kind: 'read-only',
-      label: 'Prüfungsphasen',
+      label: $localize`Prüfungsphasen`,
       attr: attr,
       disabled: false,
       required: true,
@@ -56,7 +56,7 @@ export function assessmentInput(
   function firstExaminerInput(): OptionsInput<Identity> {
     return {
       kind: 'options',
-      label: 'Erstprüfer*in',
+      label: $localize`Erstprüfer*in`,
       attr: 'first-examiner',
       disabled: false,
       required: true,
@@ -69,7 +69,7 @@ export function assessmentInput(
   function secondExaminerInput(): OptionsInput<Identity> {
     return {
       kind: 'options',
-      label: 'Zweitprüfer*in',
+      label: $localize`Zweitprüfer*in`,
       attr: 'second-examiner',
       disabled: false,
       required: true,
@@ -86,7 +86,7 @@ export function assessmentInput(
     const entries = currentEntries(attr, kind)
     return {
       kind: 'read-only',
-      label: label(kind),
+      label: assignmentMethodLabel(kind),
       attr: attr,
       disabled: false,
       required: false,
@@ -98,14 +98,14 @@ export function assessmentInput(
   }
 
   function examPhaseDialogInstance(attr: string) {
-    const columns = [{attr: 'exam-phase', title: 'Prüfungsphase'}]
+    const columns = [{attr: 'exam-phase', title: $localize`Prüfungsphase`}]
     const current = currentExamPhases(attr)
     const callback = new ExamPhasesCallback(examPhases, current, columns[0].attr, showExamPhase)
     return MultipleEditDialogComponent.instance(
       dialog,
       callback,
       columns,
-      'Prüfungsphasen bearbeiten',
+      $localize`Prüfungsphasen bearbeiten`,
       [
         <OptionsInput<ExamPhase>>{
           kind: 'options',
@@ -125,16 +125,16 @@ export function assessmentInput(
     const entries = currentEntries(attr, kind)
     const callback = new AssessmentMethodCallback(assessmentMethods, entries)
     const columns = [
-      {attr: 'method', title: 'Prüfungsform'},
-      {attr: 'percentage', title: 'Prozentualer Anteil'},
-      {attr: 'precondition', title: 'Vorbedingungen'},
+      {attr: 'method', title: $localize`Prüfungsform`},
+      {attr: 'percentage', title: $localize`Prozentualer Anteil`},
+      {attr: 'precondition', title: $localize`Vorbedingungen`},
     ]
 
     return MultipleEditDialogComponent.instance(
       dialog,
       callback,
       columns,
-      'Prüfungsformen bearbeiten',
+      $localize`Prüfungsformen bearbeiten`,
       [
         <OptionsInput<AssessmentMethod>>{
           kind: 'options',
@@ -175,12 +175,12 @@ export function assessmentInput(
     return p.label
   }
 
-  function label(kind: AssessmentMethodKind): string {
+  function assignmentMethodLabel(kind: AssessmentMethodKind): string {
     switch (kind) {
       case 'mandatory':
-        return optionalLabel('Prüfungsformen für alle Pflicht Studiengänge')
+        return optionalLabel($localize`Prüfungsformen für alle Pflicht Studiengänge`)
       case 'optional':
-        return optionalLabel('Prüfungsformen für alle als WPF belegbare Studiengänge')
+        return optionalLabel($localize`Prüfungsformen für alle als WPF belegbare Studiengänge`)
     }
   }
 
