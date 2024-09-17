@@ -24,7 +24,7 @@ export class AppComponent {
       type: 'LINK',
       text: $localize`Modulhandbücher`,
       icon: 'book',
-      url: ['module-compendium-lists'],
+      url: ['module-catalog-lists'],
     },
 
     {
@@ -48,6 +48,12 @@ export class AppComponent {
       text: $localize`Änderungsfreigaben`,
       icon: 'approval',
       url: ['module-approvals'],
+    },
+    {
+      type: 'LINK',
+      text: $localize`Modulhandbücher Vorschau`,
+      icon: 'book',
+      url: ['module-catalog-lists-preview'],
     },
   ]
   railItems: Array<CopsAppRailItem> = [

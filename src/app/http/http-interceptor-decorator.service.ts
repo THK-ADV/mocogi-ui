@@ -32,12 +32,14 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
       if (error?.error) {
+        const request = error.error.request || $localize`Unbekannte Anfrage`
+        const message = error.error.message || $localize`Unbekannte Fehlernachricht`
         const alert: Alert = {
           type: 'danger',
           body: {
             kind: 'html',
-            value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${error.error.request}</p>\
-                  <p><strong>Fehlernachricht:</strong><br>${error.error.message}</p>`,
+            value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${request}</p>\
+                  <p><strong>Fehlernachricht:</strong><br>${message}</p>`,
           },
           autoDismiss: false,
         }
