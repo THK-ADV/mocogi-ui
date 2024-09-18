@@ -3,7 +3,9 @@
 
   <ng-container *ngIf="dataSource.data.length !== 0; else noData">
     <p i18n>Die Vorschau von Modulhandbüchern ist in den Studiengängen möglich, wo eine Rolle als Studiengangsleitung
-      oder Prüfungsausschussvorsitz vorliegt</p>
+      oder Prüfungsausschussvorsitz vorliegt.</p>
+    <p i18n>Sie berücksichtigt ausschließlich Module, die in dieser Bearbeitungsphase
+      veröffentlicht wurden.</p>
     <table mat-table [dataSource]="dataSource">
       <!-- Study Program -->
       <ng-container matColumnDef="study_program">
