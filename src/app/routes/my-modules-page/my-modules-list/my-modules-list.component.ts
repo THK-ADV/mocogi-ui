@@ -25,7 +25,8 @@ export class MyModulesListComponent {
     }
   }
 
-  constructor(private readonly store: Store, private dialog: MatDialog) {}
+  constructor(private readonly store: Store, private dialog: MatDialog) {
+  }
 
   showLatestModule(moduleId: string) {
     this.store.dispatch(MyModulesPageActions.showLatestModule({moduleId}))
@@ -94,11 +95,28 @@ export class MyModulesListComponent {
     moduleDraftState.id === 'valid_for_publication' ||
     moduleDraftState.id === 'waiting_for_changes'
 
+  tooltip = ({moduleDraftState}: ModeratedModule) => {
+    switch (moduleDraftState.id) {
+      case 'published':
+        return $localize`Das Modul ist veröffentlicht und taucht im Modulhandbuch und in der Modulsuche auf.`
+      case 'valid_for_review':
+        return $localize`Das Modul kann zur Genehmigung freigegeben werden. Eine Genehmigung ist erforderlich, da genehmigungspflichtige Attribute geändert wurden.`
+      case 'valid_for_publication':
+        return $localize`Das Modul kann veröffentlicht werden. Nach der Bearbeitungsphase taucht es im Modulhandbuch und in der Modulsuche auf.`
+      case 'waiting_for_review':
+        return $localize`Das Modul ist im Genehmigungsprozess.`
+      case 'waiting_for_changes':
+        return $localize`Das Modul wurde im Genehmigungsprozess abgelehnt und benötigt Anpassungen.`
+      case 'unknown':
+        return $localize`Unbekannt.`
+    }
+  }
+
   openDialog = (module: ModuleCore) => {
     this.dialog.open(PermissionsDialogComponent, {
       width: '600px',
       disableClose: true,
-      data: { moduleId: module.id, moduleTitle: module.title },
+      data: {moduleId: module.id, moduleTitle: module.title},
     })
   }
 }
