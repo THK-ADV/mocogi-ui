@@ -11,7 +11,7 @@
   <ng-container matColumnDef="status">
     <th i18n mat-header-cell *matHeaderCellDef>Status</th>
     <td mat-cell *matCellDef="let element">
-      <mat-chip disabled>{{status(element)}}</mat-chip>
+      <mat-chip [matTooltip]="tooltip(element)">{{status(element)}}</mat-chip>
     </td>
   </ng-container>
   <!-- Actions -->

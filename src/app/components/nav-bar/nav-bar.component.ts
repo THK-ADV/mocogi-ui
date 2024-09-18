@@ -25,14 +25,16 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
 })
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []
+
   constructor(private store: Store, private router: Router) {
   }
+
   navigateTo(url: Array<string>) {
-    this.store.dispatch(NavigationActions.navigate({ path: url }))
+    this.store.dispatch(NavigationActions.navigate({path: url}))
   }
 
-  isActive = (itemUrl: string) => {
-    const comparableUrl = itemUrl === '/' ? itemUrl : `/${ itemUrl }`
+  isActive(itemUrl: string) {
+    const comparableUrl = itemUrl === '/' ? itemUrl : `/${itemUrl}`
     return this.router.url === comparableUrl
   }
 }
