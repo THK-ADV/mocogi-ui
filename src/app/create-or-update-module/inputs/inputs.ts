@@ -1,34 +1,36 @@
-import { simpleInput } from './simple-inputs'
-import { responsibilityInput } from './responsibility-input'
-import { assessmentInput, AssessmentMethodKind } from './assessment-input'
-import { workloadInput } from './workload-input'
-import { MatDialog } from '@angular/material/dialog'
-import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
-import { studyProgramInput } from './study-program-input'
-import { miscellaneousInput } from './miscellaneous-input'
-import { mapOpt } from '../../ops/undefined-ops'
-import { moduleContent } from './module-content-input'
-import { learningMethodsContent } from './learning-methods-content-input'
-import { literatureContent } from './literature-content-input'
-import { particularitiesContent } from './particularities-content-input'
-import { learningOutcomeContent } from './learning-outcome-content-input'
-import { Participants } from '../../types/participants'
-import { ModuleRelation } from '../../types/module-relation'
-import { MetadataLike } from '../../types/metadata'
-import { Location } from '../../types/core/location'
-import { Language } from '../../types/core/language'
-import { Status } from '../../types/core/status'
-import { AssessmentMethod } from '../../types/core/assessment-method'
-import { ModuleType } from '../../types/core/module-type'
-import { Season } from '../../types/core/season'
-import { Identity } from '../../types/core/person'
-import { GlobalCriteria } from '../../types/core/global-criteria'
-import { Competence } from '../../types/core/competence'
-import { ModuleCore, ModuleLike } from '../../types/moduleCore'
-import { Section } from 'src/app/form/module-form/module-form.component'
-import { StudyProgram } from '../../types/module-compendium'
-import { GenericModuleCore } from '../../types/genericModuleCore'
-import { ExamPhase } from '../../types/core/exam-phase'
+import {simpleInput} from './simple-inputs'
+import {responsibilityInput} from './responsibility-input'
+import {assessmentInput, AssessmentMethodKind} from './assessment-input'
+import {workloadInput} from './workload-input'
+import {MatDialog} from '@angular/material/dialog'
+import {prerequisitesInputs, PrerequisitesKind} from './prerequisites-input'
+import {studyProgramInput} from './study-program-input'
+import {miscellaneousInput} from './miscellaneous-input'
+import {mapOpt} from '../../ops/undefined-ops'
+import {moduleContent} from './module-content-input'
+import {learningMethodsContent} from './learning-methods-content-input'
+import {literatureContent} from './literature-content-input'
+import {particularitiesContent} from './particularities-content-input'
+import {learningOutcomeContent} from './learning-outcome-content-input'
+import {Participants} from '../../types/participants'
+import {ModuleRelation} from '../../types/module-relation'
+import {MetadataLike} from '../../types/metadata'
+import {Location} from '../../types/core/location'
+import {Language} from '../../types/core/language'
+import {Status} from '../../types/core/status'
+import {AssessmentMethod} from '../../types/core/assessment-method'
+import {ModuleType} from '../../types/core/module-type'
+import {Season} from '../../types/core/season'
+import {Identity} from '../../types/core/person'
+import {GlobalCriteria} from '../../types/core/global-criteria'
+import {Competence} from '../../types/core/competence'
+import {ModuleCore, ModuleLike} from '../../types/moduleCore'
+import {Section} from 'src/app/form/module-form/module-form.component'
+import {StudyProgram} from '../../types/module-compendium'
+import {GenericModuleCore} from '../../types/genericModuleCore'
+import {ExamPhase} from '../../types/core/exam-phase'
+import {numberOrd, peopleOrd, stringOrd} from '../../ops/ordering.instances'
+import {Ordering} from '../../ops/ordering'
 
 export const requiredLabel = (label: string): string =>
   label + ' *'
@@ -60,6 +62,15 @@ export function inputs(
   const metadata = moduleCompendium?.metadata
   const deContent = moduleCompendium?.deContent
   const enContent = moduleCompendium?.enContent
+  identities.sort(peopleOrd)
+  assessmentMethods.sort(Ordering.contraMap(stringOrd, (a) => a.deLabel))
+  studyPrograms.sort(Ordering.many<StudyProgram>([
+    Ordering.contraMap(stringOrd, sp => sp.deLabel),
+    Ordering.contraMap(stringOrd, sp => sp.degree.id),
+    Ordering.contraMap(numberOrd, sp => sp.po.version),
+  ]))
+  modules.sort(Ordering.contraMap(stringOrd, m => m.title))
+  examPhases.sort(Ordering.contraMap(stringOrd, m => m.label))
 
   function generalInformationSection(): Section<unknown, unknown> {
     return {
