@@ -28,13 +28,13 @@ export const moduleReducer = createReducer(
       selectedModuleId: undefined,
     }
   }),
-  on(ModulePageActions.selectModule, (state, {moduleId}): State => {
+  on(ModulePageActions.selectModule, (state, { moduleId }): State => {
     return {
       ...state,
       selectedModuleId: moduleId,
     }
   }),
-  on(ModulePageActions.filterModule, (state, {filter}): State => {
+  on(ModulePageActions.filterModule, (state, { filter }): State => {
     return {
       ...state,
       moduleFilter: filter,
@@ -46,19 +46,19 @@ export const moduleReducer = createReducer(
       moduleFilter: undefined,
     }
   }),
-  on(ModulePageActions.selectSort, (state, {sort}): State => {
+  on(ModulePageActions.selectSort, (state, { sort }): State => {
     return {
       ...state,
       selectedSort: sort,
     }
   }),
-  on(ModuleApiActions.retrievedModulesSuccess, (state, {modules}): State => {
+  on(ModuleApiActions.retrievedModulesSuccess, (state, { modules }): State => {
     return {
       ...state,
       modules,
     }
   }),
-  on(ModuleApiActions.retrievedModulesFailure, (state, {error}): State => {
+  on(ModuleApiActions.retrievedModulesFailure, (state, { error }): State => {
     return {
       ...state,
       error,

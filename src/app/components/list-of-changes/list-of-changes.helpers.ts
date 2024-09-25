@@ -3,16 +3,26 @@ import { Module } from '../../types/moduleCore'
 
 type ChangeType = 'add' | 'clear' | 'update' | 'unchanged'
 
-export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendium: Module, stagingModuleCompendium: Module) {
-  const detailDescriptions: { [key in ChangeType]: { message: string, icon: string } } = {
-    'add': {message: $localize`wurde hinzugefügt`, icon: 'add'},
-    'clear': {message: $localize`wurde entfernt`, icon: 'remove'},
-    'update': {message: $localize`wurde aktualisiert`, icon: 'edit'},
-    'unchanged': {message: $localize`unverändert`, icon: 'home'},
+export function buildChangeLog(
+  moduleDraftKeys: ModuleDraftKeys,
+  moduleCompendium: Module,
+  stagingModuleCompendium: Module,
+) {
+  const detailDescriptions: {
+    [key in ChangeType]: { message: string; icon: string }
+  } = {
+    add: { message: $localize`wurde hinzugefügt`, icon: 'add' },
+    clear: { message: $localize`wurde entfernt`, icon: 'remove' },
+    update: { message: $localize`wurde aktualisiert`, icon: 'edit' },
+    unchanged: { message: $localize`unverändert`, icon: 'home' },
   }
 
   return moduleDraftKeys.modifiedKeys.map((modifiedKey) => {
-    const type = getChangeType(modifiedKey.id, moduleCompendium, stagingModuleCompendium)
+    const type = getChangeType(
+      modifiedKey.id,
+      moduleCompendium,
+      stagingModuleCompendium,
+    )
     return {
       icon: detailDescriptions[type].icon,
       name: modifiedKey.label,
@@ -24,23 +34,28 @@ export function buildChangeLog(moduleDraftKeys: ModuleDraftKeys, moduleCompendiu
 
 function accessObject<T>(item: T, property: string) {
   if (property.includes('.')) {
-    return property
-      .split('.')
-      .reduce((object, key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return {...object}[key]
-      }, item)
+    return property.split('.').reduce((object, key) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return { ...object }[key]
+    }, item)
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return item[property]
 }
 
-
-function getChangeType(modifiedKey: string, updatedModuleCompendium: Module, initialModuleCompendium: Module): ChangeType {
-  const updatedValue = JSON.stringify(accessObject(updatedModuleCompendium, modifiedKey))
-  const initialValue = JSON.stringify(accessObject(initialModuleCompendium, modifiedKey))
+function getChangeType(
+  modifiedKey: string,
+  updatedModuleCompendium: Module,
+  initialModuleCompendium: Module,
+): ChangeType {
+  const updatedValue = JSON.stringify(
+    accessObject(updatedModuleCompendium, modifiedKey),
+  )
+  const initialValue = JSON.stringify(
+    accessObject(initialModuleCompendium, modifiedKey),
+  )
   if (updatedValue === '""') {
     return 'clear'
   }

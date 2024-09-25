@@ -8,14 +8,10 @@
 </main>
 <aside>
   <mat-tab-group>
-    <mat-tab
-      i18n-label
-      label="Änderungen">
+    <mat-tab i18n-label label="Änderungen">
       <cops-list-of-changes [changedKeys]="modifiedKeys"></cops-list-of-changes>
     </mat-tab>
-    <mat-tab
-      i18n-label
-      label="Kommentare">
+    <mat-tab i18n-label label="Kommentare">
       <cops-list-of-comments [approvals]="approvals"></cops-list-of-comments>
     </mat-tab>
   </mat-tab-group>
@@ -23,6 +19,5 @@
   <cops-module-review-actions
     [approveAction]="approve"
     [rejectAction]="reject"
-    [cancelAction]="cancel"
-  ></cops-module-review-actions>
+    [cancelAction]="cancel"></cops-module-review-actions>
 </aside>

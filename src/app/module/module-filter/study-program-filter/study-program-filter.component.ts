@@ -1,7 +1,10 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
-import { selectSelectedStudyProgram, selectStudyPrograms } from '../../../state/selectors/module-filter.selectors'
+import {
+  selectSelectedStudyProgram,
+  selectStudyPrograms,
+} from '../../../state/selectors/module-filter.selectors'
 import { showStudyProgram } from '../../../ops/show.instances'
 import { StudyProgram } from '../../../types/module-compendium'
 
@@ -11,7 +14,6 @@ import { StudyProgram } from '../../../types/module-compendium'
   styleUrls: ['./study-program-filter.component.css'],
 })
 export class StudyProgramFilterComponent {
-
   label = $localize`Studiengang`
 
   options$ = this.store.select(selectStudyPrograms)
@@ -20,12 +22,15 @@ export class StudyProgramFilterComponent {
 
   show = showStudyProgram
 
-  selectAction = ({po, specialization}: StudyProgram) => ModuleFilterPageActions.selectStudyProgram({
-    selectedStudyProgramId: {poId: po.id, specializationId: specialization?.id},
-  })
+  selectAction = ({ po, specialization }: StudyProgram) =>
+    ModuleFilterPageActions.selectStudyProgram({
+      selectedStudyProgramId: {
+        poId: po.id,
+        specializationId: specialization?.id,
+      },
+    })
 
   deselectAction = ModuleFilterPageActions.deselectStudyProgram
 
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 }

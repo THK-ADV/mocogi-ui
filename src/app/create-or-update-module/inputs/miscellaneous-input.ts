@@ -33,12 +33,16 @@ export function miscellaneousInput(
       required: false,
       options: competences,
       show: showLabel,
-      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
       dialogInstance: () => competenceDialogInstance(attr),
     }
   }
 
-  function globalCriteriaInput(): ReadOnlyInput<GlobalCriteria, GlobalCriteria> {
+  function globalCriteriaInput(): ReadOnlyInput<
+    GlobalCriteria,
+    GlobalCriteria
+  > {
     const attr = 'global-criteria'
     const entries = currentGlobalCriteria(attr)
     return {
@@ -49,7 +53,8 @@ export function miscellaneousInput(
       required: false,
       options: globalCriteria,
       show: showLabel,
-      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
       dialogInstance: () => globalCriteriaDialogInstance(attr),
     }
   }
@@ -65,15 +70,21 @@ export function miscellaneousInput(
       required: false,
       options: modules,
       show: showModule,
-      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
       dialogInstance: () => taughtWithDialogInstance(attr),
     }
   }
 
   function competenceDialogInstance(attr: string) {
-    const columns = [{attr: 'competence', title: $localize`Kompetenzen`}]
+    const columns = [{ attr: 'competence', title: $localize`Kompetenzen` }]
     const entries = currentCompetences(attr)
-    const callback = new CompetenceCallback(competences, entries, columns[0].attr, showLabel)
+    const callback = new CompetenceCallback(
+      competences,
+      entries,
+      columns[0].attr,
+      showLabel,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -96,9 +107,16 @@ export function miscellaneousInput(
   }
 
   function globalCriteriaDialogInstance(attr: string) {
-    const columns = [{attr: 'global-criteria', title: $localize`Globale Kriterien`}]
+    const columns = [
+      { attr: 'global-criteria', title: $localize`Globale Kriterien` },
+    ]
     const entries = currentGlobalCriteria(attr)
-    const callback = new GlobalCriteriaCallback(globalCriteria, entries, columns[0].attr, showLabel)
+    const callback = new GlobalCriteriaCallback(
+      globalCriteria,
+      entries,
+      columns[0].attr,
+      showLabel,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -121,9 +139,14 @@ export function miscellaneousInput(
   }
 
   function taughtWithDialogInstance(attr: string) {
-    const columns = [{attr: 'module', title: $localize`Modul`}]
+    const columns = [{ attr: 'module', title: $localize`Modul` }]
     const entries = currentTaughtWith(attr)
-    const callback = new ModuleCallback(modules, entries, columns[0].attr, showModule)
+    const callback = new ModuleCallback(
+      modules,
+      entries,
+      columns[0].attr,
+      showModule,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -146,8 +169,14 @@ export function miscellaneousInput(
   }
 
   return {
-    'competenceInput': [{input: competenceInput() as FormInput<unknown, unknown>}],
-    'globalCriteriaInput': [{input: globalCriteriaInput() as FormInput<unknown, unknown>}],
-    'taughtWithInput': [{input: taughtWithInput() as FormInput<unknown, unknown>}],
+    competenceInput: [
+      { input: competenceInput() as FormInput<unknown, unknown> },
+    ],
+    globalCriteriaInput: [
+      { input: globalCriteriaInput() as FormInput<unknown, unknown> },
+    ],
+    taughtWithInput: [
+      { input: taughtWithInput() as FormInput<unknown, unknown> },
+    ],
   }
 }

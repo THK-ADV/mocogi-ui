@@ -20,7 +20,11 @@ import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
-import { ModuleCatalog, StudyProgram, StudyProgramCore } from '../types/module-compendium'
+import {
+  ModuleCatalog,
+  StudyProgram,
+  StudyProgramCore,
+} from '../types/module-compendium'
 import { ElectivesCatalogue } from '../types/electivesCatalogues'
 import { GenericModuleCore } from '../types/genericModuleCore'
 import { ExamPhase } from '../types/core/exam-phase'
@@ -38,9 +42,9 @@ export interface ModuleDraftJson {
 }
 
 export interface ModuleKey {
-  id: string,
-  label: string,
-  desc: string,
+  id: string
+  label: string
+  desc: string
 }
 
 export type ModuleDraftKeys = {
@@ -58,9 +62,7 @@ interface ModeratedModuleJson {
   providedIn: 'root',
 })
 export class HttpService {
-
-  constructor(private readonly http: HttpClient) {
-  }
+  constructor(private readonly http: HttpClient) {}
 
   // Modules
 
@@ -79,10 +81,12 @@ export class HttpService {
     this.http.get<Module>(`modules/${id}/preview`)
 
   moduleHtmlFile = (id: string) =>
-    this.http.request('GET', `modules/${id}/file`, {responseType: 'text'})
+    this.http.request('GET', `modules/${id}/file`, { responseType: 'text' })
 
   latestModuleHtmlFile = (id: string) =>
-    this.http.request('GET', `modules/${id}/latest/file`, {responseType: 'text'})
+    this.http.request('GET', `modules/${id}/latest/file`, {
+      responseType: 'text',
+    })
 
   // Core Data
 
@@ -92,8 +96,7 @@ export class HttpService {
   allLanguages = (): Observable<Language[]> =>
     this.http.get<Language[]>('languages')
 
-  allStatus = (): Observable<Status[]> =>
-    this.http.get<Status[]>('status')
+  allStatus = (): Observable<Status[]> => this.http.get<Status[]>('status')
 
   allAssessmentMethods = (): Observable<AssessmentMethod[]> =>
     this.http.get<AssessmentMethod[]>('assessmentMethods')
@@ -101,8 +104,7 @@ export class HttpService {
   allModuleTypes = (): Observable<ModuleType[]> =>
     this.http.get<ModuleType[]>('moduleTypes')
 
-  allSeasons = (): Observable<Season[]> =>
-    this.http.get<Season[]>('seasons')
+  allSeasons = (): Observable<Season[]> => this.http.get<Season[]>('seasons')
 
   allIdentities = (): Observable<Identity[]> =>
     this.http.get<Identity[]>('identities')
@@ -121,27 +123,20 @@ export class HttpService {
 
   // Draft
 
-  createNewDraft = (
-    mc: ModuleProtocol
-  ): Observable<ModuleDraft> =>
+  createNewDraft = (mc: ModuleProtocol): Observable<ModuleDraft> =>
     this.http
-      .post<ModuleDraftJson>(
-        'moduleDrafts',
-        mc,
-        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
-      )
+      .post<ModuleDraftJson>('moduleDrafts', mc, {
+        headers: { 'Mocogi-Version-Scheme': 'v1.0s' },
+      })
       .pipe(map(this.convertModuleDraft))
 
   updateModuleDraft = (
     moduleId: string,
     moduleCompendiumProtocol: ModuleProtocol,
   ): Observable<unknown> =>
-    this.http
-      .put(
-        `moduleDrafts/${moduleId}`,
-        moduleCompendiumProtocol,
-        {headers: {'Mocogi-Version-Scheme': 'v1.0s'}}
-      )
+    this.http.put(`moduleDrafts/${moduleId}`, moduleCompendiumProtocol, {
+      headers: { 'Mocogi-Version-Scheme': 'v1.0s' },
+    })
 
   deleteDraft = (moduleId: string) =>
     this.http.delete(`moduleDrafts/${moduleId}`)
@@ -153,21 +148,27 @@ export class HttpService {
 
   moderatedModules = (): Observable<ModeratedModule[]> =>
     this.http.get<ModeratedModuleJson[]>('moduleDrafts/own').pipe(
-      map(xs => xs.map(x => {
-        return {
-          ...x,
-          moduleDraft: x.moduleDraft != null ? this.convertModuleDraft(x.moduleDraft) : undefined,
-        }
-      })),
+      map((xs) =>
+        xs.map((x) => {
+          return {
+            ...x,
+            moduleDraft:
+              x.moduleDraft != null
+                ? this.convertModuleDraft(x.moduleDraft)
+                : undefined,
+          }
+        }),
+      ),
     )
 
   private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
-    const mc: ModuleProtocol = { // TODO improve
+    const mc: ModuleProtocol = {
+      // TODO improve
       deContent: asRecord(draft.data)['deContent'] as Content,
       enContent: asRecord(draft.data)['enContent'] as Content,
       metadata: asRecord(draft.data)['metadata'] as Metadata,
     }
-    return ({...draft, lastModified: new Date(draft.lastModified), data: mc})
+    return { ...draft, lastModified: new Date(draft.lastModified), data: mc }
   }
 
   // Validation
@@ -199,7 +200,12 @@ export class HttpService {
   getApprovals = (moduleId: string): Observable<ReadonlyArray<Approval>> =>
     this.http.get<ReadonlyArray<Approval>>(`moduleApprovals/${moduleId}`)
 
-  submitApproval = (moduleId: string, approvalId: string, action: 'approve' | 'reject', comment?: string): Observable<unknown> =>
+  submitApproval = (
+    moduleId: string,
+    approvalId: string,
+    action: 'approve' | 'reject',
+    comment?: string,
+  ): Observable<unknown> =>
     this.http.put(`moduleApprovals/${moduleId}/${approvalId}`, {
       action,
       comment,
@@ -208,7 +214,7 @@ export class HttpService {
   // Semester
 
   getSemesters = () => {
-    const currentYear = (new Date()).getFullYear()
+    const currentYear = new Date().getFullYear()
     const rangeInYears = 5
     const semesters = generateSemestersAroundYear(currentYear, rangeInYears)
     return of(semesters)
@@ -216,30 +222,36 @@ export class HttpService {
 
   // Module Compendium List
 
-  allModuleCatalogs = (semester: string): Observable<ReadonlyArray<ModuleCatalog>> =>
+  allModuleCatalogs = (
+    semester: string,
+  ): Observable<ReadonlyArray<ModuleCatalog>> =>
     this.http.get<ReadonlyArray<ModuleCatalog>>(`moduleCatalogs/${semester}`)
 
   getPreview = (studyProgram: string, po: string): Observable<Blob> =>
-    this.http.get(
-      `moduleCatalogs/preview/${studyProgram}/${po}`,
-      {
-        headers: {'Accept': 'application/pdf'},
-        responseType: 'blob',
-      },
-    )
+    this.http.get(`moduleCatalogs/preview/${studyProgram}/${po}`, {
+      headers: { Accept: 'application/pdf' },
+      responseType: 'blob',
+    })
 
   // Permissions
 
   getPermissions = (moduleId: string): Observable<Array<string>> =>
     this.http.get<Array<string>>(`moduleUpdatePermissions/${moduleId}`)
 
-  setPermissions = (moduleId: string, permissions: ReadonlyArray<string>): Observable<unknown> =>
+  setPermissions = (
+    moduleId: string,
+    permissions: ReadonlyArray<string>,
+  ): Observable<unknown> =>
     this.http.post(`moduleUpdatePermissions/${moduleId}`, permissions)
 
   // Electives Catalogues
 
-  allElectivesCatalogues = (semester: string): Observable<ReadonlyArray<ElectivesCatalogue>> =>
-    this.http.get<ReadonlyArray<ElectivesCatalogue>>(`electivesCatalogs/${semester}`)
+  allElectivesCatalogues = (
+    semester: string,
+  ): Observable<ReadonlyArray<ElectivesCatalogue>> =>
+    this.http.get<ReadonlyArray<ElectivesCatalogue>>(
+      `electivesCatalogs/${semester}`,
+    )
 
   // Personal Data
 

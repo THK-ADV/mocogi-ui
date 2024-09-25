@@ -4,7 +4,7 @@ import { ModuleView } from '../../types/module-view'
 export const ModuleApprovalsPageActions = createActionGroup({
   source: 'Module Reviews Page',
   events: {
-    'Enter': emptyProps(),
+    Enter: emptyProps(),
   },
 })
 

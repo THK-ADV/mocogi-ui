@@ -12,7 +12,6 @@ import { NavigationActions } from '../../state/actions/navigation.actions'
   styleUrls: ['./my-modules-page.component.css'],
 })
 export class MyModulesPageComponent implements OnInit {
-
   modules$: Observable<ReadonlyArray<ModeratedModule>>
   nonEmptyModules$: Observable<boolean>
 

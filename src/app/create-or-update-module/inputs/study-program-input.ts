@@ -20,22 +20,24 @@ export function studyProgramInput(
   currentMandatoryEntries: (attr: string) => POMandatory[],
   currentOptionalEntries: (attr: string) => POOptional[],
 ): Rows<unknown, unknown> {
-
   const dialogTitle = $localize`Zugehörigkeit zu Studiengängen bearbeiten`
-  const studyProgramColumn = {attr: 'po', title: $localize`Studiengang`}
+  const studyProgramColumn = { attr: 'po', title: $localize`Studiengang` }
 
   function mandatory(): ReadOnlyInput<StudyProgram, POMandatory> {
     const attr = 'po-mandatory'
     const entries = currentMandatoryEntries(attr)
     return {
       kind: 'read-only',
-      label: optionalLabel($localize`Verwendung in Studiengängen als Pflicht Modul`),
+      label: optionalLabel(
+        $localize`Verwendung in Studiengängen als Pflicht Modul`,
+      ),
       attr: attr,
       disabled: false,
       required: false,
       options: studyPrograms,
       show: showPOMandatory,
-      initialValue: sps => entries.filter(({po}) => sps.some(sp => sp.po.id === po)),
+      initialValue: (sps) =>
+        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
       dialogInstance: () => mandatoryDialogInstance(attr),
     }
   }
@@ -51,7 +53,8 @@ export function studyProgramInput(
       required: false,
       options: studyPrograms,
       show: showPOOptional,
-      initialValue: sps => entries.filter(({po}) => sps.some(sp => sp.po.id === po)),
+      initialValue: (sps) =>
+        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
       dialogInstance: () => optionalDialogInstance(attr),
     }
   }
@@ -73,7 +76,10 @@ export function studyProgramInput(
     const callback = new PoMandatoryCallback(studyPrograms, entries)
     const columns = [
       studyProgramColumn,
-      {attr: 'recommended-semester', title: $localize`Empfohlene Studiensemester (kommasepariert)`},
+      {
+        attr: 'recommended-semester',
+        title: $localize`Empfohlene Studiensemester (kommasepariert)`,
+      },
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -96,12 +102,22 @@ export function studyProgramInput(
 
   function optionalDialogInstance(attr: string) {
     const entries = currentOptionalEntries(attr)
-    const callback = new PoOptionalCallback(studyPrograms, entries, genericModules)
+    const callback = new PoOptionalCallback(
+      studyPrograms,
+      entries,
+      genericModules,
+    )
     const columns = [
       studyProgramColumn,
-      {attr: 'instance-of', title: $localize`Instanz von`},
-      {attr: 'recommended-semester', title: $localize`Empfohlene Studiensemester (kommasepariert)`},
-      {attr: 'part-of-catalog', title: $localize`Teil des Modulverzeichnisses`},
+      { attr: 'instance-of', title: $localize`Instanz von` },
+      {
+        attr: 'recommended-semester',
+        title: $localize`Empfohlene Studiensemester (kommasepariert)`,
+      },
+      {
+        attr: 'part-of-catalog',
+        title: $localize`Teil des Modulverzeichnisses`,
+      },
     ]
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -117,9 +133,15 @@ export function studyProgramInput(
           disabled: false,
           required: false,
           data: genericModules,
-          show: ({title, pos}) => {
+          show: ({ title, pos }) => {
             const poStr = pos
-              .map(po => mapOpt(studyPrograms.find(sp => sp.po.id === po), showStudyProgram) ?? po)
+              .map(
+                (po) =>
+                  mapOpt(
+                    studyPrograms.find((sp) => sp.po.id === po),
+                    showStudyProgram,
+                  ) ?? po,
+              )
               .join(', ')
             return `${title} (${poStr})`
           },
@@ -144,20 +166,20 @@ export function studyProgramInput(
   }
 
   function showStudyProgram_(po: string): string {
-    const sp = studyPrograms.find(sp => sp.po.id === po)
+    const sp = studyPrograms.find((sp) => sp.po.id === po)
     return sp ? showStudyProgram(sp) : po
   }
 
-  function showPOMandatory({po}: POMandatory): string {
+  function showPOMandatory({ po }: POMandatory): string {
     return showStudyProgram_(po)
   }
 
-  function showPOOptional({po}: POOptional): string {
+  function showPOOptional({ po }: POOptional): string {
     return showStudyProgram_(po)
   }
 
   return {
-    'mandatory-po': [{input: mandatory() as FormInput<unknown, unknown>}],
-    'optional-po': [{input: optional() as FormInput<unknown, unknown>}],
+    'mandatory-po': [{ input: mandatory() as FormInput<unknown, unknown> }],
+    'optional-po': [{ input: optional() as FormInput<unknown, unknown> }],
   }
 }

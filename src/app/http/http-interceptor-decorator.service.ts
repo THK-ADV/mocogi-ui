@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core'
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http'
 import { catchError, Observable } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { AlertService } from '../alert/alert.service'
@@ -7,20 +13,25 @@ import { Alert } from '../alert/alert'
 
 @Injectable()
 export class HttpInterceptorDecorator implements HttpInterceptor {
+  constructor(private alertService: AlertService) {}
 
-  constructor(private alertService: AlertService) {
-  }
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<unknown>> {
     return this.handleError(next.handle(this.prefixBackendUrl(request)))
   }
 
-  private prefixBackendUrl = (request: HttpRequest<unknown>): HttpRequest<unknown> =>
+  private prefixBackendUrl = (
+    request: HttpRequest<unknown>,
+  ): HttpRequest<unknown> =>
     request.clone({
       url: `${environment.backendUrl}/${request.url}`,
     })
 
-  private handleError = (request: Observable<HttpEvent<unknown>>): Observable<HttpEvent<unknown>> =>
+  private handleError = (
+    request: Observable<HttpEvent<unknown>>,
+  ): Observable<HttpEvent<unknown>> =>
     request.pipe(catchError(this.handleError_))
 
   // https://angular.io/guide/http#getting-error-details
@@ -33,7 +44,8 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
       // The response body may contain clues as to what went wrong.
       if (error?.error) {
         const request = error.error.request || $localize`Unbekannte Anfrage`
-        const message = error.error.message || $localize`Unbekannte Fehlernachricht`
+        const message =
+          error.error.message || $localize`Unbekannte Fehlernachricht`
         const alert: Alert = {
           type: 'danger',
           body: {
@@ -45,7 +57,10 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
         }
         this.alertService.report(alert)
       } else {
-        console.error(`Backend returned code ${error.status}, body was: `, error.error)
+        console.error(
+          `Backend returned code ${error.status}, body was: `,
+          error.error,
+        )
       }
     }
     throw error

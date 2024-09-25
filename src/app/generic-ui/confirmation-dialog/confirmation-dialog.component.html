@@ -1,20 +1,16 @@
-<h1 mat-dialog-title>{{payload.title}}</h1>
+<h1 mat-dialog-title>{{ payload.title }}</h1>
 
 <ng-container *ngIf="payload">
   <mat-dialog-content>
-    <p>{{payload.value}}</p>
+    <p>{{ payload.value }}</p>
   </mat-dialog-content>
 </ng-container>
 
 <mat-dialog-actions>
-  <button
-    i18n
-    mat-flat-button
-    cdkFocusInitial
-    (click)="cancel()">Abbrechen</button>
-  <button
-    i18n
-    mat-flat-button
-    color="primary"
-    (click)="submit()">Bestätigen</button>
+  <button i18n mat-flat-button cdkFocusInitial (click)="cancel()">
+    Abbrechen
+  </button>
+  <button i18n mat-flat-button color="primary" (click)="submit()">
+    Bestätigen
+  </button>
 </mat-dialog-actions>

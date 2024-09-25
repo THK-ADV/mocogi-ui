@@ -30,5 +30,3 @@ export interface Group {
   label: string
   kind: 'group'
 }
-
-

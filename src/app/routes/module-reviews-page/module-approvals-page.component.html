@@ -1,7 +1,10 @@
 <main>
   <h2 i18n>Änderungsfreigaben</h2>
   <ng-container *ngIf="approvals.length !== 0; else noData">
-    <p>Die folgenden Module benötigen ein Review, bevor sie veröffentlicht werden.</p>
+    <p>
+      Die folgenden Module benötigen ein Review, bevor sie veröffentlicht
+      werden.
+    </p>
     <cops-approvals-list [approvals]="approvals"></cops-approvals-list>
   </ng-container>
   <ng-template #noData>

@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store'
   styleUrls: ['./abstract-module-filter.component.css'],
 })
 export class AbstractModuleFilterComponent<A> {
-
   @Input() label!: string
   @Input() show!: (a: A) => string
   @Input() selectAction!: (a: A) => TypedAction<string>
@@ -29,24 +28,24 @@ export class AbstractModuleFilterComponent<A> {
   protected filteredOptions: Observable<A[]> = EMPTY
   protected formControl = new FormControl()
 
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 
   private initFilterOptions = () => {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
-      map(value => typeof value === 'string' ? value : this.show(value)),
-      map(value => value ? this.filter(value) : this.options_.slice()),
+      map((value) => (typeof value === 'string' ? value : this.show(value))),
+      map((value) => (value ? this.filter(value) : this.options_.slice())),
     )
   }
 
   private filter = (input: string): A[] => {
     const filterValue = input.toLowerCase()
-    return this.options_.filter(t => this.show(t).toLowerCase().indexOf(filterValue) >= 0)
+    return this.options_.filter(
+      (t) => this.show(t).toLowerCase().indexOf(filterValue) >= 0,
+    )
   }
 
-  displayFn = (value?: A): string =>
-    (value && this.show(value)) ?? ''
+  displayFn = (value?: A): string => (value && this.show(value)) ?? ''
 
   selectOption = (a: A) => {
     this.store.dispatch(this.selectAction(a))
@@ -58,7 +57,7 @@ export class AbstractModuleFilterComponent<A> {
   }
 
   private reset = () => {
-    this.formControl.reset(undefined, {emitEvent: false})
+    this.formControl.reset(undefined, { emitEvent: false })
     this.initFilterOptions()
   }
 }

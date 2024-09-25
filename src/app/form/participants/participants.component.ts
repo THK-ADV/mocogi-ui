@@ -1,7 +1,14 @@
 import { Component, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { formControlForNumberInput, NumberInput } from '../plain-input/plain-input.component'
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
+import {
+  formControlForNumberInput,
+  NumberInput,
+} from '../plain-input/plain-input.component'
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog'
 import { validMandatoryNumber } from '../../create-or-update-module/callbacks/callback-validation'
 import { Participants } from '../../types/participants'
 
@@ -56,32 +63,31 @@ export class ParticipantsComponent {
     dialog: MatDialog,
     participants: Participants | undefined,
   ): MatDialogRef<ParticipantsComponent> =>
-    dialog.open<ParticipantsComponent>(
-      ParticipantsComponent,
-      {
-        data: participants,
-        minWidth: window.innerWidth * 0.5,
-      },
-    )
+    dialog.open<ParticipantsComponent>(ParticipantsComponent, {
+      data: participants,
+      minWidth: window.innerWidth * 0.5,
+    })
 
-
-  cancel = () =>
-    this.dialogRef.close()
+  cancel = () => this.dialogRef.close()
 
   applyChanges = () =>
-    this.dialogRef.close([{
-      min: Number(this.minControl.value),
-      max: Number(this.maxControl.value),
-    }])
+    this.dialogRef.close([
+      {
+        min: Number(this.minControl.value),
+        max: Number(this.maxControl.value),
+      },
+    ])
 
   isValid = () => {
     const max = this.maxControl.value
     const min = this.minControl.value
-    return validMandatoryNumber(max) &&
+    return (
+      validMandatoryNumber(max) &&
       validMandatoryNumber(min) &&
-      +min >= 0 && +min < +max
+      +min >= 0 &&
+      +min < +max
+    )
   }
 
-  delete = () =>
-    this.dialogRef.close([])
+  delete = () => this.dialogRef.close([])
 }

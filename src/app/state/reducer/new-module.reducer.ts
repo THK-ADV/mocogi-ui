@@ -1,8 +1,11 @@
 import { createReducer, on } from '@ngrx/store'
-import { NewModuleApiActions, NewModulePageActions } from '../actions/new-module-page.actions'
+import {
+  NewModuleApiActions,
+  NewModulePageActions,
+} from '../actions/new-module-page.actions'
 
 export interface State {
-  updateInProcess: boolean,
+  updateInProcess: boolean
 }
 
 const initialState: State = {

@@ -18,9 +18,10 @@ export class ModuleFormActionsComponent implements OnInit {
     this.updateInProcess_ = bool ?? false
   }
 
-  @ViewChild('cancelButton', {static: true}) cancelButtonRef!: MatButton
+  @ViewChild('cancelButton', { static: true }) cancelButtonRef!: MatButton
 
   ngOnInit() {
-    this.spinnerDiameter = this.cancelButtonRef._elementRef.nativeElement.offsetHeight * 0.5
+    this.spinnerDiameter =
+      this.cancelButtonRef._elementRef.nativeElement.offsetHeight * 0.5
   }
 }

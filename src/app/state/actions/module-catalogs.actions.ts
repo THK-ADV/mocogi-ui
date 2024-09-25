@@ -4,7 +4,7 @@ import { ModuleCatalog } from '../../types/module-compendium'
 export const ModuleCatalogsPageActions = createActionGroup({
   source: 'Module Catalogs Page',
   events: {
-    'Enter': emptyProps(),
+    Enter: emptyProps(),
     'Filter Module Catalogs': props<{ filter: string }>(),
     'Reset Filter': emptyProps(),
   },
@@ -13,7 +13,9 @@ export const ModuleCatalogsPageActions = createActionGroup({
 export const ModuleCatalogsApiActions = createActionGroup({
   source: 'Module Catalogs API',
   events: {
-    'Retrieved Modules Catalogs Success': props<{ moduleCatalogs: ReadonlyArray<ModuleCatalog> }>(),
+    'Retrieved Modules Catalogs Success': props<{
+      moduleCatalogs: ReadonlyArray<ModuleCatalog>
+    }>(),
     'Retrieved Modules Catalogs Failure': props<{ error: string }>(),
   },
 })

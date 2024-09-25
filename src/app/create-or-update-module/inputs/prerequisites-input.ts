@@ -20,7 +20,10 @@ export function prerequisitesInputs(
   allModules: ModuleCore[],
   currentModules: (attr: string, kind: PrerequisitesKind) => ModuleCore[],
   studyPrograms: StudyProgram[],
-  currentStudyProgram: (attr: string, kind: PrerequisitesKind) => StudyProgram[],
+  currentStudyProgram: (
+    attr: string,
+    kind: PrerequisitesKind,
+  ) => StudyProgram[],
   prerequisites?: PrerequisitesOutput,
 ): Rows<unknown, unknown> {
   function requiredPrerequisitesText(): TextInput {
@@ -31,19 +34,31 @@ export function prerequisitesInputs(
     return text('recommended', prerequisites?.recommended?.text)
   }
 
-  function requiredPrerequisitesModules(): ReadOnlyInput<ModuleCore, ModuleCore> {
+  function requiredPrerequisitesModules(): ReadOnlyInput<
+    ModuleCore,
+    ModuleCore
+  > {
     return modules('required')
   }
 
-  function recommendedPrerequisitesModules(): ReadOnlyInput<ModuleCore, ModuleCore> {
+  function recommendedPrerequisitesModules(): ReadOnlyInput<
+    ModuleCore,
+    ModuleCore
+  > {
     return modules('recommended')
   }
 
-  function requiredPrerequisitesPOs(): ReadOnlyInput<StudyProgram, StudyProgram> {
+  function requiredPrerequisitesPOs(): ReadOnlyInput<
+    StudyProgram,
+    StudyProgram
+  > {
     return studyProgramsInput('required')
   }
 
-  function recommendedPrerequisitesPOs(): ReadOnlyInput<StudyProgram, StudyProgram> {
+  function recommendedPrerequisitesPOs(): ReadOnlyInput<
+    StudyProgram,
+    StudyProgram
+  > {
     return studyProgramsInput('recommended')
   }
 
@@ -58,7 +73,9 @@ export function prerequisitesInputs(
     }
   }
 
-  function modules(kind: PrerequisitesKind): ReadOnlyInput<ModuleCore, ModuleCore> {
+  function modules(
+    kind: PrerequisitesKind,
+  ): ReadOnlyInput<ModuleCore, ModuleCore> {
     const attr = `${kind}-prerequisites-modules`
     const entries = currentModules(attr, kind)
     return {
@@ -69,12 +86,15 @@ export function prerequisitesInputs(
       required: false,
       options: allModules,
       show: showModule,
-      initialValue: xs => xs.filter(x => entries.some(e => e.id === x.id)),
+      initialValue: (xs) =>
+        xs.filter((x) => entries.some((e) => e.id === x.id)),
       dialogInstance: () => moduleDialogInstance(attr, kind),
     }
   }
 
-  function studyProgramsInput(kind: PrerequisitesKind): ReadOnlyInput<StudyProgram, StudyProgram> {
+  function studyProgramsInput(
+    kind: PrerequisitesKind,
+  ): ReadOnlyInput<StudyProgram, StudyProgram> {
     const attr = `${kind}-prerequisites-po`
     const entries = currentStudyProgram(attr, kind)
     return {
@@ -85,15 +105,21 @@ export function prerequisitesInputs(
       required: false,
       options: studyPrograms,
       show: showStudyProgram,
-      initialValue: sps => sps.filter(sp => entries.some(({po}) => po.id === sp.po.id)),
+      initialValue: (sps) =>
+        sps.filter((sp) => entries.some(({ po }) => po.id === sp.po.id)),
       dialogInstance: () => studyProgramDialogInstance(attr, kind),
     }
   }
 
   function moduleDialogInstance(attr: string, kind: PrerequisitesKind) {
-    const columns = [{attr: 'module', title: $localize`Modul`}]
+    const columns = [{ attr: 'module', title: $localize`Modul` }]
     const entries = currentModules(attr, kind)
-    const callback = new ModuleCallback(allModules, entries, columns[0].attr, showModule)
+    const callback = new ModuleCallback(
+      allModules,
+      entries,
+      columns[0].attr,
+      showModule,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -116,9 +142,14 @@ export function prerequisitesInputs(
   }
 
   function studyProgramDialogInstance(attr: string, kind: PrerequisitesKind) {
-    const columns = [{attr: 'po', title: $localize`Studiengang mit PO`}]
+    const columns = [{ attr: 'po', title: $localize`Studiengang mit PO` }]
     const entries = currentStudyProgram(attr, kind)
-    const callback = new PrerequisitesStudyProgramCallback(studyPrograms, entries, columns[0].attr, showStudyProgram)
+    const callback = new PrerequisitesStudyProgramCallback(
+      studyPrograms,
+      entries,
+      columns[0].attr,
+      showStudyProgram,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -150,11 +181,25 @@ export function prerequisitesInputs(
   }
 
   return {
-    'required-prerequisites-text': [{input: requiredPrerequisitesText() as FormInput<unknown, unknown>}],
-    'required-prerequisites-modules': [{input: requiredPrerequisitesModules() as FormInput<unknown, unknown>}],
-    'required-prerequisites-pos': [{input: requiredPrerequisitesPOs() as FormInput<unknown, unknown>}],
-    'recommended-prerequisites-text': [{input: recommendedPrerequisitesText() as FormInput<unknown, unknown>}],
-    'recommended-prerequisites-modules': [{input: recommendedPrerequisitesModules() as FormInput<unknown, unknown>}],
-    'recommended-prerequisites-pos': [{input: recommendedPrerequisitesPOs() as FormInput<unknown, unknown>}],
+    'required-prerequisites-text': [
+      { input: requiredPrerequisitesText() as FormInput<unknown, unknown> },
+    ],
+    'required-prerequisites-modules': [
+      { input: requiredPrerequisitesModules() as FormInput<unknown, unknown> },
+    ],
+    'required-prerequisites-pos': [
+      { input: requiredPrerequisitesPOs() as FormInput<unknown, unknown> },
+    ],
+    'recommended-prerequisites-text': [
+      { input: recommendedPrerequisitesText() as FormInput<unknown, unknown> },
+    ],
+    'recommended-prerequisites-modules': [
+      {
+        input: recommendedPrerequisitesModules() as FormInput<unknown, unknown>,
+      },
+    ],
+    'recommended-prerequisites-pos': [
+      { input: recommendedPrerequisitesPOs() as FormInput<unknown, unknown> },
+    ],
   }
 }

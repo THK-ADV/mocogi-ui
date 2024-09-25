@@ -6,7 +6,6 @@ import { showStudyProgram } from '../ops/show.instances'
   name: 'studyProgram',
 })
 export class StudyProgramPipe implements PipeTransform {
-
   transform(studyProgram: StudyProgram, mode: string): unknown {
     if (mode === 'withoutPO') {
       if (studyProgram.specialization) {

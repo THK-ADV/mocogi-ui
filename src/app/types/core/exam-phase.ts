@@ -1,4 +1,4 @@
 export interface ExamPhase {
-  id: string,
+  id: string
   label: string
 }

@@ -3,12 +3,12 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store'
 export const PermissionsDialogActions = createActionGroup({
   source: 'Permissions Dialog',
   events: {
-    'Enter': props<{ moduleId: string }>(),
-    'Save': props<{ moduleId: string }>(),
-    'Remove': props<{ campusId: string }>(),
-    'Add': props<{ campusId: string }>(),
-    'Edit': props<{ changedCampusId: string, newValue: string }>(),
-    'Cancel': emptyProps(),
+    Enter: props<{ moduleId: string }>(),
+    Save: props<{ moduleId: string }>(),
+    Remove: props<{ campusId: string }>(),
+    Add: props<{ campusId: string }>(),
+    Edit: props<{ changedCampusId: string; newValue: string }>(),
+    Cancel: emptyProps(),
   },
 })
 
@@ -17,6 +17,8 @@ export const PermissionsDialogApiActions = createActionGroup({
   events: {
     'Saved Changes Success': emptyProps(),
     'Saved Changes Failure': props<{ error: Error }>(),
-    'Received Permissions Successfully': props<{ permissions: Array<string> }>(),
+    'Received Permissions Successfully': props<{
+      permissions: Array<string>
+    }>(),
   },
 })

@@ -24,7 +24,9 @@ export function responsibilityInput(
       required: true,
       data: persons,
       show: showPerson,
-      initialValue: moduleManagement && (as => as.find(a => moduleManagement.some(m => m === a.id))),
+      initialValue:
+        moduleManagement &&
+        ((as) => as.find((a) => moduleManagement.some((m) => m === a.id))),
     }
   }
 
@@ -39,15 +41,21 @@ export function responsibilityInput(
       required: true,
       options: persons,
       show: showPerson,
-      initialValue: xs => entries.filter(p => xs.some(x => x.id === p.id)),
+      initialValue: (xs) =>
+        entries.filter((p) => xs.some((x) => x.id === p.id)),
       dialogInstance: () => dialogInstance(attr),
     }
   }
 
   function dialogInstance(attr: string) {
-    const columns = [{attr: 'person', title: $localize`Dozierende`}]
+    const columns = [{ attr: 'person', title: $localize`Dozierende` }]
     const entries = currentLecturer(attr)
-    const callback = new LecturerCallback(persons, entries, columns[0].attr, showPerson)
+    const callback = new LecturerCallback(
+      persons,
+      entries,
+      columns[0].attr,
+      showPerson,
+    )
 
     return MultipleEditDialogComponent.instance(
       dialog,
@@ -70,9 +78,9 @@ export function responsibilityInput(
   }
 
   return {
-    'moduleCoordinator': [{input: moduleCoordinatorInput() as FormInput<unknown, unknown>}],
-    'lecturer': [{input: lecturerInput() as FormInput<unknown, unknown>}],
+    moduleCoordinator: [
+      { input: moduleCoordinatorInput() as FormInput<unknown, unknown> },
+    ],
+    lecturer: [{ input: lecturerInput() as FormInput<unknown, unknown> }],
   }
 }
-
-

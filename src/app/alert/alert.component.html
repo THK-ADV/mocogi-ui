@@ -5,8 +5,10 @@
     [type]="alert.type"
     (closed)="closing(alert)">
     <ng-container [ngSwitch]="alert.body.kind">
-      <p *ngSwitchCase="'message'">{{alert.body.value}}</p>
-      <div *ngSwitchCase="'html'" [innerHTML]="alert.body.value | unsafeHtml"></div>
+      <p *ngSwitchCase="'message'">{{ alert.body.value }}</p>
+      <div
+        *ngSwitchCase="'html'"
+        [innerHTML]="alert.body.value | unsafeHtml"></div>
     </ng-container>
   </ngb-alert>
 </ng-container>

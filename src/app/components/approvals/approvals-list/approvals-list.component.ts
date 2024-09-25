@@ -9,13 +9,16 @@ import { Approval } from '../../../types/approval'
   templateUrl: './approvals-list.component.html',
   styleUrls: ['./approvals-list.component.css'],
 })
-
 export class ApprovalsListComponent {
   protected dataSource = new MatTableDataSource<Approval>()
-  protected displayedColumns: string[] = ['title', 'status', 'requester', 'role']
+  protected displayedColumns: string[] = [
+    'title',
+    'status',
+    'requester',
+    'role',
+  ]
 
-  constructor(private store: Store) {
-  }
+  constructor(private store: Store) {}
 
   @Input() set approvals(approvals: ReadonlyArray<Approval> | null) {
     if (approvals) {
@@ -24,6 +27,10 @@ export class ApprovalsListComponent {
   }
 
   selectRow = (moduleId: string, approvalId: string) => {
-    this.store.dispatch(NavigationActions.navigate({ path: ['modules', moduleId, 'approvals', approvalId] }))
+    this.store.dispatch(
+      NavigationActions.navigate({
+        path: ['modules', moduleId, 'approvals', approvalId],
+      }),
+    )
   }
 }

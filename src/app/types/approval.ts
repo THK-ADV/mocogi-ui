@@ -2,12 +2,12 @@ import { Person } from './core/person'
 import { IdLabel } from './idlabel'
 
 export interface TranslatedLabel {
-  deLabel: string,
+  deLabel: string
   enLabel: string
 }
 
 export interface Role extends TranslatedLabel {
-  id: string,
+  id: string
 }
 
 export interface ApprovalStatus extends TranslatedLabel {
@@ -19,8 +19,8 @@ export type Approval = {
   moduleDraft: string
   role: Role
   status: ApprovalStatus
-  studyProgram: IdLabel,
-  comment: string,
-  respondedBy: Person,
+  studyProgram: IdLabel
+  comment: string
+  respondedBy: Person
   respondedAt: string
 }

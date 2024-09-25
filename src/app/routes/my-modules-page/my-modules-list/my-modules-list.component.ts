@@ -14,7 +14,6 @@ import { PermissionsDialogComponent } from '../../../components/permissions-dial
   styleUrls: ['./my-modules-list.component.css'],
 })
 export class MyModulesListComponent {
-
   protected dataSource = new MatTableDataSource<ModeratedModule>()
   protected displayedColumns: string[] = ['module', 'status', 'actions']
   protected selection = new SelectionModel<ModuleCore>(true, [])
@@ -25,34 +24,36 @@ export class MyModulesListComponent {
     }
   }
 
-  constructor(private readonly store: Store, private dialog: MatDialog) {
-  }
+  constructor(
+    private readonly store: Store,
+    private dialog: MatDialog,
+  ) {}
 
   showLatestModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.showLatestModule({moduleId}))
+    this.store.dispatch(MyModulesPageActions.showLatestModule({ moduleId }))
   }
 
   editModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.editModule({moduleId}))
+    this.store.dispatch(MyModulesPageActions.editModule({ moduleId }))
   }
 
   publishModule(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.publishModule({moduleId}))
+    this.store.dispatch(MyModulesPageActions.publishModule({ moduleId }))
   }
 
   requestReview(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.requestReview({moduleId}))
+    this.store.dispatch(MyModulesPageActions.requestReview({ moduleId }))
   }
 
   cancelReview(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.cancelReview({moduleId}))
+    this.store.dispatch(MyModulesPageActions.cancelReview({ moduleId }))
   }
 
   discardChanges(moduleId: string) {
-    this.store.dispatch(MyModulesPageActions.discardChanges({moduleId}))
+    this.store.dispatch(MyModulesPageActions.discardChanges({ moduleId }))
   }
 
-  title = ({module, moduleDraft}: ModeratedModule): string => {
+  title = ({ module, moduleDraft }: ModeratedModule): string => {
     if (moduleDraft) {
       return `${moduleDraft.data.metadata.title} (${moduleDraft.data.metadata.abbrev})`
     } else {
@@ -60,7 +61,7 @@ export class MyModulesListComponent {
     }
   }
 
-  tableColor = ({moduleDraft}: ModeratedModule) => {
+  tableColor = ({ moduleDraft }: ModeratedModule) => {
     if (!moduleDraft) {
       return '#000000'
     }
@@ -72,30 +73,29 @@ export class MyModulesListComponent {
     }
   }
 
-  status = ({moduleDraftState}: ModeratedModule) =>
-    moduleDraftState.deLabel
+  status = ({ moduleDraftState }: ModeratedModule) => moduleDraftState.deLabel
 
-  canEdit = ({moduleDraftState}: ModeratedModule) =>
+  canEdit = ({ moduleDraftState }: ModeratedModule) =>
     moduleDraftState.id === 'valid_for_review' ||
     moduleDraftState.id === 'valid_for_publication' ||
     moduleDraftState.id === 'published' ||
     moduleDraftState.id === 'waiting_for_changes'
 
-  canPublish = ({moduleDraftState}: ModeratedModule) =>
+  canPublish = ({ moduleDraftState }: ModeratedModule) =>
     moduleDraftState.id === 'valid_for_publication'
 
-  canRequestReview = ({moduleDraftState}: ModeratedModule) =>
+  canRequestReview = ({ moduleDraftState }: ModeratedModule) =>
     moduleDraftState.id === 'valid_for_review'
 
-  canCancelReview = ({moduleDraftState}: ModeratedModule) =>
+  canCancelReview = ({ moduleDraftState }: ModeratedModule) =>
     moduleDraftState.id === 'waiting_for_review'
 
-  canDiscardChanges = ({moduleDraftState}: ModeratedModule) =>
+  canDiscardChanges = ({ moduleDraftState }: ModeratedModule) =>
     moduleDraftState.id === 'valid_for_review' ||
     moduleDraftState.id === 'valid_for_publication' ||
     moduleDraftState.id === 'waiting_for_changes'
 
-  tooltip = ({moduleDraftState}: ModeratedModule) => {
+  tooltip = ({ moduleDraftState }: ModeratedModule) => {
     switch (moduleDraftState.id) {
       case 'published':
         return $localize`Das Modul ist veröffentlicht und taucht im Modulhandbuch und in der Modulsuche auf.`
@@ -116,7 +116,7 @@ export class MyModulesListComponent {
     this.dialog.open(PermissionsDialogComponent, {
       width: '600px',
       disableClose: true,
-      data: {moduleId: module.id, moduleTitle: module.title},
+      data: { moduleId: module.id, moduleTitle: module.title },
     })
   }
 }

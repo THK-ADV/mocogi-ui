@@ -1,9 +1,12 @@
 import { createReducer, on } from '@ngrx/store'
-import { UpdateModuleApiActions, UpdateModulePageActions } from '../actions/update-module-page.actions'
+import {
+  UpdateModuleApiActions,
+  UpdateModulePageActions,
+} from '../actions/update-module-page.actions'
 
 export interface State {
-  error?: Error,
-  updateInProcess: boolean,
+  error?: Error
+  updateInProcess: boolean
 }
 
 const initialState: State = {
@@ -36,7 +39,7 @@ export const updateModuleReducer = createReducer(
       updateInProcess: false,
     }
   }),
-  on(UpdateModuleApiActions.savedChangesFailure, (state, {error}): State => {
+  on(UpdateModuleApiActions.savedChangesFailure, (state, { error }): State => {
     return {
       ...state,
       error,

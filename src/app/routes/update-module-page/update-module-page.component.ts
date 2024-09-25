@@ -28,8 +28,15 @@ export class UpdateModulePageComponent {
   formGroup = new FormGroup({})
   updateInProcess$ = this.store.select(selectUpdateInProcess)
 
-  constructor(private route: ActivatedRoute, http: HttpService, dialog: MatDialog, private store: Store) {
-    this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
+  constructor(
+    private route: ActivatedRoute,
+    http: HttpService,
+    dialog: MatDialog,
+    private store: Store,
+  ) {
+    this.moduleId =
+      this.route.snapshot.paramMap.get('moduleId') ??
+      throwError('Module ID should be in route parameters.')
     zip([
       http.latestModuleDescriptionById(this.moduleId),
       http.stagingModuleDescriptionById(this.moduleId),
@@ -48,55 +55,60 @@ export class UpdateModulePageComponent {
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
       http.allExamPhases(),
-    ]).subscribe(([
-                    moduleCompendium,
-                    stagingModuleCompendium,
-                    moduleDraftKeys,
-                    approvals,
-                    modules,
-                    genericModules,
-                    moduleTypes,
-                    seasons,
-                    languages,
-                    locations,
-                    status,
-                    persons,
-                    assessmentMethods,
-                    competencies,
-                    globalCriteria,
-                    studyPrograms,
-                    examPhases,
-                  ]) => {
-      this.moduleForm = {
-        objectName: moduleCompendium.metadata.title,
-        editType: 'update',
-        sections: inputs(
-          modules,
-          genericModules,
-          moduleTypes,
-          languages,
-          seasons,
-          locations,
-          status,
-          persons,
-          assessmentMethods,
-          [...studyPrograms],
-          competencies,
-          globalCriteria,
-          examPhases,
-          dialog,
-          (attr) => this.formGroup.get(attr)?.value,
+    ]).subscribe(
+      ([
+        moduleCompendium,
+        stagingModuleCompendium,
+        moduleDraftKeys,
+        approvals,
+        modules,
+        genericModules,
+        moduleTypes,
+        seasons,
+        languages,
+        locations,
+        status,
+        persons,
+        assessmentMethods,
+        competencies,
+        globalCriteria,
+        studyPrograms,
+        examPhases,
+      ]) => {
+        this.moduleForm = {
+          objectName: moduleCompendium.metadata.title,
+          editType: 'update',
+          sections: inputs(
+            modules,
+            genericModules,
+            moduleTypes,
+            languages,
+            seasons,
+            locations,
+            status,
+            persons,
+            assessmentMethods,
+            [...studyPrograms],
+            competencies,
+            globalCriteria,
+            examPhases,
+            dialog,
+            (attr) => this.formGroup.get(attr)?.value,
+            moduleCompendium,
+            moduleCompendium.id,
+          ),
+        }
+        this.modifiedKeys = buildChangeLog(
+          moduleDraftKeys,
           moduleCompendium,
-          moduleCompendium.id,
-        ),
-      }
-      this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
-      this.approvals = approvals
-    })
+          stagingModuleCompendium,
+        )
+        this.approvals = approvals
+      },
+    )
   }
 
-  isValid = (): boolean =>
-    this.formGroup.valid ?? false
+  isValid = (): boolean => this.formGroup.valid ?? false
 
   cancel = () => {
     this.store.dispatch(UpdateModulePageActions.cancel())
@@ -105,7 +117,12 @@ export class UpdateModulePageComponent {
   save = () => {
     const moduleCompendiumProtocol = parseModuleCompendium(this.formGroup)
     if (moduleCompendiumProtocol) {
-      this.store.dispatch(UpdateModulePageActions.save({moduleId: this.moduleId, moduleCompendiumProtocol}))
+      this.store.dispatch(
+        UpdateModulePageActions.save({
+          moduleId: this.moduleId,
+          moduleCompendiumProtocol,
+        }),
+      )
     }
   }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core'
-import { selectIdentities, selectSelectedCoordinator } from '../../../state/selectors/module-filter.selectors'
+import {
+  selectIdentities,
+  selectSelectedCoordinator,
+} from '../../../state/selectors/module-filter.selectors'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { Store } from '@ngrx/store'
 import { Identity } from '../../../types/core/person'
@@ -21,10 +24,10 @@ export class CoordinatorFilterComponent {
 
   show = showPerson
 
-  selectAction = (person: Identity) => ModuleFilterPageActions.selectCoordinator({coordinatorId: person.id})
+  selectAction = (person: Identity) =>
+    ModuleFilterPageActions.selectCoordinator({ coordinatorId: person.id })
 
   deselectAction = ModuleFilterPageActions.deselectCoordinator
 
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 }

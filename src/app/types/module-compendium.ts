@@ -1,21 +1,21 @@
 import { Degree } from './core/degree'
 
 export interface LocalizedCore {
-  id: string,
-  deLabel: string,
-  enLabel: string,
+  id: string
+  deLabel: string
+  enLabel: string
 }
 
 export interface ModuleCatalog {
-  studyProgram: StudyProgram,
-  semester: Semester,
-  deUrl: string,
-  enUrl: string,
+  studyProgram: StudyProgram
+  semester: Semester
+  deUrl: string
+  enUrl: string
   generated: string
 }
 
 export interface POCore {
-  id: string,
+  id: string
   version: number
 }
 
@@ -29,6 +29,6 @@ export interface StudyProgramCore extends LocalizedCore {
 }
 
 export interface Semester extends LocalizedCore {
-  year: number,
-  abbrev: string,
+  year: number
+  abbrev: string
 }

@@ -4,19 +4,19 @@ import { NavigationActions } from '../../state/actions/navigation.actions'
 import { Router } from '@angular/router'
 
 export type CopsNavigationLink = {
-  type: 'LINK',
+  type: 'LINK'
   text: string
-  icon: string,
-  details?: string,
+  icon: string
+  details?: string
   url: string[]
-};
+}
 
 export type CopsNavigationHeader = {
-  type: 'HEADER',
-  text: string,
-};
+  type: 'HEADER'
+  text: string
+}
 
-export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
+export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink
 
 @Component({
   selector: 'cops-nav-bar',
@@ -26,11 +26,13 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink;
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []
 
-  constructor(private store: Store, private router: Router) {
-  }
+  constructor(
+    private store: Store,
+    private router: Router,
+  ) {}
 
   navigateTo(url: Array<string>) {
-    this.store.dispatch(NavigationActions.navigate({path: url}))
+    this.store.dispatch(NavigationActions.navigate({ path: url }))
   }
 
   isActive(itemUrl: string) {

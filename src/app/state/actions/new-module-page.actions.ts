@@ -4,9 +4,9 @@ import { ModuleProtocol } from '../../types/moduleCore'
 export const NewModulePageActions = createActionGroup({
   source: 'New Module Page',
   events: {
-    'Enter': emptyProps(),
-    'Save': props<{ moduleCompendiumProtocol: ModuleProtocol }>(),
-    'Cancel': emptyProps(),
+    Enter: emptyProps(),
+    Save: props<{ moduleCompendiumProtocol: ModuleProtocol }>(),
+    Cancel: emptyProps(),
   },
 })
 

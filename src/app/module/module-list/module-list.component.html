@@ -1,55 +1,83 @@
 <div>
-  <p i18n>Anzahl der Einträge: {{visibleModules()}}</p>
+  <p i18n>Anzahl der Einträge: {{ visibleModules() }}</p>
 
-  <table mat-table
-         matSort
-         multiTemplateDataRows
-         *ngIf="displayedColumns$ | async as displayedColumns"
-         [dataSource]="dataSource"
-         [matSortActive]="(selectedSort$ | async)?.active ?? 'title'"
-         [matSortDirection]="(selectedSort$ | async)?.direction ?? 'asc'"
-         (matSortChange)="updateSort($event)">
+  <table
+    mat-table
+    matSort
+    multiTemplateDataRows
+    *ngIf="displayedColumns$ | async as displayedColumns"
+    [dataSource]="dataSource"
+    [matSortActive]="(selectedSort$ | async)?.active ?? 'title'"
+    [matSortDirection]="(selectedSort$ | async)?.direction ?? 'asc'"
+    (matSortChange)="updateSort($event)">
     <ng-container matColumnDef="title">
       <th i18n mat-header-cell mat-sort-header *matHeaderCellDef>Titel</th>
       <td mat-cell *matCellDef="let element">
         <mat-chip-listbox>
-          <span>{{element.title}} ({{element.abbrev}})</span>
-          <mat-chip i18n *ngIf="element.isSpecialization" class="specialization-chip">Vertiefung</mat-chip>
+          <span>{{ element.title }} ({{ element.abbrev }})</span>
+          <mat-chip
+            i18n
+            *ngIf="element.isSpecialization"
+            class="specialization-chip"
+            >Vertiefung</mat-chip
+          >
         </mat-chip-listbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="moduleManagementStr">
-      <th i18n mat-header-cell mat-sort-header *matHeaderCellDef>Modulverantwortliche*r</th>
-      <td mat-cell *matCellDef="let element"> {{element.moduleManagementStr}} </td>
+      <th i18n mat-header-cell mat-sort-header *matHeaderCellDef>
+        Modulverantwortliche*r
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.moduleManagementStr }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="ects">
       <th i18n mat-header-cell mat-sort-header *matHeaderCellDef>Credits</th>
-      <td mat-cell *matCellDef="let element"> {{element.ects}} </td>
+      <td mat-cell *matCellDef="let element">{{ element.ects }}</td>
     </ng-container>
 
     <ng-container matColumnDef="recommendedSemesterStr">
       <th i18n mat-header-cell mat-sort-header *matHeaderCellDef>Semester</th>
-      <td mat-cell *matCellDef="let element"> {{element.recommendedSemesterStr}} </td>
+      <td mat-cell *matCellDef="let element">
+        {{ element.recommendedSemesterStr }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="expand">
-      <th mat-header-cell *matHeaderCellDef aria-label="expand column">&nbsp;</th>
+      <th mat-header-cell *matHeaderCellDef aria-label="expand column">
+        &nbsp;
+      </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="expand row" (click)="expandRow(element, $event)">
-          <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-          <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+        <button
+          mat-icon-button
+          aria-label="expand row"
+          (click)="expandRow(element, $event)">
+          <mat-icon *ngIf="expandedElement !== element"
+            >keyboard_arrow_down</mat-icon
+          >
+          <mat-icon *ngIf="expandedElement === element"
+            >keyboard_arrow_up</mat-icon
+          >
         </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-        <div class="example-element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [attr.colspan]="displayedColumns.length">
+        <div
+          class="example-element-detail"
+          [@detailExpand]="
+            element === expandedElement ? 'expanded' : 'collapsed'
+          ">
           <div class="example-element-diagram">
             <ng-container *ngIf="element === expandedElement">
-              <p *ngFor="let sp of element.studyProgramsStr()">{{sp}}</p>
+              <p *ngFor="let sp of element.studyProgramsStr()">{{ sp }}</p>
             </ng-container>
           </div>
         </div>
@@ -57,15 +85,15 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        (click)="selectRow(element, $event)"
-        *matRowDef="let element; columns: displayedColumns;"
-        class="example-element-row clickable"
-        [class.example-expanded-row]="expandedElement === element">
-    </tr>
-    <tr mat-row
-        *matRowDef="let row; columns: ['expandedDetail']"
-        class="example-detail-row">
-    </tr>
+    <tr
+      mat-row
+      (click)="selectRow(element, $event)"
+      *matRowDef="let element; columns: displayedColumns"
+      class="example-element-row clickable"
+      [class.example-expanded-row]="expandedElement === element"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="example-detail-row"></tr>
   </table>
 </div>

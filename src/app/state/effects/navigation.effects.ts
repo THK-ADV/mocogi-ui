@@ -8,29 +8,29 @@ import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
 export class NavigationEffects {
-
-  navigateToModuleDetail$ = createEffect(() => {
+  navigateToModuleDetail$ = createEffect(
+    () => {
       return this.actions$.pipe(
         ofType(ModulePageActions.selectModule),
-        tap(({moduleId}) => this.router.navigate(['/modules', moduleId])),
+        tap(({ moduleId }) => this.router.navigate(['/modules', moduleId])),
       )
     },
-    { dispatch: false }
+    { dispatch: false },
   )
 
-  navigateToRoute$ = createEffect(() => {
+  navigateToRoute$ = createEffect(
+    () => {
       return this.actions$.pipe(
         ofType(NavigationActions.navigate),
         tap(({ path }) => this.router.navigate(path)),
       )
     },
-    { dispatch: false }
+    { dispatch: false },
   )
 
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions,
     private readonly router: Router,
-  ) {
-  }
+  ) {}
 }

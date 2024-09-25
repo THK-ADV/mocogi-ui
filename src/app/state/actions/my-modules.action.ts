@@ -4,7 +4,7 @@ import { ModeratedModule } from '../../types/moderated.module'
 export const MyModulesPageActions = createActionGroup({
   source: 'My Modules Page',
   events: {
-    'Enter': emptyProps(),
+    Enter: emptyProps(),
     'Create Module': emptyProps(),
     'Show Latest Module': props<{ moduleId: string }>(),
     'Edit Module': props<{ moduleId: string }>(),
@@ -19,7 +19,9 @@ export const MyModulesPageActions = createActionGroup({
 export const MyModulesApiActions = createActionGroup({
   source: 'My Modules API',
   events: {
-    'Retrieved Moderated Modules Success': props<{ moderatedModules: ModeratedModule[] }>(),
+    'Retrieved Moderated Modules Success': props<{
+      moderatedModules: ModeratedModule[]
+    }>(),
     'Requested Review Successfully': emptyProps(),
     'Discarded Changes Successfully': emptyProps(),
     'Retrieved Error': props<{ error: Error }>(),

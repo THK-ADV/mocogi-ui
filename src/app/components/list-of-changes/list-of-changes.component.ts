@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core'
 
 type ChangedKeys = {
-  icon: string, name: string, details: string, toBeReviewed: boolean
+  icon: string
+  name: string
+  details: string
+  toBeReviewed: boolean
 }
 
 @Component({

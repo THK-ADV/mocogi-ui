@@ -6,7 +6,7 @@ export interface ModuleDraft {
   module: string
   data: ModuleProtocol
   branch: string
-  source: ModuleDraftSource,
+  source: ModuleDraftSource
   keysToBeReviewed: ReadonlyArray<string>
   modifiedKeys: ReadonlyArray<string>
   lastModified: Date

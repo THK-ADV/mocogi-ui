@@ -11,13 +11,11 @@ import { ModulePageActions } from '../../state/actions/module.actions'
 export class ModuleListSearchComponent {
   filterValue$ = this.store.select(selectModuleFilter)
 
-  constructor(private readonly store: Store) {
-
-  }
+  constructor(private readonly store: Store) {}
 
   updateFilter = (filter?: string) => {
     if (filter) {
-      this.store.dispatch(ModulePageActions.filterModule({filter}))
+      this.store.dispatch(ModulePageActions.filterModule({ filter }))
     } else {
       this.resetFilter()
     }

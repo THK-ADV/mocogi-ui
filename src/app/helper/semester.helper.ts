@@ -1,11 +1,14 @@
 import { Semester } from '../types/module-compendium'
 
 const semesterTypes = [
-  {id: 'wise', abbrev: 'WiSe', label: $localize`Wintersemester`},
-  {id: 'sose', abbrev: 'SoSe', label: $localize`Sommersemester`},
+  { id: 'wise', abbrev: 'WiSe', label: $localize`Wintersemester` },
+  { id: 'sose', abbrev: 'SoSe', label: $localize`Sommersemester` },
 ]
 
-export const generateSemestersAroundYear = (year: number, rangeInYears: number) => {
+export const generateSemestersAroundYear = (
+  year: number,
+  rangeInYears: number,
+) => {
   const semesterList: Array<Semester> = []
   for (let i = rangeInYears * -1; i < rangeInYears; i++) {
     semesterList.push(...generateSemestersForYear(year + i))
@@ -30,8 +33,8 @@ export const generateSemestersForYear = (year: number) => {
 }
 
 export const generateCurrentSemester = () => {
-  const currentYear = (new Date()).getFullYear()
-  const currentMonth = (new Date()).getMonth()
+  const currentYear = new Date().getFullYear()
+  const currentMonth = new Date().getMonth()
   const semesters = generateSemestersForYear(currentYear)
   return currentMonth < 6 ? semesters[0] : semesters[1]
 }

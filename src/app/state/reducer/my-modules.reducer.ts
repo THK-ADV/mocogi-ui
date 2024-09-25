@@ -1,5 +1,8 @@
 import { createReducer, on } from '@ngrx/store'
-import { MyModulesApiActions, MyModulesPageActions } from '../actions/my-modules.action'
+import {
+  MyModulesApiActions,
+  MyModulesPageActions,
+} from '../actions/my-modules.action'
 import { ModeratedModule } from '../../types/moderated.module'
 
 export interface State {
@@ -29,24 +32,27 @@ export const myModulesReducer = createReducer(
       ...state,
     }
   }),
-  on(MyModulesApiActions.retrievedModeratedModulesSuccess, (state, {moderatedModules}): State => {
-    return {
-      ...state,
-      moderatedModules,
-    }
-  }),
+  on(
+    MyModulesApiActions.retrievedModeratedModulesSuccess,
+    (state, { moderatedModules }): State => {
+      return {
+        ...state,
+        moderatedModules,
+      }
+    },
+  ),
   on(MyModulesApiActions.requestedReviewSuccessfully, (state): State => {
     return {
       ...state,
     }
   }),
-  on(MyModulesApiActions.retrievedError, (state, {error}): State => {
+  on(MyModulesApiActions.retrievedError, (state, { error }): State => {
     return {
       ...state,
       error,
     }
   }),
-  on(MyModulesApiActions.retrievedError, (state, {error}): State => {
+  on(MyModulesApiActions.retrievedError, (state, { error }): State => {
     return {
       ...state,
       error,

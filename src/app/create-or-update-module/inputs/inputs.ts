@@ -30,11 +30,9 @@ import { StudyProgram } from '../../types/module-compendium'
 import { GenericModuleCore } from '../../types/genericModuleCore'
 import { ExamPhase } from '../../types/core/exam-phase'
 
-export const requiredLabel = (label: string): string =>
-  label + ' *'
+export const requiredLabel = (label: string): string => label + ' *'
 
-export const optionalLabel = (label: string): string =>
-  label + ' (Optional)'
+export const optionalLabel = (label: string): string => label + ' (Optional)'
 
 export type Lang = 'de' | 'en'
 
@@ -83,7 +81,12 @@ export function inputs(
   function responsibilitySection() {
     return {
       header: $localize`Verantwortliche`,
-      rows: responsibilityInput(dialog, identities, currentLecturerSelection, metadata?.moduleManagement),
+      rows: responsibilityInput(
+        dialog,
+        identities,
+        currentLecturerSelection,
+        metadata?.moduleManagement,
+      ),
     }
   }
 
@@ -97,7 +100,7 @@ export function inputs(
         examPhases,
         currentExamPhasesSelection,
         identities,
-        metadata
+        metadata,
       ),
     }
   }
@@ -130,8 +133,8 @@ export function inputs(
         dialog,
         studyPrograms,
         genericModules,
-        attr => currentMultipleSelectionValue(attr, m => m.po.mandatory),
-        attr => currentMultipleSelectionValue(attr, m => m.po.optional),
+        (attr) => currentMultipleSelectionValue(attr, (m) => m.po.mandatory),
+        (attr) => currentMultipleSelectionValue(attr, (m) => m.po.optional),
       ),
     }
   }
@@ -191,79 +194,97 @@ export function inputs(
     fallback: (metadata: MetadataLike) => A[],
   ): A[] {
     const entries = fromControlValueForAttr(attr)
-    return Array.isArray(entries) ? entries.map(e => e.value) : (metadata ? fallback(metadata) : [])
+    return Array.isArray(entries)
+      ? entries.map((e) => e.value)
+      : metadata
+        ? fallback(metadata)
+        : []
   }
 
-  function currentAssessmentMethodEntrySelection(attr: string, kind: AssessmentMethodKind) {
-    return currentMultipleSelectionValue(attr, m => kind === 'mandatory' ? m.assessmentMethods.mandatory : m.assessmentMethods.optional)
+  function currentAssessmentMethodEntrySelection(
+    attr: string,
+    kind: AssessmentMethodKind,
+  ) {
+    return currentMultipleSelectionValue(attr, (m) =>
+      kind === 'mandatory'
+        ? m.assessmentMethods.mandatory
+        : m.assessmentMethods.optional,
+    )
   }
 
   function currentLecturerSelection(attr: string) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => identities.filter(p => m.lecturers.some(l => l === p.id)),
+    return currentMultipleSelectionValue(attr, (m) =>
+      identities.filter((p) => m.lecturers.some((l) => l === p.id)),
     )
   }
 
   function currentExamPhasesSelection(attr: string) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => examPhases.filter(p => m.examPhases.includes(p.id)),
+    return currentMultipleSelectionValue(attr, (m) =>
+      examPhases.filter((p) => m.examPhases.includes(p.id)),
     )
   }
 
-  function currentPrerequisitesModulesSelection(attr: string, kind: PrerequisitesKind) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => modules.filter(x => {
-        const modules = kind === 'required'
-          ? m.prerequisites.required?.modules
-          : m.prerequisites.recommended?.modules
-        return modules?.some(y => y === x.id)
+  function currentPrerequisitesModulesSelection(
+    attr: string,
+    kind: PrerequisitesKind,
+  ) {
+    return currentMultipleSelectionValue(attr, (m) =>
+      modules.filter((x) => {
+        const modules =
+          kind === 'required'
+            ? m.prerequisites.required?.modules
+            : m.prerequisites.recommended?.modules
+        return modules?.some((y) => y === x.id)
       }),
     )
   }
 
-  function currentPrerequisitesStudyProgramSelection(attr: string, kind: PrerequisitesKind) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => studyPrograms.filter(sp => {
-        const pos = kind === 'required'
-          ? m.prerequisites.required?.pos
-          : m.prerequisites.recommended?.pos
-        return pos?.some(po => po === sp.po.id)
+  function currentPrerequisitesStudyProgramSelection(
+    attr: string,
+    kind: PrerequisitesKind,
+  ) {
+    return currentMultipleSelectionValue(attr, (m) =>
+      studyPrograms.filter((sp) => {
+        const pos =
+          kind === 'required'
+            ? m.prerequisites.required?.pos
+            : m.prerequisites.recommended?.pos
+        return pos?.some((po) => po === sp.po.id)
       }),
     )
   }
 
   function currentCompetencesSelection(attr: string) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => competences.filter(c => m.competences.some(x => x === c.id)),
+    return currentMultipleSelectionValue(attr, (m) =>
+      competences.filter((c) => m.competences.some((x) => x === c.id)),
     )
   }
 
   function currentGlobalCriteriaSelection(attr: string) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => globalCriteria.filter(g => m.globalCriteria.some(x => x === g.id)),
+    return currentMultipleSelectionValue(attr, (m) =>
+      globalCriteria.filter((g) => m.globalCriteria.some((x) => x === g.id)),
     )
   }
 
   function currentTaughtWithSelection(attr: string) {
-    return currentMultipleSelectionValue(
-      attr,
-      m => modules.filter(mod => m.taughtWith.some(x => x === mod.id)),
+    return currentMultipleSelectionValue(attr, (m) =>
+      modules.filter((mod) => m.taughtWith.some((x) => x === mod.id)),
     )
   }
 
   function currentParticipants(attr: string): Participants | undefined {
-    const res = currentMultipleSelectionValue(attr, m => mapOpt(m.participants, a => [a]) ?? [])
+    const res = currentMultipleSelectionValue(
+      attr,
+      (m) => mapOpt(m.participants, (a) => [a]) ?? [],
+    )
     return res.length === 0 ? undefined : res[0]
   }
 
   function currentModuleRelation(attr: string): ModuleRelation | undefined {
-    const res = currentMultipleSelectionValue(attr, m => mapOpt(m.moduleRelation, a => [a]) ?? [])
+    const res = currentMultipleSelectionValue(
+      attr,
+      (m) => mapOpt(m.moduleRelation, (a) => [a]) ?? [],
+    )
     return res.length === 0 ? undefined : res[0]
   }
 

@@ -9,12 +9,12 @@ export type ModeratedModule = {
 }
 
 export type ModuleDraftState =
-  Published |
-  ValidForReview |
-  ValidForPublication |
-  WaitingForReview |
-  WaitingForChanges |
-  Unknown
+  | Published
+  | ValidForReview
+  | ValidForPublication
+  | WaitingForReview
+  | WaitingForChanges
+  | Unknown
 
 export interface Published extends Label {
   id: 'published'

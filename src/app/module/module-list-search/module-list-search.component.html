@@ -6,11 +6,12 @@
     type="text"
     [ngModel]="filterValue$ | async"
     (ngModelChange)="updateFilter($event)"
-    placeholder="Titel, Abkürzung, Modulverantwortliche...">
-  <button matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="resetFilter($event)">
+    placeholder="Titel, Abkürzung, Modulverantwortliche..." />
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="resetFilter($event)">
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>

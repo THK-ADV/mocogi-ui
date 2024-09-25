@@ -81,9 +81,7 @@ import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/modul
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
-import {
-  ModuleCompendiumListsListComponent,
-} from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
+import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
 import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
@@ -191,18 +189,21 @@ import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-previ
     MatCardModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    StoreModule.forRoot({
-      module: moduleReducer,
-      moduleFilter: moduleFilterReducer,
-      myModules: myModulesReducer,
-      updateModule: updateModuleReducer,
-      newModule: newModuleReducer,
-      permissionDialog: permissionsDialogReducer,
-      moduleCatalogs: moduleCatalogsReducer,
-      moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
-      electivesCatalogs: electiveCatalogsReducer,
-      electivesCatalogsFilter: electivesCatalogsFilterReducer,
-    }, {}),
+    StoreModule.forRoot(
+      {
+        module: moduleReducer,
+        moduleFilter: moduleFilterReducer,
+        myModules: myModulesReducer,
+        updateModule: updateModuleReducer,
+        newModule: newModuleReducer,
+        permissionDialog: permissionsDialogReducer,
+        moduleCatalogs: moduleCatalogsReducer,
+        moduleCompendiumsFilter: moduleCompendiumsFilterReducer,
+        electivesCatalogs: electiveCatalogsReducer,
+        electivesCatalogsFilter: electivesCatalogsFilterReducer,
+      },
+      {},
+    ),
     EffectsModule.forRoot([
       ModuleEffects,
       NavigationEffects,
@@ -220,7 +221,7 @@ import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-previ
     StoreDevtoolsModule.instrument({
       maxAge: 15,
     }),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FormsModule,
     MatTabsModule,
     MatChipsModule,
@@ -246,5 +247,4 @@ import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-previ
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

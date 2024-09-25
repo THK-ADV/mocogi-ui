@@ -12,9 +12,11 @@ export interface ReadOnlyInput<Option, Output> extends FormInputLike {
   dialogInstance: () => MatDialogRef<unknown, Output[]>
 }
 
-export const formControlForReadOnlyInput = <A, B>(i: ReadOnlyInput<A, B>): FormControl =>
+export const formControlForReadOnlyInput = <A, B>(
+  i: ReadOnlyInput<A, B>,
+): FormControl =>
   new FormControl(
-    {value: i.initialValue, disabled: i.disabled},
+    { value: i.initialValue, disabled: i.disabled },
     i.required ? Validators.required : undefined,
   )
 
@@ -23,7 +25,9 @@ export const formControlForReadOnlyInput = <A, B>(i: ReadOnlyInput<A, B>): FormC
   templateUrl: './read-only-input.component.html',
   styleUrls: ['./read-only-input.component.css'],
 })
-export class ReadOnlyInputComponent<A, DialogEntry> implements OnInit, OnDestroy {
+export class ReadOnlyInputComponent<A, DialogEntry>
+  implements OnInit, OnDestroy
+{
   @Input() formControl!: FormControl
   @Input() input!: ReadOnlyInput<A, DialogEntry>
 
@@ -46,18 +50,21 @@ export class ReadOnlyInputComponent<A, DialogEntry> implements OnInit, OnDestroy
 
   setData = (entries: DialogEntry[]) => {
     // toString is used by formControl to display the value
-    const options = entries.map(a => ({value: a, toString: () => this.input.show(a)}))
+    const options = entries.map((a) => ({
+      value: a,
+      toString: () => this.input.show(a),
+    }))
     this.formControl.setValue(options)
   }
 
-  getErrorMessage = () =>
-    requiredError(this.formControl, this.input)
+  getErrorMessage = () => requiredError(this.formControl, this.input)
 
   onEdit = () => {
     this.sub?.unsubscribe()
-    this.sub = this.input.dialogInstance()
+    this.sub = this.input
+      .dialogInstance()
       .afterClosed()
-      .subscribe(res => {
+      .subscribe((res) => {
         if (res !== undefined) {
           this.setData(res)
         }

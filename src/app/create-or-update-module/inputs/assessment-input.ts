@@ -20,20 +20,28 @@ export type AssessmentMethodKind = 'mandatory' | 'optional'
 export function assessmentInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
-  currentEntries: (attr: string, kind: AssessmentMethodKind) => AssessmentMethodEntry[],
+  currentEntries: (
+    attr: string,
+    kind: AssessmentMethodKind,
+  ) => AssessmentMethodEntry[],
   examPhases: ExamPhase[],
   currentExamPhases: (attr: string) => ExamPhase[],
   identities: Identity[],
   metadata: MetadataLike | undefined,
 ): Rows<unknown, unknown> {
+  const examiner = identities.filter((a) => a.kind !== 'group')
 
-  const examiner = identities.filter(a => a.kind !== 'group')
-
-  function assessmentMethodsMandatoryInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+  function assessmentMethodsMandatoryInput(): ReadOnlyInput<
+    AssessmentMethod,
+    AssessmentMethodEntry
+  > {
     return go('mandatory')
   }
 
-  function assessmentMethodsOptionalInput(): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
+  function assessmentMethodsOptionalInput(): ReadOnlyInput<
+    AssessmentMethod,
+    AssessmentMethodEntry
+  > {
     return go('optional')
   }
 
@@ -48,7 +56,8 @@ export function assessmentInput(
       required: true,
       options: examPhases,
       show: showExamPhase,
-      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.id)),
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
       dialogInstance: () => examPhaseDialogInstance(attr),
     }
   }
@@ -62,7 +71,8 @@ export function assessmentInput(
       required: true,
       data: examiner,
       show: showPerson,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.examiner.first)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.examiner.first)),
     }
   }
 
@@ -75,7 +85,8 @@ export function assessmentInput(
       required: true,
       data: examiner,
       show: showPerson,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.examiner.second)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.examiner.second)),
     }
   }
 
@@ -92,15 +103,21 @@ export function assessmentInput(
       required: false,
       options: assessmentMethods,
       show: showAssessmentMethodEntry,
-      initialValue: xs => entries.filter(a => xs.some(m => m.id === a.method)),
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.method)),
       dialogInstance: () => dialogInstance(attr, kind),
     }
   }
 
   function examPhaseDialogInstance(attr: string) {
-    const columns = [{attr: 'exam-phase', title: $localize`Prüfungsphase`}]
+    const columns = [{ attr: 'exam-phase', title: $localize`Prüfungsphase` }]
     const current = currentExamPhases(attr)
-    const callback = new ExamPhasesCallback(examPhases, current, columns[0].attr, showExamPhase)
+    const callback = new ExamPhasesCallback(
+      examPhases,
+      current,
+      columns[0].attr,
+      showExamPhase,
+    )
     return MultipleEditDialogComponent.instance(
       dialog,
       callback,
@@ -125,9 +142,9 @@ export function assessmentInput(
     const entries = currentEntries(attr, kind)
     const callback = new AssessmentMethodCallback(assessmentMethods, entries)
     const columns = [
-      {attr: 'method', title: $localize`Prüfungsform`},
-      {attr: 'percentage', title: $localize`Prozentualer Anteil`},
-      {attr: 'precondition', title: $localize`Vorbedingungen`},
+      { attr: 'method', title: $localize`Prüfungsform` },
+      { attr: 'percentage', title: $localize`Prozentualer Anteil` },
+      { attr: 'precondition', title: $localize`Vorbedingungen` },
     ]
 
     return MultipleEditDialogComponent.instance(
@@ -168,7 +185,12 @@ export function assessmentInput(
 
   // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
-    return mapOpt(assessmentMethods.find(a => a.id === e.method), showLabel) ?? '???'
+    return (
+      mapOpt(
+        assessmentMethods.find((a) => a.id === e.method),
+        showLabel,
+      ) ?? '???'
+    )
   }
 
   function showExamPhase(p: ExamPhase) {
@@ -178,17 +200,35 @@ export function assessmentInput(
   function assignmentMethodLabel(kind: AssessmentMethodKind): string {
     switch (kind) {
       case 'mandatory':
-        return optionalLabel($localize`Prüfungsformen für alle Pflicht Studiengänge`)
+        return optionalLabel(
+          $localize`Prüfungsformen für alle Pflicht Studiengänge`,
+        )
       case 'optional':
-        return optionalLabel($localize`Prüfungsformen für alle als WPF belegbare Studiengänge`)
+        return optionalLabel(
+          $localize`Prüfungsformen für alle als WPF belegbare Studiengänge`,
+        )
     }
   }
 
   return {
-    'assessment-methods': [{input: assessmentMethodsMandatoryInput() as FormInput<unknown, unknown>}],
-    'assessment-methods-optional': [{input: assessmentMethodsOptionalInput() as FormInput<unknown, unknown>}],
-    'exam-phases': [{input: examPhasesInput() as FormInput<unknown, unknown>}],
-    'first-examiner': [{input: firstExaminerInput() as FormInput<unknown, unknown>}],
-    'second-examiner': [{input: secondExaminerInput() as FormInput<unknown, unknown>}],
+    'assessment-methods': [
+      {
+        input: assessmentMethodsMandatoryInput() as FormInput<unknown, unknown>,
+      },
+    ],
+    'assessment-methods-optional': [
+      {
+        input: assessmentMethodsOptionalInput() as FormInput<unknown, unknown>,
+      },
+    ],
+    'exam-phases': [
+      { input: examPhasesInput() as FormInput<unknown, unknown> },
+    ],
+    'first-examiner': [
+      { input: firstExaminerInput() as FormInput<unknown, unknown> },
+    ],
+    'second-examiner': [
+      { input: secondExaminerInput() as FormInput<unknown, unknown> },
+    ],
   }
 }

@@ -10,9 +10,11 @@ export interface MultipleOptionsInput<A> extends FormInputLike {
   initialValue?: (as: A[]) => A[]
 }
 
-export const formControlForMultipleOptionsInput = <A>(i: MultipleOptionsInput<A>): FormControl => {
+export const formControlForMultipleOptionsInput = <A>(
+  i: MultipleOptionsInput<A>,
+): FormControl => {
   const fc = new FormControl<A[]>(
-    {value: [], disabled: i.disabled},
+    { value: [], disabled: i.disabled },
     i.required ? Validators.required : undefined,
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
@@ -55,7 +57,7 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
     if (Array.isArray(this.input.data)) {
       go(this.input.data)
     } else {
-      this.sub = this.input.data.subscribe(data => go(data ?? []))
+      this.sub = this.input.data.subscribe((data) => go(data ?? []))
     }
   }
 
@@ -70,8 +72,8 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   private initFilterOptions = () => {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
-      map(value => typeof value === 'string' ? value : this.lastFilter),
-      map(value => this.filter(value)),
+      map((value) => (typeof value === 'string' ? value : this.lastFilter)),
+      map((value) => this.filter(value)),
     )
   }
 
@@ -79,7 +81,9 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
     this.lastFilter = input
     if (this.input) {
       const filterValue = input.toLowerCase()
-      return this.options.filter(t => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0)
+      return this.options.filter(
+        (t) => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0,
+      )
     } else {
       return this.options.slice()
     }
@@ -90,12 +94,13 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   }
 
   reset = () => {
-    this.formControl.reset(undefined, {emitEvent: false})
+    this.formControl.reset(undefined, { emitEvent: false })
     this.initFilterOptions()
   }
 
   getErrorMessage = () =>
-    requiredError(this.formControl, this.input) ?? optionsError(this.formControl)
+    requiredError(this.formControl, this.input) ??
+    optionsError(this.formControl)
 
   isSelected = (a: A) => this.selected.includes(a)
 

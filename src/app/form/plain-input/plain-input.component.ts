@@ -19,13 +19,17 @@ export interface NumberInput extends FormInputLike {
   kind: 'number'
 }
 
-export const formControlForTextInput = (i: TextInput | TextAreaInput): FormControl =>
+export const formControlForTextInput = (
+  i: TextInput | TextAreaInput,
+): FormControl =>
   new FormControl(
-    {value: i.initialValue, disabled: i.disabled},
+    { value: i.initialValue, disabled: i.disabled },
     i.required ? Validators.required : undefined,
   )
 
-export const formControlForNumberInput = (i: NumberInput): FormControl<number | undefined | null> => {
+export const formControlForNumberInput = (
+  i: NumberInput,
+): FormControl<number | undefined | null> => {
   const validators = []
   if (i.required) {
     validators.push(Validators.required)
@@ -36,7 +40,10 @@ export const formControlForNumberInput = (i: NumberInput): FormControl<number | 
   if (i.max) {
     validators.push(Validators.max(i.max))
   }
-  return new FormControl({value: i.initialValue, disabled: i.disabled}, validators)
+  return new FormControl(
+    { value: i.initialValue, disabled: i.disabled },
+    validators,
+  )
 }
 
 export const minError = (formControl: FormControl): string | undefined =>
@@ -59,10 +66,9 @@ export class PlainInputComponent {
   @Input() input!: TextInput | NumberInput | TextAreaInput
 
   getErrorMessage = () =>
-    requiredError(this.formControl, this.input)
-    ?? minError(this.formControl)
-    ?? maxError(this.formControl)
+    requiredError(this.formControl, this.input) ??
+    minError(this.formControl) ??
+    maxError(this.formControl)
 
-  isTextArea = (): boolean =>
-    this.input.kind === 'text-area'
+  isTextArea = (): boolean => this.input.kind === 'text-area'
 }

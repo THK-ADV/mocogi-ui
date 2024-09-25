@@ -11,7 +11,6 @@ import { ModuleTableEntry } from './module-list/module-table-entry'
   styleUrls: ['./module.component.scss'],
 })
 export class ModuleComponent implements OnInit {
-
   modules$: Observable<ModuleTableEntry[]>
 
   constructor(private readonly store: Store) {

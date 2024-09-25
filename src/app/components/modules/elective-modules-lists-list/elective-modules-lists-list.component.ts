@@ -12,12 +12,13 @@ export class ElectiveModulesListsListComponent {
   protected dataSource = new MatTableDataSource<ElectivesCatalogue>()
   protected displayedColumns: string[] = ['title', 'semester', 'download_de']
 
-  @Input() set electiveModulesList(electiveModulesList: ReadonlyArray<ElectivesCatalogue> | null) {
+  @Input() set electiveModulesList(
+    electiveModulesList: ReadonlyArray<ElectivesCatalogue> | null,
+  ) {
     if (electiveModulesList) {
       this.dataSource.data = [...electiveModulesList]
     }
   }
 
-  absoluteUrl = (url: string) =>
-    `${environment.backendUrl}/${url}`
+  absoluteUrl = (url: string) => `${environment.backendUrl}/${url}`
 }

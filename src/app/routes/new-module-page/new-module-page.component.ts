@@ -21,7 +21,11 @@ export class NewModulePageComponent implements OnInit {
   formGroup = new FormGroup({})
   updateInProcess$ = this.store.select(selectUpdateInProcess)
 
-  constructor(private store: Store, private http: HttpService, private dialog: MatDialog) {
+  constructor(
+    private store: Store,
+    private http: HttpService,
+    private dialog: MatDialog,
+  ) {
     zip([
       http.allModules(),
       http.allGenericModules(),
@@ -36,51 +40,52 @@ export class NewModulePageComponent implements OnInit {
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
       http.allExamPhases(),
-    ]).subscribe(([
-                    modules,
-                    genericModules,
-                    moduleTypes,
-                    seasons,
-                    languages,
-                    locations,
-                    status,
-                    persons,
-                    assessmentMethods,
-                    competencies,
-                    globalCriteria,
-                    studyPrograms,
-                    examPhases,
-                  ]) => {
-      this.moduleForm = {
-        objectName: $localize`Neues Modul`,
-        editType: 'create',
-        sections: inputs(
-          modules,
-          genericModules,
-          moduleTypes,
-          languages,
-          seasons,
-          locations,
-          status,
-          persons,
-          assessmentMethods,
-          [...studyPrograms],
-          competencies,
-          globalCriteria,
-          examPhases,
-          dialog,
-          (attr) => this.formGroup.get(attr)?.value,
-        ),
-      }
-    })
+    ]).subscribe(
+      ([
+        modules,
+        genericModules,
+        moduleTypes,
+        seasons,
+        languages,
+        locations,
+        status,
+        persons,
+        assessmentMethods,
+        competencies,
+        globalCriteria,
+        studyPrograms,
+        examPhases,
+      ]) => {
+        this.moduleForm = {
+          objectName: $localize`Neues Modul`,
+          editType: 'create',
+          sections: inputs(
+            modules,
+            genericModules,
+            moduleTypes,
+            languages,
+            seasons,
+            locations,
+            status,
+            persons,
+            assessmentMethods,
+            [...studyPrograms],
+            competencies,
+            globalCriteria,
+            examPhases,
+            dialog,
+            (attr) => this.formGroup.get(attr)?.value,
+          ),
+        }
+      },
+    )
   }
 
   ngOnInit() {
     this.store.dispatch(NewModulePageActions.enter())
   }
 
-  isValid = () =>
-    this.formGroup.valid ?? false
+  isValid = () => this.formGroup.valid ?? false
 
   cancel = () => {
     this.store.dispatch(NewModulePageActions.cancel())
@@ -92,6 +97,6 @@ export class NewModulePageComponent implements OnInit {
   }
 
   submit = (moduleCompendiumProtocol: ModuleProtocol) => {
-    this.store.dispatch(NewModulePageActions.save({moduleCompendiumProtocol}))
+    this.store.dispatch(NewModulePageActions.save({ moduleCompendiumProtocol }))
   }
 }

@@ -30,12 +30,12 @@ export class ModuleRenderedHtmlComponent {
         this.source === 'Preview'
           ? http.latestModuleHtmlFile(moduleId)
           : http.moduleHtmlFile(moduleId)
-      moduleHtmlFile$.subscribe(
-        (value) => {
-          this.loading = false;
-          (this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({mode: 'open'}).innerHTML = value
-        }
-      )
+      moduleHtmlFile$.subscribe((value) => {
+        this.loading = false
+        ;(this.shadowRootDiv?.nativeElement as HTMLElement).attachShadow({
+          mode: 'open',
+        }).innerHTML = value
+      })
     } else {
       location.back()
     }

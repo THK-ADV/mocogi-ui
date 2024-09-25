@@ -1,5 +1,8 @@
 import { createReducer, on } from '@ngrx/store'
-import { ModuleFilterAPIActions, ModuleFilterPageActions } from '../actions/module-filter.actions'
+import {
+  ModuleFilterAPIActions,
+  ModuleFilterPageActions,
+} from '../actions/module-filter.actions'
 import { Identity } from '../../types/core/person'
 import { StudyProgram } from '../../types/module-compendium'
 
@@ -31,24 +34,30 @@ export const moduleFilterReducer = createReducer(
   on(ModuleFilterPageActions.enter, (state): State => {
     return state
   }),
-  on(ModuleFilterPageActions.selectStudyProgram, (state, {selectedStudyProgramId}): State => {
-    return {
-      ...state,
-      selectedStudyProgramId,
-    }
-  }),
-  on(ModuleFilterPageActions.selectSemester, (state, {semester}): State => {
+  on(
+    ModuleFilterPageActions.selectStudyProgram,
+    (state, { selectedStudyProgramId }): State => {
+      return {
+        ...state,
+        selectedStudyProgramId,
+      }
+    },
+  ),
+  on(ModuleFilterPageActions.selectSemester, (state, { semester }): State => {
     return {
       ...state,
       selectedSemester: semester,
     }
   }),
-  on(ModuleFilterPageActions.selectCoordinator, (state, {coordinatorId}): State => {
-    return {
-      ...state,
-      selectedCoordinatorId: coordinatorId,
-    }
-  }),
+  on(
+    ModuleFilterPageActions.selectCoordinator,
+    (state, { coordinatorId }): State => {
+      return {
+        ...state,
+        selectedCoordinatorId: coordinatorId,
+      }
+    },
+  ),
   on(ModuleFilterPageActions.resetFilter, (state): State => {
     return {
       ...state,
@@ -75,16 +84,22 @@ export const moduleFilterReducer = createReducer(
       selectedCoordinatorId: undefined,
     }
   }),
-  on(ModuleFilterAPIActions.retrievedStudyProgramsSuccess, (state, {studyPrograms}): State => {
-    return {
-      ...state,
-      studyPrograms,
-    }
-  }),
-  on(ModuleFilterAPIActions.retrievedIdentitiesSuccess, (state, { identities }): State => {
-    return {
-      ...state,
-      identities,
-    }
-  })
+  on(
+    ModuleFilterAPIActions.retrievedStudyProgramsSuccess,
+    (state, { studyPrograms }): State => {
+      return {
+        ...state,
+        studyPrograms,
+      }
+    },
+  ),
+  on(
+    ModuleFilterAPIActions.retrievedIdentitiesSuccess,
+    (state, { identities }): State => {
+      return {
+        ...state,
+        identities,
+      }
+    },
+  ),
 )

@@ -1,44 +1,66 @@
 import { MultipleEditDialogComponentCallback } from '../../form/multiple-edit-dialog/multiple-edit-dialog.component'
 import { arrayToObject } from '../../ops/array-to-object'
-import { OptionsInput, OptionsInputComponent } from '../../form/options-input/options-input.component'
+import {
+  OptionsInput,
+  OptionsInputComponent,
+} from '../../form/options-input/options-input.component'
 import { QueryList } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { validMandatoryCommaSeparatedNumber, validMandatoryObject } from './callback-validation'
+import {
+  validMandatoryCommaSeparatedNumber,
+  validMandatoryObject,
+} from './callback-validation'
 import { POMandatory } from '../../types/pos'
-import { showRecommendedSemester, showStudyProgram } from '../../ops/show.instances'
+import {
+  showRecommendedSemester,
+  showStudyProgram,
+} from '../../ops/show.instances'
 import { StudyProgram } from '../../types/module-compendium'
 
-export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<POMandatory, StudyProgram> {
+export class PoMandatoryCallback
+  implements MultipleEditDialogComponentCallback<POMandatory, StudyProgram>
+{
   readonly all: { [id: string]: StudyProgram } = {}
   readonly selected: { [id: string]: POMandatory } = {}
 
-  constructor(all: Readonly<StudyProgram[]>, selected: Readonly<POMandatory[]>) {
-    this.all = arrayToObject(all, a => a.po.id)
-    this.selected = arrayToObject(selected, a => a.po)
+  constructor(
+    all: Readonly<StudyProgram[]>,
+    selected: Readonly<POMandatory[]>,
+  ) {
+    this.all = arrayToObject(all, (a) => a.po.id)
+    this.selected = arrayToObject(selected, (a) => a.po)
   }
 
-  filterInitialOptionsForComponent(optionsInput: OptionsInput<StudyProgram>): StudyProgram[] {
+  filterInitialOptionsForComponent(
+    optionsInput: OptionsInput<StudyProgram>,
+  ): StudyProgram[] {
     const data = optionsInput.data
     if (!Array.isArray(data)) {
       return []
     }
     if (optionsInput.attr === 'po') {
-      return data.filter(d => !this.selected[d.id])
+      return data.filter((d) => !this.selected[d.id])
     } else {
       return data
     }
   }
 
-  addOptionToOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<unknown>>): void {
+  addOptionToOptionsInputComponent(
+    option: POMandatory,
+    components: QueryList<OptionsInputComponent<unknown>>,
+  ): void {
     const studyProgram = this.lookup(option.po)
-    const component = components.find(a => a.input.attr === 'po')
+    const component = components.find((a) => a.input.attr === 'po')
     studyProgram && component && component.addOption(studyProgram)
     component?.reset()
   }
 
-  removeOptionFromOptionsInputComponent(option: POMandatory, components: QueryList<OptionsInputComponent<unknown>>): void {
+  removeOptionFromOptionsInputComponent(
+    option: POMandatory,
+    components: QueryList<OptionsInputComponent<unknown>>,
+  ): void {
     const studyProgram = this.lookup(option.po)
-    const component = components.find(a => a.input.attr === 'po')
+    const component = components.find((a) => a.input.attr === 'po')
     studyProgram && component && component.removeOption(studyProgram)
     component?.reset()
   }
@@ -54,9 +76,11 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
     }
   }
 
-  tableEntryAlreadyExists(controls: { [key: string]: FormControl }): (e: POMandatory) => boolean {
+  tableEntryAlreadyExists(controls: {
+    [key: string]: FormControl
+  }): (e: POMandatory) => boolean {
     const sp = this.getStudyProgramValue(controls)
-    return ({po}) => po === sp.po.id
+    return ({ po }) => po === sp.po.id
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): POMandatory {
@@ -76,26 +100,28 @@ export class PoMandatoryCallback implements MultipleEditDialogComponentCallback<
   }
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
-    return !this.validPO(controls['po'].value) ||
+    return (
+      !this.validPO(controls['po'].value) ||
       !this.validRecommendedSemester(controls['recommended-semester'].value)
+    )
   }
 
-  private validPO = (value: unknown) =>
-    validMandatoryObject(value)
+  private validPO = (value: unknown) => validMandatoryObject(value)
 
   private validRecommendedSemester = (value: unknown) =>
     validMandatoryCommaSeparatedNumber(value)
 
-  private getRecommendedSemesterValue = (controls: { [p: string]: FormControl }) =>
+  private getRecommendedSemesterValue = (controls: {
+    [p: string]: FormControl
+  }) =>
     (controls['recommended-semester'].value as string)
       .split(',')
-      .map(a => Number(a))
+      .map((a) => Number(a))
 
   private getStudyProgramValue = (controls: { [p: string]: FormControl }) =>
     controls['po'].value as StudyProgram
 
-  private lookup = (id: string): StudyProgram | undefined =>
-    this.all[id]
+  private lookup = (id: string): StudyProgram | undefined => this.all[id]
 
   private lookupLabel = (id: string): string => {
     const sp = this.lookup(id)
