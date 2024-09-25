@@ -42,6 +42,24 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended"
+      ],
+      "plugins": [
+        "@ngrx"
+      ],
+      "parserOptions": {
+        "project": "tsconfig.json"
+      },
+      "rules": {
+        "@ngrx/good-action-hygiene": "error",
+        "@ngrx/avoid-cyclic-effects": "error"
+      }
     }
   ]
 }
