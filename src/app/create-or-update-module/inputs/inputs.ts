@@ -29,6 +29,8 @@ import { Section } from 'src/app/form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
 import { GenericModuleCore } from '../../types/genericModuleCore'
 import { ExamPhase } from '../../types/core/exam-phase'
+import { numberOrd, peopleOrd, stringOrd } from '../../ops/ordering.instances'
+import { Ordering } from '../../ops/ordering'
 
 export const requiredLabel = (label: string): string => label + ' *'
 
@@ -58,6 +60,18 @@ export function inputs(
   const metadata = moduleCompendium?.metadata
   const deContent = moduleCompendium?.deContent
   const enContent = moduleCompendium?.enContent
+
+  identities.sort(peopleOrd)
+  assessmentMethods.sort(Ordering.contraMap(stringOrd, (a) => a.deLabel))
+  studyPrograms.sort(
+    Ordering.many<StudyProgram>([
+      Ordering.contraMap(stringOrd, (_) => _.deLabel),
+      Ordering.contraMap(stringOrd, (_) => _.degree.id),
+      Ordering.contraMap(numberOrd, (_) => _.po.version),
+    ]),
+  )
+  modules.sort(Ordering.contraMap(stringOrd, (_) => _.title))
+  examPhases.sort(Ordering.contraMap(stringOrd, (_) => _.label))
 
   function currentMultipleSelectionValue<A>(
     attr: string,
