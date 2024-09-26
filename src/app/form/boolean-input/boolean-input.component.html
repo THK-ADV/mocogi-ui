@@ -1,10 +1,10 @@
 <mat-form-field class="container-fluid" appearance="fill">
   <!-- workaround to wrap slide toggle inside a valid mat form field type -->
-  <input matInput style="display: none">
+  <input matInput style="display: none" />
   <mat-slide-toggle
     color="primary"
     [formControl]="formControl"
     [checked]="input.initialValue">
-    {{input.label}}
+    {{ input.label }}
   </mat-slide-toggle>
 </mat-form-field>

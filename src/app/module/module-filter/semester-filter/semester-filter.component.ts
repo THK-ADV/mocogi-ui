@@ -1,5 +1,8 @@
 import { Component } from '@angular/core'
-import { selectSelectedSemester, selectSemester } from '../../../state/selectors/module-filter.selectors'
+import {
+  selectSelectedSemester,
+  selectSemester,
+} from '../../../state/selectors/module-filter.selectors'
 import { ModuleFilterPageActions } from '../../../state/actions/module-filter.actions'
 import { Store } from '@ngrx/store'
 
@@ -19,10 +22,10 @@ export class SemesterFilterComponent {
 
   show = (semester: number) => String(semester)
 
-  selectAction = (semester: number) => ModuleFilterPageActions.selectSemester({semester})
+  selectAction = (semester: number) =>
+    ModuleFilterPageActions.selectSemester({ semester })
 
   deselectAction = ModuleFilterPageActions.deselectSemester
 
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 }

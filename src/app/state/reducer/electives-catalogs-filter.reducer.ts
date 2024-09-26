@@ -21,28 +21,37 @@ export const electivesCatalogsFilterReducer = createReducer(
   on(ElectivesCatalogsFilterComponentActions.enter, (state): State => {
     return state
   }),
-  on(ElectivesCatalogsFilterComponentActions.selectSemester, (state, {semester}): State => {
-    return {
-      ...state,
-      selectedSemester: semester,
-    }
-  }),
+  on(
+    ElectivesCatalogsFilterComponentActions.selectSemester,
+    (state, { semester }): State => {
+      return {
+        ...state,
+        selectedSemester: semester,
+      }
+    },
+  ),
   on(ElectivesCatalogsFilterComponentActions.resetFilter, (state): State => {
     return {
       ...state,
     }
   }),
-  on(ElectivesCatalogsFilterComponentActions.deselectSemester, (state): State => {
-    return {
-      ...state,
-      selectedSemester: generateCurrentSemester(),
-    }
-  }),
-  on(ElectivesCatalogsFilterAPIActions.retrievedSemestersSuccess, (state, { semesters }): State => {
-    return {
-      ...state,
-      semesters,
-      selectedSemester: generateCurrentSemester(),
-    }
-  }),
+  on(
+    ElectivesCatalogsFilterComponentActions.deselectSemester,
+    (state): State => {
+      return {
+        ...state,
+        selectedSemester: generateCurrentSemester(),
+      }
+    },
+  ),
+  on(
+    ElectivesCatalogsFilterAPIActions.retrievedSemestersSuccess,
+    (state, { semesters }): State => {
+      return {
+        ...state,
+        semesters,
+        selectedSemester: generateCurrentSemester(),
+      }
+    },
+  ),
 )

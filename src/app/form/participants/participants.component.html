@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{headerTitle}}</h1>
+<h1 mat-dialog-title>{{ headerTitle }}</h1>
 
 <div class="modalContainer">
   <mat-card [formGroup]="formGroup">
@@ -23,18 +23,19 @@
       mat-flat-button
       (click)="applyChanges()"
       [disabled]="!isValid()"
-      color="primary">Änderungen Übernehmen</button>
-    <button
-      i18n
-      type="button"
-      mat-flat-button
-      (click)="delete()"
-      color="warn">Löschen</button>
+      color="primary">
+      Änderungen Übernehmen
+    </button>
+    <button i18n type="button" mat-flat-button (click)="delete()" color="warn">
+      Löschen
+    </button>
     <button
       i18n
       type="button"
       mat-flat-button
       cdkFocusInitial
-      (click)="cancel()">Schließen</button>
+      (click)="cancel()">
+      Schließen
+    </button>
   </mat-dialog-actions>
 </div>

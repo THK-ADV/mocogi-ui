@@ -10,8 +10,7 @@ import { ModuleCatalogsPageActions } from '../../state/actions/module-catalogs.a
   templateUrl: './module-compendiums-page.component.html',
   styleUrls: ['./module-compendiums-page.component.css'],
 })
-export class ModuleCompendiumsPageComponent implements OnInit{
-
+export class ModuleCompendiumsPageComponent implements OnInit {
   moduleCompendiums$: Observable<ReadonlyArray<ModuleCatalog>>
 
   constructor(private readonly store: Store) {

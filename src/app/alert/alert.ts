@@ -1,10 +1,6 @@
 // defined in NgbAlert
 
-export type AlertType =
-  'success' |
-  'info' |
-  'warning' |
-  'danger'
+export type AlertType = 'success' | 'info' | 'warning' | 'danger'
 
 export interface Message {
   kind: 'message'

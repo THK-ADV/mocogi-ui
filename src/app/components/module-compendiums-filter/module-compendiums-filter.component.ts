@@ -15,8 +15,7 @@ import { Semester, StudyProgramCore } from '../../types/module-compendium'
   styleUrls: ['./module-compendiums-filter.component.css'],
 })
 export class ModuleCompendiumsFilterComponent implements OnInit {
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.dispatch(ModuleCompendiumsFilterComponentActions.enter())
@@ -30,9 +29,11 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectedSemester$ = this.store.select(selectSelectedSemester)
 
-  selectSemester = (semester: Semester) => ModuleCompendiumsFilterComponentActions.selectSemester({semester})
+  selectSemester = (semester: Semester) =>
+    ModuleCompendiumsFilterComponentActions.selectSemester({ semester })
 
-  deselectSemester = () => ModuleCompendiumsFilterComponentActions.deselectSemester()
+  deselectSemester = () =>
+    ModuleCompendiumsFilterComponentActions.deselectSemester()
 
   showSemester = (semester: Semester) => semester.deLabel
 
@@ -40,13 +41,14 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   selectedStudyProgram$ = this.store.select(selectSelectedStudyProgram)
 
-  selectStudyProgram = (selectedStudyProgram: StudyProgramCore) => ModuleCompendiumsFilterComponentActions.selectStudyProgram({selectedStudyProgramId: selectedStudyProgram.id})
+  selectStudyProgram = (selectedStudyProgram: StudyProgramCore) =>
+    ModuleCompendiumsFilterComponentActions.selectStudyProgram({
+      selectedStudyProgramId: selectedStudyProgram.id,
+    })
 
-  deselectStudyProgram = () => ModuleCompendiumsFilterComponentActions.deselectStudyProgram()
+  deselectStudyProgram = () =>
+    ModuleCompendiumsFilterComponentActions.deselectStudyProgram()
 
-  showStudyProgram = (sp: StudyProgramCore) => `${sp.deLabel} (${sp.degree.deLabel})`
-
-  updateFilter = () => {
-    return
-  }
+  showStudyProgram = (sp: StudyProgramCore) =>
+    `${sp.deLabel} (${sp.degree.deLabel})`
 }

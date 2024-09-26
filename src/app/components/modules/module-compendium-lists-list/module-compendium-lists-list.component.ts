@@ -12,20 +12,27 @@ import { numberOrd, stringOrd } from '../../../ops/ordering.instances'
 })
 export class ModuleCompendiumListsListComponent {
   protected dataSource = new MatTableDataSource<ModuleCatalog>()
-  protected displayedColumns: string[] = ['title', 'study_program', 'po', 'download_de', 'download_en']
+  protected displayedColumns: string[] = [
+    'title',
+    'study_program',
+    'po',
+    'download_de',
+    'download_en',
+  ]
 
   private ord = Ordering.many<ModuleCatalog>([
-    Ordering.contraMap(stringOrd, mc => mc.studyProgram.id),
-    Ordering.contraMap(stringOrd, mc => mc.studyProgram.degree.id),
-    Ordering.contraMap(numberOrd, mc => mc.studyProgram.po.version),
+    Ordering.contraMap(stringOrd, (mc) => mc.studyProgram.id),
+    Ordering.contraMap(stringOrd, (mc) => mc.studyProgram.degree.id),
+    Ordering.contraMap(numberOrd, (mc) => mc.studyProgram.po.version),
   ])
 
-  @Input() set moduleCatalogs(moduleCatalogs: ReadonlyArray<ModuleCatalog> | null) {
+  @Input() set moduleCatalogs(
+    moduleCatalogs: ReadonlyArray<ModuleCatalog> | null,
+  ) {
     if (moduleCatalogs) {
       this.dataSource.data = [...moduleCatalogs].sort(this.ord)
     }
   }
 
-  absoluteUrl = (url: string) =>
-    `${environment.backendUrl}/${url}`
+  absoluteUrl = (url: string) => `${environment.backendUrl}/${url}`
 }

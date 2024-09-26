@@ -6,22 +6,23 @@ import { exhaustMap, map } from 'rxjs'
 
 @Injectable()
 export class ModuleEffects {
-
   fetchModules$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModulePageActions.enter),
-        exhaustMap(() =>
-          this.service.allModuleAtomic().pipe(
-            map((modules) => ModuleApiActions.retrievedModulesSuccess({modules})),
+    return this.actions$.pipe(
+      ofType(ModulePageActions.enter),
+      exhaustMap(() =>
+        this.service
+          .allModuleAtomic()
+          .pipe(
+            map((modules) =>
+              ModuleApiActions.retrievedModulesSuccess({ modules }),
+            ),
           ),
-        ),
-      )
-    },
-  )
+      ),
+    )
+  })
 
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions,
-  ) {
-  }
+  ) {}
 }

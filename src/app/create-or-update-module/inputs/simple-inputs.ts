@@ -1,4 +1,7 @@
-import { NumberInput, TextInput } from '../../form/plain-input/plain-input.component'
+import {
+  NumberInput,
+  TextInput,
+} from '../../form/plain-input/plain-input.component'
 import { OptionsInput } from '../../form/options-input/options-input.component'
 import { FormInput } from '../../form/form-input'
 import { ReadOnlyInput } from '../../form/read-only-input/read-only-input.component'
@@ -63,7 +66,8 @@ export function simpleInput(
       required: true,
       data: modulesTypes,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.moduleType)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.moduleType)),
     }
   }
 
@@ -88,7 +92,8 @@ export function simpleInput(
       required: true,
       data: languages,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.language)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.language)),
     }
   }
 
@@ -113,7 +118,8 @@ export function simpleInput(
       required: true,
       data: seasons,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.season)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.season)),
     }
   }
 
@@ -126,7 +132,8 @@ export function simpleInput(
       required: true,
       data: locations,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.location)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.location)),
     }
   }
 
@@ -139,8 +146,69 @@ export function simpleInput(
       required: true,
       data: status,
       show: showLabel,
-      initialValue: metadata && (xs => xs.find(a => a.id === metadata.status)),
+      initialValue:
+        metadata && ((xs) => xs.find((a) => a.id === metadata.status)),
     }
+  }
+
+  function showParticipants(p: Participants): string {
+    return $localize`${p.min} - ${p.max} Teilnehmer`
+  }
+
+  function showModuleRelation(m: ModuleRelation): string {
+    switch (m.kind) {
+      case 'parent':
+        let parent = $localize`Hat Submodule: `
+        m.children.forEach((id, index) => {
+          const module = modules.find((_) => _.id === id)
+          if (module) {
+            parent += module.abbrev
+            if (index !== m.children.length - 1) {
+              parent += ', '
+            }
+          }
+        })
+        return parent
+      case 'child':
+        let child = $localize`Gehört zum Modul: `
+        const module = modules.find((_) => _.id === m.parent)
+        if (module) {
+          child += module.abbrev
+        }
+        return child
+    }
+  }
+
+  function moduleRelationDialogInstance(attr: string) {
+    return ModuleRelationComponent.instance(
+      dialog,
+      currentModuleRelation(attr),
+      modules,
+      metadataId,
+    )
+  }
+
+  function moduleRelationInput(): ReadOnlyInput<
+    ModuleRelation,
+    ModuleRelation
+  > {
+    const attr = 'module-relation'
+    const entries = currentModuleRelation(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Modulbeziehung`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: [],
+      show: showModuleRelation,
+      initialValue: () => mapOpt(entries, (a) => [a]) ?? [],
+      dialogInstance: () => moduleRelationDialogInstance(attr),
+    }
+  }
+
+  function participantsDialogInstance(attr: string) {
+    return ParticipantsComponent.instance(dialog, currentParticipants(attr))
   }
 
   function participantsInput(): ReadOnlyInput<Participants, Participants> {
@@ -154,77 +222,28 @@ export function simpleInput(
       required: false,
       options: [],
       show: showParticipants,
-      initialValue: () => mapOpt(entries, a => [a]) ?? [],
+      initialValue: () => mapOpt(entries, (a) => [a]) ?? [],
       dialogInstance: () => participantsDialogInstance(attr),
     }
   }
 
-  function participantsDialogInstance(attr: string) {
-    return ParticipantsComponent.instance(dialog, currentParticipants(attr))
-  }
-
-  function showParticipants(p: Participants): string {
-    return $localize`${p.min} - ${p.max} Teilnehmer`
-  }
-
-  function moduleRelationInput(): ReadOnlyInput<ModuleRelation, ModuleRelation> {
-    const attr = 'module-relation'
-    const entries = currentModuleRelation(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Modulbeziehung`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: [],
-      show: showModuleRelation,
-      initialValue: () => mapOpt(entries, a => [a]) ?? [],
-      dialogInstance: () => moduleRelationDialogInstance(attr),
-    }
-  }
-
-  function showModuleRelation(m: ModuleRelation): string {
-    switch (m.kind) {
-      case 'parent':
-        // eslint-disable-next-line no-case-declarations
-        let parent = $localize`Hat Submodule: `
-        m.children.forEach((id, index) => {
-          const module = modules.find(m => m.id === id)
-          if (module) {
-            parent += module.abbrev
-            if (index !== m.children.length - 1) {
-              parent += ', '
-            }
-          }
-        })
-        return parent
-      case 'child':
-        // eslint-disable-next-line no-case-declarations
-        let child = $localize`Gehört zum Modul: `
-        // eslint-disable-next-line no-case-declarations
-        const module = modules.find(m => m.id === m.id)
-        if (module) {
-          child += module.abbrev
-        }
-        return child
-    }
-  }
-
-  function moduleRelationDialogInstance(attr: string) {
-    return ModuleRelationComponent.instance(dialog, currentModuleRelation(attr), modules, metadataId)
-  }
-
   return {
-    'title': [{input: titleInput()}],
-    'abbrev': [{input: abbreviationInput()}],
-    'module-types': [{input: moduleTypesInput() as FormInput<unknown, unknown>}],
-    'credits': [{input: creditsInput()}],
-    'languages': [{input: languagesInput() as FormInput<unknown, unknown>}],
-    'duration': [{input: durationInput() as FormInput<unknown, unknown>}],
-    'frequency': [{input: frequencyInput() as FormInput<unknown, unknown>}],
-    'locations': [{input: locationsInput() as FormInput<unknown, unknown>}],
-    'status': [{input: statusInput() as FormInput<unknown, unknown>}],
-    'participants': [{input: participantsInput() as FormInput<unknown, unknown>}],
-    'module-relation': [{input: moduleRelationInput() as FormInput<unknown, unknown>}],
+    title: [{ input: titleInput() }],
+    abbrev: [{ input: abbreviationInput() }],
+    'module-types': [
+      { input: moduleTypesInput() as FormInput<unknown, unknown> },
+    ],
+    credits: [{ input: creditsInput() }],
+    languages: [{ input: languagesInput() as FormInput<unknown, unknown> }],
+    duration: [{ input: durationInput() as FormInput<unknown, unknown> }],
+    frequency: [{ input: frequencyInput() as FormInput<unknown, unknown> }],
+    locations: [{ input: locationsInput() as FormInput<unknown, unknown> }],
+    status: [{ input: statusInput() as FormInput<unknown, unknown> }],
+    participants: [
+      { input: participantsInput() as FormInput<unknown, unknown> },
+    ],
+    'module-relation': [
+      { input: moduleRelationInput() as FormInput<unknown, unknown> },
+    ],
   }
 }

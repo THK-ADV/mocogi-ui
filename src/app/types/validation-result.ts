@@ -26,10 +26,7 @@ export interface ValidationError {
   }
 }
 
-export type PipelineError =
-  ParsingError |
-  PrintingError |
-  ValidationError
+export type PipelineError = ParsingError | PrintingError | ValidationError
 
 export interface ValidationSuccess {
   tag: 'success'
@@ -41,6 +38,4 @@ export interface ValidationFailure {
   data: NonEmptyArray<PipelineError>
 }
 
-export type ValidationResult =
-  ValidationSuccess |
-  ValidationFailure
+export type ValidationResult = ValidationSuccess | ValidationFailure

@@ -13,13 +13,16 @@ export class AlertComponent implements OnDestroy {
   private subs: Subscription[]
   alerts: Alert[] = []
 
-  constructor(private service: AlertService, private router: Router) {
+  constructor(
+    private service: AlertService,
+    private router: Router,
+  ) {
     const alerts$ = service.alerts$()
-    const s1 = alerts$
-      .subscribe(a => this.alerts.push(a))
-    const s2 = alerts$.pipe(debounceTime(5000))
-      .subscribe(a => a.autoDismiss && this.closing(a))
-    const s3 = router.events.subscribe(event => {
+    const s1 = alerts$.subscribe((a) => this.alerts.push(a))
+    const s2 = alerts$
+      .pipe(debounceTime(5000))
+      .subscribe((a) => a.autoDismiss && this.closing(a))
+    const s3 = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.alerts = []
       }
@@ -28,7 +31,7 @@ export class AlertComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subs.forEach(_ => _.unsubscribe())
+    this.subs.forEach((_) => _.unsubscribe())
   }
 
   closing = (alert: Alert) => {

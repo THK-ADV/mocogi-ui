@@ -1,11 +1,13 @@
 <mat-nav-list>
   <ng-container *ngFor="let item of navItems">
-    <div mat-subheader *ngIf="item.type === 'HEADER'">{{item.text}}</div>
+    <div mat-subheader *ngIf="item.type === 'HEADER'">{{ item.text }}</div>
     <div *ngIf="item.type === 'LINK'">
-      <mat-list-item (click)="navigateTo(item.url)" [activated]="isActive(item.url.join('/'))">
-        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <div matListItemTitle>{{item.text}}</div>
-     </mat-list-item>
+      <mat-list-item
+        (click)="navigateTo(item.url)"
+        [activated]="isActive(item.url.join('/'))">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <div matListItemTitle>{{ item.text }}</div>
+      </mat-list-item>
     </div>
   </ng-container>
 </mat-nav-list>

@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core'
-import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot } from '@angular/router'
+import {
+  ActivatedRouteSnapshot,
+  Route,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router'
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular'
 import { NonEmptyArray } from '../types/non-empty-array'
 
-export type RoleCheckingCondition =
-  'any' |
-  'all'
+export type RoleCheckingCondition = 'any' | 'all'
 
-export type AuthRole =
-  'employee' |
-  'professor' |
-  'student'
-
-export function requireRoles(roles: NonEmptyArray<AuthRole>, condition: RoleCheckingCondition): Route {
-  return {canActivate: [AuthGuard], data: {roles, condition}}
-}
-
-export function requireAuthenticationOnly(): Route {
-  return {canActivate: [AuthGuard]}
-}
+export type AuthRole = 'employee' | 'professor' | 'student'
 
 @Injectable({
   providedIn: 'root',
@@ -41,16 +33,19 @@ class AuthGuard extends KeycloakAuthGuard {
       })
     }
 
-    const requiredRoles: AuthRole[] = route.data['roles']
+    const requiredRoles = route.data['roles'] as AuthRole[]
     if (!Array.isArray(requiredRoles) || requiredRoles.length === 0) {
       return true
     }
 
-    const condition: RoleCheckingCondition = route.data['condition']
+    const condition = route.data['condition'] as RoleCheckingCondition
     return this.checkRoles(requiredRoles, condition)
   }
 
-  private checkRoles = (roles: AuthRole[], condition: RoleCheckingCondition): boolean => {
+  private checkRoles = (
+    roles: AuthRole[],
+    condition: RoleCheckingCondition,
+  ): boolean => {
     switch (condition) {
       case 'any':
         return roles.some((role) => this.roles.includes(role))
@@ -58,4 +53,15 @@ class AuthGuard extends KeycloakAuthGuard {
         return roles.every((role) => this.roles.includes(role))
     }
   }
+}
+
+export function requireRoles(
+  roles: NonEmptyArray<AuthRole>,
+  condition: RoleCheckingCondition,
+): Route {
+  return { canActivate: [AuthGuard], data: { roles, condition } }
+}
+
+export function requireAuthenticationOnly(): Route {
+  return { canActivate: [AuthGuard] }
 }

@@ -8,17 +8,31 @@
       "files": [
         "*.ts"
       ],
+      "parserOptions": {
+        "project": true
+      },
       "extends": [
         "eslint:recommended",
+        "airbnb-base/legacy",
         "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
       ],
       "rules": {
-        "@typescript-eslint/no-namespace": "off",
-        "eqeqeq": [
+        "lines-between-class-members": "off",
+        "class-methods-use-this": "off",
+        "dot-notation": "off",
+        "default-case": "off",
+        "consistent-return": "off",
+        "no-case-declarations": "off",
+        "no-console": "off",
+        "no-plusplus": [
           "error",
-          "smart"
+          {
+            "allowForLoopAfterthoughts": true
+          }
         ],
         "@angular-eslint/directive-selector": [
           "error",
@@ -35,24 +49,6 @@
             "prefix": "cops",
             "style": "kebab-case"
           }
-        ],
-        "quotes": [
-          "error",
-          "single"
-        ],
-        "semi": [
-          "error",
-          "never"
-        ],
-        "comma-dangle": [
-          "error",
-          {
-            "arrays": "always-multiline",
-            "objects": "always-multiline",
-            "imports": "always-multiline",
-            "exports": "always-multiline",
-            "functions": "only-multiline"
-          }
         ]
       }
     },
@@ -61,7 +57,8 @@
         "*.html"
       ],
       "extends": [
-        "plugin:@angular-eslint/template/recommended"
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
     },
@@ -71,7 +68,17 @@
       ],
       "extends": [
         "plugin:@ngrx/recommended"
-      ]
+      ],
+      "plugins": [
+        "@ngrx"
+      ],
+      "parserOptions": {
+        "project": "tsconfig.json"
+      },
+      "rules": {
+        "@ngrx/good-action-hygiene": "error",
+        "@ngrx/avoid-cyclic-effects": "error"
+      }
     }
   ]
 }

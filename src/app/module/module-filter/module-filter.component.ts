@@ -8,9 +8,7 @@ import { ModuleFilterPageActions } from '../../state/actions/module-filter.actio
   styleUrls: ['./module-filter.component.css'],
 })
 export class ModuleFilterComponent implements OnInit {
-
-  constructor(private readonly store: Store) {
-  }
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.dispatch(ModuleFilterPageActions.enter())

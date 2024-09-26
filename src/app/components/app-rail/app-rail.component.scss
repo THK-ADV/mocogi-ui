@@ -8,8 +8,8 @@
 
 .app-rail {
   min-width: 7.5em;
-  font-size: .9em;
-  padding: .5em;
+  font-size: 0.9em;
+  padding: 0.5em;
   background-color: #e0e0e0;
   color: rgba(0, 0, 0, 0.87);
   height: 100%;
@@ -31,10 +31,10 @@
       height: 100%;
     }
   }
-  li  {
-    transition: all .1s ease-in-out;
+  li {
+    transition: all 0.1s ease-in-out;
     &.disabled {
-      opacity: .3;
+      opacity: 0.3;
       pointer-events: none;
       background-color: transparent;
     }
@@ -66,7 +66,7 @@
     }
     img {
       width: 2.2em;
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
   }
 }

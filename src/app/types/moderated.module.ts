@@ -2,20 +2,6 @@ import { ModuleCore } from './moduleCore'
 import { ModuleDraft } from './module-draft'
 import { Label } from './core/label'
 
-export type ModeratedModule = {
-  module: ModuleCore
-  moduleDraft: ModuleDraft | undefined
-  moduleDraftState: ModuleDraftState
-}
-
-export type ModuleDraftState =
-  Published |
-  ValidForReview |
-  ValidForPublication |
-  WaitingForReview |
-  WaitingForChanges |
-  Unknown
-
 export interface Published extends Label {
   id: 'published'
 }
@@ -38,4 +24,18 @@ export interface ValidForPublication extends Label {
 
 export interface Unknown extends Label {
   id: 'unknown'
+}
+
+export type ModuleDraftState =
+  | Published
+  | ValidForReview
+  | ValidForPublication
+  | WaitingForReview
+  | WaitingForChanges
+  | Unknown
+
+export type ModeratedModule = {
+  module: ModuleCore
+  moduleDraft: ModuleDraft | undefined
+  moduleDraftState: ModuleDraftState
 }

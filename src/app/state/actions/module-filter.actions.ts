@@ -6,8 +6,10 @@ import { StudyProgram } from '../../types/module-compendium'
 export const ModuleFilterPageActions = createActionGroup({
   source: 'Module Filter Page',
   events: {
-    'Enter': emptyProps(),
-    'Select Study Program': props<{ selectedStudyProgramId: SelectedStudyProgramId }>(),
+    Enter: emptyProps(),
+    'Select Study Program': props<{
+      selectedStudyProgramId: SelectedStudyProgramId
+    }>(),
     'Select Semester': props<{ semester: number }>(),
     'Select Coordinator': props<{ coordinatorId: string }>(),
     'Deselect Study Program': emptyProps(),
@@ -20,7 +22,9 @@ export const ModuleFilterPageActions = createActionGroup({
 export const ModuleFilterAPIActions = createActionGroup({
   source: 'Module Filter API',
   events: {
-    'Retrieved Study Programs Success': props<{ studyPrograms: readonly StudyProgram[] }>(),
+    'Retrieved Study Programs Success': props<{
+      studyPrograms: readonly StudyProgram[]
+    }>(),
     'Retrieved Identities Success': props<{ identities: Identity[] }>(),
   },
 })

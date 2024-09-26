@@ -1,5 +1,9 @@
 import { Component, Inject } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog'
 
 interface ConfirmationPayload {
   title: string
@@ -15,24 +19,26 @@ export type ConfirmationResult = 'ok' | 'ko'
 })
 export class ConfirmationDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<ConfirmationDialogComponent, ConfirmationResult>,
+    private dialogRef: MatDialogRef<
+      ConfirmationDialogComponent,
+      ConfirmationResult
+    >,
     @Inject(MAT_DIALOG_DATA) readonly payload: ConfirmationPayload,
-  ) {
-  }
+  ) {}
 
   static instance = (
     dialog: MatDialog,
     payload: ConfirmationPayload,
   ): MatDialogRef<ConfirmationDialogComponent, ConfirmationResult> =>
-    dialog.open<ConfirmationDialogComponent, ConfirmationPayload, ConfirmationResult>(
-      ConfirmationDialogComponent, {
-        data: payload,
-      },
-    )
+    dialog.open<
+      ConfirmationDialogComponent,
+      ConfirmationPayload,
+      ConfirmationResult
+    >(ConfirmationDialogComponent, {
+      data: payload,
+    })
 
-  cancel = () =>
-    this.dialogRef.close('ko')
+  cancel = () => this.dialogRef.close('ko')
 
-  submit = () =>
-    this.dialogRef.close('ok')
+  submit = () => this.dialogRef.close('ok')
 }

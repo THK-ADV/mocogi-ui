@@ -17,7 +17,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              // TODO bailout issue from keycloak-js. fix this properly
               "base64-js",
               "js-sha256"
             ],
@@ -118,7 +117,7 @@
     }
   },
   "cli": {
-    "analytics": "0d18e3db-3d32-4ce6-8a3e-82b9c88145a7",
+    "analytics": "bb8d3202-4ff0-4e55-bf07-00af8f8e95d8",
     "schematicCollections": [
       "@angular-eslint/schematics"
     ]

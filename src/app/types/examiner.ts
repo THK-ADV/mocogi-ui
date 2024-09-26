@@ -1,4 +1,4 @@
 export interface Examiner {
-  first: string,
+  first: string
   second: string
 }

@@ -1,7 +1,10 @@
 import { createReducer, on } from '@ngrx/store'
 import { Sort } from '@angular/material/sort'
 import { ElectivesCatalogue } from '../../types/electivesCatalogues'
-import { ElectivesCatalogsApiActions, ElectivesCatalogsPageActions } from '../actions/electives-catalogues.actions'
+import {
+  ElectivesCatalogsApiActions,
+  ElectivesCatalogsPageActions,
+} from '../actions/electives-catalogues.actions'
 
 export interface State {
   electivesCatalogs: ReadonlyArray<ElectivesCatalogue>
@@ -25,28 +28,37 @@ export const electiveCatalogsReducer = createReducer(
       error: undefined,
     }
   }),
-  on(ElectivesCatalogsPageActions.filterElectivesCatalogs, (state, {filter}): State => {
-    return {
-      ...state,
-      catalogsFilter: filter,
-    }
-  }),
+  on(
+    ElectivesCatalogsPageActions.filterElectivesCatalogs,
+    (state, { filter }): State => {
+      return {
+        ...state,
+        catalogsFilter: filter,
+      }
+    },
+  ),
   on(ElectivesCatalogsPageActions.resetFilter, (state): State => {
     return {
       ...state,
       catalogsFilter: undefined,
     }
   }),
-  on(ElectivesCatalogsApiActions.retrievedElectivesCatalogsSuccess, (state, {electivesCatalogues}): State => {
-    return {
-      ...state,
-      electivesCatalogs: electivesCatalogues,
-    }
-  }),
-  on(ElectivesCatalogsApiActions.retrievedElectivesCatalogsFailure, (state, {error}): State => {
-    return {
-      ...state,
-      error,
-    }
-  }),
+  on(
+    ElectivesCatalogsApiActions.retrievedElectivesCatalogsSuccess,
+    (state, { electivesCatalogues }): State => {
+      return {
+        ...state,
+        electivesCatalogs: electivesCatalogues,
+      }
+    },
+  ),
+  on(
+    ElectivesCatalogsApiActions.retrievedElectivesCatalogsFailure,
+    (state, { error }): State => {
+      return {
+        ...state,
+        error,
+      }
+    },
+  ),
 )

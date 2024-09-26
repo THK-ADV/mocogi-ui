@@ -1,5 +1,8 @@
 import { createReducer, on } from '@ngrx/store'
-import { ModuleCatalogsApiActions, ModuleCatalogsPageActions } from '../actions/module-catalogs.actions'
+import {
+  ModuleCatalogsApiActions,
+  ModuleCatalogsPageActions,
+} from '../actions/module-catalogs.actions'
 import { Sort } from '@angular/material/sort'
 import { ModuleCatalog } from '../../types/module-compendium'
 
@@ -25,28 +28,37 @@ export const moduleCatalogsReducer = createReducer(
       error: undefined,
     }
   }),
-  on(ModuleCatalogsPageActions.filterModuleCatalogs, (state, {filter}): State => {
-    return {
-      ...state,
-      moduleFilter: filter,
-    }
-  }),
+  on(
+    ModuleCatalogsPageActions.filterModuleCatalogs,
+    (state, { filter }): State => {
+      return {
+        ...state,
+        moduleFilter: filter,
+      }
+    },
+  ),
   on(ModuleCatalogsPageActions.resetFilter, (state): State => {
     return {
       ...state,
       moduleFilter: undefined,
     }
   }),
-  on(ModuleCatalogsApiActions.retrievedModulesCatalogsSuccess, (state, { moduleCatalogs }): State => {
-    return {
-      ...state,
-      moduleCatalogs: moduleCatalogs,
-    }
-  }),
-  on(ModuleCatalogsApiActions.retrievedModulesCatalogsFailure, (state, {error}): State => {
-    return {
-      ...state,
-      error,
-    }
-  }),
+  on(
+    ModuleCatalogsApiActions.retrievedModulesCatalogsSuccess,
+    (state, { moduleCatalogs }): State => {
+      return {
+        ...state,
+        moduleCatalogs: moduleCatalogs,
+      }
+    },
+  ),
+  on(
+    ModuleCatalogsApiActions.retrievedModulesCatalogsFailure,
+    (state, { error }): State => {
+      return {
+        ...state,
+        error,
+      }
+    },
+  ),
 )

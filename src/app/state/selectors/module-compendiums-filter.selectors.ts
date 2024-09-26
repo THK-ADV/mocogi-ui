@@ -1,7 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module-compendiums-filter.reducer'
 
-export const selectModuleCompendiumsFilterState = createFeatureSelector<State>('moduleCompendiumsFilter')
+export const selectModuleCompendiumsFilterState = createFeatureSelector<State>(
+  'moduleCompendiumsFilter',
+)
 
 export const selectStudyPrograms = createSelector(
   selectModuleCompendiumsFilterState,
@@ -30,6 +32,6 @@ export const selectSelectedStudyProgram = createSelector(
       return undefined
     }
 
-    return studyPrograms.find((sp) => sp.id === studyProgramId )
-  }
+    return studyPrograms.find((sp) => sp.id === studyProgramId)
+  },
 )

@@ -21,3 +21,10 @@ aside {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   padding: 2em;
 }
+
+.headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+}

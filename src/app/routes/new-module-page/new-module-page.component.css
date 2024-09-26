@@ -20,7 +20,7 @@ aside {
   flex-direction: column;
   width: 500px;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
-  HEIGHT: 100%;
+  height: 100%;
 }
 .info {
   padding: 2em;

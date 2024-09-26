@@ -1,5 +1,18 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
-import { FormInputLike, mandatoryOptionsValidator, optionalOptionsValidator, optionsError, requiredError } from '../form-input'
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core'
+import {
+  FormInputLike,
+  mandatoryOptionsValidator,
+  optionalOptionsValidator,
+  optionsError,
+  requiredError,
+} from '../form-input'
 import { EMPTY, map, Observable, startWith, Subscription } from 'rxjs'
 import { FormControl, Validators } from '@angular/forms'
 
@@ -10,10 +23,14 @@ export interface OptionsInput<A> extends FormInputLike {
   initialValue?: (as: A[]) => A | undefined
 }
 
-export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl => {
+export const formControlForOptionsInput = <A>(
+  i: OptionsInput<A>,
+): FormControl => {
   const fc = new FormControl<A | undefined>(
-    {value: undefined, disabled: i.disabled},
-    i.required ? [Validators.required, mandatoryOptionsValidator()] : optionalOptionsValidator(),
+    { value: undefined, disabled: i.disabled },
+    i.required
+      ? [(_) => Validators.required(_), mandatoryOptionsValidator()]
+      : optionalOptionsValidator(),
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
   if (Array.isArray(i.data)) {
@@ -29,7 +46,6 @@ export const formControlForOptionsInput = <A>(i: OptionsInput<A>): FormControl =
   styleUrls: ['./options-input.component.css'],
 })
 export class OptionsInputComponent<A> implements OnInit, OnDestroy {
-
   @Input() input!: OptionsInput<A>
   @Input() formControl!: FormControl
   @Output() optionSelected = new EventEmitter<A>()
@@ -52,7 +68,7 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
       this.options = this.input.data
       this.initFilterOptions()
     } else {
-      this.sub = this.input.data.subscribe(data => {
+      this.sub = this.input.data.subscribe((data) => {
         this.options = data ?? []
         this.setInitialState()
         this.initFilterOptions()
@@ -70,36 +86,42 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
   private initFilterOptions = () => {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
-      map(value => typeof value === 'string' ? value : this.input.show(value)),
-      map(value => value ? this.filter(value) : this.options.slice()),
+      map((value) =>
+        typeof value === 'string' ? value : this.input.show(value as A),
+      ),
+      map((value) => (value ? this.filter(value) : this.options.slice())),
     )
   }
 
   private filter = (input: string): A[] => {
     const filterValue = input.toLowerCase()
-    return this.options.filter(t => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0)
+    return this.options.filter(
+      (t) => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0,
+    )
   }
 
   // UI functions
 
-  displayFn = (value?: A): string =>
-    (value && this.input.show(value)) ?? ''
+  displayFn = (value?: A): string => (value && this.input.show(value)) ?? ''
 
   getErrorMessage = (): string | undefined => {
     if (!this.formControl.errors) {
       return undefined
     }
-    return requiredError(this.formControl, this.input) ??
+    return (
+      requiredError(this.formControl, this.input) ??
       optionsError(this.formControl) ??
       Object.values(this.formControl.errors).join('. ')
+    )
   }
-
 
   // Public API
 
   removeOption = (a: A) => {
     const index = this.options.indexOf(a, 0)
-    index > -1 && this.options.splice(index, 1)
+    if (index > -1) {
+      this.options.splice(index, 1)
+    }
   }
 
   addOption = (a: A) => {
@@ -107,7 +129,7 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
   }
 
   reset = () => {
-    this.formControl.reset(undefined, {emitEvent: false})
+    this.formControl.reset(undefined, { emitEvent: false })
     this.initFilterOptions()
   }
 }

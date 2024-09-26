@@ -6,12 +6,9 @@ import { Alert } from './alert'
   providedIn: 'root',
 })
 export class AlertService {
-
   private alertSubject = new Subject<Alert>()
 
-  alerts$ = () =>
-    this.alertSubject.asObservable()
+  alerts$ = () => this.alertSubject.asObservable()
 
-  report = (alert: Alert) =>
-    this.alertSubject.next(alert)
+  report = (alert: Alert) => this.alertSubject.next(alert)
 }

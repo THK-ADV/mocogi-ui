@@ -5,7 +5,7 @@ import { ModuleView } from '../../types/module-view'
 export const ModulePageActions = createActionGroup({
   source: 'Module Page',
   events: {
-    'Enter': emptyProps(),
+    Enter: emptyProps(),
     'Select Module': props<{ moduleId: string }>(),
     'Filter Module': props<{ filter: string }>(),
     'Reset Filter': emptyProps(),

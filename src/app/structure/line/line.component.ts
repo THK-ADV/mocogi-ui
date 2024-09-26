@@ -5,6 +5,4 @@ import { Component } from '@angular/core'
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.scss'],
 })
-export class LineComponent {
-
-}
+export class LineComponent {}

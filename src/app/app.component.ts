@@ -7,7 +7,6 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-
 export class AppComponent {
   navItems: Array<CopsNavigationItem> = [
     {
@@ -86,8 +85,8 @@ export class AppComponent {
       url: '',
       disabled: true,
     },
-    {type: 'DIVIDER'},
-    {type: 'SPACER'},
+    { type: 'DIVIDER' },
+    { type: 'SPACER' },
     {
       type: 'LINK',
       text: $localize`Feedback`,

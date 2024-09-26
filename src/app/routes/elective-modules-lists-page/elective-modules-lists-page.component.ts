@@ -10,7 +10,7 @@ import { ElectivesCatalogue } from '../../types/electivesCatalogues'
   templateUrl: './elective-modules-lists-page.component.html',
   styleUrls: ['./elective-modules-lists-page.component.css'],
 })
-export class ElectiveModulesListsPageComponent implements OnInit{
+export class ElectiveModulesListsPageComponent implements OnInit {
   electivesCatalogues$: Observable<ReadonlyArray<ElectivesCatalogue>>
 
   constructor(private readonly store: Store) {

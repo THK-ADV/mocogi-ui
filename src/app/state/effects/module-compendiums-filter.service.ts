@@ -11,47 +11,67 @@ import { generateCurrentSemester } from '../../helper/semester.helper'
 
 @Injectable()
 export class ModuleCompendiumsFilterEffects {
-
   fetchStudyPrograms$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModuleCompendiumsFilterComponentActions.enter),
-        exhaustMap(() =>
-          this.service.allStudyProgramCores().pipe(
-            map((studyPrograms) => ModuleCompendiumsFilterAPIActions.retrievedStudyProgramsSuccess({studyPrograms}))
-          )
-        )
-      )
-    }
-  )
+    return this.actions$.pipe(
+      ofType(ModuleCompendiumsFilterComponentActions.enter),
+      exhaustMap(() =>
+        this.service.allStudyProgramCores().pipe(
+          map((studyPrograms) =>
+            ModuleCompendiumsFilterAPIActions.retrievedStudyProgramsSuccess({
+              studyPrograms,
+            }),
+          ),
+        ),
+      ),
+    )
+  })
 
   fetchSemesters$ = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(ModuleCompendiumsFilterComponentActions.enter),
-        exhaustMap(() =>
-          this.service.getSemesters().pipe(
-            map((semesters) => ModuleCompendiumsFilterAPIActions.retrievedSemestersSuccess({ semesters }))
-          )
-        )
-      )
-    }
-  )
+    return this.actions$.pipe(
+      ofType(ModuleCompendiumsFilterComponentActions.enter),
+      exhaustMap(() =>
+        this.service.getSemesters().pipe(
+          map((semesters) =>
+            ModuleCompendiumsFilterAPIActions.retrievedSemestersSuccess({
+              semesters,
+            }),
+          ),
+        ),
+      ),
+    )
+  })
 
   updateSelectedSemester$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ModuleCompendiumsFilterComponentActions.selectSemester),
-      exhaustMap(({ semester }) => this.service.allModuleCatalogs(semester.id).pipe(map((moduleCatalogs) => ModuleCatalogsApiActions.retrievedModulesCatalogsSuccess({ moduleCatalogs }))
-    )))
+      exhaustMap(({ semester }) =>
+        this.service.allModuleCatalogs(semester.id).pipe(
+          map((moduleCatalogs) =>
+            ModuleCatalogsApiActions.retrievedModulesCatalogsSuccess({
+              moduleCatalogs,
+            }),
+          ),
+        ),
+      ),
+    )
   })
 
   resetSemester = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ModuleCompendiumsFilterComponentActions.deselectSemester, ModuleCompendiumsFilterComponentActions.resetFilter),
-      map(() => ModuleCompendiumsFilterComponentActions.selectSemester({semester: generateCurrentSemester()})))
+      ofType(
+        ModuleCompendiumsFilterComponentActions.deselectSemester,
+        ModuleCompendiumsFilterComponentActions.resetFilter,
+      ),
+      map(() =>
+        ModuleCompendiumsFilterComponentActions.selectSemester({
+          semester: generateCurrentSemester(),
+        }),
+      ),
+    )
   })
 
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions,
-  ) {
-  }
+  ) {}
 }

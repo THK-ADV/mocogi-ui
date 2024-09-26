@@ -5,7 +5,7 @@ import { Show } from './show'
 import { PersonShort } from '../types/module-view'
 import { StudyProgram } from '../types/module-compendium'
 
-export const showPerson: Show<Identity> = p => {
+export const showPerson: Show<Identity> = (p) => {
   switch (p.kind) {
     case 'person':
       return `${p.lastname}, ${p.firstname}`
@@ -15,20 +15,19 @@ export const showPerson: Show<Identity> = p => {
       return p.label
   }
 }
-export const showPersonShort: Show<PersonShort> = p =>
+export const showPersonShort: Show<PersonShort> = (p) =>
   p.kind === 'person' ? `${p.lastname}, ${p.firstname}` : p.title
 
 export const showStudyProgram: Show<StudyProgram> = (sp) => {
   if (sp.specialization) {
     return `${sp.deLabel} ${sp.specialization.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
-  } else {
-    return `${sp.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
   }
+  return `${sp.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
 }
 
-export const showLabel: Show<Label> = label => label.deLabel
+export const showLabel: Show<Label> = (label) => label.deLabel
 
-export const showModule: Show<ModuleCore> = module => module.title
+export const showModule: Show<ModuleCore> = (module) => module.title
 
-export const showRecommendedSemester: Show<number[]> = semesters =>
+export const showRecommendedSemester: Show<number[]> = (semesters) =>
   semesters.length === 0 ? '-' : [...semesters].sort().join(', ')

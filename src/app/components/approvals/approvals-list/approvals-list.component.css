@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 tr.clickable:hover {
@@ -15,6 +15,6 @@ tr.clickable:hover {
 }
 
 .disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }

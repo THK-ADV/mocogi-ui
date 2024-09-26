@@ -4,18 +4,10 @@ import { Lang } from './inputs'
 import { Content } from '../../types/content'
 import { Rows } from '../../form/module-form/module-form.component'
 
-export function learningMethodsContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `learning-methods-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
+export function learningMethodsContent(
+  deContent?: Content,
+  enContent?: Content,
+): Rows<unknown, unknown> {
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,10 +26,21 @@ export function learningMethodsContent(deContent?: Content, enContent?: Content)
     }
   }
 
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `learning-methods-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
+    }
+  }
+
   return {
     'learning-methods': [
-      {input: go('de') as FormInput<unknown, unknown>, language: 'de'},
-      {input: go('en') as FormInput<unknown, unknown>, language: 'en'},
+      { input: go('de') as FormInput<unknown, unknown>, language: 'de' },
+      { input: go('en') as FormInput<unknown, unknown>, language: 'en' },
     ],
   }
 }

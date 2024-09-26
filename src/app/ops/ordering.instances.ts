@@ -1,16 +1,23 @@
 import { Ordering } from './ordering'
 import { Identity } from '../types/core/person'
 
-export const numberOrd: Ordering<number> = (lhs, rhs) =>
-  lhs < rhs ? -1 : (lhs > rhs ? 1 : 0)
+export const numberOrd: Ordering<number> = (lhs, rhs) => {
+  if (lhs < rhs) {
+    return -1
+  }
+  return lhs > rhs ? 1 : 0
+}
 
 export const stringOrd: Ordering<string> = (lhs, rhs) => {
   const res = lhs.localeCompare(rhs)
-  return res === 0 ? 0 : (res > 0 ? 1 : -1)
+  if (res === 0) {
+    return 0
+  }
+  return res > 0 ? 1 : -1
 }
 
 export const peopleOrd = Ordering.many<Identity>([
-  Ordering.contraMap(numberOrd, ({kind}) => {
+  Ordering.contraMap(numberOrd, ({ kind }) => {
     switch (kind) {
       case 'person':
         return 0
@@ -24,9 +31,9 @@ export const peopleOrd = Ordering.many<Identity>([
     switch (p.kind) {
       case 'person':
         return p.lastname
-      case 'unknown':
-        return p.label
       case 'group':
+        return p.label
+      case 'unknown':
         return p.label
     }
   }),

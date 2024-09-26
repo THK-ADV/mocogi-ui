@@ -1,7 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { State } from '../reducer/module-filter.reducer'
 
-export const selectModuleFilterState = createFeatureSelector<State>('moduleFilter')
+export const selectModuleFilterState =
+  createFeatureSelector<State>('moduleFilter')
 
 export const selectStudyPrograms = createSelector(
   selectModuleFilterState,
@@ -40,7 +41,7 @@ export const selectSelectedCoordinator = createSelector(
     if (!coordinatorId) {
       return undefined
     }
-    return people.find(p => p.id === coordinatorId)
+    return people.find((p) => p.id === coordinatorId)
   },
 )
 
@@ -54,12 +55,10 @@ export const selectSelectedStudyProgram = createSelector(
     const { poId, specializationId } = studyProgramId
     const studyProgramIdPo = poId
     return studyPrograms.find((sp) => {
-      const poId = sp.po.id
-      const specialization = sp.specialization
-      const selectedPo = poId === studyProgramIdPo
+      const selectedPo = sp.po.id === studyProgramIdPo
       return specializationId
-        ? selectedPo && specializationId === specialization?.id
+        ? selectedPo && specializationId === sp.specialization?.id
         : selectedPo
     })
-  }
+  },
 )

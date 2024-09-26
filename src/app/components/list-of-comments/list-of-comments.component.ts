@@ -9,7 +9,10 @@ import { Approval } from '../../types/approval'
 export class ListOfCommentsComponent {
   @Input()
   approvals: ReadonlyArray<Approval> = []
-  replies = () => this.approvals
-    .filter(approval => approval.status.id !== 'pending')
-    .sort((current, next) => current.respondedAt.localeCompare(next.respondedAt))
+  replies = () =>
+    this.approvals
+      .filter((approval) => approval.status.id !== 'pending')
+      .sort((current, next) =>
+        current.respondedAt.localeCompare(next.respondedAt),
+      )
 }

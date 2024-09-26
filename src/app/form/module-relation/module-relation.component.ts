@@ -1,7 +1,15 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog'
 import { FormControl, FormGroup } from '@angular/forms'
-import { formControlForOptionsInput, OptionsInput, OptionsInputComponent } from '../options-input/options-input.component'
+import {
+  formControlForOptionsInput,
+  OptionsInput,
+  OptionsInputComponent,
+} from '../options-input/options-input.component'
 import { TableHeaderColumn } from '../../generic-ui/table-header-column'
 import { MatTableDataSource } from '@angular/material/table'
 import { validMandatoryObject } from '../../create-or-update-module/callbacks/callback-validation'
@@ -26,19 +34,30 @@ function showModuleRelationType(t: ModuleRelationType): string {
 }
 
 function unknownModule(id: string): ModuleCore {
-  return {id: id, abbrev: '???', title: '???'}
+  return { id: id, abbrev: '???', title: '???' }
 }
 
-function modulesOf(moduleRelation: ModuleRelation, modules: ModuleCore[]): ModuleCore[] {
+function modulesOf(
+  moduleRelation: ModuleRelation,
+  modules: ModuleCore[],
+): ModuleCore[] {
   switch (moduleRelation.kind) {
     case 'parent':
-      return moduleRelation.children.map(id => modules.find(m => m.id === id) ?? unknownModule(id))
+      return moduleRelation.children.map(
+        (id) => modules.find((m) => m.id === id) ?? unknownModule(id),
+      )
     case 'child':
-      return [modules.find(m => m.id === moduleRelation.parent) ?? unknownModule(moduleRelation.parent)]
+      return [
+        modules.find((m) => m.id === moduleRelation.parent) ??
+          unknownModule(moduleRelation.parent),
+      ]
   }
 }
 
-function initialModules(moduleRelation: ModuleRelation | undefined, modules: ModuleCore[]): ModuleCore[] {
+function initialModules(
+  moduleRelation: ModuleRelation | undefined,
+  modules: ModuleCore[],
+): ModuleCore[] {
   return moduleRelation ? modulesOf(moduleRelation, modules) : []
 }
 
@@ -59,24 +78,31 @@ export class ModuleRelationComponent implements OnDestroy {
   private currentRelationType: ModuleRelationType | undefined
   private sub?: Subscription
 
-  @ViewChild('typeComponent') typeComponent!: OptionsInputComponent<ModuleRelationType>
-  @ViewChild('moduleComponent') moduleComponent!: OptionsInputComponent<ModuleCore>
+  @ViewChild('typeComponent')
+  typeComponent!: OptionsInputComponent<ModuleRelationType>
+  @ViewChild('moduleComponent')
+  moduleComponent!: OptionsInputComponent<ModuleCore>
 
   constructor(
     private readonly dialog: MatDialog,
     private dialogRef: MatDialogRef<ModuleRelationComponent, ModuleRelation[]>,
-    @Inject(MAT_DIALOG_DATA) private payload: [ModuleRelation | undefined, ModuleCore[]],
+    @Inject(MAT_DIALOG_DATA)
+    private payload: [ModuleRelation | undefined, ModuleCore[]],
   ) {
     const moduleRelation = payload[0]
     const modules = payload[1]
-    this.currentRelationType = mapOpt(moduleRelation, m => ({label: m.kind}))
+    this.currentRelationType = mapOpt(moduleRelation, (m) => ({
+      label: m.kind,
+    }))
     this.formGroup = new FormGroup({})
     this.columns = [
-      {title: $localize`Art der Beziehung`, attr: 'module-relation-type'},
-      {title: $localize`Modul`, attr: 'module-relation-module'},
+      { title: $localize`Art der Beziehung`, attr: 'module-relation-type' },
+      { title: $localize`Modul`, attr: 'module-relation-module' },
     ]
-    this.displayedColumns = [...this.columns.map(a => a.attr), 'action']
-    this.dataSource = new MatTableDataSource<ModuleCore>(initialModules(moduleRelation, modules))
+    this.displayedColumns = [...this.columns.map((a) => a.attr), 'action']
+    this.dataSource = new MatTableDataSource<ModuleCore>(
+      initialModules(moduleRelation, modules),
+    )
     this.headerTitle = $localize`Modulbeziehungen bearbeiten`
     this.relationTypeInput = {
       kind: 'options',
@@ -84,23 +110,34 @@ export class ModuleRelationComponent implements OnDestroy {
       attr: this.columns[0].attr,
       disabled: false,
       required: true,
-      data: [{label: 'parent'}, {label: 'child'}],
+      data: [{ label: 'parent' }, { label: 'child' }],
       show: showModuleRelationType,
-      initialValue: moduleRelation && ((xs) => xs.find(x => x.label === moduleRelation.kind)),
+      initialValue:
+        moduleRelation &&
+        ((xs) => xs.find((x) => x.label === moduleRelation.kind)),
     }
-    this.formGroup.addControl('type', formControlForOptionsInput(this.relationTypeInput))
+    this.formGroup.addControl(
+      'type',
+      formControlForOptionsInput(this.relationTypeInput),
+    )
     this.moduleInputType = {
       kind: 'options',
       label: this.columns[1].title,
       attr: this.columns[1].attr,
       disabled: false,
       required: true,
-      data: this.dataSource.data.length === 0
-        ? modules
-        : modules.filter(m => !this.dataSource.data.some(x => x.id === m.id)),
+      data:
+        this.dataSource.data.length === 0
+          ? modules
+          : modules.filter(
+              (m) => !this.dataSource.data.some((x) => x.id === m.id),
+            ),
       show: showModule,
     }
-    this.formGroup.addControl('module', formControlForOptionsInput(this.moduleInputType))
+    this.formGroup.addControl(
+      'module',
+      formControlForOptionsInput(this.moduleInputType),
+    )
   }
 
   static instance = (
@@ -109,48 +146,46 @@ export class ModuleRelationComponent implements OnDestroy {
     modules: ModuleCore[],
     self: string | undefined,
   ): MatDialogRef<ModuleRelationComponent> => {
-    return dialog.open<ModuleRelationComponent>(
-      ModuleRelationComponent,
-      {
-        data: [moduleRelation, self ? modules.filter(m => m.id !== self) : modules],
-        minWidth: window.innerWidth * 0.5,
-      },
-    )
+    return dialog.open<ModuleRelationComponent>(ModuleRelationComponent, {
+      data: [
+        moduleRelation,
+        self ? modules.filter((m) => m.id !== self) : modules,
+      ],
+      minWidth: window.innerWidth * 0.5,
+    })
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe()
   }
 
-  typeControl = () =>
-    this.formGroup.controls['type'] as FormControl
+  typeControl = () => this.formGroup.controls['type'] as FormControl
 
-  moduleControl = () =>
-    this.formGroup.controls['module'] as FormControl
+  moduleControl = () => this.formGroup.controls['module'] as FormControl
 
-  cancel = () =>
-    this.dialogRef.close()
+  cancel = () => this.dialogRef.close()
 
   applyChanges = () => {
     if (!this.currentRelationType?.label) {
       return
     }
-    const modules = this.dataSource.data.map(d => d.id)
-    let res: ModuleRelation
+    const modules = this.dataSource.data.map((d) => d.id)
     switch (this.currentRelationType?.label) {
       case 'parent':
-        res = {kind: 'parent', children: modules}
+        this.dialogRef.close([{ kind: 'parent', children: modules }])
         break
       case 'child':
-        res = {kind: 'child', parent: modules[0]}
+        this.dialogRef.close([{ kind: 'child', parent: modules[0] }])
+        break
+      default:
+        this.dialogRef.close()
         break
     }
-    this.dialogRef.close([res])
   }
 
   add = () => {
     const module = this.moduleValue()
-    if (this.dataSource.data.some(m => m.id === module.id)) {
+    if (this.dataSource.data.some((m) => m.id === module.id)) {
       return
     }
     this.dataSource.data = [...this.dataSource.data, module]
@@ -159,23 +194,29 @@ export class ModuleRelationComponent implements OnDestroy {
   }
 
   delete = (module: ModuleCore) => {
-    this.dataSource.data = this.dataSource.data.filter(m => m.id !== module.id)
+    this.dataSource.data = this.dataSource.data.filter(
+      (m) => m.id !== module.id,
+    )
     this.moduleComponent.addOption(module)
     this.moduleComponent.reset()
   }
 
-  nonEmptyTable = () =>
-    this.dataSource.data.length > 0
+  nonEmptyTable = () => this.dataSource.data.length > 0
 
   isValid = () => {
     const relationType = this.relationTypeValue()
     const module = this.moduleValue()
-    if (this.currentRelationType?.label === 'child' && this.dataSource.data.length === 1) {
+    if (
+      this.currentRelationType?.label === 'child' &&
+      this.dataSource.data.length === 1
+    ) {
       return false
     }
-    return validMandatoryObject(relationType) &&
+    return (
+      validMandatoryObject(relationType) &&
       validMandatoryObject(module) &&
       this.formGroup.valid
+    )
   }
 
   tableContent = (module: ModuleCore, attr: string): string => {
@@ -191,15 +232,12 @@ export class ModuleRelationComponent implements OnDestroy {
 
   relationTypeSelected = (type: ModuleRelationType) => {
     if (this.currentRelationType && this.currentRelationType !== type) {
-      this.sub = ConfirmationDialogComponent.instance(
-        this.dialog,
-        {
-          title: $localize`Auswahl verwerfen`,
-          value: $localize`Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?`,
-        },
-      )
+      this.sub = ConfirmationDialogComponent.instance(this.dialog, {
+        title: $localize`Auswahl verwerfen`,
+        value: $localize`Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?`,
+      })
         .afterClosed()
-        .subscribe(res => {
+        .subscribe((res) => {
           if (res === 'ok') {
             this.currentRelationType = type
             this.moduleComponent.reset()
@@ -216,9 +254,7 @@ export class ModuleRelationComponent implements OnDestroy {
   private relationTypeValue = () =>
     this.typeControl().value as ModuleRelationType
 
-  private moduleValue = () =>
-    this.moduleControl().value as ModuleCore
+  private moduleValue = () => this.moduleControl().value as ModuleCore
 
-  deleteAll = () =>
-    this.dialogRef.close([])
+  deleteAll = () => this.dialogRef.close([])
 }

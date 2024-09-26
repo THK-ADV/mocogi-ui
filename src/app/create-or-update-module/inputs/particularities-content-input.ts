@@ -4,18 +4,10 @@ import { Lang } from './inputs'
 import { Content } from '../../types/content'
 import { Rows } from '../../form/module-form/module-form.component'
 
-export function particularitiesContent(deContent?: Content, enContent?: Content): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `particularities-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
+export function particularitiesContent(
+  deContent?: Content,
+  enContent?: Content,
+): Rows<unknown, unknown> {
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,10 +26,21 @@ export function particularitiesContent(deContent?: Content, enContent?: Content)
     }
   }
 
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `particularities-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
+    }
+  }
+
   return {
-    'particularities': [
-      {input: go('de') as FormInput<unknown, unknown>, language: 'de'},
-      {input: go('en') as FormInput<unknown, unknown>, language: 'en'},
+    particularities: [
+      { input: go('de') as FormInput<unknown, unknown>, language: 'de' },
+      { input: go('en') as FormInput<unknown, unknown>, language: 'en' },
     ],
   }
 }

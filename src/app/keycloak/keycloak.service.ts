@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core'
-import { KeycloakEvent, KeycloakService as KeycloakService_ } from 'keycloak-angular'
+import {
+  KeycloakEvent,
+  KeycloakService as KeycloakService_,
+} from 'keycloak-angular'
 import { fromPromise } from 'rxjs/internal/observable/innerFrom'
 import { Observable, of, switchMap } from 'rxjs'
 import { KeycloakProfile } from 'keycloak-js'
@@ -8,10 +11,7 @@ import { KeycloakProfile } from 'keycloak-js'
   providedIn: 'root',
 })
 export class KeycloakService {
-
-  constructor(private readonly service: KeycloakService_) {
-
-  }
+  constructor(private readonly service: KeycloakService_) {}
 
   events$(): Observable<KeycloakEvent> {
     return this.service.keycloakEvents$.asObservable()
@@ -19,8 +19,10 @@ export class KeycloakService {
 
   userProfile$(): Observable<KeycloakProfile | undefined> {
     return fromPromise(this.service.isLoggedIn()).pipe(
-      switchMap(isLoggedIn =>
-        isLoggedIn ? fromPromise(this.service.loadUserProfile()) : of(undefined),
+      switchMap((isLoggedIn) =>
+        isLoggedIn
+          ? fromPromise(this.service.loadUserProfile())
+          : of(undefined),
       ),
     )
   }

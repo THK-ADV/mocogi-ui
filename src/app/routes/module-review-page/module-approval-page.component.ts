@@ -19,7 +19,6 @@ import { FormGroup } from '@angular/forms'
   styleUrls: ['./module-approval-page.component.css'],
 })
 export class ModuleApprovalPageComponent {
-
   moduleId: string
   approvalId: string
   moduleForm?: ModuleForm<unknown, unknown>
@@ -27,9 +26,18 @@ export class ModuleApprovalPageComponent {
   approvals: ReadonlyArray<Approval> = []
   formGroup = new FormGroup({})
 
-  constructor(private route: ActivatedRoute, private http: HttpService, private dialog: MatDialog, private store: Store) {
-    this.moduleId = this.route.snapshot.paramMap.get('moduleId') ?? throwError('Module ID should be in route parameters.')
-    this.approvalId = this.route.snapshot.paramMap.get('approvalId') ?? throwError('Module ID should be in route parameters.')
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpService,
+    private dialog: MatDialog,
+    private store: Store,
+  ) {
+    this.moduleId =
+      this.route.snapshot.paramMap.get('moduleId') ??
+      throwError('Module ID should be in route parameters.')
+    this.approvalId =
+      this.route.snapshot.paramMap.get('approvalId') ??
+      throwError('Module ID should be in route parameters.')
     zip([
       http.latestModuleDescriptionById(this.moduleId),
       http.stagingModuleDescriptionById(this.moduleId),
@@ -48,63 +56,79 @@ export class ModuleApprovalPageComponent {
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
       http.allExamPhases(),
-    ]).subscribe(([
-                    moduleCompendium,
-                    stagingModuleCompendium,
-                    moduleDraftKeys,
-                    approvals,
-                    modules,
-                    genericModules,
-                    moduleTypes,
-                    seasons,
-                    languages,
-                    locations,
-                    status,
-                    persons,
-                    assessmentMethods,
-                    competencies,
-                    globalCriteria,
-                    studyPrograms,
-                    examPhases,
-                  ]) => {
-      this.moduleForm = {
-        objectName: moduleCompendium.metadata.title,
-        editType: 'update',
-        sections: inputs(
-          modules,
-          genericModules,
-          moduleTypes,
-          languages,
-          seasons,
-          locations,
-          status,
-          persons,
-          assessmentMethods,
-          [...studyPrograms],
-          competencies,
-          globalCriteria,
-          examPhases,
-          dialog,
-          (attr) => this.formGroup.get(attr)?.value,
+    ]).subscribe(
+      ([
+        moduleCompendium,
+        stagingModuleCompendium,
+        moduleDraftKeys,
+        approvals,
+        modules,
+        genericModules,
+        moduleTypes,
+        seasons,
+        languages,
+        locations,
+        status,
+        persons,
+        assessmentMethods,
+        competencies,
+        globalCriteria,
+        studyPrograms,
+        examPhases,
+      ]) => {
+        this.moduleForm = {
+          objectName: moduleCompendium.metadata.title,
+          editType: 'update',
+          sections: inputs(
+            modules,
+            genericModules,
+            moduleTypes,
+            languages,
+            seasons,
+            locations,
+            status,
+            persons,
+            assessmentMethods,
+            [...studyPrograms],
+            competencies,
+            globalCriteria,
+            examPhases,
+            dialog,
+            (attr) => this.formGroup.get(attr)?.value,
+            moduleCompendium,
+            moduleCompendium.id,
+          ),
+        }
+        this.modifiedKeys = buildChangeLog(
+          moduleDraftKeys,
           moduleCompendium,
-          moduleCompendium.id,
-        ),
-      }
-      this.modifiedKeys = buildChangeLog(moduleDraftKeys, moduleCompendium, stagingModuleCompendium)
-      this.approvals = approvals
-    })
+          stagingModuleCompendium,
+        )
+        this.approvals = approvals
+      },
+    )
   }
 
   protected approve = (comment?: string) => {
-    this.store.dispatch(ModuleApprovalPageActions.approve({moduleId: this.moduleId, approvalId: this.approvalId, comment: comment}))
+    this.store.dispatch(
+      ModuleApprovalPageActions.approve({
+        moduleId: this.moduleId,
+        approvalId: this.approvalId,
+        comment: comment,
+      }),
+    )
   }
 
   protected reject = (comment?: string) => {
-    this.store.dispatch(ModuleApprovalPageActions.reject({moduleId: this.moduleId, approvalId: this.approvalId, comment: comment}))
+    this.store.dispatch(
+      ModuleApprovalPageActions.reject({
+        moduleId: this.moduleId,
+        approvalId: this.approvalId,
+        comment: comment,
+      }),
+    )
   }
 
-  protected cancel = () => {
-    return
-  }
-
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected cancel = () => {}
 }

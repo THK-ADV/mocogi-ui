@@ -1,15 +1,20 @@
-<h2>{{title}}</h2>
+<h2>{{ title }}</h2>
 <form [formGroup]="formGroup">
   <mat-accordion>
-    <ng-container *ngFor="let section of moduleForm.sections; let indexOfElement = index;">
+    <ng-container
+      *ngFor="let section of moduleForm.sections; let indexOfElement = index">
       <mat-expansion-panel [expanded]="indexOfElement === 0">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{section.header}}
+            {{ section.header }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="container-row"  *ngFor="let row of section.rows | keyvalue: originalOrder">
-          <ng-container *ngFor="let input of row.value" [ngSwitch]="input.input.kind">
+        <div
+          class="container-row"
+          *ngFor="let row of section.rows | keyvalue: originalOrder">
+          <ng-container
+            *ngFor="let input of row.value"
+            [ngSwitch]="input.input.kind">
             <cops-options-input
               *ngSwitchCase="'options'"
               ngDefaultControl

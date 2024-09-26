@@ -1,6 +1,9 @@
 <main>
   <h2 i18n>WPF Listen</h2>
-  <cops-elective-modules-lists-list [electiveModulesList]="electivesCatalogues$ | async"></cops-elective-modules-lists-list>
+  <cops-elective-modules-lists-list
+    [electiveModulesList]="
+      electivesCatalogues$ | async
+    "></cops-elective-modules-lists-list>
 </main>
 <aside>
   <cops-electives-catalogs-filter></cops-electives-catalogs-filter>
