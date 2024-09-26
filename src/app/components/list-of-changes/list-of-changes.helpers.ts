@@ -32,18 +32,20 @@ export function buildChangeLog(
   })
 }
 
+// TODO remove as soon as the backend provides the change log
+/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/ban-ts-comment */
 function accessObject<T>(item: T, property: string) {
   if (property.includes('.')) {
     return property.split('.').reduce((object, key) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return { ...object }[key]
     }, item)
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return item[property]
 }
+
+/* eslint-enable @typescript-eslint/no-unsafe-return, @typescript-eslint/ban-ts-comment */
 
 function getChangeType(
   modifiedKey: string,

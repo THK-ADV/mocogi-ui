@@ -79,14 +79,14 @@ export class ParticipantsComponent {
     ])
 
   isValid = () => {
-    const max = this.maxControl.value
-    const min = this.minControl.value
-    return (
-      validMandatoryNumber(max) &&
-      validMandatoryNumber(min) &&
-      +min >= 0 &&
-      +min < +max
-    )
+    const max: unknown = this.maxControl.value
+    const min: unknown = this.minControl.value
+    if (!(validMandatoryNumber(max) && validMandatoryNumber(min))) {
+      return false
+    }
+    const maxNu = Number(max)
+    const minNu = Number(min)
+    return minNu >= 0 && minNu < maxNu
   }
 
   delete = () => this.dialogRef.close([])

@@ -29,7 +29,7 @@ export const formControlForOptionsInput = <A>(
   const fc = new FormControl<A | undefined>(
     { value: undefined, disabled: i.disabled },
     i.required
-      ? [Validators.required, mandatoryOptionsValidator()]
+      ? [(_) => Validators.required(_), mandatoryOptionsValidator()]
       : optionalOptionsValidator(),
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
@@ -87,7 +87,7 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
       map((value) =>
-        typeof value === 'string' ? value : this.input.show(value),
+        typeof value === 'string' ? value : this.input.show(value as A),
       ),
       map((value) => (value ? this.filter(value) : this.options.slice())),
     )

@@ -111,10 +111,7 @@ export class MultipleEditDialogComponent<TableEntry, A, B>
     title: string,
     formInputs: NonEmptyArray<FormInputLike>,
     tableEntries: TableEntry[],
-  ): MatDialogRef<
-    MultipleEditDialogComponent<TableEntry, A, B>,
-    TableEntry[]
-  > =>
+  ) =>
     dialog.open<MultipleEditDialogComponent<TableEntry, A, B>>(
       MultipleEditDialogComponent,
       {

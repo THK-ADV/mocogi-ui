@@ -17,6 +17,6 @@ export const UpdateModuleApiActions = createActionGroup({
   source: 'Update Module API',
   events: {
     'Saved Changes Success': emptyProps(),
-    'Saved Changes Failure': props<{ error: Error }>(),
+    'Saved Changes Failure': emptyProps(),
   },
 })

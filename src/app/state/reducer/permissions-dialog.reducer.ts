@@ -6,12 +6,10 @@ import {
 
 export interface State {
   permissions: ReadonlyArray<string>
-  error?: Error
 }
 
 const initialState: State = {
   permissions: [],
-  error: undefined,
 }
 
 export const permissionsDialogReducer = createReducer(

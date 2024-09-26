@@ -15,7 +15,7 @@ export const formControlForMultipleOptionsInput = <A>(
 ): FormControl => {
   const fc = new FormControl<A[]>(
     { value: [], disabled: i.disabled },
-    i.required ? Validators.required : undefined,
+    i.required ? (_) => Validators.required(_) : undefined,
   )
   // fixes ExpressionChangedAfterItHasBeenCheckedError bug
   if (Array.isArray(i.data)) {

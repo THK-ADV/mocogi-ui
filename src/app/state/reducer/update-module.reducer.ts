@@ -5,12 +5,10 @@ import {
 } from '../actions/update-module-page.actions'
 
 export interface State {
-  error?: Error
   updateInProcess: boolean
 }
 
 const initialState: State = {
-  error: undefined,
   updateInProcess: false,
 }
 
@@ -39,10 +37,9 @@ export const updateModuleReducer = createReducer(
       updateInProcess: false,
     }
   }),
-  on(UpdateModuleApiActions.savedChangesFailure, (state, { error }): State => {
+  on(UpdateModuleApiActions.savedChangesFailure, (state): State => {
     return {
       ...state,
-      error,
       updateInProcess: false,
     }
   }),

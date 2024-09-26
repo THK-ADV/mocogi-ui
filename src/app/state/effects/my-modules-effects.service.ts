@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core'
 import { HttpService } from '../../http/http.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { exhaustMap, map, tap } from 'rxjs'
+import { exhaustMap, map } from 'rxjs'
 import {
   MyModulesApiActions,
   MyModulesPageActions,
 } from '../actions/my-modules.action'
 import { Router } from '@angular/router'
+import { fromPromise } from 'rxjs/internal/observable/innerFrom'
 
 @Injectable()
 export class MyModuleEffects {
@@ -14,10 +15,12 @@ export class MyModuleEffects {
     () => {
       return this.actions$.pipe(
         ofType(MyModulesPageActions.showLatestModule),
-        tap(({ moduleId }) =>
-          this.router.navigate(['/modules', moduleId], {
-            queryParams: { source: 'latest' },
-          }),
+        exhaustMap(({ moduleId }) =>
+          fromPromise(
+            this.router.navigate(['/modules', moduleId], {
+              queryParams: { source: 'latest' },
+            }),
+          ),
         ),
       )
     },
@@ -28,8 +31,8 @@ export class MyModuleEffects {
     () => {
       return this.actions$.pipe(
         ofType(MyModulesPageActions.editModule),
-        tap(({ moduleId }) =>
-          this.router.navigate(['/modules', moduleId, 'edit']),
+        exhaustMap(({ moduleId }) =>
+          fromPromise(this.router.navigate(['/modules', moduleId, 'edit'])),
         ),
       )
     },

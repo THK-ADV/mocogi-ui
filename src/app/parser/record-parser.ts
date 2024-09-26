@@ -9,7 +9,7 @@ export function asRecord(value: unknown): Record<string, unknown> {
   if (typeof value === 'object' && value !== null && value !== undefined) {
     return value as Record<string, unknown>
   } else {
-    throwError_(`expected value ${value} to be convertable to a record`)
+    throwError_(`expected value ${String(value)} to be convertable to a record`)
   }
 }
 
@@ -42,7 +42,8 @@ export function parseBoolean(
   return parse(
     key,
     record,
-    (u) => toBoolean(u) ?? throwError_(`expected boolean, but was ${u}`),
+    (u) =>
+      toBoolean(u) ?? throwError_(`expected boolean, but was ${String(u)}`),
   )
 }
 

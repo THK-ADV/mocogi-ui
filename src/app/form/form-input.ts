@@ -117,6 +117,7 @@ export const optionalOptionsValidator =
     ctl.value === '' || isJSON(ctl.value) ? null : error()
 
 export const optionsError = (formControl: FormControl): string | undefined =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   formControl.hasError(invalidOptionKey)
     ? formControl.getError(invalidOptionKey)
     : undefined

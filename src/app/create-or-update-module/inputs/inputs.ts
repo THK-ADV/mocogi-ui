@@ -194,8 +194,12 @@ export function inputs(
     fallback: (metadata: MetadataLike) => A[],
   ): A[] {
     const entries = fromControlValueForAttr(attr)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return Array.isArray(entries)
-      ? entries.map((e) => e.value)
+      ? entries.map((e) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access
+          return e.value
+        })
       : metadata
         ? fallback(metadata)
         : []

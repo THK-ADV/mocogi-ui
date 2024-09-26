@@ -44,12 +44,12 @@ class AuthGuard extends KeycloakAuthGuard {
       })
     }
 
-    const requiredRoles: AuthRole[] = route.data['roles']
+    const requiredRoles = route.data['roles'] as AuthRole[]
     if (!Array.isArray(requiredRoles) || requiredRoles.length === 0) {
       return true
     }
 
-    const condition: RoleCheckingCondition = route.data['condition']
+    const condition = route.data['condition'] as RoleCheckingCondition
     return this.checkRoles(requiredRoles, condition)
   }
 

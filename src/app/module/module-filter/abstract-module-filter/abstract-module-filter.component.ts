@@ -33,7 +33,9 @@ export class AbstractModuleFilterComponent<A> {
   private initFilterOptions = () => {
     this.filteredOptions = this.formControl.valueChanges.pipe(
       startWith(''),
-      map((value) => (typeof value === 'string' ? value : this.show(value))),
+      map((value) =>
+        typeof value === 'string' ? value : this.show(value as A),
+      ),
       map((value) => (value ? this.filter(value) : this.options_.slice())),
     )
   }

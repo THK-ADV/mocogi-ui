@@ -13,7 +13,10 @@
     #auto="matAutocomplete"
     [displayWith]="displayFn">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      <div (click)="optionClicked($event, option)">
+      <div
+        (keydown)="optionClicked($event, option)"
+        (click)="optionClicked($event, option)"
+        tabindex="0">
         <mat-checkbox
           [checked]="isSelected(option)"
           (change)="toggleSelection(option)"

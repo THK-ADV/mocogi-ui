@@ -16,7 +16,6 @@ export const PermissionsDialogApiActions = createActionGroup({
   source: 'Permissions Dialog API',
   events: {
     'Saved Changes Success': emptyProps(),
-    'Saved Changes Failure': props<{ error: Error }>(),
     'Received Permissions Successfully': props<{
       permissions: Array<string>
     }>(),

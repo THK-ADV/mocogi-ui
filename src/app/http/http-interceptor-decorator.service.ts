@@ -11,6 +11,12 @@ import { environment } from '../../environments/environment'
 import { AlertService } from '../alert/alert.service'
 import { Alert } from '../alert/alert'
 
+// This type corresponds to the error response from the backend. See app/ErrorHandler in backend code.
+type BackendError = {
+  request: string
+  message: string
+}
+
 @Injectable()
 export class HttpInterceptorDecorator implements HttpInterceptor {
   constructor(private alertService: AlertService) {}
@@ -42,27 +48,38 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      if (error?.error) {
-        const request = error.error.request || $localize`Unbekannte Anfrage`
-        const message =
-          error.error.message || $localize`Unbekannte Fehlernachricht`
-        const alert: Alert = {
-          type: 'danger',
-          body: {
-            kind: 'html',
-            value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${request}</p>\
+      const { request, message } = this.parseBackendError(error)
+      const alert: Alert = {
+        type: 'danger',
+        body: {
+          kind: 'html',
+          value: `<p><strong>Serverfehler in der Anfrage:</strong><br>${request}</p>\
                   <p><strong>Fehlernachricht:</strong><br>${message}</p>`,
-          },
-          autoDismiss: false,
-        }
-        this.alertService.report(alert)
-      } else {
-        console.error(
-          `Backend returned code ${error.status}, body was: `,
-          error.error,
-        )
+        },
+        autoDismiss: false,
       }
+      this.alertService.report(alert)
     }
     throw error
+  }
+
+  private isBackendError(error: unknown): error is BackendError {
+    return (
+      typeof error === 'object' &&
+      error != null &&
+      'request' in error &&
+      'message' in error
+    )
+  }
+
+  private parseBackendError(error: HttpErrorResponse): BackendError {
+    if (this.isBackendError(error.error)) {
+      return error.error
+    } else {
+      return {
+        request: error.url ?? $localize`Unbekannte Anfrage`,
+        message: JSON.stringify(error.error),
+      }
+    }
   }
 }

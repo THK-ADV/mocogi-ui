@@ -22,6 +22,7 @@ export class ModuleFormActionsComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerDiameter =
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       this.cancelButtonRef._elementRef.nativeElement.offsetHeight * 0.5
   }
 }

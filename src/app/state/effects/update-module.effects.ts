@@ -6,7 +6,6 @@ import {
   UpdateModuleApiActions,
   UpdateModulePageActions,
 } from '../actions/update-module-page.actions'
-import { HttpErrorResponse } from '@angular/common/http'
 import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
@@ -19,9 +18,7 @@ export class UpdateModuleEffects {
           .updateModuleDraft(moduleId, moduleCompendiumProtocol)
           .pipe(
             map(() => UpdateModuleApiActions.savedChangesSuccess()),
-            catchError((error: HttpErrorResponse) =>
-              of(UpdateModuleApiActions.savedChangesFailure(error.error)),
-            ),
+            catchError(() => of(UpdateModuleApiActions.savedChangesFailure())),
           )
       }),
     )

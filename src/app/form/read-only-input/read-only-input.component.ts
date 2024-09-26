@@ -17,7 +17,7 @@ export const formControlForReadOnlyInput = <A, B>(
 ): FormControl =>
   new FormControl(
     { value: i.initialValue, disabled: i.disabled },
-    i.required ? Validators.required : undefined,
+    i.required ? (_) => Validators.required(_) : undefined,
   )
 
 @Component({

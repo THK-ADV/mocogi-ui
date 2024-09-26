@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HttpService } from '../../http/http.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, exhaustMap, map, of } from 'rxjs'
-import { HttpErrorResponse } from '@angular/common/http'
+import { exhaustMap, map } from 'rxjs'
 import { NavigationActions } from '../actions/navigation.actions'
-import {
-  ModuleApprovalApiActions,
-  ModuleApprovalPageActions,
-} from '../actions/module-approval-page.actions'
+import { ModuleApprovalPageActions } from '../actions/module-approval-page.actions'
 
 @Injectable()
 export class ModuleApprovalEffects {
@@ -18,14 +14,9 @@ export class ModuleApprovalEffects {
         return this.service
           .submitApproval(moduleId, approvalId, 'approve', comment)
           .pipe(
-            map(() => {
-              return NavigationActions.navigate({ path: ['module-approvals'] })
-            }),
-            catchError((error: HttpErrorResponse) => {
-              return of(
-                ModuleApprovalApiActions.moduleApprovalFailed(error.error),
-              )
-            }),
+            map(() =>
+              NavigationActions.navigate({ path: ['module-approvals'] }),
+            ),
           )
       }),
     )
@@ -38,14 +29,9 @@ export class ModuleApprovalEffects {
         return this.service
           .submitApproval(moduleId, approvalId, 'reject', comment)
           .pipe(
-            map(() => {
-              return NavigationActions.navigate({ path: ['module-approvals'] })
-            }),
-            catchError((error: HttpErrorResponse) => {
-              return of(
-                ModuleApprovalApiActions.moduleApprovalFailed(error.error),
-              )
-            }),
+            map(() =>
+              NavigationActions.navigate({ path: ['module-approvals'] }),
+            ),
           )
       }),
     )

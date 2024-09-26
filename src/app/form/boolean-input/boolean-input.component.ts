@@ -10,7 +10,7 @@ export interface BooleanInput extends FormInputLike {
 export const formControlForBooleanInput = (i: BooleanInput): FormControl =>
   new FormControl(
     { value: i.initialValue ?? false, disabled: i.disabled },
-    i.required ? Validators.required : undefined,
+    i.required ? (_) => Validators.required(_) : undefined,
   )
 
 @Component({

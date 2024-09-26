@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, ValidatorFn, Validators } from '@angular/forms'
 import { FormInputLike, requiredError } from '../form-input'
 
 export interface TextInput extends FormInputLike {
@@ -24,15 +24,15 @@ export const formControlForTextInput = (
 ): FormControl =>
   new FormControl(
     { value: i.initialValue, disabled: i.disabled },
-    i.required ? Validators.required : undefined,
+    i.required ? (_) => Validators.required(_) : undefined,
   )
 
 export const formControlForNumberInput = (
   i: NumberInput,
 ): FormControl<number | undefined | null> => {
-  const validators = []
+  const validators: ValidatorFn[] = []
   if (i.required) {
-    validators.push(Validators.required)
+    validators.push((_) => Validators.required(_))
   }
   if (i.min) {
     validators.push(Validators.min(i.min))
@@ -47,13 +47,15 @@ export const formControlForNumberInput = (
 }
 
 export const minError = (formControl: FormControl): string | undefined =>
-  formControl.hasError('min')
-    ? $localize`Minimum von ${formControl.getError('min').min} erforderlich`
+  formControl.hasError('min') && 'min'
+    ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      $localize`Minimum von ${formControl.getError('min').min} erforderlich`
     : undefined
 
 export const maxError = (formControl: FormControl): string | undefined =>
   formControl.hasError('max')
-    ? $localize`Maximum von ${formControl.getError('max').max} erforderlich`
+    ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      $localize`Maximum von ${formControl.getError('max').max} erforderlich`
     : undefined
 
 @Component({
