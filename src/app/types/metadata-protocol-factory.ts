@@ -7,7 +7,6 @@ import { MetadataProtocol } from './metadata'
 import { ModuleProtocol } from './moduleCore'
 import { Content } from './content'
 import { toNumber, toString } from '../parser/type-conversions'
-import { throwError as throwError_ } from './error'
 import { PrerequisiteEntry, PrerequisitesOutput } from './prerequisites'
 import {
   asRecord,
@@ -115,7 +114,7 @@ export function parseModuleRelation(
             ),
           }
         default:
-          return throwError_(
+          throw new Error(
             `expected 'kind' to be 'child' or 'parent', but was ${kind}`,
           )
       }
@@ -142,8 +141,8 @@ export function parseAssessmentMethods(
     return parse(key, record, (xs) => {
       if (Array.isArray(xs)) {
         return xs.map((x) =>
-          parse('value', asRecord(x), (x) => {
-            const xRecord = asRecord(x)
+          parse('value', asRecord(x), (v) => {
+            const xRecord = asRecord(v)
             return {
               method: parseString('method', xRecord),
               percentage: parseOptional('percentage', xRecord, (p) =>

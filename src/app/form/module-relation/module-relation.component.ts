@@ -170,16 +170,17 @@ export class ModuleRelationComponent implements OnDestroy {
       return
     }
     const modules = this.dataSource.data.map((d) => d.id)
-    let res: ModuleRelation
     switch (this.currentRelationType?.label) {
       case 'parent':
-        res = { kind: 'parent', children: modules }
+        this.dialogRef.close([{ kind: 'parent', children: modules }])
         break
       case 'child':
-        res = { kind: 'child', parent: modules[0] }
+        this.dialogRef.close([{ kind: 'child', parent: modules[0] }])
+        break
+      default:
+        this.dialogRef.close()
         break
     }
-    this.dialogRef.close([res])
   }
 
   add = () => {

@@ -22,60 +22,6 @@ export function miscellaneousInput(
   currentGlobalCriteria: (attr: string) => GlobalCriteria[],
   currentTaughtWith: (attr: string) => ModuleCore[],
 ): Rows<unknown, unknown> {
-  function competenceInput(): ReadOnlyInput<Competence, Competence> {
-    const attr = 'competences'
-    const entries = currentCompetences(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Kompetenzen`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: competences,
-      show: showLabel,
-      initialValue: (xs) =>
-        entries.filter((a) => xs.some((m) => m.id === a.id)),
-      dialogInstance: () => competenceDialogInstance(attr),
-    }
-  }
-
-  function globalCriteriaInput(): ReadOnlyInput<
-    GlobalCriteria,
-    GlobalCriteria
-  > {
-    const attr = 'global-criteria'
-    const entries = currentGlobalCriteria(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Globale Kriterien`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: globalCriteria,
-      show: showLabel,
-      initialValue: (xs) =>
-        entries.filter((a) => xs.some((m) => m.id === a.id)),
-      dialogInstance: () => globalCriteriaDialogInstance(attr),
-    }
-  }
-
-  function taughtWithInput(): ReadOnlyInput<ModuleCore, ModuleCore> {
-    const attr = 'taught-with'
-    const entries = currentTaughtWith(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Wird gelehrt mit`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: modules,
-      show: showModule,
-      initialValue: (xs) =>
-        entries.filter((a) => xs.some((m) => m.id === a.id)),
-      dialogInstance: () => taughtWithDialogInstance(attr),
-    }
-  }
-
   function competenceDialogInstance(attr: string) {
     const columns = [{ attr: 'competence', title: $localize`Kompetenzen` }]
     const entries = currentCompetences(attr)
@@ -104,6 +50,23 @@ export function miscellaneousInput(
       ],
       entries,
     )
+  }
+
+  function competenceInput(): ReadOnlyInput<Competence, Competence> {
+    const attr = 'competences'
+    const entries = currentCompetences(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Kompetenzen`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: competences,
+      show: showLabel,
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
+      dialogInstance: () => competenceDialogInstance(attr),
+    }
   }
 
   function globalCriteriaDialogInstance(attr: string) {
@@ -138,6 +101,26 @@ export function miscellaneousInput(
     )
   }
 
+  function globalCriteriaInput(): ReadOnlyInput<
+    GlobalCriteria,
+    GlobalCriteria
+  > {
+    const attr = 'global-criteria'
+    const entries = currentGlobalCriteria(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Globale Kriterien`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: globalCriteria,
+      show: showLabel,
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
+      dialogInstance: () => globalCriteriaDialogInstance(attr),
+    }
+  }
+
   function taughtWithDialogInstance(attr: string) {
     const columns = [{ attr: 'module', title: $localize`Modul` }]
     const entries = currentTaughtWith(attr)
@@ -166,6 +149,23 @@ export function miscellaneousInput(
       ],
       entries,
     )
+  }
+
+  function taughtWithInput(): ReadOnlyInput<ModuleCore, ModuleCore> {
+    const attr = 'taught-with'
+    const entries = currentTaughtWith(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Wird gelehrt mit`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: modules,
+      show: showModule,
+      initialValue: (xs) =>
+        entries.filter((a) => xs.some((m) => m.id === a.id)),
+      dialogInstance: () => taughtWithDialogInstance(attr),
+    }
   }
 
   return {

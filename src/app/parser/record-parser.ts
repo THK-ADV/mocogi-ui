@@ -8,9 +8,10 @@ function throwError(key: string, record: Record<string, unknown>): never {
 export function asRecord(value: unknown): Record<string, unknown> {
   if (typeof value === 'object' && value !== null && value !== undefined) {
     return value as Record<string, unknown>
-  } else {
-    throwError_(`expected value ${String(value)} to be convertable to a record`)
   }
+  throw new Error(
+    `expected value ${String(value)} to be convertable to a record`,
+  )
 }
 
 export function parse<A>(

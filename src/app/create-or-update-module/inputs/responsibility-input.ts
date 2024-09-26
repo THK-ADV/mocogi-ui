@@ -30,23 +30,6 @@ export function responsibilityInput(
     }
   }
 
-  function lecturerInput(): ReadOnlyInput<Identity, Identity> {
-    const attr = 'lecturer'
-    const entries = currentLecturer(attr)
-    return {
-      kind: 'read-only',
-      label: $localize`Dozierende`,
-      attr: attr,
-      disabled: false,
-      required: true,
-      options: persons,
-      show: showPerson,
-      initialValue: (xs) =>
-        entries.filter((p) => xs.some((x) => x.id === p.id)),
-      dialogInstance: () => dialogInstance(attr),
-    }
-  }
-
   function dialogInstance(attr: string) {
     const columns = [{ attr: 'person', title: $localize`Dozierende` }]
     const entries = currentLecturer(attr)
@@ -75,6 +58,23 @@ export function responsibilityInput(
       ],
       entries,
     )
+  }
+
+  function lecturerInput(): ReadOnlyInput<Identity, Identity> {
+    const attr = 'lecturer'
+    const entries = currentLecturer(attr)
+    return {
+      kind: 'read-only',
+      label: $localize`Dozierende`,
+      attr: attr,
+      disabled: false,
+      required: true,
+      options: persons,
+      show: showPerson,
+      initialValue: (xs) =>
+        entries.filter((p) => xs.some((x) => x.id === p.id)),
+      dialogInstance: () => dialogInstance(attr),
+    }
   }
 
   return {

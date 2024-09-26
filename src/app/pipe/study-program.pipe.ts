@@ -10,11 +10,9 @@ export class StudyProgramPipe implements PipeTransform {
     if (mode === 'withoutPO') {
       if (studyProgram.specialization) {
         return `${studyProgram.deLabel} ${studyProgram.specialization.deLabel} (${studyProgram.degree.deLabel})`
-      } else {
-        return `${studyProgram.deLabel} (${studyProgram.degree.deLabel})`
       }
-    } else {
-      return showStudyProgram(studyProgram)
+      return `${studyProgram.deLabel} (${studyProgram.degree.deLabel})`
     }
+    return showStudyProgram(studyProgram)
   }
 }

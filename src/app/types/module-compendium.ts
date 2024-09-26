@@ -6,12 +6,9 @@ export interface LocalizedCore {
   enLabel: string
 }
 
-export interface ModuleCatalog {
-  studyProgram: StudyProgram
-  semester: Semester
-  deUrl: string
-  enUrl: string
-  generated: string
+export interface Semester extends LocalizedCore {
+  year: number
+  abbrev: string
 }
 
 export interface POCore {
@@ -19,16 +16,19 @@ export interface POCore {
   version: number
 }
 
+export interface StudyProgramCore extends LocalizedCore {
+  degree: Degree
+}
+
 export interface StudyProgram extends StudyProgramCore {
   po: POCore
   specialization?: LocalizedCore
 }
 
-export interface StudyProgramCore extends LocalizedCore {
-  degree: Degree
-}
-
-export interface Semester extends LocalizedCore {
-  year: number
-  abbrev: string
+export interface ModuleCatalog {
+  studyProgram: StudyProgram
+  semester: Semester
+  deUrl: string
+  enUrl: string
+  generated: string
 }

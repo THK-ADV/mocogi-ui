@@ -14,7 +14,7 @@ import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
 
 export const selectModuleState = createFeatureSelector<State>('module')
 
-const selectModules_ = createSelector(
+const selectModules0 = createSelector(
   selectModuleState,
   (state) => state.modules,
 )
@@ -30,20 +30,20 @@ export const selectSelectedSort = createSelector(
 )
 
 function titleFilter(filter: string) {
-  filter = filter.trim().toLowerCase()
+  const normalizedFilter = filter.trim().toLowerCase()
   return (m: ModuleView) =>
-    m.title.toLowerCase().includes(filter) ||
-    m.abbrev.toLowerCase().includes(filter) ||
+    m.title.toLowerCase().includes(normalizedFilter) ||
+    m.abbrev.toLowerCase().includes(normalizedFilter) ||
     m.moduleManagement.some((p) => {
       switch (p.kind) {
         case 'person':
           return (
-            p.id.toLowerCase().includes(filter) ||
-            p.lastname.toLowerCase().includes(filter) ||
-            p.firstname.toLowerCase().includes(filter)
+            p.id.toLowerCase().includes(normalizedFilter) ||
+            p.lastname.toLowerCase().includes(normalizedFilter) ||
+            p.firstname.toLowerCase().includes(normalizedFilter)
           )
         default:
-          return p.title.toLowerCase().includes(filter)
+          return p.title.toLowerCase().includes(normalizedFilter)
       }
     })
 }
@@ -100,7 +100,7 @@ function studyProgramSemesterFilter(
 }
 
 export const selectModules = createSelector(
-  selectModules_,
+  selectModules0,
   selectModuleFilter,
   selectSelectedStudyProgramId,
   selectSelectedSemester,

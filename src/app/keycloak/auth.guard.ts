@@ -12,17 +12,6 @@ export type RoleCheckingCondition = 'any' | 'all'
 
 export type AuthRole = 'employee' | 'professor' | 'student'
 
-export function requireRoles(
-  roles: NonEmptyArray<AuthRole>,
-  condition: RoleCheckingCondition,
-): Route {
-  return { canActivate: [AuthGuard], data: { roles, condition } }
-}
-
-export function requireAuthenticationOnly(): Route {
-  return { canActivate: [AuthGuard] }
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -64,4 +53,15 @@ class AuthGuard extends KeycloakAuthGuard {
         return roles.every((role) => this.roles.includes(role))
     }
   }
+}
+
+export function requireRoles(
+  roles: NonEmptyArray<AuthRole>,
+  condition: RoleCheckingCondition,
+): Route {
+  return { canActivate: [AuthGuard], data: { roles, condition } }
+}
+
+export function requireAuthenticationOnly(): Route {
+  return { canActivate: [AuthGuard] }
 }

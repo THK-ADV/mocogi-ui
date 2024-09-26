@@ -10,8 +10,7 @@ export class UnsafeHtmlPipe implements PipeTransform {
   transform(value: unknown): unknown {
     if (typeof value === 'string') {
       return this.sanitizer.bypassSecurityTrustHtml(value)
-    } else {
-      return value
     }
+    return value
   }
 }

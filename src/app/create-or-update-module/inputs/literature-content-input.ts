@@ -8,17 +8,6 @@ export function literatureContent(
   deContent?: Content,
   enContent?: Content,
 ): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `literature-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,6 +23,17 @@ export function literatureContent(
         return deContent?.recommendedReading ?? ''
       case 'en':
         return enContent?.recommendedReading ?? ''
+    }
+  }
+
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `literature-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
     }
   }
 

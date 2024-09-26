@@ -51,8 +51,4 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   showStudyProgram = (sp: StudyProgramCore) =>
     `${sp.deLabel} (${sp.degree.deLabel})`
-
-  updateFilter = () => {
-    return
-  }
 }

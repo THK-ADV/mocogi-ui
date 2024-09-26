@@ -4,6 +4,18 @@ import { WorkloadLike } from '../../types/workload'
 import { Rows } from '../../form/module-form/module-form.component'
 
 export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
+  function go(label: string, attr: string, initialValue?: number): NumberInput {
+    return {
+      kind: 'number',
+      label: label,
+      attr: `workload-${attr}`,
+      disabled: false,
+      required: true,
+      initialValue: initialValue ?? 0,
+      min: 0,
+    }
+  }
+
   function lectureInput(): NumberInput {
     return go($localize`Vorlesung`, 'lecture', workload?.lecture)
   }
@@ -30,18 +42,6 @@ export function workloadInput(workload?: WorkloadLike): Rows<unknown, unknown> {
       'projectSupervision',
       workload?.projectSupervision,
     )
-  }
-
-  function go(label: string, attr: string, initialValue?: number): NumberInput {
-    return {
-      kind: 'number',
-      label: label,
-      attr: `workload-${attr}`,
-      disabled: false,
-      required: true,
-      initialValue: initialValue ?? 0,
-      min: 0,
-    }
   }
 
   return {

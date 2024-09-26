@@ -8,17 +8,6 @@ export function learningMethodsContent(
   deContent?: Content,
   enContent?: Content,
 ): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `learning-methods-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,6 +23,17 @@ export function learningMethodsContent(
         return deContent?.teachingAndLearningMethods ?? ''
       case 'en':
         return enContent?.teachingAndLearningMethods ?? ''
+    }
+  }
+
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `learning-methods-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
     }
   }
 

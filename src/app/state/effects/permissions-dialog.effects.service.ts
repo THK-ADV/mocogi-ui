@@ -12,6 +12,12 @@ import { selectPermissions } from '../selectors/permissions-dialog.selector'
 
 @Injectable()
 export class PermissionsDialogEffects {
+  constructor(
+    private readonly service: HttpService,
+    private readonly actions$: Actions,
+    private readonly store: Store,
+  ) {}
+
   fetchPermissions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PermissionsDialogActions.enter),
@@ -38,10 +44,4 @@ export class PermissionsDialogEffects {
       }),
     )
   })
-
-  constructor(
-    private readonly service: HttpService,
-    private readonly actions$: Actions,
-    private readonly store: Store,
-  ) {}
 }

@@ -19,22 +19,22 @@ export type LocalizedInput<A, B> = {
   language?: Language
 }
 
+export type Rows<A, B> = {
+  [key: string]: NonEmptyArray<LocalizedInput<A, B>>
+}
+
 export type Section<A, B> = {
   header: string
   rows: Rows<A, B>
 }
 
-export type Rows<A, B> = {
-  [key: string]: NonEmptyArray<LocalizedInput<A, B>>
-}
+type EditType = 'create' | 'update'
 
 export interface ModuleForm<A, B> {
   objectName: string
   editType: EditType
   sections: Section<A, B>[]
 }
-
-type EditType = 'create' | 'update'
 
 @Component({
   selector: 'cops-module-form',

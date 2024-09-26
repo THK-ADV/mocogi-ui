@@ -21,9 +21,8 @@ export const showPersonShort: Show<PersonShort> = (p) =>
 export const showStudyProgram: Show<StudyProgram> = (sp) => {
   if (sp.specialization) {
     return `${sp.deLabel} ${sp.specialization.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
-  } else {
-    return `${sp.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
   }
+  return `${sp.deLabel} (${sp.degree.deLabel} - PO ${sp.po.version})`
 }
 
 export const showLabel: Show<Label> = (label) => label.deLabel

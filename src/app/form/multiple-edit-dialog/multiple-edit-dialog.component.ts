@@ -94,25 +94,26 @@ export class MultipleEditDialogComponent<TableEntry, A, B>
     this.formGroup = new FormGroup({})
     formInputs.forEach((i) => {
       const control = formControlForInput(i)
-      if (isOptionsInput(i)) {
-        i.data = callback.filterInitialOptionsForComponent(i)
+      const input = i
+      if (isOptionsInput(input)) {
+        input.data = callback.filterInitialOptionsForComponent(input)
       }
-      const key = i.attr
+      const key = input.attr
       this.formGroup.addControl(key, control)
-      this.inputs[key] = [i, control]
+      this.inputs[key] = [input, control]
       this.controls[key] = control
     })
   }
 
-  static instance = <TableEntry, A, B>(
+  static instance = <TableEntry_, A_, B_>(
     dialog: MatDialog,
-    callback: MultipleEditDialogComponentCallback<TableEntry, A>,
+    callback: MultipleEditDialogComponentCallback<TableEntry_, A_>,
     columns: TableHeaderColumn[],
     title: string,
     formInputs: NonEmptyArray<FormInputLike>,
-    tableEntries: TableEntry[],
+    tableEntries: TableEntry_[],
   ) =>
-    dialog.open<MultipleEditDialogComponent<TableEntry, A, B>>(
+    dialog.open<MultipleEditDialogComponent<TableEntry_, A_, B_>>(
       MultipleEditDialogComponent,
       {
         data: [callback, columns, title, formInputs, tableEntries],
@@ -191,12 +192,11 @@ export class MultipleEditDialogComponent<TableEntry, A, B>
     if (this.callback === undefined) {
       return
     }
-    for (const key in this.inputs) {
-      const [i, fc] = this.inputs[key]
+    Object.values(this.inputs).forEach(([i, fc]) => {
       fc.reset('', { emitEvent: true })
       if (isBooleanInput(i)) {
         fc.setValue(false, { emitEvent: true })
       }
-    }
+    })
   }
 }

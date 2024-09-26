@@ -7,7 +7,7 @@ import { MatButton } from '@angular/material/button'
   styleUrls: ['./module-form-actions.component.css'],
 })
 export class ModuleFormActionsComponent implements OnInit {
-  updateInProcess_ = false
+  updateInProcess0 = false
   spinnerDiameter = 30
 
   @Input() cancelAction!: () => void
@@ -15,14 +15,14 @@ export class ModuleFormActionsComponent implements OnInit {
   @Input() isValid!: () => boolean
 
   @Input() set updateInProcess(bool: boolean | null) {
-    this.updateInProcess_ = bool ?? false
+    this.updateInProcess0 = bool ?? false
   }
 
   @ViewChild('cancelButton', { static: true }) cancelButtonRef!: MatButton
 
   ngOnInit() {
     this.spinnerDiameter =
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,no-underscore-dangle
       this.cancelButtonRef._elementRef.nativeElement.offsetHeight * 0.5
   }
 }

@@ -1,8 +1,3 @@
-export interface POs {
-  mandatory: POMandatory[]
-  optional: POOptional[]
-}
-
 export interface POMandatory {
   po: string
   specialization?: string
@@ -15,4 +10,9 @@ export interface POOptional {
   instanceOf: string
   partOfCatalog: boolean
   recommendedSemester: number[]
+}
+
+export interface POs {
+  mandatory: POMandatory[]
+  optional: POOptional[]
 }

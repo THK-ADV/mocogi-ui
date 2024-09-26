@@ -55,11 +55,9 @@ export const selectSelectedStudyProgram = createSelector(
     const { poId, specializationId } = studyProgramId
     const studyProgramIdPo = poId
     return studyPrograms.find((sp) => {
-      const poId = sp.po.id
-      const specialization = sp.specialization
-      const selectedPo = poId === studyProgramIdPo
+      const selectedPo = sp.po.id === studyProgramIdPo
       return specializationId
-        ? selectedPo && specializationId === specialization?.id
+        ? selectedPo && specializationId === sp.specialization?.id
         : selectedPo
     })
   },

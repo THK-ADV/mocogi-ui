@@ -8,5 +8,5 @@ export function toBoolean(any: unknown): boolean | undefined {
 
 export function toNumber(any: unknown): number {
   const number = Number(any)
-  return isNaN(number) ? 0 : number
+  return Number.isNaN(number) ? 0 : number
 }

@@ -40,9 +40,8 @@ export class PoMandatoryCallback
     }
     if (optionsInput.attr === 'po') {
       return data.filter((d) => !this.selected[d.id])
-    } else {
-      return data
     }
+    return data
   }
 
   addOptionToOptionsInputComponent(
@@ -50,8 +49,10 @@ export class PoMandatoryCallback
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const studyProgram = this.lookup(option.po)
-    const component = components.find((a) => a.input.attr === 'po')
-    studyProgram && component && component.addOption(studyProgram)
+    const component = components.find((_) => _.input.attr === 'po')
+    if (studyProgram && component) {
+      component.addOption(studyProgram)
+    }
     component?.reset()
   }
 
@@ -60,8 +61,10 @@ export class PoMandatoryCallback
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const studyProgram = this.lookup(option.po)
-    const component = components.find((a) => a.input.attr === 'po')
-    studyProgram && component && component.removeOption(studyProgram)
+    const component = components.find((_) => _.input.attr === 'po')
+    if (studyProgram && component) {
+      component.removeOption(studyProgram)
+    }
     component?.reset()
   }
 
@@ -94,10 +97,8 @@ export class PoMandatoryCallback
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void {
-    return
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
+  onValidate(_controls: { [key: string]: FormControl }): void {}
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return (

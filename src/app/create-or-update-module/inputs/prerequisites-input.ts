@@ -26,40 +26,13 @@ export function prerequisitesInputs(
   ) => StudyProgram[],
   prerequisites?: PrerequisitesOutput,
 ): Rows<unknown, unknown> {
-  function requiredPrerequisitesText(): TextInput {
-    return text('required', prerequisites?.required?.text)
-  }
-
-  function recommendedPrerequisitesText(): TextInput {
-    return text('recommended', prerequisites?.recommended?.text)
-  }
-
-  function requiredPrerequisitesModules(): ReadOnlyInput<
-    ModuleCore,
-    ModuleCore
-  > {
-    return modules('required')
-  }
-
-  function recommendedPrerequisitesModules(): ReadOnlyInput<
-    ModuleCore,
-    ModuleCore
-  > {
-    return modules('recommended')
-  }
-
-  function requiredPrerequisitesPOs(): ReadOnlyInput<
-    StudyProgram,
-    StudyProgram
-  > {
-    return studyProgramsInput('required')
-  }
-
-  function recommendedPrerequisitesPOs(): ReadOnlyInput<
-    StudyProgram,
-    StudyProgram
-  > {
-    return studyProgramsInput('recommended')
+  function labelPrefix(kind: PrerequisitesKind): string {
+    switch (kind) {
+      case 'required':
+        return $localize`Zwingende Voraussetzungen`
+      case 'recommended':
+        return $localize`Empfohlene Voraussetzungen`
+    }
   }
 
   function text(kind: PrerequisitesKind, initialValue?: string): TextInput {
@@ -70,44 +43,6 @@ export function prerequisitesInputs(
       disabled: false,
       required: false,
       initialValue: initialValue,
-    }
-  }
-
-  function modules(
-    kind: PrerequisitesKind,
-  ): ReadOnlyInput<ModuleCore, ModuleCore> {
-    const attr = `${kind}-prerequisites-modules`
-    const entries = currentModules(attr, kind)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`${labelPrefix(kind)} Module`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: allModules,
-      show: showModule,
-      initialValue: (xs) =>
-        xs.filter((x) => entries.some((e) => e.id === x.id)),
-      dialogInstance: () => moduleDialogInstance(attr, kind),
-    }
-  }
-
-  function studyProgramsInput(
-    kind: PrerequisitesKind,
-  ): ReadOnlyInput<StudyProgram, StudyProgram> {
-    const attr = `${kind}-prerequisites-po`
-    const entries = currentStudyProgram(attr, kind)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`${labelPrefix(kind)} Studiengänge`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: studyPrograms,
-      show: showStudyProgram,
-      initialValue: (sps) =>
-        sps.filter((sp) => entries.some(({ po }) => po.id === sp.po.id)),
-      dialogInstance: () => studyProgramDialogInstance(attr, kind),
     }
   }
 
@@ -141,6 +76,25 @@ export function prerequisitesInputs(
     )
   }
 
+  function modules(
+    kind: PrerequisitesKind,
+  ): ReadOnlyInput<ModuleCore, ModuleCore> {
+    const attr = `${kind}-prerequisites-modules`
+    const entries = currentModules(attr, kind)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`${labelPrefix(kind)} Module`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: allModules,
+      show: showModule,
+      initialValue: (xs) =>
+        xs.filter((x) => entries.some((e) => e.id === x.id)),
+      dialogInstance: () => moduleDialogInstance(attr, kind),
+    }
+  }
+
   function studyProgramDialogInstance(attr: string, kind: PrerequisitesKind) {
     const columns = [{ attr: 'po', title: $localize`Studiengang mit PO` }]
     const entries = currentStudyProgram(attr, kind)
@@ -171,13 +125,59 @@ export function prerequisitesInputs(
     )
   }
 
-  function labelPrefix(kind: PrerequisitesKind): string {
-    switch (kind) {
-      case 'required':
-        return $localize`Zwingende Voraussetzungen`
-      case 'recommended':
-        return $localize`Empfohlene Voraussetzungen`
+  function requiredPrerequisitesText(): TextInput {
+    return text('required', prerequisites?.required?.text)
+  }
+
+  function recommendedPrerequisitesText(): TextInput {
+    return text('recommended', prerequisites?.recommended?.text)
+  }
+
+  function requiredPrerequisitesModules(): ReadOnlyInput<
+    ModuleCore,
+    ModuleCore
+  > {
+    return modules('required')
+  }
+
+  function recommendedPrerequisitesModules(): ReadOnlyInput<
+    ModuleCore,
+    ModuleCore
+  > {
+    return modules('recommended')
+  }
+
+  function studyProgramsInput(
+    kind: PrerequisitesKind,
+  ): ReadOnlyInput<StudyProgram, StudyProgram> {
+    const attr = `${kind}-prerequisites-po`
+    const entries = currentStudyProgram(attr, kind)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`${labelPrefix(kind)} Studiengänge`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: studyPrograms,
+      show: showStudyProgram,
+      initialValue: (sps) =>
+        sps.filter((sp) => entries.some(({ po }) => po.id === sp.po.id)),
+      dialogInstance: () => studyProgramDialogInstance(attr, kind),
     }
+  }
+
+  function requiredPrerequisitesPOs(): ReadOnlyInput<
+    StudyProgram,
+    StudyProgram
+  > {
+    return studyProgramsInput('required')
+  }
+
+  function recommendedPrerequisitesPOs(): ReadOnlyInput<
+    StudyProgram,
+    StudyProgram
+  > {
+    return studyProgramsInput('recommended')
   }
 
   return {

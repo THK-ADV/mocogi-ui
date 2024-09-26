@@ -93,7 +93,9 @@ export class NewModulePageComponent implements OnInit {
 
   save = () => {
     const moduleCompendiumProtocol = parseModuleCompendium(this.formGroup)
-    moduleCompendiumProtocol && this.submit(moduleCompendiumProtocol)
+    if (moduleCompendiumProtocol) {
+      this.submit(moduleCompendiumProtocol)
+    }
   }
 
   submit = (moduleCompendiumProtocol: ModuleProtocol) => {

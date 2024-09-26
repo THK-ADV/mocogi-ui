@@ -17,29 +17,6 @@ export type ModuleTableEntry = ModuleView & {
   studyProgramsStr: () => ReadonlyArray<string>
 }
 
-export function toModuleTableEntry(
-  module: ModuleView,
-  selectedStudyProgramId?: SelectedStudyProgramId,
-): ModuleTableEntry {
-  return {
-    ...module,
-    isSpecialization: module.studyProgram.some(
-      (association) => association.studyProgram.specialization,
-    ),
-    moduleManagementStr: module.moduleManagement
-      .map(
-        (moduleManager) =>
-          `${moduleManager.title} ${moduleManager.firstname} ${moduleManager.lastname}`,
-      )
-      .join('; '),
-    recommendedSemesterStr: formatSemester(module, selectedStudyProgramId),
-    studyProgramsStr: () =>
-      !selectedStudyProgramId
-        ? formatStudyPrograms([...module.studyProgram])
-        : [],
-  }
-}
-
 function formatSemester(
   module: ModuleView,
   selectedStudyProgramId?: SelectedStudyProgramId,
@@ -54,7 +31,9 @@ function formatSemester(
   } else {
     const res: Record<number, undefined> = {}
     module.studyProgram.forEach((sp) => {
-      sp.recommendedSemester.forEach((n) => (res[n] = undefined))
+      sp.recommendedSemester.forEach((n) => {
+        res[n] = undefined
+      })
     })
     semester = Object.keys(res).map((s) => +s)
   }
@@ -78,4 +57,27 @@ function formatStudyPrograms(
       ? showStudyProgram(association.studyProgram)
       : `${showStudyProgram(association.studyProgram)} (Semester ${showRecommendedSemester(association.recommendedSemester)})`
   })
+}
+
+export function toModuleTableEntry(
+  module: ModuleView,
+  selectedStudyProgramId?: SelectedStudyProgramId,
+): ModuleTableEntry {
+  return {
+    ...module,
+    isSpecialization: module.studyProgram.some(
+      (association) => association.studyProgram.specialization,
+    ),
+    moduleManagementStr: module.moduleManagement
+      .map(
+        (moduleManager) =>
+          `${moduleManager.title} ${moduleManager.firstname} ${moduleManager.lastname}`,
+      )
+      .join('; '),
+    recommendedSemesterStr: formatSemester(module, selectedStudyProgramId),
+    studyProgramsStr: () =>
+      !selectedStudyProgramId
+        ? formatStudyPrograms([...module.studyProgram])
+        : [],
+  }
 }

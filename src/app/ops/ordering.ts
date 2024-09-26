@@ -1,6 +1,6 @@
-export type Ordering<A> = (lhs: A, rhs: A) => OrderingResult
-
 export type OrderingResult = -1 | 0 | 1
+
+export type Ordering<A> = (lhs: A, rhs: A) => OrderingResult
 
 export const Ordering = {
   empty:

@@ -56,9 +56,8 @@ export class MyModulesListComponent {
   title = ({ module, moduleDraft }: ModeratedModule): string => {
     if (moduleDraft) {
       return `${moduleDraft.data.metadata.title} (${moduleDraft.data.metadata.abbrev})`
-    } else {
-      return `${module.title} (${module.abbrev})`
     }
+    return `${module.title} (${module.abbrev})`
   }
 
   tableColor = ({ moduleDraft }: ModeratedModule) => {

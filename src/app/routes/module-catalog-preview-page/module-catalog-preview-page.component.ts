@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../http/http.service'
 import { StudyProgram } from '../../types/module-compendium'
-import { Role } from '../../types/approval'
 import { MatTableDataSource } from '@angular/material/table'
 import { Ordering } from '../../ops/ordering'
 import { numberOrd, stringOrd } from '../../ops/ordering.instances'
-
-interface StudyProgramPrivileges {
-  studyProgram: StudyProgram
-  roles: Role[]
-}
+import { StudyProgramPrivileges } from '../../types/study-program-privileges'
 
 @Component({
   selector: 'cops-module-catalog-preview-page',
@@ -34,11 +29,9 @@ export class ModuleCatalogPreviewPageComponent implements OnInit {
 
   ngOnInit() {
     this.http.getPersonalData().subscribe((res) => {
-      if ('privileges' in res) {
-        const data = res['privileges'] as StudyProgramPrivileges[]
-        data.sort(this.ord)
-        this.dataSource.data = data
-      }
+      const data = res.privileges
+      data.sort(this.ord)
+      this.dataSource.data = data
     })
   }
 

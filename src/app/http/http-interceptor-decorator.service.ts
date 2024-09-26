@@ -38,10 +38,10 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
   private handleError = (
     request: Observable<HttpEvent<unknown>>,
   ): Observable<HttpEvent<unknown>> =>
-    request.pipe(catchError(this.handleError_))
+    request.pipe(catchError(this.handleError0))
 
   // https://angular.io/guide/http#getting-error-details
-  private handleError_ = (error: HttpErrorResponse) => {
+  private handleError0 = (error: HttpErrorResponse) => {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error)
@@ -75,11 +75,10 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
   private parseBackendError(error: HttpErrorResponse): BackendError {
     if (this.isBackendError(error.error)) {
       return error.error
-    } else {
-      return {
-        request: error.url ?? $localize`Unbekannte Anfrage`,
-        message: JSON.stringify(error.error),
-      }
+    }
+    return {
+      request: error.url ?? $localize`Unbekannte Anfrage`,
+      message: JSON.stringify(error.error),
     }
   }
 }

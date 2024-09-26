@@ -43,9 +43,8 @@ export class AssessmentMethodCallback
     }
     if (optionsInput.attr === 'method') {
       return data.filter((d) => !this.selected[d.id])
-    } else {
-      return data
     }
+    return data
   }
 
   addOptionToOptionsInputComponent(
@@ -53,8 +52,10 @@ export class AssessmentMethodCallback
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const method = this.lookup(option.method)
-    const component = components.find((a) => a.input.attr === 'method')
-    method && component && component.addOption(method)
+    const component = components.find((_) => _.input.attr === 'method')
+    if (method && component) {
+      component.addOption(method)
+    }
     component?.reset()
   }
 
@@ -63,8 +64,10 @@ export class AssessmentMethodCallback
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const method = this.lookup(option.method)
-    const component = components.find((a) => a.input.attr === 'method')
-    method && component && component.removeOption(method)
+    const component = components.find((_) => _.input.attr === 'method')
+    if (method && component) {
+      component.removeOption(method)
+    }
     component?.reset()
   }
 
@@ -102,10 +105,8 @@ export class AssessmentMethodCallback
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void {
-    return
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  onValidate(_controls: { [key: string]: FormControl }): void {}
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return (

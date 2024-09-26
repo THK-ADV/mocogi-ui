@@ -23,40 +23,17 @@ export function studyProgramInput(
   const dialogTitle = $localize`Zugehörigkeit zu Studiengängen bearbeiten`
   const studyProgramColumn = { attr: 'po', title: $localize`Studiengang` }
 
-  function mandatory(): ReadOnlyInput<StudyProgram, POMandatory> {
-    const attr = 'po-mandatory'
-    const entries = currentMandatoryEntries(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel(
-        $localize`Verwendung in Studiengängen als Pflicht Modul`,
-      ),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: studyPrograms,
-      show: showPOMandatory,
-      initialValue: (sps) =>
-        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
-      dialogInstance: () => mandatoryDialogInstance(attr),
-    }
+  function showStudyProgram0(po: string): string {
+    const studyProgram = studyPrograms.find((sp) => sp.po.id === po)
+    return studyProgram ? showStudyProgram(studyProgram) : po
   }
 
-  function optional(): ReadOnlyInput<StudyProgram, POOptional> {
-    const attr = 'po-optional'
-    const entries = currentOptionalEntries(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Verwendung in Studiengängen als WPF`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: studyPrograms,
-      show: showPOOptional,
-      initialValue: (sps) =>
-        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
-      dialogInstance: () => optionalDialogInstance(attr),
-    }
+  function showPOMandatory({ po }: POMandatory): string {
+    return showStudyProgram0(po)
+  }
+
+  function showPOOptional({ po }: POOptional): string {
+    return showStudyProgram0(po)
   }
 
   function studyProgramOptionsInput(): OptionsInput<StudyProgram> {
@@ -165,17 +142,40 @@ export function studyProgramInput(
     )
   }
 
-  function showStudyProgram_(po: string): string {
-    const sp = studyPrograms.find((sp) => sp.po.id === po)
-    return sp ? showStudyProgram(sp) : po
+  function mandatory(): ReadOnlyInput<StudyProgram, POMandatory> {
+    const attr = 'po-mandatory'
+    const entries = currentMandatoryEntries(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel(
+        $localize`Verwendung in Studiengängen als Pflicht Modul`,
+      ),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: studyPrograms,
+      show: showPOMandatory,
+      initialValue: (sps) =>
+        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
+      dialogInstance: () => mandatoryDialogInstance(attr),
+    }
   }
 
-  function showPOMandatory({ po }: POMandatory): string {
-    return showStudyProgram_(po)
-  }
-
-  function showPOOptional({ po }: POOptional): string {
-    return showStudyProgram_(po)
+  function optional(): ReadOnlyInput<StudyProgram, POOptional> {
+    const attr = 'po-optional'
+    const entries = currentOptionalEntries(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Verwendung in Studiengängen als WPF`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: studyPrograms,
+      show: showPOOptional,
+      initialValue: (sps) =>
+        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
+      dialogInstance: () => optionalDialogInstance(attr),
+    }
   }
 
   return {

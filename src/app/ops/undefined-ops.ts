@@ -1,4 +1,4 @@
-export function mapOpt<A, B>(a: A | undefined, f: (a: A) => B): B | undefined {
+export function mapOpt<A, B>(a: A | undefined, f: (_: A) => B): B | undefined {
   if (!a) {
     return undefined
   }
@@ -7,7 +7,7 @@ export function mapOpt<A, B>(a: A | undefined, f: (a: A) => B): B | undefined {
 
 export function foldOpt<A, B>(
   a: A | undefined,
-  f: (a: A) => B,
+  f: (_: A) => B,
   fallback: () => B,
 ): B {
   return mapOpt(a, f) ?? fallback()

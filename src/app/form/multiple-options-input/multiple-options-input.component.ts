@@ -84,9 +84,8 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
       return this.options.filter(
         (t) => this.input.show(t).toLowerCase().indexOf(filterValue) >= 0,
       )
-    } else {
-      return this.options.slice()
     }
+    return this.options.slice()
   }
 
   displayFn = (value?: A): string => {
@@ -107,7 +106,9 @@ export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   toggleSelection = (a: A) => {
     if (this.selected.includes(a)) {
       const index = this.selected.indexOf(a, 0)
-      index > -1 && this.selected.splice(index, 1)
+      if (index > -1) {
+        this.selected.splice(index, 1)
+      }
     } else {
       this.selected.push(a)
     }

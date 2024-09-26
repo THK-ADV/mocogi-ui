@@ -13,10 +13,8 @@ import { Competence } from '../types/core/competence'
 import { Module, ModuleCore, ModuleProtocol } from '../types/moduleCore'
 import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
 import { ValidationResult } from '../types/validation-result'
-import { Metadata } from '../types/metadata'
 import { ModuleView } from '../types/module-view'
 import { asRecord } from '../parser/record-parser'
-import { Content } from '../types/content'
 
 import { ModeratedModule, ModuleDraftState } from '../types/moderated.module'
 import { Approval } from '../types/approval'
@@ -29,6 +27,9 @@ import { ElectivesCatalogue } from '../types/electivesCatalogues'
 import { GenericModuleCore } from '../types/genericModuleCore'
 import { ExamPhase } from '../types/core/exam-phase'
 import { generateSemestersAroundYear } from '../helper/semester.helper'
+import { StudyProgramPrivileges } from '../types/study-program-privileges'
+import { Metadata } from '../types/metadata'
+import { Content } from '../types/content'
 
 export interface ModuleDraftJson {
   module: string
@@ -162,11 +163,12 @@ export class HttpService {
     )
 
   private convertModuleDraft = (draft: ModuleDraftJson): ModuleDraft => {
+    const record = asRecord(draft.data)
+    // TODO improve
     const mc: ModuleProtocol = {
-      // TODO improve
-      deContent: asRecord(draft.data)['deContent'] as Content,
-      enContent: asRecord(draft.data)['enContent'] as Content,
-      metadata: asRecord(draft.data)['metadata'] as Metadata,
+      deContent: record['deContent'] as Content,
+      enContent: record['enContent'] as Content,
+      metadata: record['metadata'] as Metadata,
     }
     return { ...draft, lastModified: new Date(draft.lastModified), data: mc }
   }
@@ -255,6 +257,7 @@ export class HttpService {
 
   // Personal Data
 
-  getPersonalData = (): Observable<Record<string, unknown>> =>
-    this.http.get<Record<string, unknown>>('me')
+  getPersonalData = (): Observable<
+    Record<'privileges', StudyProgramPrivileges[]>
+  > => this.http.get<Record<'privileges', StudyProgramPrivileges[]>>('me')
 }

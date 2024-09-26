@@ -8,17 +8,6 @@ export function particularitiesContent(
   deContent?: Content,
   enContent?: Content,
 ): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `particularities-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,6 +23,17 @@ export function particularitiesContent(
         return deContent?.particularities ?? ''
       case 'en':
         return enContent?.particularities ?? ''
+    }
+  }
+
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `particularities-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
     }
   }
 

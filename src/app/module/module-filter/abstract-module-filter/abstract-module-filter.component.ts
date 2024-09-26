@@ -16,15 +16,19 @@ export class AbstractModuleFilterComponent<A> {
   @Input() deselectAction!: () => TypedAction<string>
 
   @Input() set selection(a: A | undefined | null) {
-    a ? this.formControl.setValue(a) : this.reset()
+    if (a) {
+      this.formControl.setValue(a)
+    } else {
+      this.reset()
+    }
   }
 
   @Input() set options(as: ReadonlyArray<A> | null) {
-    this.options_ = as ?? []
+    this.options0 = as ?? []
     this.initFilterOptions()
   }
 
-  protected options_!: ReadonlyArray<A>
+  protected options0!: ReadonlyArray<A>
   protected filteredOptions: Observable<A[]> = EMPTY
   protected formControl = new FormControl()
 
@@ -36,13 +40,13 @@ export class AbstractModuleFilterComponent<A> {
       map((value) =>
         typeof value === 'string' ? value : this.show(value as A),
       ),
-      map((value) => (value ? this.filter(value) : this.options_.slice())),
+      map((value) => (value ? this.filter(value) : this.options0.slice())),
     )
   }
 
   private filter = (input: string): A[] => {
     const filterValue = input.toLowerCase()
-    return this.options_.filter(
+    return this.options0.filter(
       (t) => this.show(t).toLowerCase().indexOf(filterValue) >= 0,
     )
   }

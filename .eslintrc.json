@@ -13,6 +13,7 @@
       },
       "extends": [
         "eslint:recommended",
+        "airbnb-base/legacy",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
@@ -20,6 +21,19 @@
         "prettier"
       ],
       "rules": {
+        "lines-between-class-members": "off",
+        "class-methods-use-this": "off",
+        "dot-notation": "off",
+        "default-case": "off",
+        "consistent-return": "off",
+        "no-case-declarations": "off",
+        "no-console": "off",
+        "no-plusplus": [
+          "error",
+          {
+            "allowForLoopAfterthoughts": true
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {

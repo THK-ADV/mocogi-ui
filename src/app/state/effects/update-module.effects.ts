@@ -10,6 +10,11 @@ import { NavigationActions } from '../actions/navigation.actions'
 
 @Injectable()
 export class UpdateModuleEffects {
+  constructor(
+    private readonly service: HttpService,
+    private readonly actions$: Actions,
+  ) {}
+
   updateModuleDraft$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UpdateModulePageActions.save),
@@ -33,9 +38,4 @@ export class UpdateModuleEffects {
       map(() => NavigationActions.navigate({ path: ['my-modules'] })),
     )
   })
-
-  constructor(
-    private readonly service: HttpService,
-    private readonly actions$: Actions,
-  ) {}
 }

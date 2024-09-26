@@ -38,9 +38,8 @@ export class SingleEntryCallback<A>
     }
     if (optionsInput.attr === this.attr) {
       return data.filter((a) => !this.selected[this.id(a)])
-    } else {
-      return data
     }
+    return data
   }
 
   addOptionToOptionsInputComponent(
@@ -48,8 +47,10 @@ export class SingleEntryCallback<A>
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const a = this.lookup(this.id(option))
-    const component = components.find((a) => a.input.attr === this.attr)
-    a && component && component.addOption(a)
+    const component = components.find((_) => _.input.attr === this.attr)
+    if (a && component) {
+      component.addOption(a)
+    }
     component?.reset()
   }
 
@@ -58,8 +59,10 @@ export class SingleEntryCallback<A>
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
     const a = this.lookup(this.id(option))
-    const component = components.find((a) => a.input.attr === this.attr)
-    a && component && component.removeOption(a)
+    const component = components.find((_) => _.input.attr === this.attr)
+    if (a && component) {
+      component.removeOption(a)
+    }
     component?.reset()
   }
 
@@ -83,10 +86,8 @@ export class SingleEntryCallback<A>
     return this.getAValue(controls)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onValidate(_controls: { [key: string]: FormControl }): void {
-    return
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  onValidate(controls: { [key: string]: FormControl }): void {}
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     return !this.validA(controls[this.attr].value)

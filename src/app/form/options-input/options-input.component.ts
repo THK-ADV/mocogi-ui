@@ -119,7 +119,9 @@ export class OptionsInputComponent<A> implements OnInit, OnDestroy {
 
   removeOption = (a: A) => {
     const index = this.options.indexOf(a, 0)
-    index > -1 && this.options.splice(index, 1)
+    if (index > -1) {
+      this.options.splice(index, 1)
+    }
   }
 
   addOption = (a: A) => {

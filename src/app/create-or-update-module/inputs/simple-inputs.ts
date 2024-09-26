@@ -151,28 +151,41 @@ export function simpleInput(
     }
   }
 
-  function participantsInput(): ReadOnlyInput<Participants, Participants> {
-    const attr = 'participants'
-    const entries = currentParticipants(attr)
-    return {
-      kind: 'read-only',
-      label: optionalLabel($localize`Teilnehmerbegrenzung`),
-      attr: attr,
-      disabled: false,
-      required: false,
-      options: [],
-      show: showParticipants,
-      initialValue: () => mapOpt(entries, (a) => [a]) ?? [],
-      dialogInstance: () => participantsDialogInstance(attr),
+  function showParticipants(p: Participants): string {
+    return $localize`${p.min} - ${p.max} Teilnehmer`
+  }
+
+  function showModuleRelation(m: ModuleRelation): string {
+    switch (m.kind) {
+      case 'parent':
+        let parent = $localize`Hat Submodule: `
+        m.children.forEach((id, index) => {
+          const module = modules.find((_) => _.id === id)
+          if (module) {
+            parent += module.abbrev
+            if (index !== m.children.length - 1) {
+              parent += ', '
+            }
+          }
+        })
+        return parent
+      case 'child':
+        let child = $localize`Gehört zum Modul: `
+        const module = modules.find((_) => _.id === m.parent)
+        if (module) {
+          child += module.abbrev
+        }
+        return child
     }
   }
 
-  function participantsDialogInstance(attr: string) {
-    return ParticipantsComponent.instance(dialog, currentParticipants(attr))
-  }
-
-  function showParticipants(p: Participants): string {
-    return $localize`${p.min} - ${p.max} Teilnehmer`
+  function moduleRelationDialogInstance(attr: string) {
+    return ModuleRelationComponent.instance(
+      dialog,
+      currentModuleRelation(attr),
+      modules,
+      metadataId,
+    )
   }
 
   function moduleRelationInput(): ReadOnlyInput<
@@ -194,40 +207,24 @@ export function simpleInput(
     }
   }
 
-  function showModuleRelation(m: ModuleRelation): string {
-    switch (m.kind) {
-      case 'parent':
-        // eslint-disable-next-line no-case-declarations
-        let parent = $localize`Hat Submodule: `
-        m.children.forEach((id, index) => {
-          const module = modules.find((m) => m.id === id)
-          if (module) {
-            parent += module.abbrev
-            if (index !== m.children.length - 1) {
-              parent += ', '
-            }
-          }
-        })
-        return parent
-      case 'child':
-        // eslint-disable-next-line no-case-declarations
-        let child = $localize`Gehört zum Modul: `
-        // eslint-disable-next-line no-case-declarations
-        const module = modules.find((m) => m.id === m.id)
-        if (module) {
-          child += module.abbrev
-        }
-        return child
-    }
+  function participantsDialogInstance(attr: string) {
+    return ParticipantsComponent.instance(dialog, currentParticipants(attr))
   }
 
-  function moduleRelationDialogInstance(attr: string) {
-    return ModuleRelationComponent.instance(
-      dialog,
-      currentModuleRelation(attr),
-      modules,
-      metadataId,
-    )
+  function participantsInput(): ReadOnlyInput<Participants, Participants> {
+    const attr = 'participants'
+    const entries = currentParticipants(attr)
+    return {
+      kind: 'read-only',
+      label: optionalLabel($localize`Teilnehmerbegrenzung`),
+      attr: attr,
+      disabled: false,
+      required: false,
+      options: [],
+      show: showParticipants,
+      initialValue: () => mapOpt(entries, (a) => [a]) ?? [],
+      dialogInstance: () => participantsDialogInstance(attr),
+    }
   }
 
   return {

@@ -5,18 +5,6 @@ const semesterTypes = [
   { id: 'sose', abbrev: 'SoSe', label: $localize`Sommersemester` },
 ]
 
-export const generateSemestersAroundYear = (
-  year: number,
-  rangeInYears: number,
-) => {
-  const semesterList: Array<Semester> = []
-  for (let i = rangeInYears * -1; i < rangeInYears; i++) {
-    semesterList.push(...generateSemestersForYear(year + i))
-  }
-  const semesters: ReadonlyArray<Semester> = semesterList
-  return semesters
-}
-
 export const generateSemestersForYear = (year: number) => {
   const semesterList: Array<Semester> = []
   semesterTypes.forEach((semesterType) => {
@@ -28,6 +16,18 @@ export const generateSemestersForYear = (year: number) => {
       enLabel: `${semesterType.label} ${year}`,
     })
   })
+  const semesters: ReadonlyArray<Semester> = semesterList
+  return semesters
+}
+
+export const generateSemestersAroundYear = (
+  year: number,
+  rangeInYears: number,
+) => {
+  const semesterList: Array<Semester> = []
+  for (let i = rangeInYears * -1; i < rangeInYears; i++) {
+    semesterList.push(...generateSemestersForYear(year + i))
+  }
   const semesters: ReadonlyArray<Semester> = semesterList
   return semesters
 }

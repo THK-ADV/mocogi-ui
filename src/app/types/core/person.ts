@@ -1,6 +1,9 @@
 import { Faculty } from './faculty'
 
-export type Identity = Person | UnknownIdentity | Group
+export interface PersonStatus {
+  deLabel: string
+  enLabel: string
+}
 
 export interface Person {
   id: string
@@ -14,11 +17,6 @@ export interface Person {
   kind: 'person'
 }
 
-export interface PersonStatus {
-  deLabel: string
-  enLabel: string
-}
-
 export interface UnknownIdentity {
   id: string
   label: string
@@ -30,3 +28,5 @@ export interface Group {
   label: string
   kind: 'group'
 }
+
+export type Identity = Person | UnknownIdentity | Group

@@ -9,13 +9,13 @@ export function validMandatoryBoolean(value: unknown): boolean {
     value !== undefined &&
     value !== '' &&
     value !== null &&
-    typeof value == 'boolean'
+    typeof value === 'boolean'
   )
 }
 
 export function validMandatoryCommaSeparatedNumber(value: unknown): boolean {
-  function go(value: string): boolean {
-    const res = value.match('^[1-8](,[1-8])*$')
+  function go(str: string): boolean {
+    const res = str.match('^[1-8](,[1-8])*$')
     return res !== null && Array.isArray(res)
   }
 
@@ -33,7 +33,7 @@ export function validMandatoryNumber(value: unknown): boolean {
     value !== undefined &&
     value !== '' &&
     value !== null &&
-    !isNaN(Number(value))
+    !Number.isNaN(Number(value))
   )
 }
 
@@ -45,7 +45,8 @@ export function validOptionalObject(value: unknown): boolean {
 
 export function validOptionalNumber(value: unknown): boolean {
   return (
-    value === undefined || (typeof value === 'string' && !isNaN(Number(value)))
+    value === undefined ||
+    (typeof value === 'string' && !Number.isNaN(Number(value)))
   )
 }
 

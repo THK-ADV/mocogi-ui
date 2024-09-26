@@ -8,17 +8,6 @@ export function moduleContent(
   deContent?: Content,
   enContent?: Content,
 ): Rows<unknown, unknown> {
-  function go(lang: Lang): TextAreaInput {
-    return {
-      kind: 'text-area',
-      label: label(lang),
-      attr: `module-content-${lang}`,
-      disabled: false,
-      required: false,
-      initialValue: body(lang),
-    }
-  }
-
   function label(lang: Lang) {
     switch (lang) {
       case 'de':
@@ -34,6 +23,17 @@ export function moduleContent(
         return deContent?.content ?? ''
       case 'en':
         return enContent?.content ?? ''
+    }
+  }
+
+  function go(lang: Lang): TextAreaInput {
+    return {
+      kind: 'text-area',
+      label: label(lang),
+      attr: `module-content-${lang}`,
+      disabled: false,
+      required: false,
+      initialValue: body(lang),
     }
   }
 
