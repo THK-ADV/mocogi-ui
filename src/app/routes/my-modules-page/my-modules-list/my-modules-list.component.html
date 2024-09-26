@@ -27,28 +27,32 @@
           mat-stroked-button
           *ngIf="canEdit(element)"
           (click)="editModule(element.module.id)">
-          <mat-icon>edit</mat-icon>Bearbeiten
+          <mat-icon>edit</mat-icon>
+          Bearbeiten
         </button>
         <button
           i18n
           mat-stroked-button
           *ngIf="canPublish(element)"
           (click)="publishModule(element.module.id)">
-          <mat-icon>publish</mat-icon>Veröffentlichen
+          <mat-icon>publish</mat-icon>
+          Veröffentlichen
         </button>
         <button
           i18n
           mat-stroked-button
           *ngIf="canRequestReview(element)"
           (click)="requestReview(element.module.id)">
-          <mat-icon>approval</mat-icon>Review anfragen
+          <mat-icon>approval</mat-icon>
+          Review anfragen
         </button>
         <button
           i18n
           mat-stroked-button
           *ngIf="canCancelReview(element)"
           (click)="cancelReview(element.module.id)">
-          <mat-icon>pause</mat-icon>Review zurückziehen
+          <mat-icon>pause</mat-icon>
+          Review zurückziehen
         </button>
         <button
           i18n
@@ -56,7 +60,8 @@
           color="warn"
           *ngIf="canDiscardChanges(element)"
           (click)="discardChanges(element.module.id)">
-          <mat-icon>undo</mat-icon>Änderungen verwerfen
+          <mat-icon>undo</mat-icon>
+          Änderungen verwerfen
         </button>
         <button
           mat-icon-button

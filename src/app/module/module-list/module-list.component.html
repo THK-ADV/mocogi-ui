@@ -1,6 +1,5 @@
 <div>
   <p i18n>Anzahl der Einträge: {{ visibleModules() }}</p>
-
   <table
     mat-table
     matSort
@@ -19,8 +18,8 @@
             i18n
             *ngIf="element.isSpecialization"
             class="specialization-chip"
-            >Vertiefung</mat-chip
-          >
+            >Vertiefung
+          </mat-chip>
         </mat-chip-listbox>
       </td>
     </ng-container>
@@ -56,11 +55,11 @@
           aria-label="expand row"
           (click)="expandRow(element, $event)">
           <mat-icon *ngIf="expandedElement !== element"
-            >keyboard_arrow_down</mat-icon
-          >
+            >keyboard_arrow_down
+          </mat-icon>
           <mat-icon *ngIf="expandedElement === element"
-            >keyboard_arrow_up</mat-icon
-          >
+            >keyboard_arrow_up
+          </mat-icon>
         </button>
       </td>
     </ng-container>
