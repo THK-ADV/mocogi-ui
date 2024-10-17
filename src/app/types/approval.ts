@@ -7,7 +7,7 @@ export interface TranslatedLabel {
 }
 
 export interface Role extends TranslatedLabel {
-  id: string
+  id: 'pav' | 'sgl'
 }
 
 export interface ApprovalStatus extends TranslatedLabel {

@@ -229,7 +229,10 @@ export class HttpService {
   ): Observable<ReadonlyArray<ModuleCatalog>> =>
     this.http.get<ReadonlyArray<ModuleCatalog>>(`moduleCatalogs/${semester}`)
 
-  getPreview = (studyProgram: string, po: string): Observable<Blob> =>
+  getModuleCatalogPreview = (
+    studyProgram: string,
+    po: string,
+  ): Observable<Blob> =>
     this.http.get(`moduleCatalogs/preview/${studyProgram}/${po}`, {
       headers: { Accept: 'application/pdf' },
       responseType: 'blob',
@@ -260,4 +263,12 @@ export class HttpService {
   getPersonalData = (): Observable<
     Record<'privileges', StudyProgramPrivileges[]>
   > => this.http.get<Record<'privileges', StudyProgramPrivileges[]>>('me')
+
+  // Exam Lists
+
+  getExamListsPreview = (studyProgram: string, po: string): Observable<Blob> =>
+    this.http.get(`examLists/preview/${studyProgram}/${po}`, {
+      headers: { Accept: 'application/pdf' },
+      responseType: 'blob',
+    })
 }

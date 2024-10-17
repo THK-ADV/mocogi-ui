@@ -50,9 +50,9 @@ export class AppComponent {
     },
     {
       type: 'LINK',
-      text: $localize`Modulhandbücher Vorschau`,
-      icon: 'book',
-      url: ['module-catalog-lists-preview'],
+      text: $localize`Vorschau`,
+      icon: 'preview',
+      url: ['preview'],
     },
   ]
   railItems: Array<CopsAppRailItem> = [

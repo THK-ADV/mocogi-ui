@@ -11,7 +11,7 @@ import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lis
 import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
-import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-preview-page/module-catalog-preview-page.component'
+import { PreviewPageComponent } from './routes/preview-page/preview-page.component'
 
 const routes: Routes = [
   {
@@ -27,8 +27,8 @@ const routes: Routes = [
     component: ModuleCompendiumsPageComponent,
   },
   {
-    path: 'module-catalog-lists-preview',
-    component: ModuleCatalogPreviewPageComponent,
+    path: 'preview',
+    component: PreviewPageComponent,
     ...requireRoles(['professor', 'employee'], 'any'),
   },
   {

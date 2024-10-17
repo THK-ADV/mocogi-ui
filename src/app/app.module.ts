@@ -107,7 +107,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { newModuleReducer } from './state/reducer/new-module.reducer'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { StudyProgramPipe } from './pipe/study-program.pipe'
-import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-preview-page/module-catalog-preview-page.component'
+import { PreviewPageComponent } from './routes/preview-page/preview-page.component'
 
 @NgModule({
   declarations: [
@@ -160,7 +160,7 @@ import { ModuleCatalogPreviewPageComponent } from './routes/module-catalog-previ
     ModuleCompendiumsFilterComponent,
     ElectivesCatalogsFilterComponent,
     StudyProgramPipe,
-    ModuleCatalogPreviewPageComponent,
+    PreviewPageComponent,
   ],
   imports: [
     MatStepperModule,
