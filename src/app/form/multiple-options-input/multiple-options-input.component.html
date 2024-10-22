@@ -12,25 +12,31 @@
     autoActiveFirstOption
     #auto="matAutocomplete"
     [displayWith]="displayFn">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      <div
-        (keydown)="optionClicked($event, option)"
-        (click)="optionClicked($event, option)"
-        tabindex="0">
-        <mat-checkbox
-          [checked]="isSelected(option)"
-          (change)="toggleSelection(option)"
-          (click)="$event.stopPropagation()">
-          {{ displayFn(option) }}
-        </mat-checkbox>
-      </div>
-    </mat-option>
+    @for (option of filteredOptions | async; track option) {
+      <mat-option [value]="option">
+        <div
+          (keydown)="optionClicked($event, option)"
+          (click)="optionClicked($event, option)"
+          tabindex="0">
+          <mat-checkbox
+            [checked]="isSelected(option)"
+            (change)="toggleSelection(option)"
+            (click)="$event.stopPropagation()">
+            {{ displayFn(option) }}
+          </mat-checkbox>
+        </div>
+      </mat-option>
+    }
   </mat-autocomplete>
-  <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+  @if (formControl.invalid) {
+    <mat-error>{{ getErrorMessage() }}</mat-error>
+  }
 </mat-form-field>
 
-<mat-list *ngIf="selected.length > 0">
-  <mat-list-item *ngFor="let select of selected">
-    - {{ displayFn(select) }}
-  </mat-list-item>
-</mat-list>
+@if (selected.length > 0) {
+  <mat-list>
+    @for (select of selected; track select) {
+      <mat-list-item> - {{ displayFn(select) }} </mat-list-item>
+    }
+  </mat-list>
+}

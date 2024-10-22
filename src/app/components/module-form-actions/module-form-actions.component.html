@@ -7,13 +7,10 @@
     color="primary"
     (click)="saveAction()"
     [disabled]="!isValid() || updateInProcess0">
-    <mat-spinner
-      *ngIf="updateInProcess0; else showButton"
-      [diameter]="spinnerDiameter"
-      strokeWidth="2">
-    </mat-spinner>
-    <ng-template #showButton>
+    @if (updateInProcess0) {
+      <mat-spinner [diameter]="spinnerDiameter" strokeWidth="2"></mat-spinner>
+    } @else {
       <span i18n>Speichern</span>
-    </ng-template>
+    }
   </button>
 </div>

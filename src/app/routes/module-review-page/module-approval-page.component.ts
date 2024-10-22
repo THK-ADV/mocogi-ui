@@ -129,6 +129,5 @@ export class ModuleApprovalPageComponent {
     )
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected cancel = () => {}
 }

@@ -1,13 +1,12 @@
 <mat-nav-list role="list" id="changedKeys">
-  <mat-list-item
-    role="listitem"
-    *ngFor="let changedKey of changedKeys"
-    (click)="jumpTo(changedKey.name)">
-    <mat-icon matListItemIcon>{{ changedKey.icon }}</mat-icon>
-    <span matListItemTitle>{{ changedKey.name }}</span>
-    <span matListItemLine>{{ changedKey.details }}</span>
-    <span i18n *ngIf="changedKey.toBeReviewed"
-      >Dein Review ist erforderlich!</span
-    >
-  </mat-list-item>
+  @for (changedKey of changedKeys; track changedKey) {
+    <mat-list-item role="listitem" (click)="jumpTo(changedKey.name)">
+      <mat-icon matListItemIcon>{{ changedKey.icon }}</mat-icon>
+      <span matListItemTitle>{{ changedKey.name }}</span>
+      <span matListItemLine>{{ changedKey.details }}</span>
+      @if (changedKey.toBeReviewed) {
+        <span i18n>Dein Review ist erforderlich!</span>
+      }
+    </mat-list-item>
+  }
 </mat-nav-list>

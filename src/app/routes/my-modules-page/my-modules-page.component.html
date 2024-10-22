@@ -10,7 +10,7 @@
       Neues Modul erzeugen
     </button>
   </div>
-  <ng-container *ngIf="nonEmptyModules$ | async; else noData">
+  @if (nonEmptyModules$ | async) {
     <p i18n>
       In den folgenden Modulen werden Sie als Modulverantwortliche*r geführt.
     </p>
@@ -20,8 +20,7 @@
       bestimmer Attribute notwendig.
     </p>
     <cops-my-modules-list [modules]="modules$ | async"></cops-my-modules-list>
-  </ng-container>
-  <ng-template #noData>
+  } @else {
     <p i18n>Sie werden in keinem Modul als Modulverantwortliche*r geführt.</p>
-  </ng-template>
+  }
 </main>

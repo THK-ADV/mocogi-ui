@@ -5,12 +5,15 @@
 */
 
 @use "@angular/material" as mat;
-@import "@angular/material/theming";
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
+@include mat.core();
+@include mat.all-component-typographies();
 
-// Fonts
+/* Include the common styles for Angular Material. We include this here so that you only
+ have to load a single css file for Angular Material in your app.
+*/
+
+/* Fonts */
 @import "fonts";
 
 $fontConfig: (
@@ -29,9 +32,9 @@ $fontConfig: (
   input: mat.define-typography-level(inherit, 1.125, 400, "Roboto", 1.5px),
 );
 
-// Foreground Elements
+/* Foreground Elements */
 
-// Light Theme Text
+/* Light Theme Text */
 $dark-text: #3f3f3f;
 $dark-primary-text: rgba($dark-text, 0.87);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
@@ -58,7 +61,7 @@ $mat-light-theme-foreground: (
   slider-off-active: $dark-disabled-text,
 );
 
-// Dark Theme text
+/* Dark Theme text */
 $light-text: #ffffff;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
@@ -85,8 +88,9 @@ $mat-dark-theme-foreground: (
   slider-off-active: rgba($light-text, 0.3),
 );
 
-// Background config
-// Light bg
+/* Background config */
+/* Light bg */
+
 $light-background: #f7f7f7;
 $light-bg-darker-5: darken($light-background, 5%);
 $light-bg-darker-10: darken($light-background, 10%);
@@ -115,7 +119,7 @@ $mat-light-theme-background: (
   disabled-list-option: $light-bg-darker-10,
 );
 
-// Dark bg
+/* Dark bg */
 $dark-background: #2c2c2c;
 $dark-bg-lighter-5: lighten($dark-background, 5%);
 $dark-bg-lighter-10: lighten($dark-background, 10%);
@@ -124,7 +128,7 @@ $dark-bg-lighter-30: lighten($dark-background, 30%);
 $light-bg-alpha-4: rgba(#f7f7f7, 0.04);
 $light-bg-alpha-12: rgba(#f7f7f7, 0.12);
 
-// Background palette for dark themes.
+/* Background palette for dark themes. */
 $mat-dark-theme-background: (
   background: $dark-background,
   status-bar: $dark-bg-lighter-20,
@@ -143,9 +147,7 @@ $mat-dark-theme-background: (
   disabled-list-option: $dark-bg-lighter-10,
 );
 
-@include mat-core();
-
-// Theme Config
+/* Theme Config */
 
 body {
   --primary-color: #b43092;
@@ -155,18 +157,17 @@ body {
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
 }
+
 $mat-primary: (
   main: #b43092,
   lighter: #e9c1de,
   darker: #9c1e75,
   200: #b43092,
-  // For slide toggle,
-  contrast:
-    (
-      main: $light-primary-text,
-      lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+  contrast: (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  ),
 );
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
@@ -178,18 +179,17 @@ body {
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$light-primary-text};
 }
+
 $mat-accent: (
   main: #ea5a00,
   lighter: #f9ceb3,
   darker: #e13f00,
   200: #ea5a00,
-  // For slide toggle,
-  contrast:
-    (
-      main: $light-primary-text,
-      lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+  contrast: (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  ),
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
@@ -201,18 +201,17 @@ body {
   --text-warn-lighter-color: #{$dark-primary-text};
   --text-warn-darker-color: #{$light-primary-text};
 }
+
 $mat-warn: (
   main: #c81e0f,
   lighter: #efbcb7,
   darker: #b41208,
   200: #c81e0f,
-  // For slide toggle,
-  contrast:
-    (
-      main: $light-primary-text,
-      lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+  contrast: (
+    main: $light-primary-text,
+    lighter: $dark-primary-text,
+    darker: $light-primary-text,
+  ),
 );
 $theme-warn: mat.define-palette($mat-warn, main, lighter, darker);
 $altTheme: mat.define-dark-theme(
@@ -239,16 +238,19 @@ $theme: mat.define-light-theme(
   )
 );
 
-// Theme Init
-@include angular-material-theme($theme);
+/* Theme Init */
+@include mat.all-component-themes($theme);
 
+/*
+TODO alternate theme is not been used
 .theme-alternate {
-  @include angular-material-theme($altTheme);
+  @include mat.all-component-themes($altTheme);
 }
+*/
 
-// Specific component overrides, pieces that are not in line with the general theming
+/* Specific component overrides, pieces that are not in line with the general theming */
 
-// Handle buttons appropriately, with respect to line-height
+/* Handle buttons appropriately, with respect to line-height */
 .mat-raised-button,
 .mat-stroked-button,
 .mat-flat-button {
@@ -266,6 +268,7 @@ $theme: mat.define-light-theme(
 .material-icons {
   font-size: 24px;
   font-family: "Material Icons", "Material Icons", serif;
+
   .mat-badge-content {
     font-family: "Roboto", serif;
   }

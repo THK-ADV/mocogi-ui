@@ -1,7 +1,7 @@
 <main>
   <h2 i18n>Vorschau für Modulhandbücher und Prüfungslisten</h2>
 
-  <ng-container *ngIf="dataSource.data.length !== 0; else noData">
+  @if (dataSource.data.length !== 0) {
     <p i18n>
       Für die Vorschau werden ausschließlich Module berücksichtigt, die in
       dieser Bearbeitungsphase veröffentlicht wurden.
@@ -28,64 +28,60 @@
         <th i18n mat-header-cell *matHeaderCellDef>Vorschau erzeugen</th>
         <td mat-cell *matCellDef="let entry">
           <div class="inline">
-            <button
-              *ngIf="entry.canPreviewModuleCatalog"
-              mat-stroked-button
-              (click)="createModuleCatalogPreview(entry)"
-              [disabled]="
-                moduleCatalogUpdateInProcess || examListUpdateInProcess
-              ">
-              <mat-spinner
-                *ngIf="
+            @if (entry.canPreviewModuleCatalog) {
+              <button
+                mat-stroked-button
+                (click)="createModuleCatalogPreview(entry)"
+                [disabled]="
+                  moduleCatalogUpdateInProcess || examListUpdateInProcess
+                ">
+                @if (
                   moduleCatalogUpdateInProcess &&
-                    poToPreview === getPoId(entry.studyProgram);
-                  else showButton
-                "
-                [diameter]="spinnerDiameter"
-                strokeWidth="2">
-              </mat-spinner>
-              <ng-template #showButton>
-                <div class="inline">
-                  <mat-icon>book</mat-icon>
-                  <span i18n>Modulhandbuch</span>
-                </div>
-              </ng-template>
-            </button>
-            <button
-              *ngIf="entry.canPreviewExamLists"
-              mat-stroked-button
-              (click)="createExamListPreview(entry)"
-              [disabled]="
-                examListUpdateInProcess || moduleCatalogUpdateInProcess
-              ">
-              <mat-spinner
-                *ngIf="
+                  poToPreview === getPoId(entry.studyProgram)
+                ) {
+                  <mat-spinner
+                    [diameter]="spinnerDiameter"
+                    strokeWidth="2"></mat-spinner>
+                } @else {
+                  <div class="inline">
+                    <mat-icon>book</mat-icon>
+                    <span i18n>Modulhandbuch</span>
+                  </div>
+                }
+              </button>
+            }
+            @if (entry.canPreviewExamLists) {
+              <button
+                mat-stroked-button
+                (click)="createExamListPreview(entry)"
+                [disabled]="
+                  examListUpdateInProcess || moduleCatalogUpdateInProcess
+                ">
+                @if (
                   examListUpdateInProcess &&
-                    poToPreview === getPoId(entry.studyProgram);
-                  else showButton
-                "
-                [diameter]="spinnerDiameter"
-                strokeWidth="2">
-              </mat-spinner>
-              <ng-template #showButton>
-                <div class="inline">
-                  <mat-icon>school</mat-icon>
-                  <span i18n>Prüfungsliste</span>
-                </div>
-              </ng-template>
-            </button>
+                  poToPreview === getPoId(entry.studyProgram)
+                ) {
+                  <mat-spinner
+                    [diameter]="spinnerDiameter"
+                    strokeWidth="2"></mat-spinner>
+                } @else {
+                  <div class="inline">
+                    <mat-icon>school</mat-icon>
+                    <span i18n>Prüfungsliste</span>
+                  </div>
+                }
+              </button>
+            }
           </div>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-  </ng-container>
-
-  <ng-template #noData>
+  } @else {
     <p i18n>
       Die Vorschau von Modulhandbüchern oder Prüfungslisten ist nur für
       Studiengangsleitung oder Prüfungsausschussvorsitz möglich.
     </p>
-  </ng-template>
+  }
 </main>

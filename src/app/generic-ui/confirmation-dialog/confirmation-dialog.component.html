@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>{{ payload.title }}</h1>
 
-<ng-container *ngIf="payload">
+@if (payload) {
   <mat-dialog-content>
     <p>{{ payload.value }}</p>
   </mat-dialog-content>
-</ng-container>
+}
 
 <mat-dialog-actions>
   <button i18n mat-flat-button cdkFocusInitial (click)="cancel()">

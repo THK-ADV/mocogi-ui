@@ -97,7 +97,6 @@ export class PoMandatoryCallback
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
   onValidate(_controls: { [key: string]: FormControl }): void {}
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {

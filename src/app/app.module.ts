@@ -219,9 +219,10 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
       ElectivesCatalogsFilterEffects,
     ]),
     StoreDevtoolsModule.instrument({
-      maxAge: 15,
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      connectInZone: true,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FormsModule,
     MatTabsModule,
     MatChipsModule,
