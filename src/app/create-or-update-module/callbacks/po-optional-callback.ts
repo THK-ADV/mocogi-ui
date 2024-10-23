@@ -120,8 +120,7 @@ export class PoOptionalCallback
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
-  onValidate(controls: { [key: string]: FormControl }): void {}
+  onValidate(_controls: { [key: string]: FormControl }): void {}
 
   isCreateButtonDisabled(controls: { [key: string]: FormControl }): boolean {
     const isValidPO = this.validPO(controls['po'].value)

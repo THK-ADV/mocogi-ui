@@ -11,9 +11,13 @@
     #auto="matAutocomplete"
     (optionSelected)="optionSelected.emit($event.option.value)"
     [displayWith]="displayFn">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{ displayFn(option) }}
-    </mat-option>
+    @for (option of filteredOptions | async; track option) {
+      <mat-option [value]="option">
+        {{ displayFn(option) }}
+      </mat-option>
+    }
   </mat-autocomplete>
-  <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+  @if (formControl.invalid) {
+    <mat-error>{{ getErrorMessage() }}</mat-error>
+  }
 </mat-form-field>

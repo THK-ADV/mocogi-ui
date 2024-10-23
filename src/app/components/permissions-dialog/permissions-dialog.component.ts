@@ -15,7 +15,6 @@ import { selectPermissions } from '../../state/selectors/permissions-dialog.sele
 export class PermissionsDialogComponent implements OnInit {
   @ViewChild('campusIdInput') campusIdInput?: HTMLInputElement
   permissions$: Observable<ReadonlyArray<string>>
-  public permissions: Array<string> = []
   public moduleId: string
   moduleTitle: string
 

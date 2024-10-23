@@ -6,7 +6,9 @@
     [placeholder]="input.label"
     [type]="'text'"
     [formControl]="formControl" />
-  <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+  @if (formControl.invalid) {
+    <mat-error>{{ getErrorMessage() }}</mat-error>
+  }
   <button type="button" matSuffix mat-icon-button (click)="onEdit()">
     <mat-icon>edit</mat-icon>
   </button>

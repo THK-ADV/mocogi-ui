@@ -1,8 +1,11 @@
 <main>
-  <mat-progress-bar *ngIf="loading" color="primary" mode="indeterminate">
-  </mat-progress-bar>
+  @if (loading) {
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  }
   <mat-card>
-    <p i18n *ngIf="!loading">Quelle: {{ source }}</p>
+    @if (!loading) {
+      <p i18n>Quelle: {{ source }}</p>
+    }
     <mat-card-content>
       <div #shadowRootContainer class="compendium-container"></div>
     </mat-card-content>

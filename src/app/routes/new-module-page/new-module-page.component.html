@@ -1,8 +1,9 @@
 <main>
-  <cops-module-form
-    *ngIf="moduleForm"
-    [moduleForm]="moduleForm"
-    [formGroup]="formGroup"></cops-module-form>
+  @if (moduleForm) {
+    <cops-module-form
+      [moduleForm]="moduleForm"
+      [formGroup]="formGroup"></cops-module-form>
+  }
 </main>
 <aside>
   <div class="info">

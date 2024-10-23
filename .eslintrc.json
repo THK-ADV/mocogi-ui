@@ -28,6 +28,13 @@
         "consistent-return": "off",
         "no-case-declarations": "off",
         "no-console": "off",
+        "no-empty-function": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
         "no-plusplus": [
           "error",
           {

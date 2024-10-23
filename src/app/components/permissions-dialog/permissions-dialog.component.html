@@ -7,16 +7,17 @@
       zu bearbeiten</mat-hint
     >
     <mat-chip-grid #chipGrid aria-label="Enter CampusId">
-      <mat-chip-row
-        *ngFor="let campusId of permissions$ | async"
-        (removed)="remove(campusId)"
-        [editable]="true"
-        (edited)="edit(campusId, $event)">
-        {{ campusId }}
-        <button matChipRemove [attr.aria-label]="'remove ' + campusId">
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
+      @for (campusId of permissions$ | async; track campusId) {
+        <mat-chip-row
+          (removed)="remove(campusId)"
+          [editable]="true"
+          (edited)="edit(campusId, $event)">
+          {{ campusId }}
+          <button matChipRemove [attr.aria-label]="'remove ' + campusId">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
       <input
         i18n-placeholder
         placeholder="CampusID eingeben und mit Enter bestätigen"

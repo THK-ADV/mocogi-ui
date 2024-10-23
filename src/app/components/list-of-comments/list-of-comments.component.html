@@ -1,24 +1,26 @@
 <div class="container">
-  <mat-card *ngFor="let reply of replies()">
-    <mat-card-header>
-      <mat-card-title
-        >{{ reply.respondedBy.firstname }}
-        {{ reply.respondedBy.lastname }}</mat-card-title
-      >
-      <mat-card-subtitle
-        >{{ reply.role.deLabel }}
-        {{ reply.studyProgram.deLabel }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <div class="status">
-        {{ reply.status.deLabel }}
-      </div>
-      <br />
-      <span i18n>Kommentar:</span>
-      <blockquote>
-        {{ reply.comment }}
-      </blockquote>
-    </mat-card-content>
-  </mat-card>
+  @for (reply of replies(); track reply.id) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title
+          >{{ reply.respondedBy.firstname
+          }}{{ reply.respondedBy.lastname }}</mat-card-title
+        >
+        <mat-card-subtitle
+          >{{ reply.role.deLabel }}
+          {{ reply.studyProgram.deLabel }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="status">
+          {{ reply.status.deLabel }}
+        </div>
+        <br />
+        <span i18n>Kommentar:</span>
+        <blockquote>
+          {{ reply.comment }}
+        </blockquote>
+      </mat-card-content>
+    </mat-card>
+  }
 </div>

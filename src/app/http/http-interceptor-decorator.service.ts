@@ -60,7 +60,7 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
       }
       this.alertService.report(alert)
     }
-    throw error
+    throw error as Error
   }
 
   private isBackendError(error: unknown): error is BackendError {

@@ -1,4 +1,4 @@
-<ng-container *ngIf="moduleForm">
+@if (moduleForm) {
   <main>
     <cops-module-form
       [moduleForm]="moduleForm"
@@ -14,11 +14,10 @@
         <cops-list-of-comments [approvals]="approvals"></cops-list-of-comments>
       </mat-tab>
     </mat-tab-group>
-
     <cops-module-form-actions
       [saveAction]="save"
       [cancelAction]="cancel"
       [isValid]="isValid"
       [updateInProcess]="updateInProcess$ | async"></cops-module-form-actions>
   </aside>
-</ng-container>
+}
