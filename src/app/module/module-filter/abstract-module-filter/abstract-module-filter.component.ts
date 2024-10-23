@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { EMPTY, map, Observable, startWith } from 'rxjs'
-import { TypedAction } from '@ngrx/store/src/models'
 import { FormControl } from '@angular/forms'
-import { Store } from '@ngrx/store'
+import { Store, Action } from '@ngrx/store'
 
 @Component({
   selector: 'cops-abstract-module-filter',
@@ -12,8 +11,8 @@ import { Store } from '@ngrx/store'
 export class AbstractModuleFilterComponent<A> {
   @Input() label!: string
   @Input() show!: (a: A) => string
-  @Input() selectAction!: (a: A) => TypedAction<string>
-  @Input() deselectAction!: () => TypedAction<string>
+  @Input() selectAction!: (a: A) => Action<string>
+  @Input() deselectAction!: () => Action<string>
 
   @Input() set selection(a: A | undefined | null) {
     if (a) {

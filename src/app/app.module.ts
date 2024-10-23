@@ -2,7 +2,11 @@ import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppComponent } from './app.component'
 import { ModuleComponent } from './module/module.component'
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http'
 import { MatListModule } from '@angular/material/list'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
@@ -162,11 +166,11 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
     StudyProgramPipe,
     PreviewPageComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     MatStepperModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     MatListModule,
     MatFormFieldModule,
     MatTableModule,
@@ -245,7 +249,7 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
       useClass: HttpInterceptorDecorator,
       multi: true,
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}

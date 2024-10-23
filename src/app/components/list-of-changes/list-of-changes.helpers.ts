@@ -4,7 +4,7 @@ import { Module } from '../../types/moduleCore'
 type ChangeType = 'add' | 'clear' | 'update' | 'unchanged'
 
 // TODO remove as soon as the backend provides the change log
-/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 function accessObject<T>(item: T, property: string) {
   if (property.includes('.')) {
@@ -17,7 +17,7 @@ function accessObject<T>(item: T, property: string) {
   return item[property]
 }
 
-/* eslint-enable @typescript-eslint/no-unsafe-return, @typescript-eslint/ban-ts-comment */
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 function getChangeType(
   modifiedKey: string,
