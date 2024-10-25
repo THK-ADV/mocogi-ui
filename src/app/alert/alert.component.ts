@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy } from '@angular/core'
 import { NavigationStart, Router } from '@angular/router'
-import { AlertStore } from './alter.store'
 import { Subscription } from 'rxjs'
+import { AlertStore } from './alert-store'
 
 @Component({
   selector: 'cops-alert',

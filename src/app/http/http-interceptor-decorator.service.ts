@@ -9,7 +9,7 @@ import {
 import { catchError, Observable } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { Alert } from '../alert/alert'
-import { AlertStore } from '../alert/alter.store'
+import { AlertStore } from '../alert/alert-store'
 
 // This type corresponds to the error response from the backend. See app/ErrorHandler in backend code.
 type BackendError = {
