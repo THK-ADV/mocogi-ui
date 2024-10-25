@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { HttpService } from '../../http/http.service'
+import { Component, effect, inject, OnInit } from '@angular/core'
 import { StudyProgram } from '../../types/module-compendium'
 import { MatTableDataSource } from '@angular/material/table'
-import { Ordering } from '../../ops/ordering'
-import { numberOrd, stringOrd } from '../../ops/ordering.instances'
+import { PreviewStore } from './preview-store'
+import { HttpService } from '../../http/http.service'
 
 interface TableData {
   studyProgram: StudyProgram
@@ -15,36 +14,37 @@ interface TableData {
   selector: 'cops-preview-page',
   templateUrl: './preview-page.component.html',
   styleUrls: ['./preview-page.component.css'],
+  providers: [PreviewStore],
 })
 export class PreviewPageComponent implements OnInit {
-  protected dataSource = new MatTableDataSource<TableData>()
-  protected displayedColumns: string[] = ['study_program', 'po', 'action']
+  protected readonly store = inject(PreviewStore)
+  protected readonly dataSource = new MatTableDataSource<TableData>()
+  protected readonly displayedColumns: string[] = [
+    'study_program',
+    'po',
+    'action',
+  ]
+  protected readonly spinnerDiameter = 30
 
   protected poToPreview: string | undefined
   protected moduleCatalogUpdateInProcess = false
   protected examListUpdateInProcess = false
-  protected spinnerDiameter = 30
 
-  private ord = Ordering.many<TableData>([
-    Ordering.contraMap(stringOrd, (p) => p.studyProgram.id),
-    Ordering.contraMap(stringOrd, (p) => p.studyProgram.degree.id),
-    Ordering.contraMap(numberOrd, (p) => p.studyProgram.po.version),
-  ])
-
-  constructor(private readonly http: HttpService) {}
-
-  ngOnInit() {
-    this.http.getPersonalData().subscribe((res) => {
-      const data: TableData[] = res.privileges.map((p) => ({
-        studyProgram: p.studyProgram,
-        canPreviewModuleCatalog: p.roles.some(
+  constructor(private readonly http: HttpService) {
+    effect(() => {
+      const data = this.store.privileges()
+      this.dataSource.data = data.map((d) => ({
+        studyProgram: d.studyProgram,
+        canPreviewModuleCatalog: d.roles.some(
           (r) => r.id === 'sgl' || r.id === 'pav',
         ),
-        canPreviewExamLists: p.roles.some((r) => r.id === 'pav'),
+        canPreviewExamLists: d.roles.some((r) => r.id === 'pav'),
       }))
-      data.sort(this.ord)
-      this.dataSource.data = data
     })
+  }
+
+  ngOnInit() {
+    this.store.load()
   }
 
   getPoId(studyProgram: StudyProgram) {
@@ -56,12 +56,16 @@ export class PreviewPageComponent implements OnInit {
     const poId = this.getPoId(studyProgram)
     this.moduleCatalogUpdateInProcess = true
     this.poToPreview = poId
+    const tab = window.open()
+    tab?.document.write($localize`Modulhandbuch wird geladen...`)
+
     this.http.getModuleCatalogPreview(studyProgramId, poId).subscribe({
       next: (blob) => {
         const fileURL = URL.createObjectURL(blob)
-        window.open(fileURL, '_blank')
+        tab?.location?.assign(fileURL)
       },
       error: () => {
+        tab?.close()
         this.moduleCatalogUpdateInProcess = false
         this.poToPreview = undefined
       },
@@ -77,12 +81,16 @@ export class PreviewPageComponent implements OnInit {
     const poId = this.getPoId(studyProgram)
     this.examListUpdateInProcess = true
     this.poToPreview = poId
+    const tab = window.open()
+    tab?.document.write($localize`Prüfungsliste wird geladen...`)
+
     this.http.getExamListsPreview(studyProgramId, poId).subscribe({
       next: (blob) => {
         const fileURL = URL.createObjectURL(blob)
-        window.open(fileURL, '_blank')
+        tab?.location?.assign(fileURL)
       },
       error: () => {
+        tab?.close()
         this.examListUpdateInProcess = false
         this.poToPreview = undefined
       },

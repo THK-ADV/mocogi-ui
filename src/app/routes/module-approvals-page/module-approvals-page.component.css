@@ -17,12 +17,21 @@ main {
 
 .inline {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 1em;
-  float: right;
+  justify-content: flex-end;
+  gap: 0.5em;
+}
+
+tr.clickable:hover {
+  cursor: pointer;
+  background: whitesmoke;
 }
 
 .align-right {
   text-align: right;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }

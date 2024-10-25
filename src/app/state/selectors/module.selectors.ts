@@ -9,7 +9,7 @@ import {
   ModuleView,
   StudyProgramModuleAssociation,
 } from '../../types/module-view'
-import { toModuleTableEntry } from '../../module/module-list/module-table-entry'
+import { toModuleTableEntry } from '../../components/module/module-list/module-table-entry'
 import { SelectedStudyProgramId } from '../reducer/module-filter.reducer'
 
 export const selectModuleState = createFeatureSelector<State>('module')

@@ -51,4 +51,8 @@ export class ModuleCompendiumsFilterComponent implements OnInit {
 
   showStudyProgram = (sp: StudyProgramCore) =>
     `${sp.deLabel} (${sp.degree.deLabel})`
+
+  semesterId = (semester: Semester) => semester.id
+
+  studyProgramId = (sp: StudyProgramCore) => sp.id
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -8,8 +8,8 @@ import {
 } from '@angular/common/http'
 import { catchError, Observable } from 'rxjs'
 import { environment } from '../../environments/environment'
-import { AlertService } from '../alert/alert.service'
 import { Alert } from '../alert/alert'
+import { AlertStore } from '../alert/alter.store'
 
 // This type corresponds to the error response from the backend. See app/ErrorHandler in backend code.
 type BackendError = {
@@ -19,7 +19,7 @@ type BackendError = {
 
 @Injectable()
 export class HttpInterceptorDecorator implements HttpInterceptor {
-  constructor(private alertService: AlertService) {}
+  readonly store = inject(AlertStore)
 
   intercept(
     request: HttpRequest<unknown>,
@@ -50,6 +50,7 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
       // The response body may contain clues as to what went wrong.
       const { request, message } = this.parseBackendError(error)
       const alert: Alert = {
+        id: crypto.randomUUID(),
         type: 'danger',
         body: {
           kind: 'html',
@@ -58,7 +59,7 @@ export class HttpInterceptorDecorator implements HttpInterceptor {
         },
         autoDismiss: false,
       }
-      this.alertService.report(alert)
+      this.store.add(alert)
     }
     throw error as Error
   }

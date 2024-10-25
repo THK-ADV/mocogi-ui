@@ -1,24 +1,26 @@
 <div class="app-rail">
   <ul>
     @for (item of railItems; track $index) {
-      @if (item.type === "DIVIDER") {
-        <hr />
-      }
-      @if (item.type === "SPACER") {
-        <div class="spacer"></div>
-      }
-      @if (item.type === "LINK") {
-        <li [class.disabled]="item.disabled" [class.active]="item.active">
-          <a [href]="item.url">
-            @if (item.icon) {
-              <mat-icon>{{ item.icon }}</mat-icon>
-            }
-            @if (item.image) {
-              <img [src]="item.image" [alt]="'icon of' + item.text" />
-            }
-            <span>{{ item.text }}</span>
-          </a>
-        </li>
+      @switch (item.type) {
+        @case ("DIVIDER") {
+          <hr />
+        }
+        @case ("SPACER") {
+          <div class="spacer"></div>
+        }
+        @case ("LINK") {
+          <li [class.disabled]="item.disabled" [class.active]="item.active">
+            <a [href]="item.url">
+              @if (item.icon) {
+                <mat-icon>{{ item.icon }}</mat-icon>
+              }
+              @if (item.image) {
+                <img [src]="item.image" [alt]="'icon of' + item.text" />
+              }
+              <span>{{ item.text }}</span>
+            </a>
+          </li>
+        }
       }
     }
   </ul>
