@@ -196,8 +196,8 @@ export class HttpService {
 
   // Approval
 
-  ownApprovals = (): Observable<ReadonlyArray<Approval>> =>
-    this.http.get<ReadonlyArray<Approval>>('moduleApprovals/own')
+  ownApprovals = (): Observable<Approval[]> =>
+    this.http.get<Approval[]>('moduleApprovals/own')
 
   getApprovals = (moduleId: string): Observable<ReadonlyArray<Approval>> =>
     this.http.get<ReadonlyArray<Approval>>(`moduleApprovals/${moduleId}`)

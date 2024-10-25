@@ -1,0 +1,14 @@
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  align-items: center;
+}
+
+mat-card {
+  padding: 3em;
+}
+
+h1 {
+  color: red;
+}

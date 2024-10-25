@@ -1,9 +1,9 @@
-@for (alert of alerts; track alert) {
+@for (alert of store.alerts(); track alert.id) {
   <ngb-alert
     [animation]="true"
     [dismissible]="true"
     [type]="alert.type"
-    (closed)="closing(alert)">
+    (closed)="store.remove(alert)">
     @switch (alert.body.kind) {
       @case ("message") {
         <p>{{ alert.body.value }}</p>

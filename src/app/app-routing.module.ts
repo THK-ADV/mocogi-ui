@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
-import { ModuleRenderedHtmlComponent } from './module-rendered-html/module-rendered-html.component'
-import { ModuleComponent } from './module/module.component'
+import { ModuleDetailComponent } from './components/module-detail/module-detail.component'
+import { ModuleComponent } from './components/module/module.component'
 import { requireRoles } from './keycloak/auth.guard'
 import { MyModulesPageComponent } from './routes/my-modules-page/my-modules-page.component'
 import { UpdateModulePageComponent } from './routes/update-module-page/update-module-page.component'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
-import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
-import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
-import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
+import { ModuleApprovalsPageComponent } from './routes/module-approvals-page/module-approvals-page.component'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
 import { PreviewPageComponent } from './routes/preview-page/preview-page.component'
+import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
+import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
 
 const routes: Routes = [
   {
@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'modules/:moduleId',
-    component: ModuleRenderedHtmlComponent,
+    component: ModuleDetailComponent,
   },
   {
     path: 'modules/:moduleId/edit',

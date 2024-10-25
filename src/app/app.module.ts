@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppComponent } from './app.component'
-import { ModuleComponent } from './module/module.component'
+import { ModuleComponent } from './components/module/module.component'
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -43,23 +43,23 @@ import { ParticipantsComponent } from './form/participants/participants.componen
 import { ModuleRelationComponent } from './form/module-relation/module-relation.component'
 import { ConfirmationDialogComponent } from './generic-ui/confirmation-dialog/confirmation-dialog.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
-import { ModuleRenderedHtmlComponent } from './module-rendered-html/module-rendered-html.component'
+import { ModuleDetailComponent } from './components/module-detail/module-detail.component'
 import { AlertComponent } from './alert/alert.component'
-import { ModuleListComponent } from './module/module-list/module-list.component'
+import { ModuleListComponent } from './components/module/module-list/module-list.component'
 import { StoreModule } from '@ngrx/store'
 import { moduleReducer } from './state/reducer/module.reducer'
 import { EffectsModule } from '@ngrx/effects'
 import { ModuleEffects } from './state/effects/module.effects.service'
-import { ModuleFilterComponent } from './module/module-filter/module-filter.component'
+import { ModuleFilterComponent } from './components/module/module-filter/module-filter.component'
 import { moduleFilterReducer } from './state/reducer/module-filter.reducer'
 import { NavigationEffects } from './state/effects/navigation.effects'
 import { ModuleFilterEffects } from './state/effects/module-filter.effects.service'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { StudyProgramFilterComponent } from './module/module-filter/study-program-filter/study-program-filter.component'
-import { AbstractModuleFilterComponent } from './module/module-filter/abstract-module-filter/abstract-module-filter.component'
-import { SemesterFilterComponent } from './module/module-filter/semester-filter/semester-filter.component'
-import { CoordinatorFilterComponent } from './module/module-filter/coordinator-filter/coordinator-filter.component'
-import { ModuleListSearchComponent } from './module/module-list-search/module-list-search.component'
+import { StudyProgramFilterComponent } from './components/module/module-filter/study-program-filter/study-program-filter.component'
+import { AbstractModuleFilterComponent } from './components/module/module-filter/abstract-module-filter/abstract-module-filter.component'
+import { SemesterFilterComponent } from './components/module/module-filter/semester-filter/semester-filter.component'
+import { CoordinatorFilterComponent } from './components/module/module-filter/coordinator-filter/coordinator-filter.component'
+import { ModuleListSearchComponent } from './components/module/module-list-search/module-list-search.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
@@ -81,12 +81,11 @@ import { MyModulesListComponent } from './routes/my-modules-page/my-modules-list
 import { UpdateModuleEffects } from './state/effects/update-module.effects'
 import { NewModulePageComponent } from './routes/new-module-page/new-module-page.component'
 import { NewModuleEffects } from './state/effects/new-module-page.effects'
-import { ModuleApprovalsPageComponent } from './routes/module-reviews-page/module-approvals-page.component'
+import { ModuleApprovalsPageComponent } from './routes/module-approvals-page/module-approvals-page.component'
 import { ElectiveModulesListsPageComponent } from './routes/elective-modules-lists-page/elective-modules-lists-page.component'
 import { ModuleCompendiumsPageComponent } from './routes/module-compendiums-page/module-compendiums-page.component'
-import { ApprovalsListComponent } from './components/approvals/approvals-list/approvals-list.component'
-import { ModuleCompendiumListsListComponent } from './components/modules/module-compendium-lists-list/module-compendium-lists-list.component'
-import { ElectiveModulesListsListComponent } from './components/modules/elective-modules-lists-list/elective-modules-lists-list.component'
+import { ModuleCompendiumListsListComponent } from './components/catalogs/module-compendium-lists-list/module-compendium-lists-list.component'
+import { ElectiveModulesListsListComponent } from './components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component'
 import { updateModuleReducer } from './state/reducer/update-module.reducer'
 import { ModuleApprovalPageComponent } from './routes/module-review-page/module-approval-page.component'
 import { ListOfChangesComponent } from './components/list-of-changes/list-of-changes.component'
@@ -112,6 +111,7 @@ import { newModuleReducer } from './state/reducer/new-module.reducer'
 import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { StudyProgramPipe } from './pipe/study-program.pipe'
 import { PreviewPageComponent } from './routes/preview-page/preview-page.component'
+import { ModuleDetailHtmlComponent } from './components/module-detail/module-detail-html/module-detail-html.component'
 
 @NgModule({
   declarations: [
@@ -131,7 +131,7 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
     ModuleRelationComponent,
     ConfirmationDialogComponent,
     PageNotFoundComponent,
-    ModuleRenderedHtmlComponent,
+    ModuleDetailComponent,
     UnsafeHtmlPipe,
     AlertComponent,
     ModuleListComponent,
@@ -152,7 +152,6 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
     ModuleApprovalsPageComponent,
     ElectiveModulesListsPageComponent,
     ModuleCompendiumsPageComponent,
-    ApprovalsListComponent,
     ModuleCompendiumListsListComponent,
     ElectiveModulesListsListComponent,
     ModuleApprovalPageComponent,
@@ -236,6 +235,7 @@ import { PreviewPageComponent } from './routes/preview-page/preview-page.compone
     MatMenuModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    ModuleDetailHtmlComponent,
   ],
   providers: [
     {

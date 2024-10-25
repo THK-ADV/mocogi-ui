@@ -25,7 +25,6 @@ export class AppComponent {
       icon: 'book',
       url: ['module-catalog-lists'],
     },
-
     {
       type: 'LINK',
       text: $localize`WPF Listen`,

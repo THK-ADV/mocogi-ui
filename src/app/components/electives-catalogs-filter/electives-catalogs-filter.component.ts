@@ -34,4 +34,6 @@ export class ElectivesCatalogsFilterComponent implements OnInit {
     ElectivesCatalogsFilterComponentActions.deselectSemester()
 
   showSemester = (semester: Semester) => semester.deLabel
+
+  id = (semester: Semester) => semester.id
 }

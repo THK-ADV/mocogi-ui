@@ -1,0 +1,10 @@
+<main>
+  @if (moduleHtml$ | async; as html) {
+    <mat-card>
+      <p i18n>Quelle: {{ source }}</p>
+      <cops-module-detail-html [html]="html" />
+    </mat-card>
+  } @else {
+    <mat-progress-bar color="primary" mode="indeterminate" />
+  }
+</main>

@@ -15,6 +15,7 @@ export interface Html {
 type AlertBody = Message | Html
 
 export interface Alert {
+  id: string
   type: AlertType
   body: AlertBody
   autoDismiss: boolean

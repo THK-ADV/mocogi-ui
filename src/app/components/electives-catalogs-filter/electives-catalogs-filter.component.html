@@ -7,7 +7,8 @@
   [selectAction]="selectSemester"
   [selection]="selectedSemester$ | async"
   [deselectAction]="deselectSemester"
-  [show]="showSemester">
+  [show]="showSemester"
+  [id]="id">
 </cops-abstract-module-filter>
 
 <button i18n mat-stroked-button color="primary" (click)="onResetFilter()">
