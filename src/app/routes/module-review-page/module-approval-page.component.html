@@ -4,6 +4,16 @@
       [moduleForm]="moduleForm"
       [formGroup]="formGroup"
       mode="REVIEW">
+      @if (mergeRequestUrl) {
+        <button
+          i18n
+          mat-stroked-button
+          color="primary"
+          (click)="openUrl(mergeRequestUrl)">
+          <mat-icon>difference</mat-icon>
+          Diff auf Gitlab anzeigen
+        </button>
+      }
     </cops-module-form>
   }
 </main>

@@ -25,6 +25,7 @@ export class ModuleApprovalPageComponent {
   modifiedKeys: Array<ChangeLogItem> = []
   approvals: ReadonlyArray<Approval> = []
   formGroup = new FormGroup({})
+  mergeRequestUrl?: string
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +57,7 @@ export class ModuleApprovalPageComponent {
       http.allGlobalCriteria(),
       http.allStudyPrograms(),
       http.allExamPhases(),
+      http.mergeRequestUrl(this.moduleId),
     ]).subscribe(
       ([
         moduleCompendium,
@@ -75,6 +77,7 @@ export class ModuleApprovalPageComponent {
         globalCriteria,
         studyPrograms,
         examPhases,
+        mrUrl,
       ]) => {
         this.moduleForm = {
           objectName: moduleCompendium.metadata.title,
@@ -105,6 +108,7 @@ export class ModuleApprovalPageComponent {
           stagingModuleCompendium,
         )
         this.approvals = approvals
+        this.mergeRequestUrl = mrUrl
       },
     )
   }
@@ -130,4 +134,6 @@ export class ModuleApprovalPageComponent {
   }
 
   protected cancel = () => {}
+
+  protected openUrl = (url: string) => window.open(url)
 }

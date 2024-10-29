@@ -1,4 +1,7 @@
-<h2>{{ title }}</h2>
+<div class="headline">
+  <h2>{{ title }}</h2>
+  <ng-content />
+</div>
 <form [formGroup]="formGroup">
   <mat-accordion>
     @for (

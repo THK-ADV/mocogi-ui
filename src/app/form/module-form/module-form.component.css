@@ -35,3 +35,10 @@ form {
 .container-row > * {
   flex-grow: 1;
 }
+
+.headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+}

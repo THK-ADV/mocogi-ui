@@ -51,11 +51,11 @@ export class ModuleFormComponent<A, B> implements OnInit {
   buttonTitle = ''
 
   ngOnInit() {
+    this.setTitle()
     this.buttonTitle =
       this.moduleForm.editType === 'create'
         ? $localize`Erstellen`
         : $localize`Aktualisieren`
-    this.title = `${this.moduleForm.objectName} ${this.buttonTitle.toLowerCase()}`
     this.moduleForm.sections.forEach((section) =>
       Object.values(section.rows).forEach((row) =>
         row.forEach(({ input }) => {
@@ -67,6 +67,22 @@ export class ModuleFormComponent<A, B> implements OnInit {
         }),
       ),
     )
+  }
+
+  setTitle = () => {
+    let action: string
+    switch (this.mode) {
+      case 'CREATE':
+        action = $localize`erstellen`
+        break
+      case 'UPDATE':
+        action = $localize`aktualisieren`
+        break
+      case 'REVIEW':
+        action = $localize`überprüfen`
+        break
+    }
+    this.title = `${this.moduleForm.objectName} ${action}`
   }
 
   cancel = () => this.onCancel?.()

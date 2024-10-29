@@ -173,6 +173,9 @@ export class HttpService {
     return { ...draft, lastModified: new Date(draft.lastModified), data: mc }
   }
 
+  mergeRequestUrl = (module: string): Observable<string> =>
+    this.http.get<string>(`moduleDrafts/${module}/mrurl`)
+
   // Validation
 
   validate = (branch: string): Observable<ValidationResult> =>
