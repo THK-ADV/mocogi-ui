@@ -15,6 +15,37 @@ import { ExamPhase } from '../../types/core/exam-phase'
 import { MetadataLike } from '../../types/metadata'
 import { ExamPhasesCallback } from '../callbacks/exam-phases-callback'
 
+function showTooltip(am: AssessmentMethod): string | undefined {
+  switch (am.id) {
+    case 'written-exam':
+      return $localize`:@@written-exam:In den Klausurarbeiten soll die oder der Studierende nachweisen, dass sie oder er in begrenzter Zeit und mit beschränkten Hilfsmitteln Themen oder Fragestellungen aus Gebieten des jeweiligen Moduls mit geläufigen wissenschaftlichen Methoden ihrer oder seiner Fachrichtung erkennt und auf richtigem Wege zu einer Lösung finden kann.`
+    case 'written-exam-answer-choice-method':
+      return $localize`:@@written-exam-answer-choice-method:Klausurarbeiten können ganz oder teilweise auch in der Form des Antwortwahlverfahrens durchgeführt werden. Hierbei haben die Studierenden unter Aufsicht schriftlich gestellte Fragen durch die Angabe der für zutreffend befundenen Antworten aus einem Katalog vorgegebener Antwortmöglichkeiten zu lösen. Das Antwortwahlverfahren kommt in dazu geeigneten Modulen auf Antrag der Prüfenden und mit Zustimmung des Prüfungsausschusses zur Anwendung.`
+    case 'oral-exam':
+      return $localize`:@@oral-exam:Mündliche Prüfungen werden, außer in Fällen des § 18 Abs. 5, vor einer Prüferin oder einem Prüfer in Gegenwart einer sachkundigen Beisitzerin oder eines sachkundigen Beisitzers (§ 9 Abs. 1) oder vor mehreren Prüferinnen oder Prüfern (Kollegialprüfung) als Gruppenprüfungen oder als Einzelprüfungen abgelegt. Werden in einer Prüfung mehrere Fachgebiete gemeinsam geprüft, wird die oder der einzelne Studierende in jedem Fachgebiet grundsätzlich nur von einer Prüferin oder einem Prüfer geprüft, es sei denn, es liegt ein Fall des § 18 Abs. 5 vor. Vor der Festsetzung der Note hat die Prüferin oder der Prüfer die Beisitzerin oder den Beisitzer oder die anderen Prüferinnen oder Prüfer zu hören. Mündliche Prüfungen können auch mit Hilfe elektronischer Kommunikation durchgeführt werden.`
+    case 'home-assignment':
+      return $localize`:@@home-assignment:Eine Hausarbeit (z.B. Fallstudie, Recherche) dient der Feststellung, ob die Studierenden befähigt sind, innerhalb einer vorgegebenen Frist eine Fachaufgabe nach wissenschaftlichen und fachpraktischen Methoden selbstständig in schriftlicher oder elektronischer Form zu bearbeiten. Das Thema und der Umfang (z. B. Seitenzahl des Textteils) der Hausarbeit werden von der Prüferin beziehungsweise dem Prüfer zu Beginn des Semesters festgelegt. Eine Eigenständigkeitserklärung muss vom Prüfling unterzeichnet und abgegeben werden.`
+    case 'open-book-exam':
+      return $localize`:@@open-book-exam:Die Open-Book-Ausarbeitung ist eine Kurz-Hausarbeit und damit eine unbeaufsichtigte schriftliche oder elektronische Prüfung. Sie zeichnet sich dadurch aus, dass gemäß Hilfsmittelerklärung der Prüferin bzw. des Prüfers in der Regel alle Hilfsmittel zugelassen sind. Auf die Sicherung guter wissenschaftlicher Praxis durch ordnungsgemäßes Zitieren etc. und das Erfordernis der Eigenständigkeit der Erbringung jedweder Prüfungsleistung wird besonders hingewiesen.`
+    case 'project':
+      return $localize`:@@project:Die Projektarbeit ist eine Prüfungsleistung, die in der selbstständigen Bearbeitung einer eng umrissenen, wissenschaftlichen Fragestellung unter Anleitung mit einer schriftlichen Dokumentation der Ergebnisse in Berichtsform besteht.`
+    case 'portfolio':
+      return $localize`:@@portfolio:Ein Lernportfolio dokumentiert den studentischen Kompetenzentwicklungsprozess anhand von Präsentationen, Essays, Ausschnitten aus Praktikumsberichten, Inhaltsverzeichnissen von Hausarbeiten, Mitschriften, To-Do-Listen, Forschungsberichten und anderen Leistungsdarstellungen und Lernproduktionen, zusammengefasst als sogenannte „Artefakte“. Nur in Verbindung mit der studentischen Reflexion (schriftlich, mündlich oder auch in einem Video) der Verwendung dieser Artefakte für das Erreichen des zuvor durch die Prüferin oder den Prüfer transparent gemachten Lernziels wird das Lernportfolio zum Prüfungsgegenstand. Während der Erstellung des Lernportfolios wird von der Prüferin oder dem Prüfer im Semesterverlauf Feedback auf Entwicklungsschritte und/oder Artefakte gegeben. Als Prüfungsleistung wird eine nach dem Feedback überarbeitete Form des Lernportfolios – in handschriftlicher oder elektronischer Form – eingereicht.`
+    case 'practical-report':
+      return $localize`:@@practical-report:Ein Praktikumsbericht (z. B. Versuchsprotokoll) dient der Feststellung, ob die Studierenden befähigt sind, innerhalb einer vorgegebenen Frist eine laborpraktische Aufgabe selbstständig sowohl praktisch zu bearbeiten als auch Bearbeitungsprozess und Ergebnis schriftlich zu dokumentieren, zu bewerten und zu reflektieren. Praktikumsberichte können auch in Form einer Gruppenarbeit zur Prüfung zugelassen werden. Die Bewertung des Praktikumsberichts ist den Studierenden spätestens sechs Wochen nach Abgabe des Berichts bekanntzugeben.`
+    case 'oral-contribution':
+      return $localize`:@@oral-contribution:Ein mündlicher Beitrag (z. B. Referat, Präsentation, Verhandlung, Moderation) dient der Feststellung, ob die Studierenden befähigt sind, innerhalb einer vorgegebenen Frist eine praxisorientierte Aufgabe nach wissenschaftlichen und fachpraktischen Methoden selbstständig zu bearbeiten und mittels verbaler Kommunikation fachlich angemessen darzustellen. Die Dauer des mündlichen Beitrags wird von der Prüferin beziehungsweise dem Prüfer zu Beginn des Semesters festgelegt. Die für die Benotung des mündlichen Beitrags maßgeblichen Tatsachen sind in einem Protokoll festzuhalten. Die Note ist den Studierenden spätestens eine Woche nach dem mündlichen Beitrag bekanntzugeben.`
+    case 'certificate-achievement':
+      return $localize`:@@certificate-achievement:Mit einem Testat/Zwischentestat wird bescheinigt, dass die oder der Studierende eine Studienarbeit (z.B. Entwurf) im geforderten Umfang erstellt hat. Der zu erbringende Leistungsumfang sowie die geforderten Inhalte und Anforderungen ergeben sich aus der jeweiligen Modulbeschreibung im Modulhandbuch sowie aus der Aufgabenstellung.`
+    case 'performance-assessment':
+      return $localize`:@@performance-assessment:Im Rahmen einer Performanzprüfung werden realitätsnahe, typische Handlungssituationen simuliert. Die Studierenden werden hierzu mit einer oder mehreren Aufgabenstellungen konfrontiert, wie sie in ihrem späteren Berufsfeld tatsächlich vorkommen (können). Die Studierenden müssen diese Aufgabenstellung – nach Maßgabe der konkreten Ausgestaltung in dem jeweiligen Modul – alleine oder in der Rolle eines Mitgliedes einer mit den jeweiligen Aufgaben betrauten Gruppe in eigener Verantwortung lösen. Wie sorgfältig die Aufgabenstellung analysiert und welcher Lösungsweg eingeschlagen wird, welche Methoden und Instrumente ausgewählt und eingesetzt werden und wie die Studierenden die eigenen Aktivitäten sowie die Zusammenarbeit mit den anderen Gruppenmitgliedern ausgestalten, organisieren, koordinieren und dokumentieren (Projektmanagement), bestimmen die Studierenden analog zur beruflichen Praxis weitgehend selbst; dies wird bewertet (Performanz).`
+    case 'role-play':
+      return $localize`:@@role-play:Ein Rollenspiel (auch Planspiel) dient der Feststellung, ob die Studierenden befähigt sind, innerhalb einer vorgegebenen Zeitspanne in einer praxisnahen oder praxisanalogen Situation bzw. Simulation Aufgaben mit wissenschaftlichen Methoden und unter Einsatz von Kommunikations- und Kooperationstechniken in der Regel im Diskurs mit weiteren handelnden, realen oder virtuellen Personen zu lösen. Die Bewertung ist den Studierenden nach Abschluss des Rollenspiels bekanntzugeben.`
+    default:
+      return undefined
+  }
+}
+
 export type AssessmentMethodKind = 'mandatory' | 'optional'
 
 export function assessmentInput(
@@ -77,6 +108,7 @@ export function assessmentInput(
           required: false,
           data: assessmentMethods,
           show: showLabel,
+          tooltip: (am) => showTooltip(am),
         },
         {
           kind: 'number',

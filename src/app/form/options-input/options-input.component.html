@@ -13,7 +13,10 @@
     [displayWith]="displayFn">
     @for (option of filteredOptions | async; track option) {
       <mat-option [value]="option">
-        {{ displayFn(option) }}
+        <span>{{ displayFn(option) }}</span>
+        @if (input.tooltip && input.tooltip(option); as tooltip) {
+          <mat-icon [matTooltip]="tooltip">help</mat-icon>
+        }
       </mat-option>
     }
   </mat-autocomplete>
