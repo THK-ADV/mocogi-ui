@@ -21,6 +21,7 @@ export interface OptionsInput<A> extends FormInputLike {
   data: A[] | Observable<A[]>
   show: (a: A) => string
   initialValue?: (as: A[]) => A | undefined
+  tooltip?: (a: A) => string
 }
 
 export const formControlForOptionsInput = <A>(

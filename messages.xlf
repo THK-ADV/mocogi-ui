@@ -1,0 +1,1727 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="de" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/alert/alert.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.slide-number" datatype="html">
+        <source> Slide <x id="INTERPOLATION" equiv-text="e$ = new Behavi"/> of <x id="INTERPOLATION_1" equiv-text="vate _wrap$ = n"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">150,153</context>
+        </context-group>
+        <note priority="1" from="description">Currently selected slide number read by screen reader</note>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">169,172</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">192,195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">91,93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">291</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">302,305</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">317</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">328</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">348</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">361,363</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">385</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">400</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text=".
+	 *
+	 * @sinc"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/progressbar/progressbar.ts</context>
+          <context context-type="linenumber">68,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">235,238</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">255,256</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">271,274</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">291,292</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">305,308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">318,321</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">342,346</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">359,361</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">379,380</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">398,401</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">422,423</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">437,441</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source><x id="INTERPOLATION"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">441</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.toast.close-aria" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/src/toast/toast.ts</context>
+          <context context-type="linenumber">96,97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4535751031165613881" datatype="html">
+        <source>Übersicht</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5045989272828877243" datatype="html">
+        <source>Modulsuche</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5877120419499351064" datatype="html">
+        <source>Modulhandbücher</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-compendiums-page/module-compendiums-page.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3801791021746103876" datatype="html">
+        <source>WPF Listen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/elective-modules-lists-page/elective-modules-lists-page.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6660581335633823217" datatype="html">
+        <source>Verwaltung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5365673957050061368" datatype="html">
+        <source>Meine Module</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-page.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6921858630505915338" datatype="html">
+        <source>Änderungsfreigaben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8104152103272919854" datatype="html">
+        <source>Vorschau</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1867992058937397585" datatype="html">
+        <source>Module</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="906541232326494517" datatype="html">
+        <source>Stundenplan</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/structure/header/header.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6719977147226321317" datatype="html">
+        <source>Räume</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7173162520322205847" datatype="html">
+        <source>Prüfungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8429316238784832901" datatype="html">
+        <source>Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1547876271716599756" datatype="html">
+        <source>Impressum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8183338968769074848" datatype="html">
+        <source>Semester</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/electives-catalogs-filter/electives-catalogs-filter.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-compendiums-filter/module-compendiums-filter.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/semester-filter/semester-filter.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1093001620953386475" datatype="html">
+        <source>Wahlmodulkatalog (<x id="INTERPOLATION" equiv-text="{{ element.teachingUnit.deLabel }}"/>)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1969070268204504205" datatype="html">
+        <source>Aktionen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7665005272153144429" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>download<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/>Download </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/catalogs/elective-modules-lists-list/elective-modules-lists-list.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6957571309432714763" datatype="html">
+        <source>WPF Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/electives-catalogs-filter/electives-catalogs-filter.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2315237441561309320" datatype="html">
+        <source> Filter zurücksetzen
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/electives-catalogs-filter/electives-catalogs-filter.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-compendiums-filter/module-compendiums-filter.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/module-filter.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2449214155901083369" datatype="html">
+        <source>Dein Review ist erforderlich!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-changes/list-of-changes.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1957298944698498158" datatype="html">
+        <source>wurde hinzugefügt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-changes/list-of-changes.helpers.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4747169108172731531" datatype="html">
+        <source>wurde entfernt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-changes/list-of-changes.helpers.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8084390765037900116" datatype="html">
+        <source>wurde aktualisiert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-changes/list-of-changes.helpers.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="861945176681736636" datatype="html">
+        <source>unverändert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-changes/list-of-changes.helpers.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8516510384757600074" datatype="html">
+        <source>Kommentar:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/list-of-comments/list-of-comments.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8829497237648100098" datatype="html">
+        <source>Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-compendiums-filter/module-compendiums-filter.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/module-filter.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3604625098563868650" datatype="html">
+        <source>Studiengang</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-compendiums-filter/module-compendiums-filter.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/study-program-filter/study-program-filter.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1315861209990214464" datatype="html">
+        <source>Quelle: <x id="INTERPOLATION" equiv-text="{{ source }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-detail/module-detail.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2462567022892335115" datatype="html">
+        <source> Abbrechen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-form-actions/module-form-actions.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-ui/confirmation-dialog/confirmation-dialog.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2854123663314832793" datatype="html">
+        <source>Speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-form-actions/module-form-actions.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4271445948784486517" datatype="html">
+        <source>Kommentar verfassen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-review-actions/module-review-actions.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="753320711455028971" datatype="html">
+        <source>Änderungen akzeptieren und Review abschließen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-review-actions/module-review-actions.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6608985636797859412" datatype="html">
+        <source> Akzeptieren </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-review-actions/module-review-actions.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7000415243779355618" datatype="html">
+        <source>Änderungen ablehnen und Überarbeitung anfordern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-review-actions/module-review-actions.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7675386867600934624" datatype="html">
+        <source> Überarbeitung anfordern </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module-review-actions/module-review-actions.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1693801187846206584" datatype="html">
+        <source>Modulverantwortliche*r</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/coordinator-filter/coordinator-filter.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/responsibility-input.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9098454119754693999" datatype="html">
+        <source>Suche</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-filter/module-filter.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list-search/module-list-search.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5520293024888543986" datatype="html">
+        <source>Titel, Abkürzung, Modulverantwortliche...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list-search/module-list-search.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6704472135153463085" datatype="html">
+        <source>Anzahl der Einträge: <x id="INTERPOLATION" equiv-text="{{ visibleModules() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3516494453193947151" datatype="html">
+        <source>Titel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7694101894781665123" datatype="html">
+        <source>Vertiefung </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7029920128179315325" datatype="html">
+        <source> Modulverantwortliche*r </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1948732483765799751" datatype="html">
+        <source>Credits</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module-list/module-list.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8243026247611717645" datatype="html">
+        <source>Modulbeschreibungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/module/module.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1854628944139428153" datatype="html">
+        <source>Modulberechtigungen für &apos;<x id="INTERPOLATION" equiv-text="{{ moduleTitle }}"/>&apos;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4037173430290661094" datatype="html">
+        <source>Berechtigte Personen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4580482729739951135" datatype="html">
+        <source>Diese Personen sind berechtigt, das Modul &apos;<x id="INTERPOLATION" equiv-text="{{ moduleTitle }}"/>&apos; vollständig zu bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1773344103612908250" datatype="html">
+        <source>CampusID eingeben und mit Enter bestätigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7624133960269641605" datatype="html">
+        <source>Abbrechen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2370858365221278989" datatype="html">
+        <source> Speichern </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/permissions-dialog/permissions-dialog.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3411639958247247066" datatype="html">
+        <source>Studiengang stimmt nicht mit gewählter Instanz überein</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/callbacks/po-optional-callback.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4856867324856893239" datatype="html">
+        <source>Prüfungsformen für alle Pflicht Studiengänge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8737734902480137437" datatype="html">
+        <source>Prüfungsformen für alle als WPF belegbare Studiengänge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="written-exam" datatype="html">
+        <source>In den Klausurarbeiten soll die oder der Studierende nachweisen, dass sie oder er in begrenzter Zeit und mit beschränkten Hilfsmitteln Themen oder Fragestellungen aus Gebieten des jeweiligen Moduls mit geläufigen wissenschaftlichen Methoden ihrer oder seiner Fachrichtung erkennt und auf richtigem Wege zu einer Lösung finden kann.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3342034429757665722" datatype="html">
+        <source>Keine Beschreibung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="147651778924180352" datatype="html">
+        <source>Prüfungsform</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2389827711926335483" datatype="html">
+        <source>Prozentualer Anteil</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4324208503509114432" datatype="html">
+        <source>Vorbedingungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5643174674833451819" datatype="html">
+        <source>Prüfungsformen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5096523869502304827" datatype="html">
+        <source>Prüfungsphase</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8653204928240316882" datatype="html">
+        <source>Prüfungsphasen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">162</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4757175804817747910" datatype="html">
+        <source>Prüfungsphasen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="785192413571160156" datatype="html">
+        <source>Erstprüfer*in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2280869600537892746" datatype="html">
+        <source>Zweitprüfer*in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/assessment-input.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1780506453749111703" datatype="html">
+        <source>Allgemeine Informationen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="59568176026415190" datatype="html">
+        <source>Verantwortliche</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1219488145708133176" datatype="html">
+        <source>Prüfungsleistungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3127646278831765507" datatype="html">
+        <source>Workload</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1973865211365786695" datatype="html">
+        <source>Voraussetzungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="621944004410783853" datatype="html">
+        <source>Verwendung des Moduls in weiteren Studiengängen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">226</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1843945128198363757" datatype="html">
+        <source>Sonstige Informationen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8379280317779428833" datatype="html">
+        <source>Angestrebte Lernergebnisse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/learning-outcome-content-input.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6351748283442478155" datatype="html">
+        <source>Modulinhalte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">279</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5959983206298412183" datatype="html">
+        <source>Lehr- und Lernmethoden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">286</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4087535948031029597" datatype="html">
+        <source>Empfohlene Literatur</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">293</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2898877408831906017" datatype="html">
+        <source>Besonderheiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/inputs.ts</context>
+          <context context-type="linenumber">300</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3871982486709005146" datatype="html">
+        <source>Lehr- und Lernmethoden (deutsch)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/learning-methods-content-input.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8440303796429660295" datatype="html">
+        <source>Teaching and Learning Methods (english)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/learning-methods-content-input.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5581155535795402161" datatype="html">
+        <source>Learning Outcome</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/learning-outcome-content-input.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4199028194671081475" datatype="html">
+        <source>Empfohlene Literatur (deutsch)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/literature-content-input.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5674543834789943360" datatype="html">
+        <source>Recommended Reading (english)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/literature-content-input.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7705570304699555042" datatype="html">
+        <source>Kompetenzen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2754494520967386395" datatype="html">
+        <source>Kompetenzen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5526293680502717000" datatype="html">
+        <source>Globale Kriterien</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1333086171610001928" datatype="html">
+        <source>Globale Kriterien bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5513237710368628684" datatype="html">
+        <source>Modul</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5315284120766662372" datatype="html">
+        <source>Zusammen gelehrte Module bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1382803132110759447" datatype="html">
+        <source>Wird gelehrt mit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/miscellaneous-input.ts</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5426612561394301346" datatype="html">
+        <source>Modulinhalte (deutsch)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/module-content-input.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9005241106410174986" datatype="html">
+        <source>Module Content (english)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/module-content-input.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1938558041004956163" datatype="html">
+        <source>Besonderheiten (deutsch)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/particularities-content-input.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4205942655875015216" datatype="html">
+        <source>Particularities (english)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/particularities-content-input.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5865378026957708772" datatype="html">
+        <source>Zwingende Voraussetzungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3947264942241905498" datatype="html">
+        <source>Empfohlene Voraussetzungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1157101387432060353" datatype="html">
+        <source><x id="PH" equiv-text="labelPrefix(kind)"/> Freitext</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7741101295698426897" datatype="html">
+        <source><x id="PH" equiv-text="labelPrefix(kind)"/> Module</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5246194442149534944" datatype="html">
+        <source>Studiengang mit PO</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2045604900641237627" datatype="html">
+        <source><x id="PH" equiv-text="labelPrefix(kind)"/> Studiengänge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/prerequisites-input.ts</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2165632719364400185" datatype="html">
+        <source>Dozierende</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/responsibility-input.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/responsibility-input.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3949036895029633810" datatype="html">
+        <source>Dozierende bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/responsibility-input.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7869129222989441615" datatype="html">
+        <source>Modulbezeichnung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2422090706672661922" datatype="html">
+        <source>Modulabkürzung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1364564670067026613" datatype="html">
+        <source>Art des Moduls</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8427280656465239466" datatype="html">
+        <source>ECTS credits</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="51574765818008149" datatype="html">
+        <source>Sprache</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4950160107364347045" datatype="html">
+        <source>Dauer des Moduls</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8735345343674904320" datatype="html">
+        <source>Häufigkeit des Angebots</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8950913363449356185" datatype="html">
+        <source>Angeboten am Standort</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5611592591303869712" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7839153603317268939" datatype="html">
+        <source><x id="PH" equiv-text="p.min"/> - <x id="PH_1" equiv-text="p.max"/> Teilnehmer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7402515983105792962" datatype="html">
+        <source>Hat Submodule: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3911797758106629931" datatype="html">
+        <source>Gehört zum Modul: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3099218539673592181" datatype="html">
+        <source>Modulbeziehung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4592915356357777031" datatype="html">
+        <source>Teilnehmerbegrenzung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/simple-inputs.ts</context>
+          <context context-type="linenumber">219</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4885765458752665217" datatype="html">
+        <source>Zugehörigkeit zu Studiengängen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7254186013896393937" datatype="html">
+        <source>Empfohlene Studiensemester (kommasepariert)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2879816059954417088" datatype="html">
+        <source>Instanz von</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5290678795188374148" datatype="html">
+        <source>Teil des Modulverzeichnisses</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8328199806005445068" datatype="html">
+        <source>Verwendung in Studiengängen als Pflicht Modul</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3928731513760548134" datatype="html">
+        <source>Verwendung in Studiengängen als WPF</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/study-program-input.ts</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5949424198888622715" datatype="html">
+        <source>Vorlesung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3007863062933694242" datatype="html">
+        <source>Seminar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="340471928602728551" datatype="html">
+        <source>Praktikum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6328745717889241220" datatype="html">
+        <source>Übung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4463863862792703011" datatype="html">
+        <source>Projektarbeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1083037887527014558" datatype="html">
+        <source>Projektbetreuung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/create-or-update-module/inputs/workload-input.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1065638657854526682" datatype="html">
+        <source>Invalide Auswahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/form-input.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4393261557380148413" datatype="html">
+        <source><x id="PH" equiv-text="input.label"/> erforderlich</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/form-input.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2961538958334556025" datatype="html">
+        <source>Erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-form/module-form.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7832220288598509801" datatype="html">
+        <source>Aktualisieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-form/module-form.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3430248789898148613" datatype="html">
+        <source>erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-form/module-form.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2446806649436189546" datatype="html">
+        <source>aktualisieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-form/module-form.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3411757586820848832" datatype="html">
+        <source>überprüfen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-form/module-form.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="819774633719365261" datatype="html">
+        <source> Hinzufügen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/multiple-edit-dialog/multiple-edit-dialog.component.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7376809694581581775" datatype="html">
+        <source> Änderungen Übernehmen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.html</context>
+          <context context-type="linenumber">68,69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/multiple-edit-dialog/multiple-edit-dialog.component.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7783139231497081140" datatype="html">
+        <source> Löschen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.html</context>
+          <context context-type="linenumber">76,77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3052976560541069477" datatype="html">
+        <source> Schließen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.html</context>
+          <context context-type="linenumber">84,85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/multiple-edit-dialog/multiple-edit-dialog.component.html</context>
+          <context context-type="linenumber">89,90</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8621797738551294959" datatype="html">
+        <source>Parent</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3933358723756013068" datatype="html">
+        <source>Child</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7610393991033959512" datatype="html">
+        <source>Art der Beziehung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5639838961903918071" datatype="html">
+        <source>Modulbeziehungen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="845981016800811332" datatype="html">
+        <source>Auswahl verwerfen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">236</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8594050574537368563" datatype="html">
+        <source>Soll die Auswahl verworfen werden, da eine andere Modulbeziehung ausgewählt wurde?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/module-relation/module-relation.component.ts</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4675004525808256644" datatype="html">
+        <source>Teilnehmerbegrenzung bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4912803901980915876" datatype="html">
+        <source>Min</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3667949571823271511" datatype="html">
+        <source>Max</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/participants/participants.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7783951601929501268" datatype="html">
+        <source>Minimum von <x id="PH" equiv-text="formControl.getError(&apos;min&apos;).min"/> erforderlich</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/plain-input/plain-input.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="75390345615790991" datatype="html">
+        <source>Maximum von <x id="PH" equiv-text="formControl.getError(&apos;max&apos;).max"/> erforderlich</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/form/plain-input/plain-input.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4306533085183652566" datatype="html">
+        <source> Bestätigen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-ui/confirmation-dialog/confirmation-dialog.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="76340603792304637" datatype="html">
+        <source>Wintersemester</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/helper/semester.helper.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5394429361206803489" datatype="html">
+        <source>Sommersemester</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/helper/semester.helper.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4500462585079607390" datatype="html">
+        <source>Unbekannte Anfrage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/http/http-interceptor-decorator.service.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5781981357151499252" datatype="html">
+        <source> Angefordert von </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4586497111674455382" datatype="html">
+        <source> Genehmigung in der Rolle als </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5939265589512242607" datatype="html">
+        <source>Keine aktuellen Änderungsfreigaben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-approvals-page/module-approvals-page.component.html</context>
+          <context context-type="linenumber">57,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1625090711769284672" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>difference<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Diff auf Gitlab anzeigen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-review-page/module-approval-page.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5292107101723375369" datatype="html">
+        <source>Änderungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-review-page/module-approval-page.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/update-module-page/update-module-page.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8873147951502717470" datatype="html">
+        <source>Kommentare</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/module-review-page/module-approval-page.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/update-module-page/update-module-page.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4758711385530902379" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>edit<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Bearbeiten </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2588657936295488898" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>publish<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Veröffentlichen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2362812347231928329" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>approval<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Review anfragen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">48,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3232191023065957908" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>pause<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Review zurückziehen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">57,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6106035754505631047" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>undo<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Änderungen verwerfen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">67,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2901245200297649654" datatype="html">
+        <source> Modulberechtigungen setzen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1866025402678973959" datatype="html">
+        <source>Das Modul ist veröffentlicht und taucht im Modulhandbuch und in der Modulsuche auf.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3620536299238348980" datatype="html">
+        <source>Das Modul kann zur Genehmigung freigegeben werden. Eine Genehmigung ist erforderlich, da genehmigungspflichtige Attribute geändert wurden.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3036897622894267060" datatype="html">
+        <source>Das Modul kann veröffentlicht werden. Nach der Bearbeitungsphase taucht es im Modulhandbuch und in der Modulsuche auf.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8464540356525640300" datatype="html">
+        <source>Das Modul ist im Genehmigungsprozess.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5981381164425029668" datatype="html">
+        <source>Das Modul wurde im Genehmigungsprozess abgelehnt und benötigt Anpassungen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5614922670704090479" datatype="html">
+        <source>Unbekannt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-list/my-modules-list.component.ts</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2755425342296063623" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Neues Modul erzeugen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-page.component.html</context>
+          <context context-type="linenumber">9,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7142501400962910004" datatype="html">
+        <source> In den folgenden Modulen werden Sie als Modulverantwortliche*r geführt. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-page.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="651943238897333113" datatype="html">
+        <source> Sie können die Module bearbeiten und die Änderungen veröffentlichen oder zur Genehmigung freigeben. Eine Genehmigung ist nur bei Änderungen bestimmer Attribute notwendig. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-page.component.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4754662393932449798" datatype="html">
+        <source>Sie werden in keinem Modul als Modulverantwortliche*r geführt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/my-modules-page/my-modules-page.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4763859013841608952" datatype="html">
+        <source>Achtung!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/new-module-page/new-module-page.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2600385813634840424" datatype="html">
+        <source> Das Modul wird erst den Genehmigungsprozess durchlaufen und erst im nächsten Semester in das Modulhandbuch aufgenommen. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/new-module-page/new-module-page.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5307595727435437253" datatype="html">
+        <source>Neues Modul</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/new-module-page/new-module-page.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8195309052723214531" datatype="html">
+        <source>Vorschau für Modulhandbücher und Prüfungslisten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1082843474712474431" datatype="html">
+        <source> Für die Vorschau werden ausschließlich Module berücksichtigt, die in dieser Bearbeitungsphase veröffentlicht wurden. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6811896721331171218" datatype="html">
+        <source>Prüfungsordnung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1616875716684406921" datatype="html">
+        <source> Vorschau erzeugen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2273145612551826186" datatype="html">
+        <source>Modulhandbuch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/structure/header/header.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7930891487951546835" datatype="html">
+        <source>Prüfungsliste</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">72,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2518730424459848077" datatype="html">
+        <source> Die Vorschau von Modulhandbüchern oder Prüfungslisten ist nur für Studiengangsleitung oder Prüfungsausschussvorsitz möglich. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.html</context>
+          <context context-type="linenumber">85,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2418509011522107791" datatype="html">
+        <source>Modulhandbuch wird geladen...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4697622674939889335" datatype="html">
+        <source>Prüfungsliste wird geladen...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routes/preview-page/preview-page.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6757873804260872877" datatype="html">
+        <source>Raumplan</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/structure/header/header.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8072862344173670276" datatype="html">
+        <source>Prüfungsplan</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/structure/header/header.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
