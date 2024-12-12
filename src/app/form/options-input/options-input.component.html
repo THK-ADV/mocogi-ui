@@ -11,7 +11,7 @@
     #auto="matAutocomplete"
     (optionSelected)="optionSelected.emit($event.option.value)"
     [displayWith]="displayFn">
-    @for (option of filteredOptions | async; track option) {
+    @for (option of filteredOptions | async; track input.id(option)) {
       <mat-option [value]="option">
         <span>{{ displayFn(option) }}</span>
         @if (input.tooltip && input.tooltip(option); as tooltip) {

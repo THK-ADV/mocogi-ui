@@ -12,6 +12,7 @@ import { StudyProgram } from '../../types/module-compendium'
 import { showStudyProgram } from '../../ops/show.instances'
 import { GenericModuleCore } from '../../types/genericModuleCore'
 import { mapOpt } from '../../ops/undefined-ops'
+import { isStudyProgram } from '../../helper/study-program.helper'
 
 export function studyProgramInput(
   dialog: MatDialog,
@@ -23,17 +24,22 @@ export function studyProgramInput(
   const dialogTitle = $localize`Zugehörigkeit zu Studiengängen bearbeiten`
   const studyProgramColumn = { attr: 'po', title: $localize`Studiengang` }
 
-  function showStudyProgram0(po: string): string {
-    const studyProgram = studyPrograms.find((sp) => sp.po.id === po)
+  function showStudyProgram0(
+    po: string,
+    specialization: string | undefined,
+  ): string {
+    const studyProgram = studyPrograms.find((sp) =>
+      isStudyProgram(sp, po, specialization),
+    )
     return studyProgram ? showStudyProgram(studyProgram) : po
   }
 
-  function showPOMandatory({ po }: POMandatory): string {
-    return showStudyProgram0(po)
+  function showPOMandatory({ po, specialization }: POMandatory): string {
+    return showStudyProgram0(po, specialization)
   }
 
-  function showPOOptional({ po }: POOptional): string {
-    return showStudyProgram0(po)
+  function showPOOptional({ po, specialization }: POOptional): string {
+    return showStudyProgram0(po, specialization)
   }
 
   function studyProgramOptionsInput(): OptionsInput<StudyProgram> {
@@ -45,6 +51,7 @@ export function studyProgramInput(
       required: false,
       data: studyPrograms,
       show: showStudyProgram,
+      id: (a) => a.specialization?.id ?? a.po.id,
     }
   }
 
@@ -122,6 +129,7 @@ export function studyProgramInput(
               .join(', ')
             return `${title} (${poStr})`
           },
+          id: (a) => a.id,
         },
         {
           kind: 'text',
@@ -156,7 +164,9 @@ export function studyProgramInput(
       options: studyPrograms,
       show: showPOMandatory,
       initialValue: (sps) =>
-        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
+        entries.filter(({ po, specialization }) =>
+          sps.some((sp) => isStudyProgram(sp, po, specialization)),
+        ),
       dialogInstance: () => mandatoryDialogInstance(attr),
     }
   }
@@ -173,7 +183,9 @@ export function studyProgramInput(
       options: studyPrograms,
       show: showPOOptional,
       initialValue: (sps) =>
-        entries.filter(({ po }) => sps.some((sp) => sp.po.id === po)),
+        entries.filter(({ po, specialization }) =>
+          sps.some((sp) => isStudyProgram(sp, po, specialization)),
+        ),
       dialogInstance: () => optionalDialogInstance(attr),
     }
   }

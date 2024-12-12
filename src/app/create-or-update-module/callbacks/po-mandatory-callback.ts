@@ -16,6 +16,7 @@ import {
   showStudyProgram,
 } from '../../ops/show.instances'
 import { StudyProgram } from '../../types/module-compendium'
+import { isStudyProgram } from '../../helper/study-program.helper'
 
 export class PoMandatoryCallback
   implements MultipleEditDialogComponentCallback<POMandatory, StudyProgram>
@@ -27,8 +28,8 @@ export class PoMandatoryCallback
     all: Readonly<StudyProgram[]>,
     selected: Readonly<POMandatory[]>,
   ) {
-    this.all = arrayToObject(all, (a) => a.po.id)
-    this.selected = arrayToObject(selected, (a) => a.po)
+    this.all = arrayToObject(all, this.fullPoIdSp)
+    this.selected = arrayToObject(selected, this.fullPoIdPo)
   }
 
   filterInitialOptionsForComponent(
@@ -39,7 +40,7 @@ export class PoMandatoryCallback
       return []
     }
     if (optionsInput.attr === 'po') {
-      return data.filter((d) => !this.selected[d.id])
+      return data.filter((d) => !this.selected[this.fullPoIdSp(d)])
     }
     return data
   }
@@ -48,7 +49,7 @@ export class PoMandatoryCallback
     option: POMandatory,
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find((_) => _.input.attr === 'po')
     if (studyProgram && component) {
       component.addOption(studyProgram)
@@ -60,7 +61,7 @@ export class PoMandatoryCallback
     option: POMandatory,
     components: QueryList<OptionsInputComponent<unknown>>,
   ): void {
-    const studyProgram = this.lookup(option.po)
+    const studyProgram = this.lookup(option)
     const component = components.find((_) => _.input.attr === 'po')
     if (studyProgram && component) {
       component.removeOption(studyProgram)
@@ -71,7 +72,8 @@ export class PoMandatoryCallback
   tableContent(tableEntry: POMandatory, attr: string): string {
     switch (attr) {
       case 'po':
-        return this.lookupLabel(tableEntry.po)
+        const studyProgram = this.lookup(tableEntry)
+        return studyProgram ? showStudyProgram(studyProgram) : tableEntry.po
       case 'recommended-semester':
         return showRecommendedSemester(tableEntry.recommendedSemester)
       default:
@@ -81,9 +83,9 @@ export class PoMandatoryCallback
 
   tableEntryAlreadyExists(controls: {
     [key: string]: FormControl
-  }): (e: POMandatory) => boolean {
+  }): (p: POMandatory) => boolean {
     const sp = this.getStudyProgramValue(controls)
-    return ({ po }) => po === sp.po.id
+    return ({ po, specialization }) => isStudyProgram(sp, po, specialization)
   }
 
   toTableEntry(controls: { [key: string]: FormControl }): POMandatory {
@@ -121,10 +123,11 @@ export class PoMandatoryCallback
   private getStudyProgramValue = (controls: { [p: string]: FormControl }) =>
     controls['po'].value as StudyProgram
 
-  private lookup = (id: string): StudyProgram | undefined => this.all[id]
+  private lookup = (po: POMandatory): StudyProgram | undefined =>
+    this.all[this.fullPoIdPo(po)]
 
-  private lookupLabel = (id: string): string => {
-    const sp = this.lookup(id)
-    return sp ? showStudyProgram(sp) : id
-  }
+  private fullPoIdSp = (studyProgram: StudyProgram) =>
+    studyProgram.specialization?.id ?? studyProgram.po.id
+
+  private fullPoIdPo = (po: POMandatory) => po.specialization ?? po.po
 }

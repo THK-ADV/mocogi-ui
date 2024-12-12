@@ -109,6 +109,7 @@ export function assessmentInput(
           data: assessmentMethods,
           show: showLabel,
           tooltip: (am) => showTooltip(am),
+          id: (a) => a.id,
         },
         {
           kind: 'number',
@@ -125,6 +126,7 @@ export function assessmentInput(
           required: false,
           data: assessmentMethods,
           show: showLabel,
+          id: (a) => a.id,
         },
       ],
       entries,
@@ -191,6 +193,7 @@ export function assessmentInput(
           required: false,
           data: examPhases,
           show: showExamPhase,
+          id: (a) => a.id,
         },
       ],
       current,
@@ -225,6 +228,7 @@ export function assessmentInput(
       show: showPerson,
       initialValue:
         metadata && ((xs) => xs.find((a) => a.id === metadata.examiner.first)),
+      id: (a) => a.id,
     }
   }
 
@@ -239,6 +243,7 @@ export function assessmentInput(
       show: showPerson,
       initialValue:
         metadata && ((xs) => xs.find((a) => a.id === metadata.examiner.second)),
+      id: (a) => a.id,
     }
   }
 

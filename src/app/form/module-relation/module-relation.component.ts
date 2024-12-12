@@ -115,6 +115,7 @@ export class ModuleRelationComponent implements OnDestroy {
       initialValue:
         moduleRelation &&
         ((xs) => xs.find((x) => x.label === moduleRelation.kind)),
+      id: (a) => a.label,
     }
     this.formGroup.addControl(
       'type',
@@ -133,6 +134,7 @@ export class ModuleRelationComponent implements OnDestroy {
               (m) => !this.dataSource.data.some((x) => x.id === m.id),
             ),
       show: showModule,
+      id: (a) => a.id,
     }
     this.formGroup.addControl(
       'module',

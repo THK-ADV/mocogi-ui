@@ -225,6 +225,9 @@ export function parsePo(record: Record<string, unknown>): POs {
       const poRecord = asRecord(po)
       return {
         po: parseString('po', poRecord),
+        specialization: parseOptional('specialization', poRecord, (s) =>
+          toString(s),
+        ),
         recommendedSemester: parseArray('recommendedSemester', poRecord, (v) =>
           toNumber(v),
         ),
@@ -236,6 +239,9 @@ export function parsePo(record: Record<string, unknown>): POs {
       const poRecord = asRecord(po)
       return {
         po: parseString('po', poRecord),
+        specialization: parseOptional('specialization', poRecord, (s) =>
+          toString(s),
+        ),
         instanceOf: parseString('instanceOf', poRecord),
         partOfCatalog: parseBoolean('partOfCatalog', poRecord),
         recommendedSemester: parseArray('recommendedSemester', poRecord, (v) =>

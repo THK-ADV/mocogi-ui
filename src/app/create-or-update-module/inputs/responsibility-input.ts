@@ -27,6 +27,7 @@ export function responsibilityInput(
       initialValue:
         moduleManagement &&
         ((as) => as.find((a) => moduleManagement.some((m) => m === a.id))),
+      id: (a) => a.id,
     }
   }
 
@@ -54,6 +55,7 @@ export function responsibilityInput(
           required: false,
           data: persons,
           show: showPerson,
+          id: (a) => a.id,
         },
       ],
       entries,

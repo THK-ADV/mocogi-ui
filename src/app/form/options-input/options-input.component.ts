@@ -20,6 +20,7 @@ export interface OptionsInput<A> extends FormInputLike {
   kind: 'options'
   data: A[] | Observable<A[]>
   show: (a: A) => string
+  id: (a: A) => string
   initialValue?: (as: A[]) => A | undefined
   tooltip?: (a: A) => string
 }
