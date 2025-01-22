@@ -17,6 +17,7 @@ import { FormGroup } from '@angular/forms'
   selector: 'cops-module-review-page',
   templateUrl: './module-approval-page.component.html',
   styleUrls: ['./module-approval-page.component.css'],
+  standalone: false,
 })
 export class ModuleApprovalPageComponent {
   moduleId: string

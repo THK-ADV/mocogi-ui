@@ -7,6 +7,7 @@ import { AlertStore } from './alert-store'
   selector: 'cops-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css'],
+  standalone: false,
 })
 export class AlertComponent implements OnDestroy {
   readonly store = inject(AlertStore)

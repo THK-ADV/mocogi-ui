@@ -4,6 +4,7 @@ import { showStudyProgram } from '../ops/show.instances'
 
 @Pipe({
   name: 'studyProgram',
+  standalone: false,
 })
 export class StudyProgramPipe implements PipeTransform {
   transform(studyProgram: StudyProgram, mode: string): unknown {

@@ -7,6 +7,7 @@ import { ModulePageActions } from '../../../state/actions/module.actions'
   selector: 'cops-module-list-search',
   templateUrl: './module-list-search.component.html',
   styleUrls: ['./module-list-search.component.css'],
+  standalone: false,
 })
 export class ModuleListSearchComponent {
   filterValue$ = this.store.select(selectModuleFilter)

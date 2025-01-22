@@ -6,6 +6,7 @@ import { ModuleFilterPageActions } from '../../../state/actions/module-filter.ac
   selector: 'cops-module-filter',
   templateUrl: './module-filter.component.html',
   styleUrls: ['./module-filter.component.css'],
+  standalone: false,
 })
 export class ModuleFilterComponent implements OnInit {
   constructor(private readonly store: Store) {}

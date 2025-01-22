@@ -24,6 +24,7 @@ export const formControlForReadOnlyInput = <A, B>(
   selector: 'cops-read-only-input',
   templateUrl: './read-only-input.component.html',
   styleUrls: ['./read-only-input.component.css'],
+  standalone: false,
 })
 export class ReadOnlyInputComponent<A, DialogEntry>
   implements OnInit, OnDestroy

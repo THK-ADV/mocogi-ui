@@ -11,6 +11,7 @@ import { ElectivesCatalogsFilterComponentActions } from '../../state/actions/ele
   selector: 'cops-electives-catalogs-filter',
   templateUrl: './electives-catalogs-filter.component.html',
   styleUrls: ['./electives-catalogs-filter.component.css'],
+  standalone: false,
 })
 export class ElectivesCatalogsFilterComponent implements OnInit {
   constructor(private readonly store: Store) {}

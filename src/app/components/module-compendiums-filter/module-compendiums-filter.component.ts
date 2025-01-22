@@ -13,6 +13,7 @@ import { Semester, StudyProgramCore } from '../../types/module-compendium'
   selector: 'cops-module-compendiums-filter',
   templateUrl: './module-compendiums-filter.component.html',
   styleUrls: ['./module-compendiums-filter.component.css'],
+  standalone: false,
 })
 export class ModuleCompendiumsFilterComponent implements OnInit {
   constructor(private readonly store: Store) {}

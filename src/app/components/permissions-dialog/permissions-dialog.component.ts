@@ -11,6 +11,7 @@ import { selectPermissions } from '../../state/selectors/permissions-dialog.sele
   selector: 'cops-permissions-dialog',
   templateUrl: './permissions-dialog.component.html',
   styleUrls: ['./permissions-dialog.component.css'],
+  standalone: false,
 })
 export class PermissionsDialogComponent implements OnInit {
   @ViewChild('campusIdInput') campusIdInput?: HTMLInputElement

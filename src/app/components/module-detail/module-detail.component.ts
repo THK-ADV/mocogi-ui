@@ -8,6 +8,7 @@ import { EMPTY, Observable } from 'rxjs'
   selector: 'cops-module-detail',
   templateUrl: './module-detail.component.html',
   styleUrls: ['./module-detail.component.css'],
+  standalone: false,
 })
 export class ModuleDetailComponent {
   readonly source: string

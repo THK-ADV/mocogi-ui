@@ -15,6 +15,7 @@ import { selectUpdateInProcess } from '../../state/selectors/new-module.selector
   selector: 'cops-new-module-page',
   templateUrl: './new-module-page.component.html',
   styleUrls: ['./new-module-page.component.css'],
+  standalone: false,
 })
 export class NewModulePageComponent implements OnInit {
   moduleForm?: ModuleForm<unknown, unknown>

@@ -5,6 +5,7 @@ import { MatButton } from '@angular/material/button'
   selector: 'cops-module-form-actions',
   templateUrl: './module-form-actions.component.html',
   styleUrls: ['./module-form-actions.component.css'],
+  standalone: false,
 })
 export class ModuleFormActionsComponent implements OnInit {
   updateInProcess0 = false

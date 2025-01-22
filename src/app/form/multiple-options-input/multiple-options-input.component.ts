@@ -28,6 +28,7 @@ export const formControlForMultipleOptionsInput = <A>(
   selector: 'cops-multiple-options-input',
   templateUrl: './multiple-options-input.component.html',
   styleUrls: ['./multiple-options-input.component.css'],
+  standalone: false,
 })
 export class MultipleOptionsInputComponent<A> implements OnInit, OnDestroy {
   @Input() input!: MultipleOptionsInput<A>

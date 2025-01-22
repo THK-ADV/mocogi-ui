@@ -12,6 +12,7 @@ import { showPerson } from '../../../../ops/show.instances'
   selector: 'cops-coordinator-filter',
   templateUrl: './coordinator-filter.component.html',
   styleUrls: ['./coordinator-filter.component.css'],
+  standalone: false,
 })
 export class CoordinatorFilterComponent {
   attr = 'coordinator'

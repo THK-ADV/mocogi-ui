@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment'
   selector: 'cops-elective-modules-lists-list',
   templateUrl: './elective-modules-lists-list.component.html',
   styleUrls: ['./elective-modules-lists-list.component.css'],
+  standalone: false,
 })
 export class ElectiveModulesListsListComponent {
   protected dataSource = new MatTableDataSource<ElectivesCatalogue>()

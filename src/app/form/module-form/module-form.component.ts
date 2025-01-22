@@ -40,6 +40,7 @@ export interface ModuleForm<A, B> {
   selector: 'cops-module-form',
   templateUrl: './module-form.component.html',
   styleUrls: ['./module-form.component.css'],
+  standalone: false,
 })
 export class ModuleFormComponent<A, B> implements OnInit {
   @Input() moduleForm!: ModuleForm<A, B>

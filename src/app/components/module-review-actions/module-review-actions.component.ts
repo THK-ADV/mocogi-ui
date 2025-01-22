@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core'
   selector: 'cops-module-review-actions',
   templateUrl: './module-review-actions.component.html',
   styleUrls: ['./module-review-actions.component.css'],
+  standalone: false,
 })
 export class ModuleReviewActionsComponent {
   comment = ''

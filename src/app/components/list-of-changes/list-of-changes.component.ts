@@ -11,6 +11,7 @@ type ChangedKeys = {
   selector: 'cops-list-of-changes',
   templateUrl: './list-of-changes.component.html',
   styleUrls: ['./list-of-changes.component.css'],
+  standalone: false,
 })
 export class ListOfChangesComponent {
   @Input() changedKeys!: ReadonlyArray<ChangedKeys>

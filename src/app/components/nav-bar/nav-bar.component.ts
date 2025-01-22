@@ -22,6 +22,7 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink
   selector: 'cops-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
+  standalone: false,
 })
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []

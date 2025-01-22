@@ -4,5 +4,6 @@ import { Component } from '@angular/core'
   selector: 'cops-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss'],
+  standalone: false,
 })
 export class LoaderComponent {}

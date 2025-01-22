@@ -7,6 +7,7 @@ import { Action, Store } from '@ngrx/store'
   selector: 'cops-abstract-module-filter',
   templateUrl: './abstract-module-filter.component.html',
   styleUrls: ['./abstract-module-filter.component.css'],
+  standalone: false,
 })
 export class AbstractModuleFilterComponent<A> {
   @Input() label!: string

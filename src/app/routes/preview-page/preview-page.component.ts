@@ -15,6 +15,7 @@ interface TableData {
   templateUrl: './preview-page.component.html',
   styleUrls: ['./preview-page.component.css'],
   providers: [PreviewStore],
+  standalone: false,
 })
 export class PreviewPageComponent implements OnInit {
   protected readonly store = inject(PreviewStore)

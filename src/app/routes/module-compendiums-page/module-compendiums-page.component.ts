@@ -9,6 +9,7 @@ import { ModuleCatalogsPageActions } from '../../state/actions/module-catalogs.a
   selector: 'cops-module-compendiums-page',
   templateUrl: './module-compendiums-page.component.html',
   styleUrls: ['./module-compendiums-page.component.css'],
+  standalone: false,
 })
 export class ModuleCompendiumsPageComponent implements OnInit {
   moduleCompendiums$: Observable<ReadonlyArray<ModuleCatalog>>
