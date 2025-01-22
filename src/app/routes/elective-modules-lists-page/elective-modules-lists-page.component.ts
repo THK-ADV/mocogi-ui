@@ -9,6 +9,7 @@ import { ElectivesCatalogue } from '../../types/electivesCatalogues'
   selector: 'cops-elective-modules-lists-page',
   templateUrl: './elective-modules-lists-page.component.html',
   styleUrls: ['./elective-modules-lists-page.component.css'],
+  standalone: false,
 })
 export class ElectiveModulesListsPageComponent implements OnInit {
   electivesCatalogues$: Observable<ReadonlyArray<ElectivesCatalogue>>

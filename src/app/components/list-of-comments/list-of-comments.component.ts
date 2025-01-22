@@ -5,6 +5,7 @@ import { Approval } from '../../types/approval'
   selector: 'cops-list-of-comments',
   templateUrl: './list-of-comments.component.html',
   styleUrls: ['./list-of-comments.component.css'],
+  standalone: false,
 })
 export class ListOfCommentsComponent {
   @Input()

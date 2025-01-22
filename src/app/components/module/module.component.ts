@@ -9,6 +9,7 @@ import { ModuleTableEntry } from './module-list/module-table-entry'
   selector: 'cops-module',
   templateUrl: './module.component.html',
   styleUrls: ['./module.component.scss'],
+  standalone: false,
 })
 export class ModuleComponent implements OnInit {
   modules$: Observable<ModuleTableEntry[]>

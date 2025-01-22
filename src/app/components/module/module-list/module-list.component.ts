@@ -48,6 +48,7 @@ const selectDisplayedColumns = createSelector(
       ),
     ]),
   ],
+  standalone: false,
 })
 export class ModuleListComponent {
   protected dataSource = new MatTableDataSource<ModuleTableEntry>()

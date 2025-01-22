@@ -55,6 +55,7 @@ export interface MultipleEditDialogComponentCallback<TableEntry, Option> {
   selector: 'cops-multiple-edit-dialog',
   templateUrl: './multiple-edit-dialog.component.html',
   styleUrls: ['./multiple-edit-dialog.component.css'],
+  standalone: false,
 })
 export class MultipleEditDialogComponent<TableEntry, A, B>
   implements OnDestroy

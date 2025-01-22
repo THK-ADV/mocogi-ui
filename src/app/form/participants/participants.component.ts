@@ -16,6 +16,7 @@ import { Participants } from '../../types/participants'
   selector: 'cops-participants',
   templateUrl: './participants.component.html',
   styleUrls: ['./participants.component.css'],
+  standalone: false,
 })
 export class ParticipantsComponent {
   readonly headerTitle: string

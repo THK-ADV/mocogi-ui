@@ -17,6 +17,7 @@ export const formControlForBooleanInput = (i: BooleanInput): FormControl =>
   selector: 'cops-boolean-input',
   templateUrl: './boolean-input.component.html',
   styleUrls: ['./boolean-input.component.css'],
+  standalone: false,
 })
 export class BooleanInputComponent implements OnInit {
   value = false

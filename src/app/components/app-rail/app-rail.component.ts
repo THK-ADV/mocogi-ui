@@ -27,6 +27,7 @@ export type CopsAppRailItem =
   selector: 'cops-app-rail',
   templateUrl: './app-rail.component.html',
   styleUrls: ['./app-rail.component.scss'],
+  standalone: false,
 })
 export class AppRailComponent {
   @Input() railItems: Array<CopsAppRailItem> = []

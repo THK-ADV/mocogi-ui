@@ -6,6 +6,7 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
   selector: 'cops-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent {
   navItems: Array<CopsNavigationItem> = [

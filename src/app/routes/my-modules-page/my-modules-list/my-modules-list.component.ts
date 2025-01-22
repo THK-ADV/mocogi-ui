@@ -12,6 +12,7 @@ import { PermissionsDialogComponent } from '../../../components/permissions-dial
   selector: 'cops-my-modules-list',
   templateUrl: './my-modules-list.component.html',
   styleUrls: ['./my-modules-list.component.css'],
+  standalone: false,
 })
 export class MyModulesListComponent {
   protected dataSource = new MatTableDataSource<ModeratedModule>()

@@ -19,6 +19,7 @@ import { selectUpdateInProcess } from '../../state/selectors/update-module.selec
   selector: 'cops-update-module-page',
   templateUrl: './update-module-page.component.html',
   styleUrls: ['./update-module-page.component.css'],
+  standalone: false,
 })
 export class UpdateModulePageComponent {
   moduleId: string

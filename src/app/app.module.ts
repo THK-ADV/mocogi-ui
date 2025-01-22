@@ -1,4 +1,9 @@
-import { APP_INITIALIZER, isDevMode, NgModule } from '@angular/core'
+import {
+  isDevMode,
+  NgModule,
+  inject,
+  provideAppInitializer,
+} from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppComponent } from './app.component'
 import { ModuleComponent } from './components/module/module.component'
@@ -238,12 +243,10 @@ import { ModuleDetailHtmlComponent } from './components/module-detail/module-det
     ModuleDetailHtmlComponent,
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService],
-    },
+    provideAppInitializer(() => {
+      const initializerFn = initializeKeycloak(inject(KeycloakService))
+      return initializerFn()
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorDecorator,

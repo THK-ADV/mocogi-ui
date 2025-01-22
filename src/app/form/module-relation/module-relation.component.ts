@@ -65,6 +65,7 @@ function initialModules(
   selector: 'cops-module-relation',
   templateUrl: './module-relation.component.html',
   styleUrls: ['./module-relation.component.css'],
+  standalone: false,
 })
 export class ModuleRelationComponent implements OnDestroy {
   readonly headerTitle: string

@@ -12,6 +12,7 @@ import { StudyProgram } from '../../../../types/module-compendium'
   selector: 'cops-study-program-filter',
   templateUrl: './study-program-filter.component.html',
   styleUrls: ['./study-program-filter.component.css'],
+  standalone: false,
 })
 export class StudyProgramFilterComponent {
   label = $localize`Studiengang`

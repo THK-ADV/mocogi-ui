@@ -46,6 +46,7 @@ export const formControlForOptionsInput = <A>(
   selector: 'cops-options-input',
   templateUrl: './options-input.component.html',
   styleUrls: ['./options-input.component.css'],
+  standalone: false,
 })
 export class OptionsInputComponent<A> implements OnInit, OnDestroy {
   @Input() input!: OptionsInput<A>

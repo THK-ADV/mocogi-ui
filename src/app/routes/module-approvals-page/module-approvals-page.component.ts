@@ -9,6 +9,7 @@ import { Router } from '@angular/router'
   templateUrl: './module-approvals-page.component.html',
   styleUrls: ['./module-approvals-page.component.css'],
   providers: [ApprovalStore],
+  standalone: false,
 })
 export class ModuleApprovalsPageComponent implements OnInit {
   protected readonly store = inject(ApprovalStore)

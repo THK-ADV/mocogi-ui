@@ -9,7 +9,6 @@ import { MatCardContent } from '@angular/material/card'
 
 @Component({
   selector: 'cops-module-detail-html',
-  standalone: true,
   imports: [MatCardContent],
   templateUrl: './module-detail-html.component.html',
   styleUrl: './module-detail-html.component.css',

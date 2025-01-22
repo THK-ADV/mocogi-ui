@@ -10,6 +10,7 @@ import { NavigationActions } from '../../state/actions/navigation.actions'
   selector: 'cops-my-modules-page',
   templateUrl: './my-modules-page.component.html',
   styleUrls: ['./my-modules-page.component.css'],
+  standalone: false,
 })
 export class MyModulesPageComponent implements OnInit {
   modules$: Observable<ReadonlyArray<ModeratedModule>>

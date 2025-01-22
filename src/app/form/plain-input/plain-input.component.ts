@@ -62,6 +62,7 @@ export const maxError = (formControl: FormControl): string | undefined =>
   selector: 'cops-plain-input',
   templateUrl: './plain-input.component.html',
   styleUrls: ['./plain-input.component.css'],
+  standalone: false,
 })
 export class PlainInputComponent {
   @Input() formControl!: FormControl

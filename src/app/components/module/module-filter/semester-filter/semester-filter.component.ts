@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store'
   selector: 'cops-semester-filter',
   templateUrl: './semester-filter.component.html',
   styleUrls: ['./semester-filter.component.css'],
+  standalone: false,
 })
 export class SemesterFilterComponent {
   attr = 'semester'

@@ -4,5 +4,6 @@ import { Component } from '@angular/core'
   selector: 'cops-line',
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.scss'],
+  standalone: false,
 })
 export class LineComponent {}

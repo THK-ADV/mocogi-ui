@@ -9,6 +9,7 @@ import { numberOrd, stringOrd } from '../../../ops/ordering.instances'
   selector: 'cops-module-compendium-lists-list',
   templateUrl: './module-compendium-lists-list.component.html',
   styleUrls: ['./module-compendium-lists-list.component.css'],
+  standalone: false,
 })
 export class ModuleCompendiumListsListComponent {
   protected dataSource = new MatTableDataSource<ModuleCatalog>()
