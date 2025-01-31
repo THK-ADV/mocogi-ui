@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { HttpService } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
 import { throwError } from '../../types/error'
-import { zip } from 'rxjs'
+import { forkJoin } from 'rxjs'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm } from '../../form/module-form/module-form.component'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -40,7 +40,7 @@ export class ModuleApprovalPageComponent {
     this.approvalId =
       this.route.snapshot.paramMap.get('approvalId') ??
       throwError('Module ID should be in route parameters.')
-    zip([
+    forkJoin([
       http.latestModuleDescriptionById(this.moduleId),
       http.stagingModuleDescriptionById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),

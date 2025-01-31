@@ -3,7 +3,7 @@ import { ModuleProtocol } from '../../types/moduleCore'
 import { Store } from '@ngrx/store'
 import { inputs } from '../../create-or-update-module/inputs/inputs'
 import { ModuleForm } from '../../form/module-form/module-form.component'
-import { zip } from 'rxjs'
+import { forkJoin } from 'rxjs'
 import { HttpService } from '../../http/http.service'
 import { MatDialog } from '@angular/material/dialog'
 import { parseModuleCompendium } from '../../types/metadata-protocol-factory'
@@ -27,7 +27,7 @@ export class NewModulePageComponent implements OnInit {
     private http: HttpService,
     private dialog: MatDialog,
   ) {
-    zip([
+    forkJoin([
       http.allModules(),
       http.allGenericModules(),
       http.allModuleTypes(),
@@ -36,7 +36,7 @@ export class NewModulePageComponent implements OnInit {
       http.allLocations(),
       http.allStatus(),
       http.allIdentities(),
-      http.allAssessmentMethods(),
+      http.allValidAssessmentMethods(),
       http.allCompetences(),
       http.allGlobalCriteria(),
       http.allStudyPrograms(),

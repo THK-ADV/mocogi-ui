@@ -5,7 +5,7 @@ import { inputs } from 'src/app/create-or-update-module/inputs/inputs'
 import { ModuleForm } from 'src/app/form/module-form/module-form.component'
 import { HttpService } from 'src/app/http/http.service'
 import { throwError } from 'src/app/types/error'
-import { zip } from 'rxjs'
+import { forkJoin } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { UpdateModulePageActions } from '../../state/actions/update-module-page.actions'
 import { buildChangeLog } from '../../components/list-of-changes/list-of-changes.helpers'
@@ -38,7 +38,7 @@ export class UpdateModulePageComponent {
     this.moduleId =
       this.route.snapshot.paramMap.get('moduleId') ??
       throwError('Module ID should be in route parameters.')
-    zip([
+    forkJoin([
       http.latestModuleDescriptionById(this.moduleId),
       http.stagingModuleDescriptionById(this.moduleId),
       http.moduleDraftKeys(this.moduleId),
