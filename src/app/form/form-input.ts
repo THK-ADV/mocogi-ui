@@ -63,6 +63,10 @@ export const isBooleanInput = <A, B>(
   i: FormInput<A, B>,
 ): i is ReadOnlyInput<A, B> => i.kind === 'boolean'
 
+export const isNumberInput = <A, B>(
+  i: FormInput<A, B>,
+): i is ReadOnlyInput<A, B> => i.kind === 'number'
+
 export const asOptionsInput = <A, B = never>(
   i: FormInput<A, B>,
 ): OptionsInput<A> | undefined => (isOptionsInput(i) ? i : undefined)
