@@ -102,7 +102,9 @@ export class HttpService {
   allAssessmentMethods = (): Observable<AssessmentMethod[]> =>
     this.http.get<AssessmentMethod[]>('assessmentMethods')
 
-  allAssessmentMethodsForModule = (module: string): Observable<AssessmentMethod[]> =>
+  allAssessmentMethodsForModule = (
+    module: string,
+  ): Observable<AssessmentMethod[]> =>
     this.http.get<AssessmentMethod[]>(`assessmentMethods?module=${module}`)
 
   allValidAssessmentMethods = (): Observable<AssessmentMethod[]> =>

@@ -19,6 +19,7 @@ import {
   FormInput,
   FormInputLike,
   isBooleanInput,
+  isNumberInput,
   isOptionsInput,
 } from '../form-input'
 import { NonEmptyArray } from '../../types/non-empty-array'
@@ -197,6 +198,9 @@ export class MultipleEditDialogComponent<TableEntry, A, B>
       fc.reset('', { emitEvent: true })
       if (isBooleanInput(i)) {
         fc.setValue(false, { emitEvent: true })
+      }
+      if (isNumberInput(i)) {
+        fc.setValue(undefined, { emitEvent: true })
       }
     })
   }
