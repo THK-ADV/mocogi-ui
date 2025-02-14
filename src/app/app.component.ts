@@ -1,6 +1,10 @@
-import { Component } from '@angular/core'
+import { Component, DestroyRef } from "@angular/core"
 import { CopsNavigationItem } from './components/nav-bar/nav-bar.component'
 import { CopsAppRailItem } from './components/app-rail/app-rail.component'
+import { BreakpointObserver} from "@angular/cdk/layout"
+import { Breakpoints} from "@angular/cdk/layout"
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop"
+import { OnInit} from "@angular/core"
 
 @Component({
   selector: 'cops-root',
@@ -8,7 +12,21 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
   styleUrls: ['./app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  isMobile = false;
+
+  constructor(private breakpointObserver: BreakpointObserver,
+              private destroyRef: DestroyRef) {}
+
+  ngOnInit() {
+    this.breakpointObserver.observe([Breakpoints.XSmall])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(state => {
+        this.isMobile = state.matches;
+      })
+  }
+
+
   navItems: Array<CopsNavigationItem> = [
     {
       type: 'HEADER',
