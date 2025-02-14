@@ -5,10 +5,10 @@
   <cops-th-koeln-bar></cops-th-koeln-bar>
   <div class="horizontal-container">
 <!--    add ngIf-->
-    <cops-app-rail *ngIf="!isMobile" [railItems]="railItems"></cops-app-rail>
+    <cops-app-rail *ngIf="(isMobile$ | async) === false" [railItems]="railItems"></cops-app-rail>
     <mat-sidenav-container>
 <!--      property bind opened to variable and bind that to hamburger button in bot bar -->
-      <mat-sidenav [opened]="!isMobile" mode="side">
+      <mat-sidenav [opened]="(isMobile$ | async) === false" mode="side">
         <cops-nav-bar [navItems]="navItems"></cops-nav-bar>
       </mat-sidenav>
       <mat-sidenav-content>

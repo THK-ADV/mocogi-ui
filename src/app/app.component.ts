@@ -1,6 +1,7 @@
-import { Component, DestroyRef } from "@angular/core"
+import { Component } from "@angular/core"
 import { CopsNavigationItem } from './components/nav-bar/nav-bar.component'
 import { CopsAppRailItem } from './components/app-rail/app-rail.component'
+import { ViewportServiceService } from "./viewport-service.service"
 
 @Component({
   selector: 'cops-root',
@@ -9,6 +10,9 @@ import { CopsAppRailItem } from './components/app-rail/app-rail.component'
   standalone: false,
 })
 export class AppComponent  {
+  isMobile$ = this.viewportService.isMobile$;
+
+  constructor(private viewportService: ViewportServiceService) {}
   navItems: Array<CopsNavigationItem> = [
     {
       type: 'HEADER',
