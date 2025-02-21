@@ -68,10 +68,10 @@ export class HttpService {
   // Modules
 
   allModules = (): Observable<ModuleCore[]> =>
-    this.http.get<ModuleCore[]>('modules')
+    this.http.get<ModuleCore[]>('modules?source=all')
 
   allGenericModules = (): Observable<GenericModuleCore[]> =>
-    this.http.get<GenericModuleCore[]>('modules?type=generic')
+    this.http.get<GenericModuleCore[]>('modules?type=generic&source=all')
 
   // Module Compendium
 
