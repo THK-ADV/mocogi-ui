@@ -1,6 +1,6 @@
 import { simpleInput } from './simple-inputs'
 import { responsibilityInput } from './responsibility-input'
-import { assessmentInput, AssessmentMethodKind } from './assessment-input'
+import { assessmentInput } from './assessment-input'
 import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
@@ -134,14 +134,10 @@ export function inputs(
     }
   }
 
-  function currentAssessmentMethodEntrySelection(
-    attr: string,
-    kind: AssessmentMethodKind,
-  ) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      kind === 'mandatory'
-        ? m.assessmentMethods.mandatory
-        : m.assessmentMethods.optional,
+  function currentAssessmentMethodEntrySelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      (m) => m.assessmentMethods.mandatory,
     )
   }
 
@@ -188,21 +184,6 @@ export function inputs(
     )
   }
 
-  function currentPrerequisitesStudyProgramSelection(
-    attr: string,
-    kind: PrerequisitesKind,
-  ) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      studyPrograms.filter((sp) => {
-        const pos =
-          kind === 'required'
-            ? m.prerequisites.required?.pos
-            : m.prerequisites.recommended?.pos
-        return pos?.some((po) => po === sp.po.id)
-      }),
-    )
-  }
-
   function prerequisitesSection() {
     return {
       header: $localize`Voraussetzungen`,
@@ -211,7 +192,6 @@ export function inputs(
         modules,
         currentPrerequisitesModulesSelection,
         studyPrograms,
-        currentPrerequisitesStudyProgramSelection,
         metadata?.prerequisites,
       ),
     }

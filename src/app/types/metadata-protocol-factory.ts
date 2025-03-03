@@ -1,6 +1,6 @@
 import { Participants } from './participants'
 import { ModuleRelation } from './module-relation'
-import { AssessmentMethodEntry, AssessmentMethods } from './assessment-methods'
+import { AssessmentMethods } from './assessment-methods'
 import { POMandatory, POOptional, POs } from './pos'
 import { WorkloadProtocol } from './workload'
 import { MetadataProtocol } from './metadata'
@@ -137,31 +137,29 @@ export function parseLecturers(record: Record<string, unknown>): string[] {
 export function parseAssessmentMethods(
   record: Record<string, unknown>,
 ): AssessmentMethods {
-  function go(key: string): AssessmentMethodEntry[] {
-    return parse(key, record, (xs) => {
-      if (Array.isArray(xs)) {
-        return xs.map((x) =>
-          parse('value', asRecord(x), (v) => {
-            const xRecord = asRecord(v)
-            return {
-              method: parseString('method', xRecord),
-              percentage: parseOptional('percentage', xRecord, (p) =>
-                toNumber(p),
-              ),
-              precondition: parseArray('precondition', xRecord, (s) =>
-                toString(s),
-              ),
-            }
-          }),
-        )
-      }
-      return []
-    })
-  }
+  const mandatory = parse('assessment-methods-mandatory', record, (xs) => {
+    if (Array.isArray(xs)) {
+      return xs.map((x) =>
+        parse('value', asRecord(x), (v) => {
+          const xRecord = asRecord(v)
+          return {
+            method: parseString('method', xRecord),
+            percentage: parseOptional('percentage', xRecord, (p) =>
+              toNumber(p),
+            ),
+            precondition: parseArray('precondition', xRecord, (s) =>
+              toString(s),
+            ),
+          }
+        }),
+      )
+    }
+    return []
+  })
 
   return {
-    mandatory: go('assessment-methods-mandatory'),
-    optional: go('assessment-methods-optional'),
+    mandatory,
+    optional: [],
   }
 }
 
@@ -199,18 +197,14 @@ export function parsePrerequisites(
       parseOptional(`${prefix}-prerequisites-text`, record, (v) =>
         toString(v),
       ) ?? ''
-    const pos = parsePeekArray(
-      [`${prefix}-prerequisites-po`, 'value', 'po', 'id'],
-      record,
-    )
     const modules = parsePeekArray(
       [`${prefix}-prerequisites-modules`, 'value', 'id'],
       record,
     )
-    if (text === '' && pos.length === 0 && modules.length === 0) {
+    if (text === '' && modules.length === 0) {
       return undefined
     }
-    return { text, pos, modules }
+    return { text, modules, pos: [] }
   }
 
   return {
