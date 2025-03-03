@@ -8,8 +8,6 @@ import { AssessmentMethod } from '../types/core/assessment-method'
 import { ModuleType } from '../types/core/module-type'
 import { Season } from '../types/core/season'
 import { Identity } from '../types/core/person'
-import { GlobalCriteria } from '../types/core/global-criteria'
-import { Competence } from '../types/core/competence'
 import { Module, ModuleCore, ModuleProtocol } from '../types/moduleCore'
 import { ModuleDraft, ModuleDraftSource } from '../types/module-draft'
 import { ValidationResult } from '../types/validation-result'
@@ -118,14 +116,8 @@ export class HttpService {
   allIdentities = (): Observable<Identity[]> =>
     this.http.get<Identity[]>('identities')
 
-  allGlobalCriteria = (): Observable<GlobalCriteria[]> =>
-    this.http.get<GlobalCriteria[]>('globalCriteria')
-
   allStudyProgramCores = (): Observable<StudyProgramCore[]> =>
     this.http.get<StudyProgram[]>('studyPrograms?extend=false')
-
-  allCompetences = (): Observable<Competence[]> =>
-    this.http.get<Competence[]>('competences')
 
   allExamPhases = (): Observable<ExamPhase[]> =>
     this.http.get<ExamPhase[]>('examPhases')

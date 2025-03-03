@@ -22,8 +22,6 @@ import { AssessmentMethod } from '../../types/core/assessment-method'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Identity } from '../../types/core/person'
-import { GlobalCriteria } from '../../types/core/global-criteria'
-import { Competence } from '../../types/core/competence'
 import { ModuleCore, ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
@@ -49,8 +47,6 @@ export function inputs(
   identities: Identity[],
   assessmentMethods: AssessmentMethod[],
   studyPrograms: StudyProgram[],
-  competences: Competence[],
-  globalCriteria: GlobalCriteria[],
   examPhases: ExamPhase[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => unknown,
@@ -234,18 +230,6 @@ export function inputs(
     }
   }
 
-  function currentCompetencesSelection(attr: string) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      competences.filter((c) => m.competences.some((x) => x === c.id)),
-    )
-  }
-
-  function currentGlobalCriteriaSelection(attr: string) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      globalCriteria.filter((g) => m.globalCriteria.some((x) => x === g.id)),
-    )
-  }
-
   function currentTaughtWithSelection(attr: string) {
     return currentMultipleSelectionValue(attr, (m) =>
       modules.filter((mod) => m.taughtWith.some((x) => x === mod.id)),
@@ -255,15 +239,7 @@ export function inputs(
   function miscellaneousSection() {
     return {
       header: $localize`Sonstige Informationen`,
-      rows: miscellaneousInput(
-        dialog,
-        competences,
-        modules,
-        globalCriteria,
-        currentCompetencesSelection,
-        currentGlobalCriteriaSelection,
-        currentTaughtWithSelection,
-      ),
+      rows: miscellaneousInput(dialog, modules, currentTaughtWithSelection),
     }
   }
 

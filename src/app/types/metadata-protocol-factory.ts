@@ -253,14 +253,6 @@ export function parsePo(record: Record<string, unknown>): POs {
   return { mandatory, optional }
 }
 
-export function parseCompetences(record: Record<string, unknown>): string[] {
-  return parsePeekArray(['competences', 'value', 'id'], record)
-}
-
-export function parseGlobalCriteria(record: Record<string, unknown>): string[] {
-  return parsePeekArray(['global-criteria', 'value', 'id'], record)
-}
-
 export function parseTaughtWith(record: Record<string, unknown>): string[] {
   return parsePeekArray(['taught-with', 'value', 'id'], record)
 }
@@ -297,8 +289,8 @@ export function parseMetadata(
     assessmentMethods: parseAssessmentMethods(record),
     prerequisites: parsePrerequisites(record),
     po: parsePo(record),
-    competences: parseCompetences(record),
-    globalCriteria: parseGlobalCriteria(record),
+    competences: [],
+    globalCriteria: [],
     taughtWith: parseTaughtWith(record),
     examPhases: parseExamPhases(record),
     examiner: parseExaminer(record),

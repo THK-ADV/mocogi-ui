@@ -52,8 +52,6 @@ export class UpdateModulePageComponent {
       http.allStatus(),
       http.allIdentities(),
       http.allAssessmentMethods(),
-      http.allCompetences(),
-      http.allGlobalCriteria(),
       http.allStudyPrograms(),
       http.allExamPhases(),
     ]).subscribe(
@@ -71,8 +69,6 @@ export class UpdateModulePageComponent {
         status,
         persons,
         assessmentMethods,
-        competencies,
-        globalCriteria,
         studyPrograms,
         examPhases,
       ]) => {
@@ -90,8 +86,6 @@ export class UpdateModulePageComponent {
             persons,
             assessmentMethods,
             [...studyPrograms],
-            competencies,
-            globalCriteria,
             examPhases,
             dialog,
             (attr) => this.formGroup.get(attr)?.value,
