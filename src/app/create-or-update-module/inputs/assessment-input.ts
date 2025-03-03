@@ -50,15 +50,10 @@ function showTooltip(am: AssessmentMethod): string | undefined {
   }
 }
 
-export type AssessmentMethodKind = 'mandatory' | 'optional'
-
 export function assessmentInput(
   dialog: MatDialog,
   assessmentMethods: AssessmentMethod[],
-  currentEntries: (
-    attr: string,
-    kind: AssessmentMethodKind,
-  ) => AssessmentMethodEntry[],
+  currentEntries: (attr: string) => AssessmentMethodEntry[],
   examPhases: ExamPhase[],
   currentExamPhases: (attr: string) => ExamPhase[],
   identities: Identity[],
@@ -66,20 +61,6 @@ export function assessmentInput(
 ): Rows<unknown, unknown> {
   const examiner = identities.filter((a) => a.kind !== 'group')
 
-  function assignmentMethodLabel(kind: AssessmentMethodKind): string {
-    switch (kind) {
-      case 'mandatory':
-        return optionalLabel(
-          $localize`Prüfungsformen für alle Pflicht Studiengänge`,
-        )
-      case 'optional':
-        return optionalLabel(
-          $localize`Prüfungsformen für alle als WPF belegbare Studiengänge`,
-        )
-    }
-  }
-
-  // TODO maybe change everything to objects
   function showAssessmentMethodEntry(e: AssessmentMethodEntry): string {
     return (
       mapOpt(
@@ -89,8 +70,8 @@ export function assessmentInput(
     )
   }
 
-  function dialogInstance(attr: string, kind: AssessmentMethodKind) {
-    const entries = currentEntries(attr, kind)
+  function dialogInstance(attr: string) {
+    const entries = currentEntries(attr)
     const callback = new AssessmentMethodCallback(assessmentMethods, entries)
     const columns = [
       { attr: 'method', title: $localize`Prüfungsform` },
@@ -137,14 +118,15 @@ export function assessmentInput(
     )
   }
 
-  function go(
-    kind: AssessmentMethodKind,
-  ): ReadOnlyInput<AssessmentMethod, AssessmentMethodEntry> {
-    const attr = `assessment-methods-${kind}`
-    const entries = currentEntries(attr, kind)
+  function assessmentMethodsMandatoryInput(): ReadOnlyInput<
+    AssessmentMethod,
+    AssessmentMethodEntry
+  > {
+    const attr = `assessment-methods-mandatory`
+    const entries = currentEntries(attr)
     return {
       kind: 'read-only',
-      label: assignmentMethodLabel(kind),
+      label: optionalLabel($localize`Prüfungsformen für alle Studiengänge`),
       attr: attr,
       disabled: false,
       required: false,
@@ -152,22 +134,8 @@ export function assessmentInput(
       show: showAssessmentMethodEntry,
       initialValue: (xs) =>
         entries.filter((a) => xs.some((m) => m.id === a.method)),
-      dialogInstance: () => dialogInstance(attr, kind),
+      dialogInstance: () => dialogInstance(attr),
     }
-  }
-
-  function assessmentMethodsMandatoryInput(): ReadOnlyInput<
-    AssessmentMethod,
-    AssessmentMethodEntry
-  > {
-    return go('mandatory')
-  }
-
-  function assessmentMethodsOptionalInput(): ReadOnlyInput<
-    AssessmentMethod,
-    AssessmentMethodEntry
-  > {
-    return go('optional')
   }
 
   function showExamPhase(p: ExamPhase) {
@@ -255,11 +223,6 @@ export function assessmentInput(
     'assessment-methods': [
       {
         input: assessmentMethodsMandatoryInput() as FormInput<unknown, unknown>,
-      },
-    ],
-    'assessment-methods-optional': [
-      {
-        input: assessmentMethodsOptionalInput() as FormInput<unknown, unknown>,
       },
     ],
     'exam-phases': [

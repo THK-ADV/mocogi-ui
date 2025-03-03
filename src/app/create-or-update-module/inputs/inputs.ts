@@ -1,6 +1,6 @@
 import { simpleInput } from './simple-inputs'
 import { responsibilityInput } from './responsibility-input'
-import { assessmentInput, AssessmentMethodKind } from './assessment-input'
+import { assessmentInput } from './assessment-input'
 import { workloadInput } from './workload-input'
 import { MatDialog } from '@angular/material/dialog'
 import { prerequisitesInputs, PrerequisitesKind } from './prerequisites-input'
@@ -22,8 +22,6 @@ import { AssessmentMethod } from '../../types/core/assessment-method'
 import { ModuleType } from '../../types/core/module-type'
 import { Season } from '../../types/core/season'
 import { Identity } from '../../types/core/person'
-import { GlobalCriteria } from '../../types/core/global-criteria'
-import { Competence } from '../../types/core/competence'
 import { ModuleCore, ModuleLike } from '../../types/moduleCore'
 import { Section } from 'src/app/form/module-form/module-form.component'
 import { StudyProgram } from '../../types/module-compendium'
@@ -49,8 +47,6 @@ export function inputs(
   identities: Identity[],
   assessmentMethods: AssessmentMethod[],
   studyPrograms: StudyProgram[],
-  competences: Competence[],
-  globalCriteria: GlobalCriteria[],
   examPhases: ExamPhase[],
   dialog: MatDialog,
   fromControlValueForAttr: (attr: string) => unknown,
@@ -138,14 +134,10 @@ export function inputs(
     }
   }
 
-  function currentAssessmentMethodEntrySelection(
-    attr: string,
-    kind: AssessmentMethodKind,
-  ) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      kind === 'mandatory'
-        ? m.assessmentMethods.mandatory
-        : m.assessmentMethods.optional,
+  function currentAssessmentMethodEntrySelection(attr: string) {
+    return currentMultipleSelectionValue(
+      attr,
+      (m) => m.assessmentMethods.mandatory,
     )
   }
 
@@ -192,21 +184,6 @@ export function inputs(
     )
   }
 
-  function currentPrerequisitesStudyProgramSelection(
-    attr: string,
-    kind: PrerequisitesKind,
-  ) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      studyPrograms.filter((sp) => {
-        const pos =
-          kind === 'required'
-            ? m.prerequisites.required?.pos
-            : m.prerequisites.recommended?.pos
-        return pos?.some((po) => po === sp.po.id)
-      }),
-    )
-  }
-
   function prerequisitesSection() {
     return {
       header: $localize`Voraussetzungen`,
@@ -215,7 +192,6 @@ export function inputs(
         modules,
         currentPrerequisitesModulesSelection,
         studyPrograms,
-        currentPrerequisitesStudyProgramSelection,
         metadata?.prerequisites,
       ),
     }
@@ -234,18 +210,6 @@ export function inputs(
     }
   }
 
-  function currentCompetencesSelection(attr: string) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      competences.filter((c) => m.competences.some((x) => x === c.id)),
-    )
-  }
-
-  function currentGlobalCriteriaSelection(attr: string) {
-    return currentMultipleSelectionValue(attr, (m) =>
-      globalCriteria.filter((g) => m.globalCriteria.some((x) => x === g.id)),
-    )
-  }
-
   function currentTaughtWithSelection(attr: string) {
     return currentMultipleSelectionValue(attr, (m) =>
       modules.filter((mod) => m.taughtWith.some((x) => x === mod.id)),
@@ -255,15 +219,7 @@ export function inputs(
   function miscellaneousSection() {
     return {
       header: $localize`Sonstige Informationen`,
-      rows: miscellaneousInput(
-        dialog,
-        competences,
-        modules,
-        globalCriteria,
-        currentCompetencesSelection,
-        currentGlobalCriteriaSelection,
-        currentTaughtWithSelection,
-      ),
+      rows: miscellaneousInput(dialog, modules, currentTaughtWithSelection),
     }
   }
 
