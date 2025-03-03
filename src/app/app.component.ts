@@ -13,6 +13,7 @@ export class AppComponent  {
   isMobile$ = this.viewportService.isMobile$;
 
   constructor(private viewportService: ViewportServiceService) {}
+
   navItems: Array<CopsNavigationItem> = [
     {
       type: 'HEADER',

@@ -18,6 +18,7 @@ export class ViewportServiceService {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
         this.isMobile.next(state.matches);
+        console.log(state.matches);
       })
   }
 }
