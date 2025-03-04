@@ -29,6 +29,11 @@ export const selectSelectedSort = createSelector(
   (state) => state.selectedSort,
 )
 
+export const selectLatestModuleUpdate = createSelector(
+  selectModuleState,
+  (state) => state.latestModuleUpdate,
+)
+
 function titleFilter(filter: string) {
   const normalizedFilter = filter.trim().toLowerCase()
   return (m: ModuleView) =>

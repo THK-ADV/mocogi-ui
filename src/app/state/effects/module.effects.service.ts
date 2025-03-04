@@ -21,6 +21,21 @@ export class ModuleEffects {
     )
   })
 
+  fetchLastModuleUpdateDate$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ModulePageActions.enter),
+      exhaustMap(() =>
+        this.service.latestModuleUpdate().pipe(
+          map((latestModuleUpdate) =>
+            ModuleApiActions.retrievedLatestModuleUpdate({
+              latestModuleUpdate,
+            }),
+          ),
+        ),
+      ),
+    )
+  })
+
   constructor(
     private readonly service: HttpService,
     private readonly actions$: Actions,

@@ -9,6 +9,7 @@ export interface State {
   moduleFilter?: string
   error?: Error
   selectedSort?: Sort
+  latestModuleUpdate: Date | null
 }
 
 const initialState: State = {
@@ -17,6 +18,7 @@ const initialState: State = {
   moduleFilter: undefined,
   error: undefined,
   selectedSort: undefined,
+  latestModuleUpdate: null,
 }
 
 export const moduleReducer = createReducer(
@@ -64,4 +66,13 @@ export const moduleReducer = createReducer(
       error,
     }
   }),
+  on(
+    ModuleApiActions.retrievedLatestModuleUpdate,
+    (state, { latestModuleUpdate }): State => {
+      return {
+        ...state,
+        latestModuleUpdate,
+      }
+    },
+  ),
 )

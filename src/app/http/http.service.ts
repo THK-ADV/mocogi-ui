@@ -71,6 +71,10 @@ export class HttpService {
   allGenericModules = (): Observable<GenericModuleCore[]> =>
     this.http.get<GenericModuleCore[]>('modules?type=generic&source=all')
 
+  latestModuleUpdate(): Observable<Date | null> {
+    return this.http.get<Date | null>('git/lastMergeDate')
+  }
+
   // Module Compendium
 
   latestModuleDescriptionById = (id: string): Observable<Module> =>

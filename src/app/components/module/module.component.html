@@ -1,5 +1,14 @@
 <main>
   <h2 i18n>Modulbeschreibungen</h2>
+  <p i18n>
+    Veröffentlichte Modulbeschreibungen aller Studiengänge der TH Köln am Campus
+    Gummersbach.
+  </p>
+  @if (latestModuleUpdate$ | async; as latestModuleUpdate) {
+    @if (latestModuleUpdate !== null) {
+      <p i18n>Letzter Stand: {{ latestModuleUpdate | date }}</p>
+    }
+  }
   <cops-module-list [modules]="modules$ | async"></cops-module-list>
 </main>
 <aside>

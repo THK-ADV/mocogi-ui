@@ -17,6 +17,9 @@ export const ModuleApiActions = createActionGroup({
   source: 'Module API',
   events: {
     'Retrieved Modules Success': props<{ modules: ModuleView[] }>(),
+    'Retrieved Latest Module Update': props<{
+      latestModuleUpdate: Date | null
+    }>(),
     'Retrieved Modules Failure': props<{ error: Error }>(),
   },
 })
