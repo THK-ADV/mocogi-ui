@@ -122,6 +122,12 @@ export function inputs(
     )
   }
 
+  function currentModuleManagementSelection(attr: string) {
+    return currentMultipleSelectionValue(attr, (m) =>
+      identities.filter((p) => m.moduleManagement.some((l) => l === p.id)),
+    )
+  }
+
   function responsibilitySection() {
     return {
       header: $localize`Verantwortliche`,
@@ -129,7 +135,7 @@ export function inputs(
         dialog,
         identities,
         currentLecturerSelection,
-        metadata?.moduleManagement,
+        currentModuleManagementSelection,
       ),
     }
   }

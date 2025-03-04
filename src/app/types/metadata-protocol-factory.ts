@@ -126,8 +126,7 @@ export function parseModuleRelation(
 export function parseModuleManagement(
   record: Record<string, unknown>,
 ): string[] {
-  const res = parsePeekString(['moduleCoordinator', 'id'], record)
-  return res !== '' ? [res] : []
+  return parsePeekArray(['moduleCoordinator', 'value', 'id'], record)
 }
 
 export function parseLecturers(record: Record<string, unknown>): string[] {

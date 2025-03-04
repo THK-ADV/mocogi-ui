@@ -13,26 +13,61 @@ export function responsibilityInput(
   dialog: MatDialog,
   persons: Identity[],
   currentLecturer: (attr: string) => Identity[],
-  moduleManagement?: string[],
+  currentModuleManagement: (attr: string) => Identity[],
 ): Rows<unknown, unknown> {
-  function moduleCoordinatorInput(): OptionsInput<Identity> {
+  const lecturerLabel = $localize`Dozierende`
+  const moduleManagementLabel = $localize`Modulverantwortliche*r`
+
+  function moduleManagementDialogInstance(attr: string) {
+    const columns = [{ attr: 'person', title: moduleManagementLabel }]
+    const entries = currentModuleManagement(attr)
+    const callback = new LecturerCallback(
+      persons,
+      entries,
+      columns[0].attr,
+      showPerson,
+    )
+
+    return MultipleEditDialogComponent.instance(
+      dialog,
+      callback,
+      columns,
+      $localize`Modulverantwortliche bearbeiten`,
+      [
+        <OptionsInput<Identity>>{
+          kind: 'options',
+          label: requiredLabel(columns[0].title),
+          attr: columns[0].attr,
+          disabled: false,
+          required: false,
+          data: persons,
+          show: showPerson,
+          id: (a) => a.id,
+        },
+      ],
+      entries,
+    )
+  }
+
+  function moduleCoordinatorInput(): ReadOnlyInput<Identity, Identity> {
+    const attr = 'moduleCoordinator'
+    const entries = currentModuleManagement(attr)
     return {
-      kind: 'options',
-      label: $localize`Modulverantwortliche*r`,
-      attr: 'moduleCoordinator',
+      kind: 'read-only',
+      label: moduleManagementLabel,
+      attr: attr,
       disabled: false,
       required: true,
-      data: persons,
+      options: persons,
       show: showPerson,
-      initialValue:
-        moduleManagement &&
-        ((as) => as.find((a) => moduleManagement.some((m) => m === a.id))),
-      id: (a) => a.id,
+      initialValue: (xs) =>
+        entries.filter((p) => xs.some((x) => x.id === p.id)),
+      dialogInstance: () => moduleManagementDialogInstance(attr),
     }
   }
 
-  function dialogInstance(attr: string) {
-    const columns = [{ attr: 'person', title: $localize`Dozierende` }]
+  function lecturerDialogInstance(attr: string) {
+    const columns = [{ attr: 'person', title: lecturerLabel }]
     const entries = currentLecturer(attr)
     const callback = new LecturerCallback(
       persons,
@@ -75,7 +110,7 @@ export function responsibilityInput(
       show: showPerson,
       initialValue: (xs) =>
         entries.filter((p) => xs.some((x) => x.id === p.id)),
-      dialogInstance: () => dialogInstance(attr),
+      dialogInstance: () => lecturerDialogInstance(attr),
     }
   }
 
