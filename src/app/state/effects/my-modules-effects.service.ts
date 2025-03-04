@@ -8,6 +8,9 @@ import {
 } from '../actions/my-modules.action'
 import { Router } from '@angular/router'
 import { fromPromise } from 'rxjs/internal/observable/innerFrom'
+import { Ordering } from '../../ops/ordering'
+import { stringOrd } from '../../ops/ordering.instances'
+import { ModeratedModule } from '../../types/moderated.module'
 
 @Injectable()
 export class MyModuleEffects {
@@ -80,11 +83,16 @@ export class MyModuleEffects {
       ofType(MyModulesPageActions.enter),
       exhaustMap(() =>
         this.service.moderatedModules().pipe(
-          map((moderatedModules) =>
-            MyModulesApiActions.retrievedModeratedModulesSuccess({
+          map((moderatedModules) => {
+            const moduleOrd: Ordering<ModeratedModule> = Ordering.contraMap(
+              stringOrd,
+              (a) => a.module.title,
+            )
+            moderatedModules.sort(moduleOrd)
+            return MyModulesApiActions.retrievedModeratedModulesSuccess({
               moderatedModules,
-            }),
-          ),
+            })
+          }),
         ),
       ),
     )
