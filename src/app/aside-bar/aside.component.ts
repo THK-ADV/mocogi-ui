@@ -4,7 +4,7 @@ import { ViewportServiceService } from "../viewport-service.service"
 @Component({
   selector: 'cops-aside',
   templateUrl: './aside.component.html',
-  styleUrl: './aside.component.css',
+  styleUrl: './aside.component.scss',
   standalone: false
 })
 export class AsideComponent {

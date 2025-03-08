@@ -30,10 +30,11 @@ main {
   overflow: auto;
 }
 
-aside {
-  min-width: 500px;
-  background-color: #efefef;
-}
+// why is this here?
+//aside {
+//  min-width: 500px;
+//  background-color: #efefef;
+//}
 
 .horizontal-container {
   display: flex;
@@ -48,7 +49,13 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  background-color: #efefef;
+  // color from the discarded rail component
+  //background-color: #e0e0e0;
+
+  // my solution (using gradient) -> see personal notes
+  background: rgb(224,224,224);
+  background: linear-gradient(90deg, rgba(224,224,224,1) 10%, rgba(239,239,239,1) 90%);
+  //background-color: #efefef;
   border-radius: 0 20px 20px 0;
   border: none;
 }
