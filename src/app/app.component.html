@@ -9,7 +9,7 @@
 <!--    <cops-app-rail *ngIf="(isMobile$ | async) === false" [railItems]="railItems"></cops-app-rail>-->
     <mat-sidenav-container>
 <!--      property bind opened to variable and bind that to hamburger button in bot bar -->
-      <mat-sidenav [opened]="(isMobile$ | async) === false" mode="side">
+      <mat-sidenav [ngClass]="{'is-mobile': (isMobile$ | async) === true}" opened mode="side">
         <cops-nav-bar [navItems]="navItems"></cops-nav-bar>
       </mat-sidenav>
       <mat-sidenav-content>

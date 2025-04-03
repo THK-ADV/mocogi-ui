@@ -58,4 +58,16 @@ mat-sidenav {
   //background-color: #efefef;
   border-radius: 0 20px 20px 0;
   border: none;
+
+  //.is-mobile {
+  //  background-color: #ff00ff;
+  //  border: 5px solid deeppink;
+  //}
 }
+
+mat-sidenav.is-mobile {
+  //background-color: #9c1e75;
+  //padding: 500px;
+  width: 4em;
+}
+

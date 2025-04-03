@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { NavigationActions } from '../../state/actions/navigation.actions'
 import { Router } from '@angular/router'
+import { ViewportServiceService } from "../../viewport-service.service"
 
 export type CopsNavigationLink = {
   type: 'LINK'
@@ -27,9 +28,12 @@ export type CopsNavigationItem = CopsNavigationHeader | CopsNavigationLink
 export class NavBarComponent {
   @Input() navItems: Array<CopsNavigationItem> = []
 
+  isMobile$ = this.viewportService.isMobile$;
+
   constructor(
     private store: Store,
     private router: Router,
+    private viewportService: ViewportServiceService
   ) {}
 
   navigateTo(url: Array<string>) {

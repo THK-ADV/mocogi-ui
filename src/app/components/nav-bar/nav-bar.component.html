@@ -2,7 +2,7 @@
   @for (item of navItems; track $index) {
     @switch (item.type) {
       @case ("HEADER") {
-        <div mat-subheader>{{ item.text }}</div>
+        <div *ngIf="(isMobile$ | async) === false" mat-subheader>{{ item.text }}</div>
       }
       @case ("LINK") {
         <div>
@@ -10,7 +10,7 @@
             (click)="navigateTo(item.url)"
             [activated]="isActive(item.url.join('/'))">
             <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-            <div matListItemTitle>{{ item.text }}</div>
+            <div *ngIf="(isMobile$ | async) === false" matListItemTitle>{{ item.text }}</div>
           </mat-list-item>
         </div>
       }
