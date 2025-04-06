@@ -278,4 +278,10 @@ export class HttpService {
       headers: { Accept: 'application/pdf' },
       responseType: 'blob',
     })
+
+  getExamLists = (studyProgram: string, po: string): Observable<Blob> =>
+    this.http.get(`examLists/${studyProgram}/${po}`, {
+      headers: { Accept: 'application/pdf' },
+      responseType: 'blob',
+    })
 }

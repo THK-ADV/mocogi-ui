@@ -49,7 +49,7 @@ export class PreviewPageComponent implements OnInit {
   }
 
   getPoId(studyProgram: StudyProgram) {
-    return studyProgram.specialization?.id ?? studyProgram.po.id
+    return studyProgram.po.id
   }
 
   createModuleCatalogPreview({ studyProgram }: TableData) {
@@ -85,7 +85,7 @@ export class PreviewPageComponent implements OnInit {
     const tab = window.open()
     tab?.document.write($localize`Prüfungsliste wird geladen...`)
 
-    this.http.getExamListsPreview(studyProgramId, poId).subscribe({
+    this.http.getExamLists(studyProgramId, poId).subscribe({
       next: (blob) => {
         const fileURL = URL.createObjectURL(blob)
         tab?.location?.assign(fileURL)

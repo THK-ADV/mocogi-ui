@@ -26,8 +26,11 @@ export const PreviewStore = signalStore(
             http.getPersonalData().pipe(
               tapResponse({
                 next: (xs) => {
-                  xs.privileges.sort(ordering())
-                  patchState(store, { privileges: xs.privileges })
+                  const privileges = xs.privileges.filter(
+                    (a) => !a.studyProgram.specialization,
+                  )
+                  privileges.sort(ordering())
+                  patchState(store, { privileges })
                 },
                 error: (err) => console.error(err),
               }),
