@@ -1,6 +1,6 @@
 <main>
-  <h2 i18n>Modulbeschreibungen</h2>
-  <cops-module-list [modules]="modules$ | async"></cops-module-list>
+  <h2 id="table-heading" i18n>Modulbeschreibungen</h2>
+  <cops-module-list *ngIf="(isMobile$ | async) === false" [modules]="modules$ | async"></cops-module-list>
 </main>
 <cops-aside>
   <cops-module-filter></cops-module-filter>
