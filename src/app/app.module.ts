@@ -117,7 +117,8 @@ import { UnsafeHtmlPipe } from './pipe/unsafe-html.pipe'
 import { StudyProgramPipe } from './pipe/study-program.pipe'
 import { PreviewPageComponent } from './routes/preview-page/preview-page.component'
 import { ModuleDetailHtmlComponent } from './components/module-detail/module-detail-html/module-detail-html.component'
-import { AsideComponent } from "./aside-bar/aside.component"
+import { AsideComponent } from "./aside-bar/aside.component";
+import { ModuleCardsComponent } from './cards/module-cards/module-cards.component'
 
 @NgModule({
   declarations: [
@@ -171,6 +172,7 @@ import { AsideComponent } from "./aside-bar/aside.component"
     StudyProgramPipe,
     PreviewPageComponent,
     AsideComponent,
+    ModuleCardsComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

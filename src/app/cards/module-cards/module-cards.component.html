@@ -1,0 +1,51 @@
+
+<div class="cards-navbar">
+  <span>Anzahl der Einträge:  {{ visibleModules() }}</span>
+  <div class="card-filter-icons">
+    <mat-icon
+      aria-label="Search"
+      (click)="toggleSearch()"
+      [class.selected]="selectedIcon === 'search'"
+    >search</mat-icon>
+
+    <mat-icon
+      aria-label="Filter"
+      (click)="toggleFilter()"
+      [class.selected]="selectedIcon === 'filter'"
+    >filter_alt</mat-icon>
+
+    <mat-icon
+      aria-label="Sort"
+      (click)="toggleSort()"
+      [class.selected]="selectedIcon === 'sort'"
+    >sort</mat-icon>
+
+  </div>
+</div>
+
+<div class="card-filters">
+  <cops-module-list-search *ngIf="activeSearch"></cops-module-list-search>
+
+  <cops-study-program-filter *ngIf="activeFilter"></cops-study-program-filter>
+  <cops-semester-filter *ngIf="activeFilter"></cops-semester-filter>
+  <cops-coordinator-filter *ngIf="activeFilter"></cops-coordinator-filter>
+</div>
+
+<ng-container *ngIf="dataSource" matColumnDef="Heading">
+  <mat-card *ngFor="let element of dataSource.data; let i = index">
+    <mat-card-title>{{ element.title }}  ({{ element.abbrev }})</mat-card-title>
+    <mat-card-content>{{ element.moduleManagementStr }}</mat-card-content>
+    <mat-card-footer>
+      <span style="padding-right: 1em">Credits: {{ element.ects }}</span>
+      <span>Semester: {{ element.recommendedSemesterStr }}</span>
+    </mat-card-footer>
+    <mat-card-actions>
+      <button (click)="toggleMajors(i, $event)">Studiengänge anzeigen</button>
+    </mat-card-actions>
+    <div class="majors" *ngIf="activeToggleMajors === i">
+      @for (sp of element.studyProgramsStr(); track sp) {
+        <p> {{ sp }}</p>
+      }
+    </div>
+  </mat-card>
+</ng-container>
