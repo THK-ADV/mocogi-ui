@@ -32,21 +32,21 @@ export class ModuleCardsComponent {
   selectedIcon: string = ''
 
   toggleSearch(): void {
-    this.selectedIcon = "search"
+    this.selectedIcon = this.selectedIcon === "search" ? "" : "search";
     this.activeSearch = !this.activeSearch
     this.activeFilter = false
     this.activeSort = false
   }
 
   toggleFilter(): void {
-    this.selectedIcon = "filter"
+    this.selectedIcon = this.selectedIcon === "filter" ? "" : "filter";
     this.activeFilter = !this.activeFilter
     this.activeSearch = false
     this.activeSort = false
   }
 
   toggleSort(): void {
-    this.selectedIcon = "sort"
+    this.selectedIcon = this.selectedIcon === "sort" ? "" : "sort";
     this.activeSort = !this.activeSort
     this.activeSearch = false
     this.activeFilter = false
