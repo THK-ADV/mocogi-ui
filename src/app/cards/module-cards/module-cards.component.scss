@@ -9,43 +9,21 @@ mat-card-title {
   margin-bottom: 0.5em;
 }
 
+mat-card-content {
+  font-weight: 600;
+  font-size: 16px;
+}
 mat-card-footer {
   //display: flex;
   //justify-content: space-evenly;
   margin-left: 1em;
-}
-
-mat-card-actions {
-  button {
-    background-color: #bd5c9fff;
-  }
-}
-
-.majors {
-  position: absolute;
-  left: 50%;
-  width: 50%;
-  top: 1%;
-  background: #fff;
-  border: 2px solid #B43092;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  z-index: 10;
-  text-align: center;
-  max-height: 150px;
-  overflow-y: auto;
-  margin-bottom: 12px;
-
-  p:not(:last-child) {
-    padding-bottom: 1em;
-    border-bottom: 2px solid #B43092;
-  }
+  padding-bottom: 0.5em;
 }
 
 .cards-navbar {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1em;
 
   .card-filter-icons {
     display: flex;

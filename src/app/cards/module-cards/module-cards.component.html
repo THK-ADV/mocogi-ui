@@ -39,13 +39,5 @@
       <span style="padding-right: 1em">Credits: {{ element.ects }}</span>
       <span>Semester: {{ element.recommendedSemesterStr }}</span>
     </mat-card-footer>
-    <mat-card-actions>
-      <button (click)="toggleMajors(i, $event)">Studiengänge anzeigen</button>
-    </mat-card-actions>
-    <div class="majors" *ngIf="activeToggleMajors === i">
-      @for (sp of element.studyProgramsStr(); track sp) {
-        <p> {{ sp }}</p>
-      }
-    </div>
   </mat-card>
 </ng-container>
