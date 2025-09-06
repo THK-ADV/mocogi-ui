@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
 import { MatTableDataSource } from '@angular/material/table'
 import { ModuleTableEntry } from '../../components/module/module-list/module-table-entry'
-
+import { Store } from '@ngrx/store'
+import { ModuleFilterPageActions } from "../../state/actions/module-filter.actions"
 
 
 @Component({
@@ -13,6 +13,16 @@ import { ModuleTableEntry } from '../../components/module/module-list/module-tab
   styleUrl: './module-cards.component.scss'
 })
 export class ModuleCardsComponent {
+  constructor(private readonly store: Store) {}
+
+  ngOnInit() {
+    this.store.dispatch(ModuleFilterPageActions.enter())
+  }
+
+  onResetFilter = () => {
+    this.store.dispatch(ModuleFilterPageActions.resetFilter())
+  }
+
   protected dataSource = new MatTableDataSource<ModuleTableEntry>()
 
   @Input() set modules(xs: ModuleTableEntry[] | null) {

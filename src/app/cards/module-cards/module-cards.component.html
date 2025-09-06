@@ -23,6 +23,10 @@
   </div>
 </div>
 
+<button id="reset-filter-button" i18n mat-stroked-button color="primary" (click)="onResetFilter()">
+  Filter zurücksetzen
+</button>
+
 <div class="card-filters">
   <cops-module-list-search *ngIf="activeSearch"></cops-module-list-search>
 
