@@ -14,8 +14,6 @@ mat-card-content {
   font-size: 16px;
 }
 mat-card-footer {
-  //display: flex;
-  //justify-content: space-evenly;
   margin-left: 1em;
   padding-bottom: 0.5em;
 }
@@ -33,8 +31,8 @@ mat-card-footer {
 }
 
 mat-icon.selected {
-  color: #b43092; /* Highlight color, e.g., Material blue */
-  background: #f7f7f7; /* Optional: subtle background */
+  color: #b43092;
+  background: #f7f7f7;
   border-radius: 80%;
   transition: color 0.2s, background 0.2s;
 }

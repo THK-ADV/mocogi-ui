@@ -28,7 +28,6 @@ export class ModuleCardsComponent {
   @Input() set modules(xs: ModuleTableEntry[] | null) {
     if (xs) {
       this.dataSource.data = xs
-      // this.dataSource.sort = this.sort
     }
   }
 
